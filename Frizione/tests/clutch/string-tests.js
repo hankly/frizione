@@ -89,7 +89,7 @@ clutch.date = {
                 }
               } catch (e) { }
               throw new SyntaxError('Badly formed JSON string: ' + this.inspect());
-            }
+            };
         }
     }
 };

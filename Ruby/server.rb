@@ -10,7 +10,7 @@ require 'webrick'
 # The Clutch Web Application
 class ClutchServer < HTTPServer
 
-    ROOT = '../Clutch/'
+    ROOT = '../Frizione/'
 
     def initialize(config = {})
         super(config)
