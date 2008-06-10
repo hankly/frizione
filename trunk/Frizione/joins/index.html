@@ -1,0 +1,127 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+    <head>
+        <title>Clutch Join/Compress File Creation</title>
+        <link rel="stylesheet" href="/clutch/css/clutch.css" type="text/css" media="screen" charset="utf-8" />
+    </head>
+    <body>
+        <p class="MenuHeading">
+            <a href="/">Home</a>&#160;
+            <a href="/jslint">JSLint</a>&#160;
+            <a href="/joins">Join/Compress</a>&#160;
+            <a href="/tests">Unit Tests</a>&#160;
+            <a href="/clutch/docs/Clutch.pdf">Documentation</a>
+        </p>
+        <h1>Clutch Join/Compress File Creation</h1>
+
+        <h2>JSLint Infrastructure</h2>
+        <ul>
+            <li>
+                <form style='display: inline;' action="/run-compressor/clutch/js/xhr.js" enctype="application/x-www-form-urlencoded" method="post">
+                    <input name="output" type="hidden" value="/clutch/js/min-xhr.js" />
+                    <input type="submit" value="Compress '/clutch/js/xhr.js'" />
+                </form>
+            </li>
+            <li>
+                <form style='display: inline;' action="/run-compressor/clutch/js/jslint-loader.js" enctype="application/x-www-form-urlencoded" method="post">
+                    <input name="output" type="hidden" value="/clutch/js/min-jslint-loader.js" />
+                    <input type="submit" value="Compress '/clutch/js/jslint-loader.js'" />
+                </form>
+            </li>
+            <li>
+                <form style='display: inline;' action="/run-compressor/clutch/js/jslint/webjslint.js" enctype="application/x-www-form-urlencoded" method="post">
+                    <input name="output" type="hidden" value="/clutch/js/jslint/min-webjslint.js" />
+                    <input type="submit" value="Compress '/clutch/js/jslint/webjslint.js'" />
+                </form>
+            </li>
+        </ul>
+
+        <h2>Unit Testing Infrastructure</h2>
+        <ul>
+            <li>
+                <form style='display: inline;' action="/run-compressor/clutch/js/json2.js" enctype="application/x-www-form-urlencoded" method="post">
+                    <input name="output" type="hidden" value="/clutch/js/min-json2.js" />
+                    <input type="submit" value="Compress '/clutch/js/json2.js'" />
+                </form>
+            </li>
+            <li>
+                <form style='display: inline;' action="/run-compressor/clutch/js/browser-saver.js" enctype="application/x-www-form-urlencoded" method="post">
+                    <input name="output" type="hidden" value="/clutch/js/min-browser-saver.js" />
+                    <input type="submit" value="Compress '/clutch/js/browser-saver.js'" />
+                </form>
+            </li>
+        </ul>
+
+        <h2>Unit Testing Infrastructure - Prototype Display</h2>
+        <ul>
+            <li>
+                <form style='display: inline;' action="/run-compressor/clutch/js/display.js" enctype="application/x-www-form-urlencoded" method="post">
+                    <input name="output" type="hidden" value="/clutch/js/min-display.js" />
+                    <input type="submit" value="Compress '/clutch/js/display.js'" />
+                </form>
+            </li>
+            <li>
+                <form style='display: inline;' action="/run-compressor/clutch/js/prototype/prototype.js" enctype="application/x-www-form-urlencoded" method="post">
+                    <input name="output" type="hidden" value="/clutch/js/prototype/min-prototype.js" />
+                    <input type="submit" value="Compress '/clutch/js/prototype/prototype.js'" />
+                </form>
+            </li>
+            <li>
+                <form style='display: inline;' action="/run-compressor/clutch/js/prototype/builder.js" enctype="application/x-www-form-urlencoded" method="post">
+                    <input name="output" type="hidden" value="/clutch/js/prototype/min-builder.js" />
+                    <input type="submit" value="Compress '/clutch/js/prototype/builder.js'" />
+                </form>
+            </li>
+        </ul>
+
+        <h2>Unit Tests</h2>
+        <ul>
+            <li>
+                First:
+                <form style='display: inline;' action="/run-join/joins/clutch/all-tests.js" enctype="application/x-www-form-urlencoded" method="post">
+                    <input name="to" type="hidden" value="/tests/clutch/all-tests.js" />
+                    <input type="submit" value="Join 'all-tests'" />
+                </form>
+                then:
+                <form style='display: inline;' action="/run-compressor/tests/clutch/all-tests.js" enctype="application/x-www-form-urlencoded" method="post">
+                    <input name="output" type="hidden" value="/tests/clutch/min-all-tests.js" />
+                    <input type="submit" value="Compress 'all-tests'" />
+                </form>
+            </li>
+            <li>
+                First:
+                <form style='display: inline;' action="/run-join/joins/clutch/string-tests.js" enctype="application/x-www-form-urlencoded" method="post">
+                    <input name="to" type="hidden" value="/tests/clutch/string-tests.js" />
+                    <input type="submit" value="Join 'string-tests'" />
+                </form>
+                then:
+                <form style='display: inline;' action="/run-compressor/tests/clutch/string-tests.js" enctype="application/x-www-form-urlencoded" method="post">
+                    <input name="output" type="hidden" value="/tests/clutch/min-string-tests.js" />
+                    <input type="submit" value="Compress 'string-tests'" />
+                </form>
+            </li>
+            <li>
+                First:
+                <form style='display: inline;' action="/run-join/joins/clutch/unit-test-tests.js" enctype="application/x-www-form-urlencoded" method="post">
+                    <input name="to" type="hidden" value="/tests/clutch/unit-test-tests.js" />
+                    <input type="submit" value="Join 'unit-test-tests'" />
+                </form>
+                then:
+                <form style='display: inline;' action="/run-compressor/tests/clutch/unit-test-tests.js" enctype="application/x-www-form-urlencoded" method="post">
+                    <input name="output" type="hidden" value="/tests/clutch/min-unit-test-tests.js" />
+                    <input type="submit" value="Compress 'unit-test-tests'" />
+                </form>
+            </li>
+        </ul>
+
+        <p>&#160;</p>
+        <p class="MenuHeading">
+            <a href="/">Home</a>&#160;
+            <a href="/jslint">JSLint</a>&#160;
+            <a href="/joins">Join/Compress</a>&#160;
+            <a href="/tests">Unit Tests</a>&#160;
+            <a href="/clutch/docs/Clutch.pdf">Documentation</a>
+        </p>
+    </body>
+</html>
