@@ -4,6 +4,11 @@
     <head>
         <title>Clutch JSLint Page Creation</title>
         <link rel="stylesheet" href="/clutch/css/clutch.css" type="text/css" media="screen" charset="utf-8" />
+        <script src="/clutch/js/prototype/prototype.js" type="text/javascript" charset="utf-8"></script>
+        <script src="/clutch/js/projects.js" type="text/javascript" charset="utf-8"></script>
+        <script type="text/javascript">
+            clutch.retrieveAndDisplay('jslint');
+        </script>
     </head>
     <body>
         <p class="MenuHeading">
@@ -16,84 +21,8 @@
 
         <h1>Clutch JSLint Page Creation and Tests</h1>
 
-        <h2>JSLint Infrastructure</h2>
-        <ul>
-            <li>
-                <form style='display: inline;' action="/run-jslint/clutch/js/xhr.js"
-                        enctype="application/x-www-form-urlencoded" method="post">
-                    <input type="submit" value="Create 'clutch/js/xhr.js' Page" />
-                </form>
-                then <a href="/jslint/clutch/js/xhr.html">Run /clutch/js/xhr.js page</a>
-            </li>
-            <li>
-                <form style='display: inline;' action="/run-jslint/clutch/js/jslint-loader.js"
-                        enctype="application/x-www-form-urlencoded" method="post">
-                    <input type="submit" value="Create 'clutch/js/jslint-loader.js' Page" />
-                </form>
-                then <a href="/jslint/clutch/js/jslint-loader.html">Run /clutch/js/jslint-loader.js page</a>
-            </li>
-        </ul>
-
-        <h2>Unit Testing Infrastructure</h2>
-        <ul>
-            <li>
-                <form style='display: inline;' action="/run-jslint/clutch/js/json2.js"
-                        enctype="application/x-www-form-urlencoded" method="post">
-                    <input type="submit" value="Create 'clutch/js/json2.js' Page" />
-                </form>
-                then <a href="/jslint/clutch/js/json2.html">Run /clutch/js/json2.js page</a>
-            </li>
-            <li>
-                <form style='display: inline;' action="/run-jslint/clutch/js/browser-saver.js"
-                        enctype="application/x-www-form-urlencoded" method="post">
-                    <input type="submit" value="Create 'clutch/js/browser-saver.js' Page" />
-                </form>
-                then <a href="/jslint/clutch/js/browser-saver.html">Run /clutch/js/browser-saver.js page</a>
-            </li>
-            <li>
-                <form style='display: inline;' action="/run-jslint/clutch/js/display.js"
-                        enctype="application/x-www-form-urlencoded" method="post">
-                    <input type="submit" value="Create 'clutch/js/display.js' Page" />
-                </form>
-                then <a href="/jslint/clutch/js/display.html">Run /clutch/js/display.js page</a>
-            </li>
-        </ul>
-
-        <h2>Clutch Library</h2>
-        <ul>
-            <li>
-                <form style='display: inline;' action="/run-jslint/clutch/src/browser.js"
-                        enctype="application/x-www-form-urlencoded" method="post">
-                    <input type="submit" value="Create 'clutch/src/browser.js' Page" />
-                </form>
-                then <a href="/jslint/clutch/src/browser.html">Run /clutch/src/browser.js page</a>
-            </li>
-            <li>
-                <form style='display: inline;' action="/run-jslint/clutch/src/string.js"
-                        enctype="application/x-www-form-urlencoded" method="post">
-                    <input type="submit" value="Create 'clutch/src/string.js' Page" />
-                </form>
-                then <a href="/jslint/clutch/src/string.html">Run /clutch/src/string.js page</a>
-            </li>
-            <li>
-                <form style='display: inline;' action="/run-jslint/clutch/src/unit-test.js"
-                        enctype="application/x-www-form-urlencoded" method="post">
-                    <input type="submit" value="Create 'clutch/src/unit-test.js' Page" />
-                </form>
-                then <a href="/jslint/clutch/src/unit-test.html">Run /clutch/src/unit-test.js page</a>
-            </li>
-        </ul>
-
-        <h2>Clutch Gears Library</h2>
-        <ul>
-            <li>
-                <form style='display: inline;' action="/run-jslint/clutch/src/gears/xhr.js"
-                        enctype="application/x-www-form-urlencoded" method="post">
-                    <input type="submit" value="Create 'clutch/src/gears/xhr.js' Page" />
-                </form>
-                then <a href="/jslint/clutch/src/gears/xhr.html">Run /clutch/src/gears/xhr.js page</a>
-            </li>
-        </ul>
+        <p>Projects in Clutch's clutches:</p>
+        <p id="projects"></p>
 
         <p>&#160;</p>
         <p class="MenuHeading">

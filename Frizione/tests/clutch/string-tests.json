@@ -4,7 +4,7 @@
 		"tests": 25,
 		"failures": 0,
 		"errors": 0,
-		"time": 15,
+		"time": 0,
 		"running": false,
 		"messages": []
 	},
@@ -91,7 +91,7 @@
 				"tests": 4,
 				"failures": 0,
 				"errors": 0,
-				"time": 15,
+				"time": 0,
 				"running": false,
 				"messages": [
 					{
