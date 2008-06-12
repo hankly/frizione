@@ -1,0 +1,7 @@
+{
+    "name":   "Frizione - Clutch",
+    "home":   "/projects/clutch/",
+    "joins":  "/projects/clutch/joins/",
+    "jslint": "/projects/clutch/jslint/",
+    "tests":  "/projects/clutch/tests/"
+}

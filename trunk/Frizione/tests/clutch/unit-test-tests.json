@@ -60,7 +60,7 @@
 				"messages": [
 					{
 						"type": "error",
-						"message": "Error: Test error() call"
+						"message": "http://clutch.syger.it/tests/clutch/unit-test-tests.js(234) Error: Test error() call\nError(\"Test error() call\")@:0\n()@http://clutch.syger.it/tests/clutch/unit-test-tests.js:234\n(\"testError\")@http://clutch.syger.it/projects/clutch/src/unit-test.js:85\n()@http://clutch.syger.it/projects/clutch/src/unit-test.js:167\nstoreClutchTests(runClutchTests,\"/run-fixture/tests/clutch/unit-test-tests.json\",\"/tests/clutch/view-unit-test-tests.html\")@http://clutch.syger.it/clutch/js/saver.js:74\nonload([object Event])@http://clutch.syger.it/tests/clutch/run-unit-test-tests.html:1\n@:0\n"
 					}
 				]
 			}

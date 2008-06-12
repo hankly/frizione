@@ -20,20 +20,41 @@
 #
 # User: john.leach
 
-module CreateDirs
-    def create_dirs(path)
-        pos = path.rindex('/')
-        if (pos != nil) then
-            path = path[0 .. pos - 1]
-            if (!File.exist?(path)) then
-                pos = path.index('/')
-                while pos != nil do
-                    subpath = path[0 .. pos - 1]
-                    Dir.mkdir(subpath) if !File.exist?(subpath)
-                    pos = path.index('/', pos + 1)
-                end
-                Dir.mkdir(path) if !File.exist?(path)
-            end
-        end
+require 'webrick'
+
+include WEBrick
+
+class ProjectsServlet < HTTPServlet::AbstractServlet
+
+    def initialize(server, *options)
+        super(server, options)
     end
+
+    def do_GET(request, response)
+        @logger.info "run-projects"
+
+        projects_path = File.expand_path('projects', ClutchServer::ROOT)
+        json_text = '['
+        comma = ''
+
+        Dir.foreach(projects_path) { |dir|
+            if (dir != '.' && dir != '..')
+                project_path = File.expand_path(dir, projects_path)
+                if (File.directory?(project_path))
+                    json_path = File.expand_path('clutch.json', project_path)
+                    if (File.exists?(json_path) && File.file?(json_path))
+                        File.open(json_path, "r") { |file|
+                            json_text += comma
+                            comma = ','
+                            json_text += file.read
+                        }
+                    end
+                end
+            end
+        }
+
+        json_text += ']'
+        response.body = json_text
+    end
+
 end

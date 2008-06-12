@@ -1,6 +1,5 @@
 /*
-
- */
+*/
 
 /*jslint evil: true */
 /*global google */
