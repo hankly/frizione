@@ -1,6 +1,0 @@
-#summary So just what is Frizione?
-#labels Phase-Design
-
-= Frizione - the Big Picture =
-
-The aim of Frizione is to amalgamate a few very useful !JavaScript tools into one box, so that the overall development task can be as pleasant as possible.
