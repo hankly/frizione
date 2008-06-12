@@ -38,7 +38,7 @@ clutch.retrieveAndDisplay = function (type) {
             method: 'get',
             parameters: { nocache: new Date().getTime() },
             onSuccess: function (transport) {
-                var projects = document.getElementById('projects');
+                var elem = $('projects');
                 try {
                     var result = transport.responseText.evalJSON(true);
                     text = "<ul>";
@@ -51,18 +51,18 @@ clutch.retrieveAndDisplay = function (type) {
                     });
                     text += "</ul>";
                     if (text === "<ul></ul>") {
-                        text = "<ul><li>No projects found.</li></ul>";
+                        text = "<span>No projects found</span>.";
                     }
-                    projects.innerHTML = text;
+                    elem.replace("<p>" + text + "</p>");
                 }
                 catch (ex) {
-                    projects.innerHTML = "<ul><li>" + ex.toString() + "</li></ul>";
+                    elem.replace("<p><span class='error'>" + ex.toString() + "</span></p>");
                     alert(ex.toString());
                 }
             },
             onFailure: function () {
-                var projects = document.getElementById('projects');
-                projects.innerHTML = "<ul><li>Failed to retrieve the projects information.</li><ul>";
+                var elem = $('projects');
+                elem.replace("<p><span class='error'>Failed to retrieve the projects information.</span></p>");
                 alert("Failed to retrieve the projects information.");
             }
         });
