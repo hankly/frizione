@@ -58,14 +58,14 @@ clutch.createRequest = function () {
 };
 
 (function () {
-    var clutch_timer = null;
+    var clutchTimer = null;
     try {
-        clutch_timer = google.gears.factory.create('beta.timer');
+        clutchTimer = google.gears.factory.create('beta.timer');
         clutch.setTimeout = function (code, millis) {
-            return clutch_timer.setTimeout(code, millis);
+            return clutchTimer.setTimeout(code, millis);
         };
         clutch.clearTimeout = function (timerId) {
-            clutch_timer.clearTimeout(timerId);
+            clutchTimer.clearTimeout(timerId);
         };
     }
     catch (e) {

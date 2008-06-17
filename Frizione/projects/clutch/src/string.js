@@ -160,31 +160,5 @@ clutch.string = {
                 return value;
             });
         }
-    },
-
-    messagePack: function (message, arg) {
-        if (arg === null || typeof arg === 'undefined') {
-            return message;
-        }
-        if (arg instanceof String || typeof arg === 'string') {
-            return message + " " + arg;
-        }
-        if (arg instanceof Array || typeof arg === 'object') {
-            return message + '.json ' + clutch.string.toJSON(arg);
-        }
-        return message + " " + arg.toString();
-    },
-
-    messageUnpack: function (message) {
-        var parts = message.match(/\s?(\S+)\s+(.+)/);
-        if (parts === null || parts.length === 1) {
-            return { message: message, arg: null };
-        }
-        var command = parts[1];
-        if (this.endsWith(command, '.json')) {
-            command = command.substring(0, command.length - 5);
-            return { message: command, arg: clutch.string.fromJSON(parts[2]) };
-        }
-        return { message: command, arg: parts[2] };
     }
 };

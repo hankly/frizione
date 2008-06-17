@@ -3,7 +3,7 @@
 		"tests": 31,
 		"failures": 2,
 		"errors": 1,
-		"time": 0,
+		"time": 32,
 		"running": false,
 		"messages": []
 	},
@@ -70,7 +70,7 @@
 						"messages": [
 							{
 								"type": "error",
-								"message": "http://clutch.syger.it/projects/clutch/tests/min-all-tests.js(34) Error: Test error() call\nError(\"Test error() call\")@:0\n()@http://clutch.syger.it/projects/clutch/tests/min-all-tests.js:34\n(\"testError\")@http://clutch.syger.it/projects/clutch/src/unit-test.js:85\n()@http://clutch.syger.it/projects/clutch/src/unit-test.js:167\n()@http://clutch.syger.it/projects/clutch/src/unit-test.js:194\nstoreClutchTests(runClutchTests,\"/run-fixture/tests/clutch/min-all-tests.json\",\"/tests/clutch/view-min-all-tests.html\")@http://clutch.syger.it/clutch/js/saver.js:74\nonload([object Event])@http://clutch.syger.it/tests/clutch/run-min-all-tests.html:1\n@:0\n"
+								"message": "Error: Test error() call"
 							}
 						]
 					}
@@ -99,7 +99,7 @@
 				"tests": 25,
 				"failures": 0,
 				"errors": 0,
-				"time": 0,
+				"time": 32,
 				"running": false,
 				"messages": []
 			},
@@ -186,7 +186,7 @@
 						"tests": 4,
 						"failures": 0,
 						"errors": 0,
-						"time": 0,
+						"time": 16,
 						"running": false,
 						"messages": [
 							{
@@ -214,7 +214,7 @@
 						"tests": 4,
 						"failures": 0,
 						"errors": 0,
-						"time": 0,
+						"time": 16,
 						"running": false,
 						"messages": [
 							{

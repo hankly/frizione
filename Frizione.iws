@@ -17,94 +17,28 @@
   <component name="ChangeListManager">
     <list default="true" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Frizione/tests/clutch/string-tests.js" afterPath="$PROJECT_DIR$/Frizione/tests/clutch/string-tests.js" />
-      <change type="MOVED" beforePath="C:\Frizione\Frizione\clutch\src\string.js" afterPath="$PROJECT_DIR$/Frizione/projects/clutch/src/string.js" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Frizione/fixtures/clutch" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Ruby/preprocessor.rb" afterPath="$PROJECT_DIR$/Ruby/preprocessor.rb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Ruby/compressor_servlet.rb" afterPath="$PROJECT_DIR$/Ruby/compressor_servlet.rb" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Frizione/projects" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Frizione/projects/clutch/tests/index.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Frizione/tests/index.html" afterPath="$PROJECT_DIR$/Frizione/tests/index.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Frizione/tests/clutch/run-unit-test-tests.html" afterPath="$PROJECT_DIR$/Frizione/tests/clutch/run-unit-test-tests.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Frizione/projects/clutch/joins" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Frizione/clutch/js/display.js" afterPath="$PROJECT_DIR$/Frizione/clutch/js/display.js" />
-      <change type="MOVED" beforePath="C:\Frizione\Frizione\clutch\src\worker-utils.js" afterPath="$PROJECT_DIR$/Frizione/projects/clutch/src/worker-utils.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Frizione/jslint/clutch/js/display.html" afterPath="$PROJECT_DIR$/Frizione/jslint/clutch/js/display.html" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Frizione/jslint/clutch/src/gears" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Frizione/tests/clutch/unit-test-tests.json" afterPath="$PROJECT_DIR$/Frizione/tests/clutch/unit-test-tests.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Frizione/jslint/index.html" afterPath="$PROJECT_DIR$/Frizione/jslint/index.html" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Frizione/fixtures" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Frizione/clutch/css/clutch.css" afterPath="$PROJECT_DIR$/Frizione/clutch/css/clutch.css" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Frizione/projects/clutch/tests" />
-      <change type="DELETED" beforePath="C:\Frizione\Frizione\jslint\clutch\src\unit-test.html" afterPath="" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Frizione/projects/clutch/joins/index.html" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/Frizione/clutch/src/gears" afterPath="$PROJECT_DIR$/Frizione/projects/clutch/src/gears" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/Frizione/clutch/src/tests" afterPath="$PROJECT_DIR$/Frizione/projects/clutch/src/tests" />
-      <change type="DELETED" beforePath="C:\Frizione\Frizione\clutch\docs\Covers\Pictures\smarties-jxs4.jpg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Frizione/clutch/src" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Ruby/join_servlet.rb" afterPath="$PROJECT_DIR$/Ruby/join_servlet.rb" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Frizione/projects/clutch/src/introspect.js" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/Frizione/clutch/src" afterPath="$PROJECT_DIR$/Frizione/projects/clutch/src" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/todo.txt" afterPath="$PROJECT_DIR$/todo.txt" />
-      <change type="DELETED" beforePath="C:\Frizione\Frizione\clutch\docs\Covers\Pictures\key-5b2.jpg" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Frizione/jslint/clutch/js/xhr.html" afterPath="$PROJECT_DIR$/Frizione/jslint/clutch/js/xhr.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Frizione/clutch/docs/Clutch.odt" afterPath="$PROJECT_DIR$/Frizione/clutch/docs/Clutch.odt" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Frizione/joins/index.html" afterPath="$PROJECT_DIR$/Frizione/joins/index.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Ruby/create_dirs.rb" afterPath="$PROJECT_DIR$/Ruby/create_dirs.rb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Frizione/tests/clutch/view-string-tests.html" afterPath="$PROJECT_DIR$/Frizione/tests/clutch/view-string-tests.html" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Frizione/joins/clutch" afterPath="" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Frizione/projects/clutch" />
-      <change type="DELETED" beforePath="C:\Frizione\Frizione\jslint\clutch\src\string.html" afterPath="" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Frizione/clutch/js/prototype/LICENSE" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Ruby/jsmin.rb" />
-      <change type="MOVED" beforePath="C:\Frizione\Frizione\jslint\clutch\js\browser-saver.html" afterPath="$PROJECT_DIR$/Frizione/jslint/clutch/js/saver.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Ruby/server.rb" afterPath="$PROJECT_DIR$/Ruby/server.rb" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Frizione/jslint/clutch/js/jslint" />
-      <change type="MOVED" beforePath="C:\Frizione\Frizione\clutch\js\browser-saver.js" afterPath="$PROJECT_DIR$/Frizione/clutch/js/saver.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/license" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Ruby/projects_servlet.rb" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Frizione/clutch/js/projects.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Frizione/index.html" afterPath="$PROJECT_DIR$/Frizione/index.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Frizione/projects/clutch/clutch.json" />
-      <change type="MOVED" beforePath="C:\Frizione\Frizione\joins\clutch\unit-test-tests.js" afterPath="$PROJECT_DIR$/Frizione/projects/clutch/joins/unit-test-tests.js" />
-      <change type="DELETED" beforePath="C:\Frizione\Frizione\jslint\clutch\src\gears\xhr.html" afterPath="" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Frizione/projects/clutch/src/string.js" afterPath="$PROJECT_DIR$/Frizione/projects/clutch/src/string.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Frizione/tests/clutch/run-string-tests.html" afterPath="$PROJECT_DIR$/Frizione/tests/clutch/run-string-tests.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Frizione/tests/clutch/all-tests.js" afterPath="$PROJECT_DIR$/Frizione/tests/clutch/all-tests.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Frizione/tests/clutch/run-all-tests.html" afterPath="$PROJECT_DIR$/Frizione/tests/clutch/run-all-tests.html" />
-      <change type="DELETED" beforePath="C:\Frizione\Frizione\clutch\docs\Covers\Pictures\apple-nails.jpg" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Frizione/clutch/docs/Clutch.pdf" afterPath="$PROJECT_DIR$/Frizione/clutch/docs/Clutch.pdf" />
-      <change type="DELETED" beforePath="C:\Frizione\Frizione\jslint\clutch\src\browser.html" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Frizione/tests/clutch/all-tests.json" afterPath="$PROJECT_DIR$/Frizione/tests/clutch/all-tests.json" />
-      <change type="DELETED" beforePath="C:\Frizione\Frizione\joins\clutch\unit-test-tests.js" afterPath="" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Frizione/projects/clutch/index.html" />
-      <change type="MOVED" beforePath="C:\Frizione\Frizione\clutch\src\worker-pool.js" afterPath="$PROJECT_DIR$/Frizione/projects/clutch/src/worker-pool.js" />
-      <change type="MOVED" beforePath="C:\Frizione\Frizione\clutch\src\unit-test.js" afterPath="$PROJECT_DIR$/Frizione/projects/clutch/src/unit-test.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Frizione/clutch/docs/VersionHistory.odt" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Frizione/tests/clutch/view-all-tests.html" afterPath="$PROJECT_DIR$/Frizione/tests/clutch/view-all-tests.html" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Frizione/jslint/clutch/src" afterPath="" />
-      <change type="MOVED" beforePath="C:\Frizione\Frizione\joins\clutch\all-tests.js" afterPath="$PROJECT_DIR$/Frizione/projects/clutch/joins/all-tests.js" />
-      <change type="DELETED" beforePath="C:\Frizione\Frizione\joins\clutch\string-tests.js" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Ruby/fixture_servlet.rb" afterPath="$PROJECT_DIR$/Ruby/fixture_servlet.rb" />
-      <change type="MOVED" beforePath="C:\Frizione\Frizione\clutch\src\browser.js" afterPath="$PROJECT_DIR$/Frizione/projects/clutch/src/browser.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Frizione/tests/clutch/run-string-tests.html" afterPath="$PROJECT_DIR$/Frizione/tests/clutch/run-string-tests.html" />
-      <change type="MOVED" beforePath="C:\Frizione\Frizione\clutch\src\tests\all-tests.js" afterPath="$PROJECT_DIR$/Frizione/projects/clutch/src/tests/all-tests.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Frizione/projects/clutch/fixtures" />
-      <change type="MOVED" beforePath="C:\Frizione\Frizione\clutch\src\tests\string-tests.js" afterPath="$PROJECT_DIR$/Frizione/projects/clutch/src/tests/string-tests.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Frizione/tests/clutch/run-unit-test-tests.html" afterPath="$PROJECT_DIR$/Frizione/tests/clutch/run-unit-test-tests.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Frizione/tests/clutch/min-all-tests.json" afterPath="$PROJECT_DIR$/Frizione/tests/clutch/min-all-tests.json" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Frizione/clutch/js/saver.js" afterPath="$PROJECT_DIR$/Frizione/clutch/js/saver.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Frizione/clutch/js/display.js" afterPath="$PROJECT_DIR$/Frizione/clutch/js/display.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Frizione/clutch/docs/Clutch.odt" afterPath="$PROJECT_DIR$/Frizione/clutch/docs/Clutch.odt" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Frizione/projects/clutch/src/tests/unit-test-tests.js" afterPath="$PROJECT_DIR$/Frizione/projects/clutch/src/tests/unit-test-tests.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Frizione.iws" afterPath="$PROJECT_DIR$/Frizione.iws" />
-      <change type="MOVED" beforePath="C:\Frizione\Frizione\clutch\js\jslint-loader.js" afterPath="$PROJECT_DIR$/Frizione/clutch/js/jslint/loader.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Frizione/tests/clutch/unit-test-tests.json" afterPath="$PROJECT_DIR$/Frizione/tests/clutch/unit-test-tests.json" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Frizione/tests/clutch/string-tests.json" afterPath="$PROJECT_DIR$/Frizione/tests/clutch/string-tests.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Ruby/jslint_servlet.rb" afterPath="$PROJECT_DIR$/Ruby/jslint_servlet.rb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Frizione/clutch/docs/Clutch.odm" afterPath="$PROJECT_DIR$/Frizione/clutch/docs/Clutch.odm" />
-      <change type="MOVED" beforePath="C:\Frizione\Frizione\clutch\src\tests\unit-test-tests.js" afterPath="$PROJECT_DIR$/Frizione/projects/clutch/src/tests/unit-test-tests.js" />
-      <change type="DELETED" beforePath="C:\Frizione\Frizione\clutch\docs\Covers\Pictures\time_dust.jpg" afterPath="" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Frizione/projects/clutch/jslint/index.html" />
-      <change type="DELETED" beforePath="C:\Frizione\Frizione\joins\clutch\all-tests.js" afterPath="" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Frizione/projects/clutch/src/unit-test.js" afterPath="$PROJECT_DIR$/Frizione/projects/clutch/src/unit-test.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Frizione/tests/clutch/all-tests.json" afterPath="$PROJECT_DIR$/Frizione/tests/clutch/all-tests.json" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Frizione/projects/clutch/src/tests/all-tests.js" afterPath="$PROJECT_DIR$/Frizione/projects/clutch/src/tests/all-tests.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Frizione/projects/clutch/src/tests/string-tests.js" afterPath="$PROJECT_DIR$/Frizione/projects/clutch/src/tests/string-tests.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Ruby/test_servlet.rb" afterPath="$PROJECT_DIR$/Ruby/test_servlet.rb" />
-      <change type="MOVED" beforePath="C:\Frizione\Frizione\joins\clutch\string-tests.js" afterPath="$PROJECT_DIR$/Frizione/projects/clutch/joins/string-tests.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Frizione/clutch/js/xhr.js" afterPath="$PROJECT_DIR$/Frizione/clutch/js/xhr.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Frizione/tests/clutch/run-min-all-tests.html" afterPath="$PROJECT_DIR$/Frizione/tests/clutch/run-min-all-tests.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Frizione/tests/clutch/unit-test-tests.js" afterPath="$PROJECT_DIR$/Frizione/tests/clutch/unit-test-tests.js" />
-      <change type="MOVED" beforePath="C:\Frizione\Frizione\clutch\src\gears\xhr.js" afterPath="$PROJECT_DIR$/Frizione/projects/clutch/src/gears/xhr.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Frizione/tests/clutch/view-unit-test-tests.html" afterPath="$PROJECT_DIR$/Frizione/tests/clutch/view-unit-test-tests.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Frizione/projects/clutch/jslint" />
-      <change type="MOVED" beforePath="C:\Frizione\Frizione\jslint\clutch\js\jslint-loader.html" afterPath="$PROJECT_DIR$/Frizione/jslint/clutch/js/jslint/loader.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Frizione/projects/clutch/src/gears/xhr.js" afterPath="$PROJECT_DIR$/Frizione/projects/clutch/src/gears/xhr.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Frizione/tests/clutch/view-all-tests.html" afterPath="$PROJECT_DIR$/Frizione/tests/clutch/view-all-tests.html" />
     </list>
     <ignored path="Frizione.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -172,13 +106,55 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="index.html" pinned="false" current="true" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/Frizione/projects/clutch/tests/index.html">
-          <provider editor-type-id="HtmlPreview">
-            <state />
-          </provider>
+      <file leaf-file-name="unit-test.js" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/Frizione/projects/clutch/src/unit-test.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="53" column="73" selection-start="3879" selection-end="3879" vertical-scroll-proportion="0.62222224">
+            <state line="62" column="11" selection-start="2052" selection-end="2052" vertical-scroll-proportion="0.43220338">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="unit-test-tests.js" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Frizione/projects/clutch/src/tests/unit-test-tests.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="37" column="1" selection-start="853" selection-end="853" vertical-scroll-proportion="0.720339">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="display.js" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Frizione/clutch/js/display.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="152" column="11" selection-start="6377" selection-end="6377" vertical-scroll-proportion="0.12348668">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="string-tests.js" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Frizione/projects/clutch/src/tests/string-tests.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="90" column="30" selection-start="3897" selection-end="3897" vertical-scroll-proportion="0.91767555">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="all-tests.js" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Frizione/projects/clutch/src/tests/all-tests.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="14" column="0" selection-start="268" selection-end="268" vertical-scroll-proportion="0.24697337">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="saver.js" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Frizione/clutch/js/saver.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="85" column="50" selection-start="3328" selection-end="3328" vertical-scroll-proportion="0.8559322">
               <folding />
             </state>
           </provider>
@@ -314,6 +290,32 @@
           <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
         </PATH_ELEMENT>
         <PATH_ELEMENT>
+          <option name="myItemId" value="PsiDirectory:C:\Frizione\Frizione\tests" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="PsiDirectory:C:\Frizione\Frizione\tests\clutch" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+        </PATH_ELEMENT>
+      </PATH>
+      <PATH>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="Frizione" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="Frizione" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewModuleNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="PsiDirectory:C:\Frizione" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="PsiDirectory:C:\Frizione\Frizione" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
           <option name="myItemId" value="PsiDirectory:C:\Frizione\Frizione\projects" />
           <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
         </PATH_ELEMENT>
@@ -408,6 +410,74 @@
           <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
         </PATH_ELEMENT>
         <PATH_ELEMENT>
+          <option name="myItemId" value="PsiDirectory:C:\Frizione\Frizione\projects\clutch\src" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="PsiDirectory:C:\Frizione\Frizione\projects\clutch\src\tests" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+        </PATH_ELEMENT>
+      </PATH>
+      <PATH>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="Frizione" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="Frizione" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewModuleNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="PsiDirectory:C:\Frizione" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="PsiDirectory:C:\Frizione\Frizione" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="PsiDirectory:C:\Frizione\Frizione\projects" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="PsiDirectory:C:\Frizione\Frizione\projects\clutch" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="PsiDirectory:C:\Frizione\Frizione\projects\clutch\src" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="PsiDirectory:C:\Frizione\Frizione\projects\clutch\src\gears" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+        </PATH_ELEMENT>
+      </PATH>
+      <PATH>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="Frizione" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="Frizione" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewModuleNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="PsiDirectory:C:\Frizione" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="PsiDirectory:C:\Frizione\Frizione" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="PsiDirectory:C:\Frizione\Frizione\projects" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="PsiDirectory:C:\Frizione\Frizione\projects\clutch" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
           <option name="myItemId" value="PsiDirectory:C:\Frizione\Frizione\projects\clutch\jslint" />
           <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
         </PATH_ELEMENT>
@@ -439,94 +509,6 @@
         </PATH_ELEMENT>
         <PATH_ELEMENT>
           <option name="myItemId" value="PsiDirectory:C:\Frizione\Frizione\projects\clutch\joins" />
-          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-        </PATH_ELEMENT>
-      </PATH>
-      <PATH>
-        <PATH_ELEMENT>
-          <option name="myItemId" value="Frizione" />
-          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-        </PATH_ELEMENT>
-        <PATH_ELEMENT>
-          <option name="myItemId" value="Frizione" />
-          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewModuleNode" />
-        </PATH_ELEMENT>
-        <PATH_ELEMENT>
-          <option name="myItemId" value="PsiDirectory:C:\Frizione" />
-          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-        </PATH_ELEMENT>
-        <PATH_ELEMENT>
-          <option name="myItemId" value="PsiDirectory:C:\Frizione\Frizione" />
-          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-        </PATH_ELEMENT>
-        <PATH_ELEMENT>
-          <option name="myItemId" value="PsiDirectory:C:\Frizione\Frizione\jslint" />
-          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-        </PATH_ELEMENT>
-      </PATH>
-      <PATH>
-        <PATH_ELEMENT>
-          <option name="myItemId" value="Frizione" />
-          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-        </PATH_ELEMENT>
-        <PATH_ELEMENT>
-          <option name="myItemId" value="Frizione" />
-          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewModuleNode" />
-        </PATH_ELEMENT>
-        <PATH_ELEMENT>
-          <option name="myItemId" value="PsiDirectory:C:\Frizione" />
-          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-        </PATH_ELEMENT>
-        <PATH_ELEMENT>
-          <option name="myItemId" value="PsiDirectory:C:\Frizione\Frizione" />
-          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-        </PATH_ELEMENT>
-        <PATH_ELEMENT>
-          <option name="myItemId" value="PsiDirectory:C:\Frizione\Frizione\joins" />
-          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-        </PATH_ELEMENT>
-      </PATH>
-      <PATH>
-        <PATH_ELEMENT>
-          <option name="myItemId" value="Frizione" />
-          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-        </PATH_ELEMENT>
-        <PATH_ELEMENT>
-          <option name="myItemId" value="Frizione" />
-          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewModuleNode" />
-        </PATH_ELEMENT>
-        <PATH_ELEMENT>
-          <option name="myItemId" value="PsiDirectory:C:\Frizione" />
-          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-        </PATH_ELEMENT>
-        <PATH_ELEMENT>
-          <option name="myItemId" value="PsiDirectory:C:\Frizione\Frizione" />
-          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-        </PATH_ELEMENT>
-        <PATH_ELEMENT>
-          <option name="myItemId" value="PsiDirectory:C:\Frizione\Frizione\fixtures" />
-          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-        </PATH_ELEMENT>
-      </PATH>
-      <PATH>
-        <PATH_ELEMENT>
-          <option name="myItemId" value="Frizione" />
-          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-        </PATH_ELEMENT>
-        <PATH_ELEMENT>
-          <option name="myItemId" value="Frizione" />
-          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewModuleNode" />
-        </PATH_ELEMENT>
-        <PATH_ELEMENT>
-          <option name="myItemId" value="PsiDirectory:C:\Frizione" />
-          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-        </PATH_ELEMENT>
-        <PATH_ELEMENT>
-          <option name="myItemId" value="PsiDirectory:C:\Frizione\Frizione" />
-          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-        </PATH_ELEMENT>
-        <PATH_ELEMENT>
-          <option name="myItemId" value="PsiDirectory:C:\Frizione\Frizione\clutch" />
           <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
         </PATH_ELEMENT>
       </PATH>
@@ -586,6 +568,28 @@
           <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
         </PATH_ELEMENT>
       </PATH>
+      <PATH>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="Frizione" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="Frizione" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewModuleNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="PsiDirectory:C:\Frizione" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="PsiDirectory:C:\Frizione\Frizione" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="PsiDirectory:C:\Frizione\Frizione\clutch" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+        </PATH_ELEMENT>
+      </PATH>
     </subPane>
   </component>
   <component name="ProjectReloadState">
@@ -618,15 +622,6 @@
     <RUBY_DOC NAME="NUMBER" VALUE="0" />
   </component>
   <component name="RunManager">
-    <configuration default="true" type="RubyRunConfigurationType" factoryName="Ruby script">
-      <RUBY_RUN_CONFIG NAME="SCRIPT_PATH" VALUE="" />
-      <RUBY_RUN_CONFIG NAME="SCRIPT_ARGS" VALUE="" />
-      <RUBY_RUN_CONFIG NAME="RUBY_ARGS" VALUE="-e &quot;STDOUT.sync=true;STDERR.sync=true;load($0=ARGV.shift)&quot;" />
-      <RUBY_RUN_CONFIG NAME="WORK DIR" VALUE="" />
-      <RUBY_RUN_CONFIG NAME="MODULE_NAME" VALUE="" />
-      <RUBY_RUN_CONFIG NAME="SHOULD_USE_SDK" VALUE="false" />
-      <RUBY_RUN_CONFIG NAME="ALTERN_SDK_NAME" VALUE="" />
-    </configuration>
     <configuration default="true" type="Applet" factoryName="Applet">
       <module name="" />
       <option name="MAIN_CLASS_NAME" />
@@ -639,25 +634,21 @@
       <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
       <option name="ALTERNATIVE_JRE_PATH" />
     </configuration>
+    <configuration default="true" type="RubyRunConfigurationType" factoryName="Ruby script">
+      <RUBY_RUN_CONFIG NAME="SCRIPT_PATH" VALUE="" />
+      <RUBY_RUN_CONFIG NAME="SCRIPT_ARGS" VALUE="" />
+      <RUBY_RUN_CONFIG NAME="RUBY_ARGS" VALUE="-e &quot;STDOUT.sync=true;STDERR.sync=true;load($0=ARGV.shift)&quot;" />
+      <RUBY_RUN_CONFIG NAME="WORK DIR" VALUE="" />
+      <RUBY_RUN_CONFIG NAME="MODULE_NAME" VALUE="" />
+      <RUBY_RUN_CONFIG NAME="SHOULD_USE_SDK" VALUE="false" />
+      <RUBY_RUN_CONFIG NAME="ALTERN_SDK_NAME" VALUE="" />
+    </configuration>
     <configuration default="true" type="Remote" factoryName="Remote">
       <option name="USE_SOCKET_TRANSPORT" value="true" />
       <option name="SERVER_MODE" value="false" />
       <option name="SHMEM_ADDRESS" value="javadebug" />
       <option name="HOST" value="localhost" />
       <option name="PORT" value="5005" />
-    </configuration>
-    <configuration default="true" type="Application" factoryName="Application" enabled="false" merge="false">
-      <option name="MAIN_CLASS_NAME" />
-      <option name="VM_PARAMETERS" />
-      <option name="PROGRAM_PARAMETERS" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
-      <option name="ALTERNATIVE_JRE_PATH" />
-      <option name="ENABLE_SWING_INSPECTOR" value="false" />
-      <option name="ENV_VARIABLES" />
-      <option name="PASS_PARENT_ENVS" value="true" />
-      <module name="" />
-      <envs />
     </configuration>
     <configuration default="true" type="RubyRunConfigurationType" factoryName="Ruby test">
       <RTEST_RUN_CONFIG_SETTINGS_ID NAME="TESTS_FOLDER_PATH" VALUE="" />
@@ -672,6 +663,19 @@
       <RTEST_RUN_CONFIG_SETTINGS_ID NAME="SHOULD_USE_SDK" VALUE="false" />
       <RTEST_RUN_CONFIG_SETTINGS_ID NAME="ALTERN_SDK_NAME" VALUE="" />
       <RTEST_RUN_CONFIG_SETTINGS_ID NAME="INHERITANCE_CHECK_DISABLED" VALUE="false" />
+    </configuration>
+    <configuration default="true" type="Application" factoryName="Application" enabled="false" merge="false">
+      <option name="MAIN_CLASS_NAME" />
+      <option name="VM_PARAMETERS" />
+      <option name="PROGRAM_PARAMETERS" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="ENABLE_SWING_INSPECTOR" value="false" />
+      <option name="ENV_VARIABLES" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <module name="" />
+      <envs />
     </configuration>
     <configuration default="true" type="JUnit" factoryName="JUnit" enabled="false" merge="false">
       <module name="" />
@@ -830,126 +834,123 @@
     </GetOptions>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/Ruby/jslint_servlet.rb">
+    <entry file="file://$PROJECT_DIR$/Frizione/projects/clutch/tests/index.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="251" column="8" selection-start="12114" selection-end="12114" vertical-scroll-proportion="0.9580765">
+        <state line="53" column="73" selection-start="3879" selection-end="3879" vertical-scroll-proportion="0.022222223">
+          <folding />
+        </state>
+      </provider>
+      <provider editor-type-id="HtmlPreview">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Frizione/tests/clutch/run-all-tests.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="9" column="0" selection-start="664" selection-end="664" vertical-scroll-proportion="0.19615385">
+          <folding />
+        </state>
+      </provider>
+      <provider editor-type-id="HtmlPreview">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Frizione/projects/clutch/src/string.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="163" column="0" selection-start="6129" selection-end="6129" vertical-scroll-proportion="0.8765133">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Ruby/join_servlet.rb">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="102" column="0" selection-start="3792" selection-end="3792" vertical-scroll-proportion="0.95883775">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Ruby/fixture_servlet.rb">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="60" column="0" selection-start="2171" selection-end="2171" vertical-scroll-proportion="0.9382567">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Ruby/compressor_servlet.rb">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="156" column="8" selection-start="6036" selection-end="6036" vertical-scroll-proportion="2.5520582">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Frizione/clutch/js/xhr.js">
+    <entry file="file://$PROJECT_DIR$/Frizione/tests/clutch/run-min-all-tests.html">
       <provider selected="true" editor-type-id="text-editor">
         <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Frizione/projects/clutch/joins/string-tests.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="23" column="16" selection-start="1109" selection-end="1109" vertical-scroll-proportion="0.4733656">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Frizione/projects/clutch/joins/all-tests.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="23" column="16" selection-start="1109" selection-end="1109" vertical-scroll-proportion="0.4733656">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Frizione/projects/clutch/joins/unit-test-tests.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="23" column="16" selection-start="1109" selection-end="1109" vertical-scroll-proportion="0.4733656">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Frizione/projects/clutch/index.html">
       <provider editor-type-id="HtmlPreview">
         <state />
       </provider>
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Frizione/projects/clutch/jslint/index.html">
-      <provider editor-type-id="HtmlPreview">
-        <state />
-      </provider>
+    <entry file="file://$PROJECT_DIR$/Ruby/create_dirs.rb">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="124" column="46" selection-start="6112" selection-end="6112" vertical-scroll-proportion="0.9564102">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Frizione/projects/clutch/joins/index.html">
-      <provider editor-type-id="HtmlPreview">
-        <state />
-      </provider>
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="181" column="71" selection-start="11585" selection-end="11585" vertical-scroll-proportion="0.53333336">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Frizione/clutch/js/display.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="28" column="0" selection-start="1372" selection-end="1372" vertical-scroll-proportion="0.5762712">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Frizione/clutch/js/saver.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="28" column="34" selection-start="1379" selection-end="1379" vertical-scroll-proportion="0.30024213">
+        <state line="28" column="45" selection-start="1331" selection-end="1331" vertical-scroll-proportion="0.5762712">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/Ruby/test_servlet.rb">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="132" column="10" selection-start="5708" selection-end="5708" vertical-scroll-proportion="0.62953997">
+        <state line="89" column="0" selection-start="3696" selection-end="3696" vertical-scroll-proportion="0.020581113">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Frizione/projects/clutch/src/string.js">
+    <entry file="file://$PROJECT_DIR$/Frizione/clutch/js/json2.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="29" column="0" selection-start="1110" selection-end="1150" vertical-scroll-proportion="0.5968523">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="-9.019729">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Frizione/projects/clutch/tests/index.html">
-      <provider editor-type-id="HtmlPreview">
-        <state />
-      </provider>
+    <entry file="file://$PROJECT_DIR$/Frizione/clutch/js/jslint/webjslint.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="53" column="73" selection-start="3879" selection-end="3879" vertical-scroll-proportion="0.62222224">
+        <state line="3366" column="28" selection-start="126736" selection-end="126741" vertical-scroll-proportion="0.33333334">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Frizione/projects/clutch/joins/all-tests.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Frizione/projects/clutch/src/gears/xhr.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="63" column="0" selection-start="2012" selection-end="2012" vertical-scroll-proportion="0.44430992">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Frizione/clutch/js/saver.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="85" column="50" selection-start="3328" selection-end="3328" vertical-scroll-proportion="0.8559322">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Frizione/clutch/js/display.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="152" column="11" selection-start="6377" selection-end="6377" vertical-scroll-proportion="0.12348668">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Frizione/projects/clutch/src/tests/unit-test-tests.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="37" column="1" selection-start="853" selection-end="853" vertical-scroll-proportion="0.720339">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Frizione/projects/clutch/src/tests/string-tests.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="90" column="30" selection-start="3897" selection-end="3897" vertical-scroll-proportion="0.91767555">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Frizione/projects/clutch/src/tests/all-tests.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="14" column="0" selection-start="268" selection-end="268" vertical-scroll-proportion="0.24697337">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Frizione/projects/clutch/src/unit-test.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="62" column="11" selection-start="2052" selection-end="2052" vertical-scroll-proportion="0.43220338">
           <folding />
         </state>
       </provider>

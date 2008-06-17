@@ -1,11 +1,12 @@
 {
 	"name": "String Tests",
 	"summary": {
-		"tests": 25,
+		"tests": 18,
+		"logs": 0,
 		"failures": 0,
 		"errors": 0,
 		"time": 0,
-		"running": false,
+		"abend": null,
 		"messages": []
 	},
 	"tests": [
@@ -13,10 +14,11 @@
 			"name": "testTrim",
 			"summary": {
 				"tests": 2,
+				"logs": 0,
 				"failures": 0,
 				"errors": 0,
 				"time": 0,
-				"running": false,
+				"abend": null,
 				"messages": [
 					{
 						"type": "pass",
@@ -26,17 +28,21 @@
 						"type": "pass",
 						"message": ""
 					}
-				]
+				],
+				"func": "testTrim",
+				"callBack": null,
+				"callBacks": null
 			}
 		},
 		{
 			"name": "testStartsWith",
 			"summary": {
 				"tests": 4,
+				"logs": 0,
 				"failures": 0,
 				"errors": 0,
 				"time": 0,
-				"running": false,
+				"abend": null,
 				"messages": [
 					{
 						"type": "pass",
@@ -54,17 +60,21 @@
 						"type": "pass",
 						"message": ""
 					}
-				]
+				],
+				"func": "testStartsWith",
+				"callBack": null,
+				"callBacks": null
 			}
 		},
 		{
 			"name": "testEndsWith",
 			"summary": {
 				"tests": 4,
+				"logs": 0,
 				"failures": 0,
 				"errors": 0,
 				"time": 0,
-				"running": false,
+				"abend": null,
 				"messages": [
 					{
 						"type": "pass",
@@ -82,17 +92,21 @@
 						"type": "pass",
 						"message": ""
 					}
-				]
+				],
+				"func": "testEndsWith",
+				"callBack": null,
+				"callBacks": null
 			}
 		},
 		{
 			"name": "testJsonObject",
 			"summary": {
 				"tests": 4,
+				"logs": 0,
 				"failures": 0,
 				"errors": 0,
 				"time": 0,
-				"running": false,
+				"abend": null,
 				"messages": [
 					{
 						"type": "pass",
@@ -110,17 +124,21 @@
 						"type": "pass",
 						"message": ""
 					}
-				]
+				],
+				"func": "testJsonObject",
+				"callBack": null,
+				"callBacks": null
 			}
 		},
 		{
 			"name": "testJsonArray",
 			"summary": {
 				"tests": 4,
+				"logs": 0,
 				"failures": 0,
 				"errors": 0,
 				"time": 0,
-				"running": false,
+				"abend": null,
 				"messages": [
 					{
 						"type": "pass",
@@ -138,47 +156,10 @@
 						"type": "pass",
 						"message": ""
 					}
-				]
-			}
-		},
-		{
-			"name": "testMessagePack",
-			"summary": {
-				"tests": 7,
-				"failures": 0,
-				"errors": 0,
-				"time": 0,
-				"running": false,
-				"messages": [
-					{
-						"type": "pass",
-						"message": ""
-					},
-					{
-						"type": "pass",
-						"message": ""
-					},
-					{
-						"type": "pass",
-						"message": ""
-					},
-					{
-						"type": "pass",
-						"message": ""
-					},
-					{
-						"type": "pass",
-						"message": ""
-					},
-					{
-						"type": "pass",
-						"message": ""
-					},
-					{
-						"type": "pass",
-						"message": ""
-					}
-				]
+				],
+				"func": "testJsonArray",
+				"callBack": null,
+				"callBacks": null
 			}
 		}
 	]

@@ -90,7 +90,7 @@ function displayTestResults(summary) {
     }
 
     function hasErrors(summary) {
-        return summary.errors > 0 || summary.failures > 0;
+        return summary.logs > 0 || summary.errors > 0 || summary.failures > 0;
     }
 
     function buildRow(name, attrs, elements) {
@@ -103,7 +103,7 @@ function displayTestResults(summary) {
     }
 
     function displaySummary(summary, root) {
-        var rate = (100 * (summary.tests - summary.failures - summary.errors)) / summary.tests;
+        var rate = summary.tests ? (100 * (summary.tests - summary.failures - summary.errors)) / summary.tests : 0.0;
         var noAttrs = {};
         var attrs = { 'class': 'test summary' };
         var headers = ["Tests", "Failures", "Errors", "Success Rate", "Time (ms)"];
@@ -150,7 +150,7 @@ function displayTestResults(summary) {
         root.insert({ bottom: Builder.node('table', attrs, [ thead, Builder.node('tbody', noAttrs, rows) ]) });
 
         if (showSummary && hasErrors(totaliser)) {
-            headers = [ "Function", "Reason" ];
+            headers = [ "Function", "Message" ];
             if (totaliser.errors > 0) {
                 attrs = { 'class': 'test errors' };
                 root.insert({ bottom: Builder.node('p', attrs, "All errors:") });
@@ -163,10 +163,16 @@ function displayTestResults(summary) {
                 thead = Builder.node('thead', noAttrs, Builder.node('tr', noAttrs, buildRow('th', noAttrs, headers)));
                 buildUnitTestErrorReport(root, thead, attrs, "fail", tests);
             }
+            if (totaliser.logs > 0) {
+                attrs = { 'class': 'test logs' };
+                root.insert({ bottom: Builder.node('p', attrs, "All logs:") });
+                thead = Builder.node('thead', noAttrs, Builder.node('tr', noAttrs, buildRow('th', noAttrs, headers)));
+                buildUnitTestErrorReport(root, thead, attrs, "log", tests);
+            }
         }
     }
 
-    function displayUnitTests(summary, root, showSummary) {
+    function displayUnitGroup(summary, root, showSummary) {
         var totaliser = summary.summary;
         if (showSummary) {
             displaySummary(totaliser, root);
@@ -186,7 +192,7 @@ function displayTestResults(summary) {
         for (i = 0; i < length; i += 1) {
             testSummary = tests[i];
             summary = testSummary.summary;
-            rate = (100 * (summary.tests - summary.failures - summary.errors)) / summary.tests;
+            rate = summary.tests ? (100 * (summary.tests - summary.failures - summary.errors)) / summary.tests : 0.0;
             info = [
                 testSummary.name, summary.tests.toString(), summary.failures.toString(),
                 summary.errors.toString(), rate.toFixed(2) + "%", summary.time.toString()
@@ -201,7 +207,7 @@ function displayTestResults(summary) {
         }
 
         if (showSummary && hasErrors(totaliser)) {
-            headers = [ "Unit Test Name", "Function", "Reason" ];
+            headers = [ "Unit Test Name", "Function", "Message" ];
             if (totaliser.errors > 0) {
                 attrs = { 'class': 'test errors' };
                 root.insert({ bottom: Builder.node('p', attrs, "All errors:") });
@@ -214,6 +220,12 @@ function displayTestResults(summary) {
                 thead = Builder.node('thead', noAttrs, Builder.node('tr', noAttrs, buildRow('th', noAttrs, headers)));
                 buildUnitTestsErrorReport(root, thead, attrs, 'fail', tests);
             }
+            if (totaliser.logs > 0) {
+                attrs = { 'class': 'test logs' };
+                root.insert({ bottom: Builder.node('p', attrs, "All logs:") });
+                thead = Builder.node('thead', noAttrs, Builder.node('tr', noAttrs, buildRow('th', noAttrs, headers)));
+                buildUnitTestsErrorReport(root, thead, attrs, 'log', tests);
+            }
         }
     }
 
@@ -222,7 +234,7 @@ function displayTestResults(summary) {
         displayUnitTest(summary, root, true);
     }
     else {
-        displayUnitTests(summary, root, true);
+        displayUnitGroup(summary, root, true);
     }
 }
 
@@ -237,7 +249,10 @@ function retrieveAndDisplay(url) {
                 displayTestResults(result);
             },
             onFailure: function () {
-                alert("Failed to retrieve the unit test results.");
+                var root = $('test-results');
+                var attrs = { 'class': 'test error' };
+                root.insert({ bottom: Builder.node('p', attrs, "Couldn't retrieve the unit test results.") });
+                alert("Couldn't retrieve the unit test results.");
             }
         });
     });

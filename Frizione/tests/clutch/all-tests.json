@@ -1,32 +1,57 @@
 {
 	"summary": {
-		"tests": 31,
+		"tests": 25,
+		"logs": 1,
 		"failures": 2,
 		"errors": 1,
 		"time": 0,
-		"running": false,
+		"abend": null,
 		"messages": []
 	},
 	"tests": [
 		{
 			"name": "Assertion Tests",
 			"summary": {
-				"tests": 6,
+				"tests": 7,
+				"logs": 1,
 				"failures": 2,
 				"errors": 1,
 				"time": 0,
-				"running": false,
+				"abend": null,
 				"messages": []
 			},
 			"tests": [
 				{
-					"name": "testPass",
+					"name": "testLog",
 					"summary": {
-						"tests": 2,
+						"tests": 1,
+						"logs": 1,
 						"failures": 0,
 						"errors": 0,
 						"time": 0,
-						"running": false,
+						"abend": null,
+						"messages": [
+							{
+								"type": "log",
+								"message": "Test log message"
+							},
+							{
+								"type": "pass",
+								"message": ""
+							}
+						],
+						"func": "testLog"
+					}
+				},
+				{
+					"name": "testPass",
+					"summary": {
+						"tests": 2,
+						"logs": 0,
+						"failures": 0,
+						"errors": 0,
+						"time": 0,
+						"abend": null,
 						"messages": [
 							{
 								"type": "pass",
@@ -36,17 +61,19 @@
 								"type": "pass",
 								"message": ""
 							}
-						]
+						],
+						"func": "testPass"
 					}
 				},
 				{
 					"name": "testFail",
 					"summary": {
 						"tests": 2,
+						"logs": 0,
 						"failures": 2,
 						"errors": 0,
 						"time": 0,
-						"running": false,
+						"abend": null,
 						"messages": [
 							{
 								"type": "fail",
@@ -56,39 +83,44 @@
 								"type": "fail",
 								"message": "assert(false) guaranteed to fail"
 							}
-						]
+						],
+						"func": "testFail"
 					}
 				},
 				{
 					"name": "testError",
 					"summary": {
 						"tests": 1,
+						"logs": 0,
 						"failures": 0,
 						"errors": 1,
 						"time": 0,
-						"running": false,
+						"abend": null,
 						"messages": [
 							{
 								"type": "error",
-								"message": "http://clutch.syger.it/projects/clutch/tests/all-tests.js(350) Error: Test error() call\nError(\"Test error() call\")@:0\n()@http://clutch.syger.it/projects/clutch/tests/all-tests.js:350\n(\"testError\")@http://clutch.syger.it/projects/clutch/src/unit-test.js:85\n()@http://clutch.syger.it/projects/clutch/src/unit-test.js:167\n()@http://clutch.syger.it/projects/clutch/src/unit-test.js:194\nstoreClutchTests(runClutchTests,\"/run-fixture/tests/clutch/all-tests.json\",\"/tests/clutch/view-all-tests.html\")@http://clutch.syger.it/clutch/js/saver.js:74\nonload([object Event])@http://clutch.syger.it/tests/clutch/run-all-tests.html:1\n@:0\n"
+								"message": "Error: Test error() call"
 							}
-						]
+						],
+						"func": "testError"
 					}
 				},
 				{
 					"name": "testAssert",
 					"summary": {
 						"tests": 1,
+						"logs": 0,
 						"failures": 0,
 						"errors": 0,
 						"time": 0,
-						"running": false,
+						"abend": null,
 						"messages": [
 							{
 								"type": "pass",
 								"message": ""
 							}
-						]
+						],
+						"func": "testAssert"
 					}
 				}
 			]
@@ -96,11 +128,12 @@
 		{
 			"name": "String Tests",
 			"summary": {
-				"tests": 25,
+				"tests": 18,
+				"logs": 0,
 				"failures": 0,
 				"errors": 0,
 				"time": 0,
-				"running": false,
+				"abend": null,
 				"messages": []
 			},
 			"tests": [
@@ -108,10 +141,11 @@
 					"name": "testTrim",
 					"summary": {
 						"tests": 2,
+						"logs": 0,
 						"failures": 0,
 						"errors": 0,
 						"time": 0,
-						"running": false,
+						"abend": null,
 						"messages": [
 							{
 								"type": "pass",
@@ -121,17 +155,19 @@
 								"type": "pass",
 								"message": ""
 							}
-						]
+						],
+						"func": "testTrim"
 					}
 				},
 				{
 					"name": "testStartsWith",
 					"summary": {
 						"tests": 4,
+						"logs": 0,
 						"failures": 0,
 						"errors": 0,
 						"time": 0,
-						"running": false,
+						"abend": null,
 						"messages": [
 							{
 								"type": "pass",
@@ -149,17 +185,19 @@
 								"type": "pass",
 								"message": ""
 							}
-						]
+						],
+						"func": "testStartsWith"
 					}
 				},
 				{
 					"name": "testEndsWith",
 					"summary": {
 						"tests": 4,
+						"logs": 0,
 						"failures": 0,
 						"errors": 0,
 						"time": 0,
-						"running": false,
+						"abend": null,
 						"messages": [
 							{
 								"type": "pass",
@@ -177,17 +215,19 @@
 								"type": "pass",
 								"message": ""
 							}
-						]
+						],
+						"func": "testEndsWith"
 					}
 				},
 				{
 					"name": "testJsonObject",
 					"summary": {
 						"tests": 4,
+						"logs": 0,
 						"failures": 0,
 						"errors": 0,
 						"time": 0,
-						"running": false,
+						"abend": null,
 						"messages": [
 							{
 								"type": "pass",
@@ -205,17 +245,19 @@
 								"type": "pass",
 								"message": ""
 							}
-						]
+						],
+						"func": "testJsonObject"
 					}
 				},
 				{
 					"name": "testJsonArray",
 					"summary": {
 						"tests": 4,
+						"logs": 0,
 						"failures": 0,
 						"errors": 0,
 						"time": 0,
-						"running": false,
+						"abend": null,
 						"messages": [
 							{
 								"type": "pass",
@@ -233,47 +275,8 @@
 								"type": "pass",
 								"message": ""
 							}
-						]
-					}
-				},
-				{
-					"name": "testMessagePack",
-					"summary": {
-						"tests": 7,
-						"failures": 0,
-						"errors": 0,
-						"time": 0,
-						"running": false,
-						"messages": [
-							{
-								"type": "pass",
-								"message": ""
-							},
-							{
-								"type": "pass",
-								"message": ""
-							},
-							{
-								"type": "pass",
-								"message": ""
-							},
-							{
-								"type": "pass",
-								"message": ""
-							},
-							{
-								"type": "pass",
-								"message": ""
-							},
-							{
-								"type": "pass",
-								"message": ""
-							},
-							{
-								"type": "pass",
-								"message": ""
-							}
-						]
+						],
+						"func": "testJsonArray"
 					}
 				}
 			]
