@@ -6,7 +6,7 @@
 /*global clutch, createStringTests, runClutchTests */
 
 function createStringTests() {
-    return clutch.unittest('String Tests', {
+    return clutch.test.unit('String Tests', {
 
         testTrim: function () {
             var cs = clutch.string;
@@ -82,26 +82,8 @@ function createStringTests() {
             this.assert(array[1] === arrayCopy[1], "clutch.string.to/fromJSON array boolean failed");
             this.assert(array[2] === arrayCopy[2], "clutch.string.to/fromJSON array numeric failed");
             this.assert(array[3].getTime() === arrayCopy[3].getTime(), "clutch.string.to/fromJSON array Date failed");
-        },
-
-        testMessagePack: function () {
-            var cs = clutch.string;
-            var message = cs.messagePack("hello");
-            this.assert(message === 'hello', "clutch.string.messagePack()#1 failed");
-            message = cs.messagePack("hello", "world");
-            this.assert(message === 'hello world', "clutch.string.messagePack()#2 failed");
-            message = cs.messagePack("hello", String("world"));
-            this.assert(message === 'hello world', "clutch.string.messagePack()#3 failed");
-            message = cs.messagePack("hello", 3);
-            this.assert(message === 'hello 3', "clutch.string.messagePack()#4 failed");
-            message = cs.messagePack("hello", true);
-            this.assert(message === 'hello true', "clutch.string.messagePack()#5 failed");
-            var ref = [ "world", 3, true ];
-            message = cs.messagePack("hello", ref);
-            this.assert(cs.startsWith(message, 'hello.json ['), "clutch.string.messagePack()#6 failed");
-            this.assert(cs.endsWith(message, 'true]'), "clutch.string.messagePack()#7 failed");
         }
-    });
+    }, 1000);
 }
 
 function runClutchTests() {

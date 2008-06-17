@@ -87,7 +87,6 @@ xXx
         <script src="/clutch/js/json2.js" type="text/javascript" charset="utf-8"></script>
         <script src="/clutch/js/xhr.js" type="text/javascript" charset="utf-8"></script>
         <script src="/clutch/js/saver.js" type="text/javascript" charset="utf-8"></script>
-        <script src="/projects/clutch/src/string.js" type="text/javascript" charset="utf-8"></script>
         <script src="/projects/clutch/src/unit-test.js" type="text/javascript" charset="utf-8"></script>
         <script src="/<%= to %>" type="text/javascript" charset="utf-8"></script>
     </head>

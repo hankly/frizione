@@ -8,8 +8,8 @@
 <%= include './string-tests.js', './unit-test-tests.js' %>
 
 function runClutchTests() {
-    return clutch.unittests([
-        createUnitTests(),
-        createStringTests()
-    ]);
+    return clutch.test.group([
+            createUnitTests(),
+            createStringTests()
+        ], 30000);
 }

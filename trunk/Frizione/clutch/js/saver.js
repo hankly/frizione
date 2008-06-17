@@ -59,6 +59,10 @@ clutch.date = {
 
 function storeClutchTests(testFunction, jsonUrl, viewUrl) {
 
+    jsonUrl = '/run-fixture' + jsonUrl;
+    var tests = testFunction();
+    var timerId = null;
+
     function handleRequest(status, statusText, responseText) {
         var element = document.getElementById('test-results');
         if (status >= 200 && status <= 299) {
@@ -69,9 +73,19 @@ function storeClutchTests(testFunction, jsonUrl, viewUrl) {
         }
     }
 
-    jsonUrl = '/run-fixture' + jsonUrl;
-    var tests = testFunction();
+    function checkTests() {
+        var element = document.getElementById('test-results');
+        var status = tests.check();
+        if (status.complete) {
+            window.clearTimeout(timerId);
+            element.innerHTML = "Unit tests completed...";
+            clutch.date.toClutchJSON();
+            clutch.executeRequest("POST", jsonUrl, null, JSON.stringify(tests.summarise(), null, "\t"), handleRequest);
+            return;
+        }
+        element.innerHTML = "" + status.index + " unit tests of " + status.total + " completed...";
+    }
+
+    timerId = window.setInterval(checkTests, 500);
     tests.run();
-    clutch.date.toClutchJSON();
-    clutch.executeRequest("POST", jsonUrl, null, JSON.stringify(tests.summary(), null, "\t"), handleRequest);
 }

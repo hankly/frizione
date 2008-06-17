@@ -1,22 +1,48 @@
 {
 	"name": "Assertion Tests",
 	"summary": {
-		"tests": 6,
+		"tests": 7,
+		"logs": 1,
 		"failures": 2,
 		"errors": 1,
 		"time": 0,
-		"running": false,
+		"abend": null,
 		"messages": []
 	},
 	"tests": [
 		{
-			"name": "testPass",
+			"name": "testLog",
 			"summary": {
-				"tests": 2,
+				"tests": 1,
+				"logs": 1,
 				"failures": 0,
 				"errors": 0,
 				"time": 0,
-				"running": false,
+				"abend": null,
+				"messages": [
+					{
+						"type": "log",
+						"message": "Test log message"
+					},
+					{
+						"type": "pass",
+						"message": ""
+					}
+				],
+				"func": "testLog",
+				"callBack": null,
+				"callBacks": null
+			}
+		},
+		{
+			"name": "testPass",
+			"summary": {
+				"tests": 2,
+				"logs": 0,
+				"failures": 0,
+				"errors": 0,
+				"time": 0,
+				"abend": null,
 				"messages": [
 					{
 						"type": "pass",
@@ -26,17 +52,21 @@
 						"type": "pass",
 						"message": ""
 					}
-				]
+				],
+				"func": "testPass",
+				"callBack": null,
+				"callBacks": null
 			}
 		},
 		{
 			"name": "testFail",
 			"summary": {
 				"tests": 2,
+				"logs": 0,
 				"failures": 2,
 				"errors": 0,
 				"time": 0,
-				"running": false,
+				"abend": null,
 				"messages": [
 					{
 						"type": "fail",
@@ -46,39 +76,50 @@
 						"type": "fail",
 						"message": "assert(false) guaranteed to fail"
 					}
-				]
+				],
+				"func": "testFail",
+				"callBack": null,
+				"callBacks": null
 			}
 		},
 		{
 			"name": "testError",
 			"summary": {
 				"tests": 1,
+				"logs": 0,
 				"failures": 0,
 				"errors": 1,
 				"time": 0,
-				"running": false,
+				"abend": null,
 				"messages": [
 					{
 						"type": "error",
-						"message": "http://clutch.syger.it/tests/clutch/unit-test-tests.js(234) Error: Test error() call\nError(\"Test error() call\")@:0\n()@http://clutch.syger.it/tests/clutch/unit-test-tests.js:234\n(\"testError\")@http://clutch.syger.it/projects/clutch/src/unit-test.js:85\n()@http://clutch.syger.it/projects/clutch/src/unit-test.js:167\nstoreClutchTests(runClutchTests,\"/run-fixture/tests/clutch/unit-test-tests.json\",\"/tests/clutch/view-unit-test-tests.html\")@http://clutch.syger.it/clutch/js/saver.js:74\nonload([object Event])@http://clutch.syger.it/tests/clutch/run-unit-test-tests.html:1\n@:0\n"
+						"message": "Error: Test error() call"
 					}
-				]
+				],
+				"func": "testError",
+				"callBack": null,
+				"callBacks": null
 			}
 		},
 		{
 			"name": "testAssert",
 			"summary": {
 				"tests": 1,
+				"logs": 0,
 				"failures": 0,
 				"errors": 0,
 				"time": 0,
-				"running": false,
+				"abend": null,
 				"messages": [
 					{
 						"type": "pass",
 						"message": ""
 					}
-				]
+				],
+				"func": "testAssert",
+				"callBack": null,
+				"callBacks": null
 			}
 		}
 	]

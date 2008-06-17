@@ -27,76 +27,67 @@ if (!this.clutch) {
     clutch = {};
 }
 
-clutch.testutils = {
+clutch.test  = {};
+clutch.test.utils = {
     createTotaliser: function () {
         return {
             tests: 0,
+            logs: 0,
             failures: 0,
             errors: 0,
             time: 0,
-            running: false,
+            abend: null,
             messages: []
         };
     },
 
-    clearTotaliser: function (totaliser) {
-        totaliser.tests = 0;
-        totaliser.failures = 0;
-        totaliser.errors = 0;
-        totaliser.time = 0;
-        totaliser.running = false;
-        totaliser.messages = [];
-    },
-
-    copyTotaliser: function (from, to) {
-        to.tests = from.tests;
-        to.failures = from.failures;
-        to.errors = from.errors;
-        to.time = from.time;
-        to.running = from.running;
-        to.messages = from.messages;
-    },
-
-    cloneTotaliser: function (totaliser) {
-        var clone = this.createTotaliser();
-        this.copyTotaliser(totaliser, clone);
-        return clone;
-    },
-
     sumTotaliser: function (from, to) {
         to.tests += from.tests;
+        to.logs += from.logs;
         to.failures += from.failures;
         to.errors += from.errors;
         to.time += from.time;
+    },
+
+    addTotaliserProperties: function (totaliser, name, testObject, func, callBack, callBacks) {
+        totaliser.name = name;
+        totaliser.testObject = testObject;
+        totaliser.func = func;
+        totaliser.callBack = callBack;
+        totaliser.callBacks = callBacks;
+    },
+
+    removeTotaliserProperties: function (totaliser) {
+        delete totaliser.name;
+        delete totaliser.testObject;
+        // delete totaliser.func;
+        delete totaliser.callBack;
+        delete totaliser.callBacks;
+    },
+
+    createProfile: function () {
+        return {
+            complete: false,
+            index: 0,
+            total: 0,
+            abend: null,
+            tests: []
+        }
     }
 };
 
-clutch.assertions = function () {
+clutch.test.assertions = function (totaliser) {
     var passMessage = { type: 'pass', message: '' };
-    var totaliser = clutch.testutils.createTotaliser();
 
     return {
-        run: function (name) {
-            var startAt = new Date().getTime();
-            try {
-                try {
-                    this.setUp();
-                    startAt = new Date().getTime();
-                    this[name]();
-                }
-                finally {
-                    totaliser.time += (new Date().getTime() - startAt);
-                    this.tearDown();
-                }
-            }
-            catch(e) {
-                this.error(e);
-            }
+        log: function (message) {
+            totaliser.logs += 1;
+            totaliser.messages.push({ type: 'log', message: message });
         },
 
-        pass: function (message) {
+        pass: function () {
             totaliser.tests += 1;
-            totaliser.messages.push(message ? { type: 'pass', message: message } : passMessage);
+            totaliser.messages.push(passMessage);
         },
 
         fail: function (message) {
@@ -128,21 +119,175 @@ clutch.assertions = function () {
             catch(e) {
                 this.error(e);
             }
-        },
-
-        summary: function () {
-            return totaliser;
         }
     };
 };
 
-clutch.unittest = function (name, testObject) {
-    var utils = clutch.testutils;
-    var results = [];
-    var accumulated = utils.createTotaliser();
+clutch.test.runner = function (profile, timeout) {
+    var timer = null;
+    var timerId = null;
+    var setTimeout = null;
+    var clearTimeout = null;
+
+    function abend(reason) {
+        if (timerId) {
+            clearTimeout(timerId);
+        }
+        reason = reason || "Terminated by User";
+        profile.abend = reason;
+        var i = profile.index;
+        var total = profile.total;
+        for (; i < total; i += 1) {
+            profile.tests[i].reason = reason;
+        }
+        profile.index = profile.total;
+        profile.complete = true;
+    }
+
+    function next() {
+        if (profile.index === profile.total) {
+            if (timerId) {
+                clearTimeout(timerId);
+            }
+            profile.complete = true;
+            var i = 0;
+            var total = profile.total;
+            var cleanUp = clutch.test.utils.removeTotaliserProperties
+            for (; i < total; i += 1) {
+                cleanUp(profile.tests[i]);
+            }
+            return;
+        }
+
+        var test = profile.tests[profile.index];
+        var testObject = test.testObject;
+        var assertions = clutch.test.assertions(test);
+        var prop = null;
+        for (prop in assertions) {
+            if (assertions.hasOwnProperty(prop)) {
+                testObject[prop] = assertions[prop];
+            }
+        }
+        if (test.callBacks) {
+
+        }
+        else {
+            var startAt = new Date().getTime();
+            try {
+                try {
+                    testObject.setUp();
+                    startAt = new Date().getTime();
+                    testObject[test.func]();
+                }
+                finally {
+                    test.time += (new Date().getTime() - startAt);
+                    testObject.tearDown();
+                }
+            }
+            catch(e) {
+                testObject.error(e);
+            }
+            profile.index += 1;
+            setTimeout(next, 0);
+        }
+    }
+
+    function timedOut() {
+        abend("Testing timeout (" + timeout + " ms) expired");
+    }
 
     return {
         run: function () {
+            profile.complete = false;
+            profile.index = 0;
+            profile.total = profile.tests.length;
+            try {
+                timer = google.gears.factory.create('beta.timer');
+                setTimeout = timer.setTimeout;
+                clearTimeout = timer.clearTimeout;
+            }
+            catch (e) {
+                setTimeout = window.setTimeout;
+                clearTimeout = window.clearTimeout;
+            }
+            if (timeout > 0) {
+                setTimeout(timedOut, timeout);
+            }
+            setTimeout(next, 0);
+        },
+
+        abort: function (reason) {
+            abend(reason);
+        },
+
+        check: function () {
+            return { complete: profile.complete, index: profile.index, total: profile.total };
+        }
+    };
+};
+
+clutch.test.unit = function (name, testObject, timeout) {
+    var utils = clutch.test.utils;
+    var profile = null;
+    var tests = [];
+    var runner = null;
+
+    return {
+        prepare: function (parentProfile) {
+            if (parentProfile) {
+                profile = parentProfile;
+            }
+            else {
+                profile = utils.createProfile();
+            }
+
+            var i = null;
+            var length = null;
+            var testArray = null;
+            var test = null;
+            var prop = null;
+            var totaliser = null;
+            if (testObject.clutchTests) {
+                testArray = testObject.clutchTests;
+                length = testArray.length;
+                for (i = 0; i < length; i += 1) {
+                    test = testArray[i];
+                    totaliser = utils.createTotaliser();
+                    totaliser.name = name;
+                    totaliser.testObject = testObject;
+                    totaliser.func = test['function'];
+                    totaliser.callBack = null;
+                    totaliser.callBacks = test['callBacks'];
+                    profile.tests.push(totaliser);
+                    tests.push(totaliser);
+                    if (totaliser.callBacks) {
+                        totaliser = utils.createTotaliser();
+                        totaliser.name = name;
+                        totaliser.testObject = testObject;
+                        totaliser.func = 'callback ' + test['function'];
+                        totaliser.callBack = null;
+                        totaliser.callBacks = null;
+                        profile.tests.push(totaliser);
+                        tests.push(totaliser);
+                    }
+                }
+            }
+            else {
+                for (prop in testObject) {
+                    if (testObject.hasOwnProperty(prop) &&
+                            typeof testObject[prop] === 'function' &&
+                            prop.indexOf("test") === 0) {
+                        totaliser = utils.createTotaliser();
+                        totaliser.name = name;
+                        totaliser.testObject = testObject;
+                        totaliser.func = prop;
+                        totaliser.callBack = null;
+                        totaliser.callBacks = null;
+                        profile.tests.push(totaliser);
+                        tests.push(totaliser);
+                    }
+                }
+            }
 
             if (!testObject.setUp) {
                 testObject.setUp = function () {};
@@ -150,58 +295,87 @@ clutch.unittest = function (name, testObject) {
             if (!testObject.tearDown) {
                 testObject.tearDown = function () {};
             }
-
-            var assertions = clutch.assertions();
-            var totaliser = assertions.summary();
-            var prop = null;
-            for (prop in assertions) {
-                if (assertions.hasOwnProperty(prop)) {
-                    testObject[prop] = assertions[prop];
-                }
-            }
-
-            for (prop in testObject) {
-                if (testObject.hasOwnProperty(prop)) {
-                    if (typeof testObject[prop] === 'function' && prop.indexOf("test") === 0) {
-                        utils.clearTotaliser(totaliser);
-                        testObject.run(prop);
-                        utils.sumTotaliser(totaliser, accumulated);
-                        results.push({ name: prop, summary: utils.cloneTotaliser(totaliser) });
-                    }
-                }
-            }
         },
 
-        summary: function () {
-            return { name: name, summary: accumulated, tests: results };
+        run : function () {
+            if (!profile) {
+                this.prepare();
+            }
+            runner = clutch.test.runner(profile, timeout);
+            runner.run();
+        },
+
+        abort: function () {
+            runner.abort();
+        },
+
+        check: function () {
+            return runner.check();
+        },
+
+        summarise: function () {
+            var results = [];
+            var total = utils.createTotaliser();
+            var length = tests.length;
+            var test = null;
+            var i = null;
+            for (i = 0; i < length; i += 1) {
+                test = tests[i];
+                utils.sumTotaliser(test, total);
+                results.push({ name: test.func, summary: test });
+            }
+            return { name: name, summary: total, tests: results };
         }
     };
 };
 
-clutch.unittests = function (arrayOfUnitTests) {
-    var utils = clutch.testutils;
-    var results = [];
-    var accumulated = utils.createTotaliser();
+clutch.test.group = function (arrayOfUnitTests, timeout) {
+    var utils = clutch.test.utils;
+    var profile = null;
+    var runner = null;
 
     return {
-        run: function () {
+        prepare: function () {
+            profile = utils.createProfile();
             var length = arrayOfUnitTests.length;
             var unitTest = null;
-            var unitTestSummary = null;
-
-            for (var i = 0; i < length; i += 1) {
+            var i = null;
+            for (i = 0; i < length; i += 1) {
                 unitTest = arrayOfUnitTests[i];
-                unitTest.run();
-                unitTestSummary = unitTest.summary();
-                results.push(unitTestSummary);
-                unitTestSummary = unitTestSummary.summary;
-                utils.sumTotaliser(unitTestSummary, accumulated);
+                unitTest.prepare(profile);
             }
         },
 
+        run: function () {
+            if (!profile) {
+                this.prepare();
+            }
+            runner = clutch.test.runner(profile, timeout);
+            runner.run();
+        },
 
-        summary: function () {
-            return { summary: accumulated, tests: results };
+        abort: function () {
+            runner.abort();
+        },
+
+        check: function () {
+            return runner.check();
+        },
+
+        summarise: function () {
+            var total = utils.createTotaliser();
+            var results = [];
+            var length = arrayOfUnitTests.length;
+            var unitTest = null;
+            var unitSummary = null;
+            var i = null;
+            for (i = 0; i < length; i += 1) {
+                unitTest = arrayOfUnitTests[i];
+                unitSummary = unitTest.summarise();
+                utils.sumTotaliser(unitSummary.summary, total);
+                results.push(unitSummary);
+            }
+            return { summary: total, tests: results };
         }
     };
 };
