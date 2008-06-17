@@ -1,0 +1,31 @@
+Change the directory layout to be:
+
+/Clutch
+    /Clutch             The Web Application
+        index.html      Clutch home page
+        /clutch         Clutch Infrastructure
+            /css        Clutch CSS files
+            /docs       Clutch Documentation
+            /images     Clutch Images
+            /js         Clutch JavaScript
+            /src        Clutch Library Sources
+        /fixtures
+            index.html  Clutch fixtures page (description)
+            /clutch     Clutch fixtures
+        /joins
+            index.html  Clutch joins page (description)
+            /clutch     Clutch join scripts
+        /jslint
+            index.html  Clutch JSLint page (description)
+            /clutch     Clutch JSLint pages
+        /tests
+            index.html  Clutch unit test page (description)
+            /clutch     Clutch Unit Tests
+    /Java               Java Libraries
+    /Ruby               Ruby web application
+readme.txt
+
+JSLint pages should read the code via XHR.
+You don't need a copy service.
+json_servlet becomes fixture_servlet and checks for extension, if none found
+    tries .json, then .xml, then .erb
