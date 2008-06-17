@@ -4,11 +4,6 @@
     <head>
         <title>Clutch Unit Test Page Creation</title>
         <link rel="stylesheet" href="/clutch/css/clutch.css" type="text/css" media="screen" charset="utf-8" />
-        <script src="/clutch/js/prototype/prototype.js" type="text/javascript" charset="utf-8"></script>
-        <script src="/clutch/js/projects.js" type="text/javascript" charset="utf-8"></script>
-        <script type="text/javascript">
-            clutch.retrieveAndDisplay('tests');
-        </script>
     </head>
     <body>
         <p class="MenuHeading">
@@ -18,11 +13,64 @@
             <a href="/tests">Unit Tests</a>&#160;
             <a href="/clutch/docs/Clutch.pdf">Documentation</a>
         </p>
-        
         <h1>Clutch Unit Test Page Creation</h1>
 
-        <p>Projects in Clutch's clutches:</p>
-        <p id="projects">Checking...</p>
+        <h2>All Tests</h2>
+        <ul>
+            <li>
+                <form style='display: inline;' action="/run-test/joins/clutch/all-tests.js" enctype="application/x-www-form-urlencoded" method="post">
+                    <input name="to" type="hidden" value="/tests/clutch/all-tests.js" />
+                    <input name="run" type="hidden" value="/tests/clutch/run-all-tests.html" />
+                    <input name="view" type="hidden" value="/tests/clutch/view-all-tests.html" />
+                    <input name="json" type="hidden" value="/tests/clutch/all-tests.json" />
+                    <input name="view-comment" type="hidden"
+                           value="There should be 2 Failures and 1 Error in these tests, &lt;code&gt;testFail&lt;/code&gt; produces the failures, and &lt;code&gt;testError&lt;/code&gt; produces the error." />
+                    <input type="submit" value="Create Test Pages '/clutch/all-tests' (Join)" />
+                </form>
+                then <a href="/tests/clutch/run-all-tests.html">run</a>
+                and <a href="/tests/clutch/view-all-tests.html">view</a> 'all-tests'
+            </li>
+            <li>
+                <form style='display: inline;' action="/run-test/tests/clutch/all-tests.js" enctype="application/x-www-form-urlencoded" method="post">
+                    <input name="run" type="hidden" value="/tests/clutch/run-all-tests.html" />
+                    <input name="view" type="hidden" value="/tests/clutch/view-all-tests.html" />
+                    <input name="json" type="hidden" value="/tests/clutch/all-tests.json" />
+                    <input name="view-comment" type="hidden"
+                           value="There should be 2 Failures and 1 Error in these tests, &lt;code&gt;testFail&lt;/code&gt; produces the failures, and &lt;code&gt;testError&lt;/code&gt; produces the error." />
+                    <input type="submit" value="Create Test Pages '/clutch/all-tests' (As is)" />
+                </form>
+                then <a href="/tests/clutch/run-all-tests.html">run</a>
+                and <a href="/tests/clutch/view-all-tests.html">view</a> 'all-tests'
+            </li>
+        </ul>
+
+        <h2>Low Level Tests</h2>
+        <ul>
+            <li>
+                <form style='display: inline;' action="/run-test/joins/clutch/string-tests.js" enctype="application/x-www-form-urlencoded" method="post">
+                    <input name="to" type="hidden" value="/tests/clutch/string-tests.js" />
+                    <input name="run" type="hidden" value="/tests/clutch/run-string-tests.html" />
+                    <input name="view" type="hidden" value="/tests/clutch/view-string-tests.html" />
+                    <input name="json" type="hidden" value="/tests/clutch/string-tests.json" />
+                    <input type="submit" value="Create Test Pages '/clutch/string-tests'" />
+                </form>
+                then <a href="/tests/clutch/run-string-tests.html">run</a>
+                and <a href="/tests/clutch/view-string-tests.html">view</a> 'string-tests'
+            </li>
+            <li>
+                <form style='display: inline;' action="/run-test/joins/clutch/unit-test-tests.js" enctype="application/x-www-form-urlencoded" method="post">
+                    <input name="to" type="hidden" value="/tests/clutch/unit-test-tests.js" />
+                    <input name="run" type="hidden" value="/tests/clutch/run-unit-test-tests.html" />
+                    <input name="view" type="hidden" value="/tests/clutch/view-unit-test-tests.html" />
+                    <input name="json" type="hidden" value="/tests/clutch/unit-test-tests.json" />
+                    <input name="view-comment" type="hidden"
+                           value="There should be 2 Failures and 1 Error in these tests, &lt;code&gt;testFail&lt;/code&gt; produces the failures, and &lt;code&gt;testError&lt;/code&gt; produces the error." />
+                    <input type="submit" value="Create Test Pages '/clutch/unit-test-tests'" />
+                </form>
+                then <a href="/tests/clutch/run-unit-test-tests.html">run</a>
+                and <a href="/tests/clutch/view-unit-test-tests.html">view</a> 'unit-test-tests'
+            </li>
+        </ul>
 
         <p>&#160;</p>
         <p class="MenuHeading">

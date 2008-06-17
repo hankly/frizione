@@ -70,7 +70,7 @@
 						"messages": [
 							{
 								"type": "error",
-								"message": "http://clutch.syger.it/projects/clutch/tests/all-tests.js(350) Error: Test error() call\nError(\"Test error() call\")@:0\n()@http://clutch.syger.it/projects/clutch/tests/all-tests.js:350\n(\"testError\")@http://clutch.syger.it/projects/clutch/src/unit-test.js:85\n()@http://clutch.syger.it/projects/clutch/src/unit-test.js:167\n()@http://clutch.syger.it/projects/clutch/src/unit-test.js:194\nstoreClutchTests(runClutchTests,\"/run-fixture/tests/clutch/all-tests.json\",\"/tests/clutch/view-all-tests.html\")@http://clutch.syger.it/clutch/js/saver.js:74\nonload([object Event])@http://clutch.syger.it/tests/clutch/run-all-tests.html:1\n@:0\n"
+								"message": "http://clutch.syger.it/tests/clutch/all-tests.js(314) Error: Test error() call\nError(\"Test error() call\")@:0\n()@http://clutch.syger.it/tests/clutch/all-tests.js:314\n(\"testError\")@http://clutch.syger.it/clutch/src/unit-test.js:67\n()@http://clutch.syger.it/clutch/src/unit-test.js:149\n()@http://clutch.syger.it/clutch/src/unit-test.js:176\nstoreClutchTests(runClutchTests,\"/run-fixture/tests/clutch/all-tests.json\",\"/tests/clutch/view-all-tests.html\")@http://clutch.syger.it/clutch/js/browser-saver.js:23\nonload([object Event])@http://clutch.syger.it/tests/clutch/run-all-tests.html:1\n@:0\n"
 							}
 						]
 					}

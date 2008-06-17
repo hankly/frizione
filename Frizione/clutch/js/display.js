@@ -1,33 +1,35 @@
 /*
-Copyright (c) 2008 John Leach
 
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in
-all copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-THE SOFTWARE.
 */
 
 /*jslint evil: true */
-/*global Ajax, Builder, $ */
-/*members Request, bottom, class, errors, evalJSON, failures, getTime,
-    insert, length, message, messages, method, name, nocache, node, observe,
-    onFailure, onSuccess, parameters, push, responseText, summary, tests,
-    time, toFixed, toString, type */
+/*global clutch, Ajax, Builder, $ */
+/*members Request, bottom, class, clutch, displayTestResults, errors,
+    evalJSON, failures, insert, length, message, messages, method, name,
+    node, observe, onFailure, onSuccess, push, responseText,
+    retrieveAndDisplay, summary, tests, time, toFixed, toString, type */
 
-function displayTestResults(summary) {
+if (!this.clutch) {
+    clutch = {};
+}
+
+clutch.retrieveAndDisplay = function (url) {
+
+    document.observe('dom:loaded', function() {
+        var request = new Ajax.Request(url, {
+            method: 'get',
+            onSuccess: function (transport) {
+                var result = transport.responseText.evalJSON(true);
+                clutch.displayTestResults(result);
+            },
+            onFailure: function () {
+                alert("Failed to retrieve the unit test results.");
+            }
+        });
+    });
+};
+
+clutch.displayTestResults = function (summary) {
 
     function buildErrorReport(name, rows, attrs, type, tests) {
         var testsLength = tests.length;
@@ -224,21 +226,4 @@ function displayTestResults(summary) {
     else {
         displayUnitTests(summary, root, true);
     }
-}
-
-function retrieveAndDisplay(url) {
-
-    document.observe('dom:loaded', function() {
-        var request = new Ajax.Request(url, {
-            method: 'get',
-            parameters: { nocache: new Date().getTime() },
-            onSuccess: function (transport) {
-                var result = transport.responseText.evalJSON(true);
-                displayTestResults(result);
-            },
-            onFailure: function () {
-                alert("Failed to retrieve the unit test results.");
-            }
-        });
-    });
-}
+};
