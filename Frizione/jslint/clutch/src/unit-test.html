@@ -1,55 +1,3 @@
-# User: john.leach
-
-require 'create_dirs'
-require 'erb'
-require 'webrick'
-
-include WEBrick
-
-class JSLintServlet < HTTPServlet::AbstractServlet
-
-    include CreateDirs
-
-    def initialize(server, *options)
-        super(server, options)
-        @html = ERB.new <<-xXx
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns='http://www.w3.org/1999/xhtml'>
-    <head>
-        <meta http-equiv="Content-Type" content='text/html; charset=UTF-8' />
-        <link rel="stylesheet" href="/clutch/css/clutch.css" type="text/css" media="screen" charset="utf-8" />
-        <title>JSLint Results</title>
-    </head>
-    <body>
-        <p class="MenuHeading">
-            <a href="/">Home</a>&#160;
-            <a href="/jslint">JSLint</a>&#160;
-            <a href="/joins">Join/Compress</a>&#160;
-            <a href="/tests">Unit Tests</a>&#160;
-            <a href="/clutch/docs/Clutch.pdf">Documentation</a>
-        </p>
-
-        <h1>JSLint Results</h1>
-        <% if (error) %>
-        <p>Error: <%= error %></p>
-        <% else %>
-        <p>JSLint Test: <a href='<%= '/' + test_html %>'><%= url %> page</a></p>
-        <% end %>
-
-        <p>&#160;</p>
-        <p class="MenuHeading">
-            <a href="/">Home</a>&#160;
-            <a href="/jslint">JSLint</a>&#160;
-            <a href="/joins">Join/Compress</a>&#160;
-            <a href="/tests">Unit Tests</a>&#160;
-            <a href="/clutch/docs/Clutch.pdf">Documentation</a>
-        </p>
-    </body>
-</html>
-xXx
-
-        @jslint = ERB.new <<-xXx
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns='http://www.w3.org/1999/xhtml'>
@@ -58,15 +6,14 @@ xXx
         <link rel="stylesheet" href="/clutch/css/jslint.css" type="text/css" media="screen" charset="utf-8" />
         <script src="/clutch/js/xhr.js" type="text/javascript" charset="utf-8"></script>
         <script src="/clutch/js/jslint-loader.js" type="text/javascript" charset="utf-8"></script>
-        <title>JSLint: The JavaScript Verifier: '<%= url %>'</title>
+        <title>JSLint: The JavaScript Verifier: '/clutch/src/unit-test.js'</title>
     </head>
-    <body onload="loadJSLintCode('<%= url %>');">
+    <body onload="loadJSLintCode('/clutch/src/unit-test.js');">
         <p class="MenuHeading">
             <a href="/">Home</a>&#160;
             <a href="/jslint">JSLint</a>&#160;
             <a href="/joins">Join/Compress</a>&#160;
-            <a href="/tests">Unit Tests</a>&#160;
-            <a href="/clutch/docs/Clutch.pdf">Documentation</a>
+            <a href="/tests">Unit Tests</a>
         </p>
 
         <table style="width: 100%">
@@ -78,7 +25,7 @@ xXx
                     <td valign="middle" align="left">
                         <h1>
                             <a href="http://www.jslint.com">JSLint</a>:
-                            The <a href="http://javascript.crockford.com/">JavaScript</a> Verifier: '<%= url %>'
+                            The <a href="http://javascript.crockford.com/">JavaScript</a> Verifier: '/clutch/src/unit-test.js'
                         </h1>
                         <p>
                             <a href="#options">Options</a>,
@@ -194,39 +141,9 @@ xXx
             <a href="/">Home</a>&#160;
             <a href="/jslint">JSLint</a>&#160;
             <a href="/joins">Join/Compress</a>&#160;
-            <a href="/tests">Unit Tests</a>&#160;
-            <a href="/clutch/docs/Clutch.pdf">Documentation</a>
+            <a href="/tests">Unit Tests</a>
         </p>
-        <script src="/clutch/js/json2.js" type="text/javascript" charset="utf-8"></script>
+        <script src="/clutch/js/json/json2.js" type="text/javascript" charset="utf-8"></script>
         <script src="/clutch/js/jslint/webjslint.js" type="text/javascript" charset="utf-8"></script>
     </body>
 </html>
-xXx
-    end
-
-    def do_POST(request, response)
-        url = request.path_info
-        @logger.info "run-jslint URL: #{url}"
-        source = url
-        source = source[1..-1] if source[0...1] == '/'
-        source_path, source_file = File.split(source)
-        source_ext = File.extname(source)
-        html_file = source_file[0 .. -(source_ext.length + 1)] + '.html'
-        source_filepath = File.expand_path(source, ClutchServer::ROOT)
-        if (!File.exists?(source_filepath))
-            error = "#{url} doesn't exist!"
-        else
-            test_html = 'jslint/' + source_path + (source_path.length > 0 ? '/' : '') + html_file
-
-            html_path = File.expand_path(test_html, ClutchServer::ROOT)
-            create_dirs(html_path)
-            File.delete(html_path) if File.exists?(html_path)
-            File.open(html_path, "w") { |file|
-                file << @jslint.result(binding)
-            }
-        end
-        response.content_type = 'text/html'
-        response.body = @html.result(binding)
-    end
-
-end
