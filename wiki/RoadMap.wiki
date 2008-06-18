@@ -1,0 +1,14 @@
+#summary Where the project is going.
+#labels Phase-Design
+
+= The Frizione Road Map =
+
+Frizione is still in its infancy. Until it reaches the ultimate open source project stability goal (that is to say version 1.0), it will probably duck and weave around numerous problems, possibly finding solutions, and most likely making breaking changes with respect to previous versions.
+
+Currently I'm working on reaching version 0.2, which has asynchronous unit testing, and a separate {{{/projects}}} folder for your own code. Both of these changes will unfortunately break code based on the previous (0.1.1) version. I don't like breaking code, because I probably have more code reliant on Frizione than anyone, so I'm also upsetting myself.
+
+The advantages are that I can now unit test XHR calls (and callbacks), and the clutch library has been moved into the {{{/projects/clutch}}} folder - so it's eating its own dog food.
+
+The unit testing framework code has grown alarmingly, I wouldn't mind if a few kind eyes take a look and suggest improvements, especially if it reduces the amount of code.
+
+The next step is to start developing the Gears project that I had to put on a back burner to develop Frizione. As the Gears project evolves, I will make 'battle hardening' modifications to Frizione.
