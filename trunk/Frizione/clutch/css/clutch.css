@@ -86,6 +86,9 @@ p.test {
 	text-align: left;
 	color: #3084cc;
 }
+p.errors {
+    color: #ff0000;
+}
 
 table.test {
     width: 100%;

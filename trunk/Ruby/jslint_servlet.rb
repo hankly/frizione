@@ -54,7 +54,7 @@ class JSLintServlet < HTTPServlet::AbstractServlet
         <% if (error) %>
         <p>Error: <%= error %></p>
         <% else %>
-        <p>JSLint Test: <a href='<%= '/' + test_html %>'><%= url %> page</a></p>
+        <p>JSLint Test: <a href='<%= '/' + html_path %>'><%= url %> page</a></p>
         <% end %>
 
         <p>&#160;</p>
@@ -226,22 +226,27 @@ xXx
 
     def do_POST(request, response)
         url = request.path_info
-        @logger.info "run-jslint URL: #{url}"
         source = url
         source = source[1..-1] if source[0...1] == '/'
+        to = request.query['to']
         source_path, source_file = File.split(source)
-        source_ext = File.extname(source)
-        html_file = source_file[0 .. -(source_ext.length + 1)] + '.html'
+        html_path = nil
+        if (to)
+            html_path = to[0...1] == '/' ? to[1..-1] : to
+            @logger.info "run-jslint URL: #{url} to: #{html_path}"
+        else
+            @logger.info "run-jslint URL: #{url}"
+        end
         source_filepath = File.expand_path(source, ClutchServer::ROOT)
         if (!File.exists?(source_filepath))
-            error = "#{url} doesn't exist!"
+            error = "run-jslint: #{url} doesn't exist"
+        elsif (!to)
+            error = "run-jslint: no 'to' parameter specified"
         else
-            test_html = 'jslint/' + source_path + (source_path.length > 0 ? '/' : '') + html_file
-
-            html_path = File.expand_path(test_html, ClutchServer::ROOT)
-            create_dirs(html_path)
-            File.delete(html_path) if File.exists?(html_path)
-            File.open(html_path, "w") { |file|
+            html_filepath = File.expand_path(html_path, ClutchServer::ROOT)
+            create_dirs(html_filepath)
+            File.delete(html_filepath) if File.exists?(html_filepath)
+            File.open(html_filepath, "w") { |file|
                 file << @jslint.result(binding)
             }
         end

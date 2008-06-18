@@ -20,5 +20,4 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 */
 
-<%= include '../src/string.js',
-            '../src/tests/string-tests.js' %>
+<%= include '../src/string.js', '../src/tests/string-tests.js' %>

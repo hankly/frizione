@@ -21,10 +21,7 @@ THE SOFTWARE.
 */
 
 /*jslint evil: true */
-/*global clutch, Ajax */
-/*members Request, clutch, each, evalJSON, getElementById, getTime,
-    innerHTML, method, name, nocache, observe, onFailure, onSuccess,
-    parameters, responseText, retrieveAndDisplay, toString */
+/*global clutch, Ajax, $ */
 
 if (!this.clutch) {
     clutch = {};

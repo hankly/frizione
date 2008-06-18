@@ -22,7 +22,6 @@ THE SOFTWARE.
 
 /*jslint evil: true */
 /*global clutch */
-/*members executeRequest, getElementById, getTime, nocache, value */
 
 function loadJSLintCode(url) {
     function handleRequest(status, statusText, responseText) {

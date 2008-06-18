@@ -126,7 +126,7 @@ xXx
         if (!File.exists?(original_filepath))
             @error = "run-compressor: #{request.path_info} doesn't exist"
         elsif (output.nil?)
-            @error = "run-compressor: no output parameter specified"
+            @error = "run-compressor: no 'output' parameter specified"
         elsif (output)
             output_filepath = File.expand_path(output, ClutchServer::ROOT)
             if (original_filepath == output_filepath)

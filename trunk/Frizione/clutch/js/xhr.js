@@ -27,9 +27,6 @@ See http://groups.google.com/group/gears-users/browse_thread/thread/62a021c62828
 
 /*jslint evil: true */
 /*global clutch, ActiveXObject */
-/*members clutch, executeRequest, hasOwnProperty, length,
-    onreadystatechange, open, readyState, responseText, send,
-    setRequestHeader, status, statusText */
 
 if (!this.clutch) {
     clutch = {};

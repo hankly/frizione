@@ -22,10 +22,6 @@ THE SOFTWARE.
 
 /*jslint evil: true */
 /*global clutch, storeClutchTests, ActiveXObject */
-/*members clutch, date, executeRequest, getElementById, getUTCDate,
-    getUTCFullYear, getUTCHours, getUTCMilliseconds, getUTCMinutes,
-    getUTCMonth, getUTCSeconds, innerHTML, prototype, run, stringify,
-    summary, toClutchJSON, toJSON */
 
 if (!this.clutch) {
     clutch = {};

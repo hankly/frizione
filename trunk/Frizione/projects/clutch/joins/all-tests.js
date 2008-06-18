@@ -20,5 +20,5 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 */
 
-<%= include '../src/string.js',
+<%= include '../src/string.js', '../src/gears/xhr.js',
             '../src/tests/all-tests.js' %>
