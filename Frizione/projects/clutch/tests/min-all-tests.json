@@ -1,32 +1,59 @@
 {
+	"abend": null,
 	"summary": {
-		"tests": 31,
+		"tests": 25,
+		"logs": 1,
 		"failures": 2,
 		"errors": 1,
-		"time": 32,
-		"running": false,
+		"time": 0,
+		"abend": null,
 		"messages": []
 	},
 	"tests": [
 		{
 			"name": "Assertion Tests",
+			"abend": null,
 			"summary": {
-				"tests": 6,
+				"tests": 7,
+				"logs": 1,
 				"failures": 2,
 				"errors": 1,
 				"time": 0,
-				"running": false,
+				"abend": null,
 				"messages": []
 			},
 			"tests": [
 				{
-					"name": "testPass",
+					"name": "logTest",
 					"summary": {
-						"tests": 2,
+						"tests": 1,
+						"logs": 1,
 						"failures": 0,
 						"errors": 0,
 						"time": 0,
-						"running": false,
+						"abend": null,
+						"messages": [
+							{
+								"type": "log",
+								"message": "Test log message"
+							},
+							{
+								"type": "pass",
+								"message": ""
+							}
+						],
+						"func": "logTest"
+					}
+				},
+				{
+					"name": "passTest",
+					"summary": {
+						"tests": 2,
+						"logs": 0,
+						"failures": 0,
+						"errors": 0,
+						"time": 0,
+						"abend": null,
 						"messages": [
 							{
 								"type": "pass",
@@ -36,17 +63,19 @@
 								"type": "pass",
 								"message": ""
 							}
-						]
+						],
+						"func": "passTest"
 					}
 				},
 				{
-					"name": "testFail",
+					"name": "failTest",
 					"summary": {
 						"tests": 2,
+						"logs": 0,
 						"failures": 2,
 						"errors": 0,
 						"time": 0,
-						"running": false,
+						"abend": null,
 						"messages": [
 							{
 								"type": "fail",
@@ -56,51 +85,58 @@
 								"type": "fail",
 								"message": "assert(false) guaranteed to fail"
 							}
-						]
+						],
+						"func": "failTest"
 					}
 				},
 				{
-					"name": "testError",
+					"name": "errorTest",
 					"summary": {
 						"tests": 1,
+						"logs": 0,
 						"failures": 0,
 						"errors": 1,
 						"time": 0,
-						"running": false,
+						"abend": null,
 						"messages": [
 							{
 								"type": "error",
 								"message": "Error: Test error() call"
 							}
-						]
+						],
+						"func": "errorTest"
 					}
 				},
 				{
-					"name": "testAssert",
+					"name": "assertTest",
 					"summary": {
 						"tests": 1,
+						"logs": 0,
 						"failures": 0,
 						"errors": 0,
 						"time": 0,
-						"running": false,
+						"abend": null,
 						"messages": [
 							{
 								"type": "pass",
 								"message": ""
 							}
-						]
+						],
+						"func": "assertTest"
 					}
 				}
 			]
 		},
 		{
 			"name": "String Tests",
+			"abend": null,
 			"summary": {
-				"tests": 25,
+				"tests": 18,
+				"logs": 0,
 				"failures": 0,
 				"errors": 0,
-				"time": 32,
-				"running": false,
+				"time": 0,
+				"abend": null,
 				"messages": []
 			},
 			"tests": [
@@ -108,10 +144,11 @@
 					"name": "testTrim",
 					"summary": {
 						"tests": 2,
+						"logs": 0,
 						"failures": 0,
 						"errors": 0,
 						"time": 0,
-						"running": false,
+						"abend": null,
 						"messages": [
 							{
 								"type": "pass",
@@ -121,17 +158,19 @@
 								"type": "pass",
 								"message": ""
 							}
-						]
+						],
+						"func": "testTrim"
 					}
 				},
 				{
 					"name": "testStartsWith",
 					"summary": {
 						"tests": 4,
+						"logs": 0,
 						"failures": 0,
 						"errors": 0,
 						"time": 0,
-						"running": false,
+						"abend": null,
 						"messages": [
 							{
 								"type": "pass",
@@ -149,17 +188,19 @@
 								"type": "pass",
 								"message": ""
 							}
-						]
+						],
+						"func": "testStartsWith"
 					}
 				},
 				{
 					"name": "testEndsWith",
 					"summary": {
 						"tests": 4,
+						"logs": 0,
 						"failures": 0,
 						"errors": 0,
 						"time": 0,
-						"running": false,
+						"abend": null,
 						"messages": [
 							{
 								"type": "pass",
@@ -177,17 +218,19 @@
 								"type": "pass",
 								"message": ""
 							}
-						]
+						],
+						"func": "testEndsWith"
 					}
 				},
 				{
 					"name": "testJsonObject",
 					"summary": {
 						"tests": 4,
+						"logs": 0,
 						"failures": 0,
 						"errors": 0,
-						"time": 16,
-						"running": false,
+						"time": 0,
+						"abend": null,
 						"messages": [
 							{
 								"type": "pass",
@@ -205,45 +248,19 @@
 								"type": "pass",
 								"message": ""
 							}
-						]
+						],
+						"func": "testJsonObject"
 					}
 				},
 				{
 					"name": "testJsonArray",
 					"summary": {
 						"tests": 4,
-						"failures": 0,
-						"errors": 0,
-						"time": 16,
-						"running": false,
-						"messages": [
-							{
-								"type": "pass",
-								"message": ""
-							},
-							{
-								"type": "pass",
-								"message": ""
-							},
-							{
-								"type": "pass",
-								"message": ""
-							},
-							{
-								"type": "pass",
-								"message": ""
-							}
-						]
-					}
-				},
-				{
-					"name": "testMessagePack",
-					"summary": {
-						"tests": 7,
+						"logs": 0,
 						"failures": 0,
 						"errors": 0,
 						"time": 0,
-						"running": false,
+						"abend": null,
 						"messages": [
 							{
 								"type": "pass",
@@ -260,20 +277,9 @@
 							{
 								"type": "pass",
 								"message": ""
-							},
-							{
-								"type": "pass",
-								"message": ""
-							},
-							{
-								"type": "pass",
-								"message": ""
-							},
-							{
-								"type": "pass",
-								"message": ""
 							}
-						]
+						],
+						"func": "testJsonArray"
 					}
 				}
 			]

@@ -22,10 +22,6 @@ THE SOFTWARE.
 
 /*jslint evil: true */
 /*global Ajax, Builder, $ */
-/*members Request, bottom, class, errors, evalJSON, failures, getTime,
-    insert, length, message, messages, method, name, nocache, node, observe,
-    onFailure, onSuccess, parameters, push, responseText, summary, tests,
-    time, toFixed, toString, type */
 
 function displayTestResults(summary) {
 
@@ -103,9 +99,15 @@ function displayTestResults(summary) {
     }
 
     function displaySummary(summary, root) {
-        var rate = summary.tests ? (100 * (summary.tests - summary.failures - summary.errors)) / summary.tests : 0.0;
+        var attrs = { 'class': 'test summary errors' };
+        if (summary.abend) {
+            root.insert({ bottom: Builder.node('p', attrs, 'Testing terminated abnormally: ' + summary.abend) });
+        }
+
+        summary = summary.summary;
+        attrs = { 'class': 'test summary' };
         var noAttrs = {};
-        var attrs = { 'class': 'test summary' };
+        var rate = summary.tests ? (100 * (summary.tests - summary.failures - summary.errors)) / summary.tests : 0.0;
         var headers = ["Tests", "Failures", "Errors", "Success Rate", "Time (ms)"];
         var info = [
             summary.tests.toString(), summary.failures.toString(), summary.errors.toString(),
@@ -121,11 +123,11 @@ function displayTestResults(summary) {
     }
 
     function displayUnitTest(summary, root, showSummary) {
-        var totaliser = summary.summary;
         if (showSummary) {
-            displaySummary(totaliser, root);
+            displaySummary(summary, root);
         }
 
+        var totaliser = summary.summary;
         var name = summary.name;
         var noAttrs = {};
         var attrs = { 'class': 'test unit' };
@@ -173,11 +175,11 @@ function displayTestResults(summary) {
     }
 
     function displayUnitGroup(summary, root, showSummary) {
-        var totaliser = summary.summary;
         if (showSummary) {
-            displaySummary(totaliser, root);
+            displaySummary(summary, root);
         }
 
+        var totaliser = summary.summary;
         var attrs = { 'class': 'test unit' };
         var noAttrs = {};
         var headers = [ "Unit Test Name", "Tests", "Failures", "Errors", "Success Rate", "Time (ms)" ];

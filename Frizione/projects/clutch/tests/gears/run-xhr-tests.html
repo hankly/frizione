@@ -2,16 +2,15 @@
     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
     <head>
-        <title>Clutch View Test 'tests/clutch/all-tests.js'</title>
+        <title>Clutch Run Test: 'projects/clutch/tests/gears/xhr-tests.js'</title>
         <link rel="stylesheet" href="/clutch/css/clutch.css" type="text/css" media="screen" charset="utf-8" />
-        <script src="/clutch/js/prototype/prototype.js" type="text/javascript" charset="utf-8"></script>
-        <script src="/clutch/js/prototype/builder.js" type="text/javascript" charset="utf-8"></script>
-        <script src="/clutch/js/display.js" type="text/javascript" charset="utf-8"></script>
-        <script type="text/javascript">
-            retrieveAndDisplay('/tests/clutch/all-tests.json');
-        </script>
+        <script src="/clutch/js/json2.js" type="text/javascript" charset="utf-8"></script>
+        <script src="/clutch/js/xhr.js" type="text/javascript" charset="utf-8"></script>
+        <script src="/clutch/js/saver.js" type="text/javascript" charset="utf-8"></script>
+        <script src="/projects/clutch/src/unit-test.js" type="text/javascript" charset="utf-8"></script>
+        <script src="/projects/clutch/tests/gears/xhr-tests.js" type="text/javascript" charset="utf-8"></script>
     </head>
-    <body>
+    <body onload="storeClutchTests(runClutchTests, '/projects/clutch/tests/gears/xhr-tests.json', '/projects/clutch/tests/gears/view-xhr-tests.html');">
         <p class="MenuHeading">
             <a href="/">Home</a>&#160;
             <a href="/jslint">JSLint</a>&#160;
@@ -20,11 +19,9 @@
             <a href="/clutch/docs/Clutch.pdf">Documentation</a>
         </p>
 
-        <h1>Clutch View Test 'tests/clutch/all-tests.js'</h1>
+        <h1>Clutch Run Test: 'projects/clutch/tests/gears/xhr-tests.js'</h1>
         
-        <p>There should be 2 Failures and 1 Error in these tests, <code>testFail</code> produces the failures, and <code>testError</code> produces the error.</p>
-        
-        <div id="test-results"></div>
+        <div id="test-results">Running...</div>
 
         <p>&#160;</p>
         <p class="MenuHeading">

@@ -20,21 +20,4 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 */
 
-/*jslint evil: true */
-/*global clutch, google */
-
-if (!this.clutch) {
-    clutch = {};
-}
-
-/* Browser sniffing
- * Modified version of the Prototype library sniffer code */
-
-clutch.browser =  {
-  IE:           window && (!!(window.attachEvent && !window.opera)),
-  Opera:        window && !!window.opera,
-  WebKit:       navigator && navigator.userAgent.indexOf('AppleWebKit/') > -1,
-  Gecko:        navigator && navigator.userAgent.indexOf('Gecko') > -1 && navigator.userAgent.indexOf('KHTML') === -1,
-  MobileSafari: navigator && !!navigator.userAgent.match(/Apple.*Mobile.*Safari/),
-  Gears:        google && !!google.gears
-};
+<%= include '../../src/gears/xhr.js', '../../src/tests/gears/xhr-tests.js' %>

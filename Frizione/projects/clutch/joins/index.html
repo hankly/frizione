@@ -183,6 +183,24 @@
                     <input type="submit" value="JSMin 'unit-test-tests'" />
                 </form>
             </li>
+            <li>
+                First:
+                <form style='display: inline;' action="/run-join/projects/clutch/joins/gears/xhr-tests.js" enctype="application/x-www-form-urlencoded" method="post">
+                    <input name="to" type="hidden" value="/projects/clutch/tests/gears/xhr-tests.js" />
+                    <input type="submit" value="Join 'gears/xhr-tests'" />
+                </form>
+                then:
+                <form style='display: inline;' action="/run-compressor/projects/clutch/tests/gears/xhr-tests.js" enctype="application/x-www-form-urlencoded" method="post">
+                    <input name="jsmin" type="hidden" value="false" />
+                    <input name="output" type="hidden" value="/projects/clutch/tests/gears/min-xhr-tests.js" />
+                    <input type="submit" value="Compress 'gears/xhr-tests'" />
+                </form>
+                or
+                <form style='display: inline;' action="/run-compressor/projects/clutch/tests/gears/xhr-tests.js" enctype="application/x-www-form-urlencoded" method="post">
+                    <input name="output" type="hidden" value="/projects/clutch/tests/gears/min-xhr-tests.js" />
+                    <input type="submit" value="JSMin 'gears/xhr-tests'" />
+                </form>
+            </li>
         </ul>
 
         <p>&#160;</p>

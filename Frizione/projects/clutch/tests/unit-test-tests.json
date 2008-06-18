@@ -1,5 +1,6 @@
 {
 	"name": "Assertion Tests",
+	"abend": null,
 	"summary": {
 		"tests": 7,
 		"logs": 1,
@@ -11,7 +12,7 @@
 	},
 	"tests": [
 		{
-			"name": "testLog",
+			"name": "logTest",
 			"summary": {
 				"tests": 1,
 				"logs": 1,
@@ -23,19 +24,14 @@
 					{
 						"type": "log",
 						"message": "Test log message"
-					},
-					{
-						"type": "pass",
-						"message": ""
 					}
 				],
-				"func": "testLog",
-				"callBack": null,
-				"callBacks": null
+				"func": "logTest",
+				"callback": null
 			}
 		},
 		{
-			"name": "testPass",
+			"name": "passTest",
 			"summary": {
 				"tests": 2,
 				"logs": 0,
@@ -43,23 +39,13 @@
 				"errors": 0,
 				"time": 0,
 				"abend": null,
-				"messages": [
-					{
-						"type": "pass",
-						"message": ""
-					},
-					{
-						"type": "pass",
-						"message": ""
-					}
-				],
-				"func": "testPass",
-				"callBack": null,
-				"callBacks": null
+				"messages": [],
+				"func": "passTest",
+				"callback": null
 			}
 		},
 		{
-			"name": "testFail",
+			"name": "failTest",
 			"summary": {
 				"tests": 2,
 				"logs": 0,
@@ -77,13 +63,12 @@
 						"message": "assert(false) guaranteed to fail"
 					}
 				],
-				"func": "testFail",
-				"callBack": null,
-				"callBacks": null
+				"func": "failTest",
+				"callback": null
 			}
 		},
 		{
-			"name": "testError",
+			"name": "errorTest",
 			"summary": {
 				"tests": 1,
 				"logs": 0,
@@ -97,13 +82,12 @@
 						"message": "Error: Test error() call"
 					}
 				],
-				"func": "testError",
-				"callBack": null,
-				"callBacks": null
+				"func": "errorTest",
+				"callback": null
 			}
 		},
 		{
-			"name": "testAssert",
+			"name": "assertTest",
 			"summary": {
 				"tests": 1,
 				"logs": 0,
@@ -111,15 +95,9 @@
 				"errors": 0,
 				"time": 0,
 				"abend": null,
-				"messages": [
-					{
-						"type": "pass",
-						"message": ""
-					}
-				],
-				"func": "testAssert",
-				"callBack": null,
-				"callBacks": null
+				"messages": [],
+				"func": "assertTest",
+				"callback": null
 			}
 		}
 	]

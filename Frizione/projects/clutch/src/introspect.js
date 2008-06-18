@@ -27,7 +27,6 @@ See http://www.syger.it/Tutorials/JavaScriptIntrospector.html
 
 /*jslint evil: true */
 /*global clutch */
-/*members clutch, introspect, join, typeOf*/
 
 if (!this.clutch) {
     clutch = {};

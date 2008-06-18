@@ -21,16 +21,19 @@ THE SOFTWARE.
 */
 
 /*jslint evil: true */
-/*global clutch */
+/*global clutch, google */
 
 if (!this.clutch) {
     clutch = {};
 }
 
 clutch.test  = {};
+
 clutch.test.utils = {
+
     createTotaliser: function () {
         return {
+            complete: false,
             tests: 0,
             logs: 0,
             failures: 0,
@@ -49,20 +52,21 @@ clutch.test.utils = {
         to.time += from.time;
     },
 
-    addTotaliserProperties: function (totaliser, name, testObject, func, callBack, callBacks) {
+    addTotaliserProperties: function (totaliser, name, testObject, func, callback, callbacks) {
         totaliser.name = name;
         totaliser.testObject = testObject;
         totaliser.func = func;
-        totaliser.callBack = callBack;
-        totaliser.callBacks = callBacks;
+        totaliser.callback = callback;
+        totaliser.callbacks = callbacks;
     },
 
     removeTotaliserProperties: function (totaliser) {
+        delete totaliser.complete;
         delete totaliser.name;
         delete totaliser.testObject;
         // delete totaliser.func;
-        delete totaliser.callBack;
-        delete totaliser.callBacks;
+        // delete totaliser.callback;
+        delete totaliser.callbacks;
     },
 
     createProfile: function () {
@@ -72,14 +76,14 @@ clutch.test.utils = {
             total: 0,
             abend: null,
             tests: []
-        }
+        };
     }
 };
 
 clutch.test.assertions = function (totaliser) {
-    var passMessage = { type: 'pass', message: '' };
 
     return {
+
         log: function (message) {
             totaliser.logs += 1;
             totaliser.messages.push({ type: 'log', message: message });
@@ -87,7 +91,6 @@ clutch.test.assertions = function (totaliser) {
 
         pass: function () {
             totaliser.tests += 1;
-            totaliser.messages.push(passMessage);
         },
 
         fail: function (message) {
@@ -100,8 +103,11 @@ clutch.test.assertions = function (totaliser) {
             totaliser.tests += 1;
             totaliser.errors += 1;
             var message = error.name + ': ' + error.message;
-            if (error.fileName) {
+            if (error.fileName && error.lineNumber && error.stack) {
                 message = error.fileName + '(' + error.lineNumber + ') ' + message + '\n' + error.stack;
+            }
+            else if (error.fileName && error.lineNumber) {
+                message = error.fileName + '(' + error.lineNumber + ') ' + message;
             }
             totaliser.messages.push({ type: "error", message: message });
         },
@@ -128,67 +134,181 @@ clutch.test.runner = function (profile, timeout) {
     var timerId = null;
     var setTimeout = null;
     var clearTimeout = null;
+    var functionAssertions = null;
+    var callbackAssertions = null;
+    var callbacks = null;
+
+    function cleanUp() {
+        var i = 0;
+        var total = profile.total;
+        var removeProps = clutch.test.utils.removeTotaliserProperties;
+        for (; i < total; i += 1) {
+            removeProps(profile.tests[i]);
+        }
+    }
 
     function abend(reason) {
         if (timerId) {
             clearTimeout(timerId);
         }
+
         reason = reason || "Terminated by User";
         profile.abend = reason;
         var i = profile.index;
         var total = profile.total;
         for (; i < total; i += 1) {
-            profile.tests[i].reason = reason;
+            profile.tests[i].abend = reason;
         }
+
+        cleanUp();
         profile.index = profile.total;
         profile.complete = true;
     }
 
+    function wrapCallback(testObject, callbackFunc, func, cbIndex, index) {
+
+        return function () {
+
+            var prop = null;
+            for (prop in callbackAssertions) {
+                if (callbackAssertions.hasOwnProperty(prop)) {
+                    testObject[prop] = callbackAssertions[prop];
+                }
+            }
+
+            var test = profile.tests[index];
+            test.func = callbackFunc + " <- " + func;
+            test.callback = callbackFunc;
+
+            var startAt = new Date().getTime();
+            try {
+                try {
+                    startAt = new Date().getTime();
+                    callbacks[cbIndex].apply(testObject, arguments);
+                }
+                finally {
+                    test.time += (new Date().getTime() - startAt);
+                }
+            }
+            catch(e) {
+                testObject.error(e);
+                testObject.tearDown();
+             }
+
+            for (prop in functionAssertions) {
+                if (functionAssertions.hasOwnProperty(prop)) {
+                    testObject[prop] = functionAssertions[prop];
+                }
+            }
+            test = profile.tests[index];
+            test.complete = true;
+        };
+    }
+
+    function testFunctionAndCallbacks(test, next) {
+        var testObject = test.testObject;
+        var callback = null;
+        var length = test.callbacks.length;
+        var i = 0;
+        var index = profile.index + 1;
+        callbackAssertions = clutch.test.assertions(profile.tests[index]);
+        callbacks = [];
+        for (; i < length; i += 1) {
+            callback = test.callbacks[i];
+            callbacks.push(testObject[callback]);
+            testObject[callback] = wrapCallback(testObject, callback, test.func, i, index);
+        }
+
+        function waitForCallback() {
+
+            if (profile.complete) {
+                return;
+            }
+
+            var testFunction = profile.tests[profile.index];
+            var testCallback = profile.tests[profile.index + 1];
+            if (testCallback.complete) {
+                var testObject = testFunction.testObject;
+                var length = testFunction.callbacks.length;
+                var i = 0;
+                for (; i < length; i += 1) {
+                    testObject[testFunction.callbacks[i]] = callbacks[i];
+                }
+                testObject.tearDown();
+
+                profile.index += 2;
+                setTimeout(next, 0);
+            }
+            setTimeout(waitForCallback, 50);
+        }
+
+        var startAt = new Date().getTime();
+        try {
+            try {
+                testObject.setUp();
+                startAt = new Date().getTime();
+                testObject[test.func]();
+            }
+            finally {
+                test.time += (new Date().getTime() - startAt);
+            }
+        }
+        catch(e1) {
+            testObject.error(e1);
+            testObject.tearDown();
+        }
+
+        setTimeout(waitForCallback, 50);
+    }
+
+    function testFunction(test, next) {
+        var testObject = test.testObject;
+        var startAt = new Date().getTime();
+
+        try {
+            try {
+                testObject.setUp();
+                startAt = new Date().getTime();
+                testObject[test.func]();
+            }
+            finally {
+                test.time += (new Date().getTime() - startAt);
+                testObject.tearDown();
+            }
+        }
+        catch(e2) {
+            testObject.error(e2);
+        }
+
+        profile.index += 1;
+        setTimeout(next, 0);
+    }
+
     function next() {
-        if (profile.index === profile.total) {
+        if (profile.index >= profile.total) {
             if (timerId) {
                 clearTimeout(timerId);
             }
+            cleanUp();
             profile.complete = true;
-            var i = 0;
-            var total = profile.total;
-            var cleanUp = clutch.test.utils.removeTotaliserProperties
-            for (; i < total; i += 1) {
-                cleanUp(profile.tests[i]);
-            }
             return;
         }
 
         var test = profile.tests[profile.index];
         var testObject = test.testObject;
-        var assertions = clutch.test.assertions(test);
         var prop = null;
-        for (prop in assertions) {
-            if (assertions.hasOwnProperty(prop)) {
-                testObject[prop] = assertions[prop];
+        functionAssertions = clutch.test.assertions(test);
+        for (prop in functionAssertions) {
+            if (functionAssertions.hasOwnProperty(prop)) {
+                testObject[prop] = functionAssertions[prop];
             }
         }
-        if (test.callBacks) {
 
+        if (test.callbacks) {
+            testFunctionAndCallbacks(test, next);
         }
         else {
-            var startAt = new Date().getTime();
-            try {
-                try {
-                    testObject.setUp();
-                    startAt = new Date().getTime();
-                    testObject[test.func]();
-                }
-                finally {
-                    test.time += (new Date().getTime() - startAt);
-                    testObject.tearDown();
-                }
-            }
-            catch(e) {
-                testObject.error(e);
-            }
-            profile.index += 1;
-            setTimeout(next, 0);
+            testFunction(test, next);
         }
     }
 
@@ -221,7 +341,7 @@ clutch.test.runner = function (profile, timeout) {
         },
 
         check: function () {
-            return { complete: profile.complete, index: profile.index, total: profile.total };
+            return { complete: profile.complete, abend: profile.abend, index: profile.index, total: profile.total };
         }
     };
 };
@@ -233,6 +353,7 @@ clutch.test.unit = function (name, testObject, timeout) {
     var runner = null;
 
     return {
+
         prepare: function (parentProfile) {
             if (parentProfile) {
                 profile = parentProfile;
@@ -253,20 +374,13 @@ clutch.test.unit = function (name, testObject, timeout) {
                 for (i = 0; i < length; i += 1) {
                     test = testArray[i];
                     totaliser = utils.createTotaliser();
-                    totaliser.name = name;
-                    totaliser.testObject = testObject;
-                    totaliser.func = test['function'];
-                    totaliser.callBack = null;
-                    totaliser.callBacks = test['callBacks'];
+                    utils.addTotaliserProperties(totaliser, name, testObject, test.func, null, test.callbacks);
                     profile.tests.push(totaliser);
                     tests.push(totaliser);
-                    if (totaliser.callBacks) {
+
+                    if (totaliser.callbacks) {
                         totaliser = utils.createTotaliser();
-                        totaliser.name = name;
-                        totaliser.testObject = testObject;
-                        totaliser.func = 'callback ' + test['function'];
-                        totaliser.callBack = null;
-                        totaliser.callBacks = null;
+                        utils.addTotaliserProperties(totaliser, name, testObject, 'callback <- ' + test.func, null, null);
                         profile.tests.push(totaliser);
                         tests.push(totaliser);
                     }
@@ -278,11 +392,7 @@ clutch.test.unit = function (name, testObject, timeout) {
                             typeof testObject[prop] === 'function' &&
                             prop.indexOf("test") === 0) {
                         totaliser = utils.createTotaliser();
-                        totaliser.name = name;
-                        totaliser.testObject = testObject;
-                        totaliser.func = prop;
-                        totaliser.callBack = null;
-                        totaliser.callBacks = null;
+                        utils.addTotaliserProperties(totaliser, name, testObject, prop, null, null);
                         profile.tests.push(totaliser);
                         tests.push(totaliser);
                     }
@@ -324,7 +434,8 @@ clutch.test.unit = function (name, testObject, timeout) {
                 utils.sumTotaliser(test, total);
                 results.push({ name: test.func, summary: test });
             }
-            return { name: name, summary: total, tests: results };
+            utils.removeTotaliserProperties(total);
+            return { name: name, abend: profile.abend, summary: total, tests: results };
         }
     };
 };
@@ -335,6 +446,7 @@ clutch.test.group = function (arrayOfUnitTests, timeout) {
     var runner = null;
 
     return {
+
         prepare: function () {
             profile = utils.createProfile();
             var length = arrayOfUnitTests.length;
@@ -375,7 +487,8 @@ clutch.test.group = function (arrayOfUnitTests, timeout) {
                 utils.sumTotaliser(unitSummary.summary, total);
                 results.push(unitSummary);
             }
-            return { summary: total, tests: results };
+            utils.removeTotaliserProperties(total);
+            return { abend: profile.abend, summary: total, tests: results };
         }
     };
 };

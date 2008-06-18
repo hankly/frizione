@@ -2,15 +2,16 @@
     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
     <head>
-        <title>Clutch Run Test: 'tests/clutch/string-tests.js'</title>
+        <title>Clutch View Test 'projects/clutch/tests/gears/xhr-tests.js'</title>
         <link rel="stylesheet" href="/clutch/css/clutch.css" type="text/css" media="screen" charset="utf-8" />
-        <script src="/clutch/js/json2.js" type="text/javascript" charset="utf-8"></script>
-        <script src="/clutch/js/xhr.js" type="text/javascript" charset="utf-8"></script>
-        <script src="/clutch/js/saver.js" type="text/javascript" charset="utf-8"></script>
-        <script src="/projects/clutch/src/unit-test.js" type="text/javascript" charset="utf-8"></script>
-        <script src="/tests/clutch/string-tests.js" type="text/javascript" charset="utf-8"></script>
+        <script src="/clutch/js/prototype/prototype.js" type="text/javascript" charset="utf-8"></script>
+        <script src="/clutch/js/prototype/builder.js" type="text/javascript" charset="utf-8"></script>
+        <script src="/clutch/js/display.js" type="text/javascript" charset="utf-8"></script>
+        <script type="text/javascript">
+            retrieveAndDisplay('/projects/clutch/tests/gears/xhr-tests.json');
+        </script>
     </head>
-    <body onload="storeClutchTests(runClutchTests, '/tests/clutch/string-tests.json', '/tests/clutch/view-string-tests.html');">
+    <body>
         <p class="MenuHeading">
             <a href="/">Home</a>&#160;
             <a href="/jslint">JSLint</a>&#160;
@@ -19,9 +20,9 @@
             <a href="/clutch/docs/Clutch.pdf">Documentation</a>
         </p>
 
-        <h1>Clutch Run Test: 'tests/clutch/string-tests.js'</h1>
+        <h1>Clutch View Test 'projects/clutch/tests/gears/xhr-tests.js'</h1>
         
-        <div id="test-results">Running...</div>
+        <div id="test-results"></div>
 
         <p>&#160;</p>
         <p class="MenuHeading">

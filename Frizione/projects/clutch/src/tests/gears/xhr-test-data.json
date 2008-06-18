@@ -1,0 +1,7 @@
+[
+    { "name": "test", "value": true },
+    1.234,
+    "String value",
+    false,
+    null
+]

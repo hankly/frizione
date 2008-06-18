@@ -89,7 +89,7 @@ clutch.executeRequest = function (method, url, optionalParams, optionalBody, han
                 request.abort();
                 request = null;
             }
-            handler();
+            handler(-1, "Timeout", "Timeout");
         }, REQUEST_TIMEOUT_MS);
     var n;
     var qmark = "?";
@@ -152,6 +152,7 @@ clutch.executeRequest = function (method, url, optionalParams, optionalBody, han
                 request = null;
                 clutch.clearTimeout(timerId);
             }
+            handler(-1, "Aborted", "Aborted");
         };
     }
     catch(e) {
