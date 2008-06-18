@@ -1,4 +1,4 @@
-#summary Where the project is going.
+#summary Where the project is going, uhm, possibly.
 #labels Phase-Design
 
 = The Frizione Road Map =
