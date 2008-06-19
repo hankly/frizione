@@ -1,0 +1,104 @@
+{
+	"name": "Assertion Tests",
+	"abend": null,
+	"summary": {
+		"tests": 7,
+		"logs": 1,
+		"failures": 2,
+		"errors": 1,
+		"time": 0,
+		"abend": null,
+		"messages": []
+	},
+	"tests": [
+		{
+			"name": "logTest",
+			"summary": {
+				"tests": 1,
+				"logs": 1,
+				"failures": 0,
+				"errors": 0,
+				"time": 0,
+				"abend": null,
+				"messages": [
+					{
+						"type": "log",
+						"message": "Test log message"
+					}
+				],
+				"func": "logTest",
+				"callback": null
+			}
+		},
+		{
+			"name": "passTest",
+			"summary": {
+				"tests": 2,
+				"logs": 0,
+				"failures": 0,
+				"errors": 0,
+				"time": 0,
+				"abend": null,
+				"messages": [],
+				"func": "passTest",
+				"callback": null
+			}
+		},
+		{
+			"name": "failTest",
+			"summary": {
+				"tests": 2,
+				"logs": 0,
+				"failures": 2,
+				"errors": 0,
+				"time": 0,
+				"abend": null,
+				"messages": [
+					{
+						"type": "fail",
+						"message": "Test fail() call"
+					},
+					{
+						"type": "fail",
+						"message": "assert(false) guaranteed to fail"
+					}
+				],
+				"func": "failTest",
+				"callback": null
+			}
+		},
+		{
+			"name": "errorTest",
+			"summary": {
+				"tests": 1,
+				"logs": 0,
+				"failures": 0,
+				"errors": 1,
+				"time": 0,
+				"abend": null,
+				"messages": [
+					{
+						"type": "error",
+						"message": "Error: Test error() call"
+					}
+				],
+				"func": "errorTest",
+				"callback": null
+			}
+		},
+		{
+			"name": "assertTest",
+			"summary": {
+				"tests": 1,
+				"logs": 0,
+				"failures": 0,
+				"errors": 0,
+				"time": 0,
+				"abend": null,
+				"messages": [],
+				"func": "assertTest",
+				"callback": null
+			}
+		}
+	]
+}
