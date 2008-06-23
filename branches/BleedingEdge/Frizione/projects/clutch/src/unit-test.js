@@ -27,8 +27,19 @@ if (!this.clutch) {
     clutch = {};
 }
 
+// I know, I know - yet another unit testing framework. Well, the world is large, so there's always space for one more.
+// Did I know about JSUnit (http://www.jsunit.net/), yes I did.
+// Did I know about RhinoUnit (http://code.google.com/p/rhinounit/), yes I did.
+// Did I know about Dojo Doh (http://dojotoolkit.org/book/dojo-book-0-9/part-4-meta-dojo/d-o-h-unit-testing), yes I did.
+// Did I know about Prototype testing (http://www.prototypejs.org/ it's in the svn repository), yes I did.
+// Did I know about testcase (http://rubyforge.org/projects/testcase/), oops, no - damn.
+// And I still did my own. There's tenacity for you. Ok, maybe not tenacity...
+
+// But why? I mean I really don't like writing reams of code.
+
 clutch.test  = {};
 
+// Set of utility functions for the unit test report information.
 clutch.test.utils = {
 
     createTotaliser: function () {
@@ -80,6 +91,11 @@ clutch.test.utils = {
     }
 };
 
+/**
+ * The testing assertions. These functions are injected into the test object.
+ *
+ * @param totaliser the unit test totaliser (report).
+ */
 clutch.test.assertions = function (totaliser) {
 
     return {
@@ -129,6 +145,14 @@ clutch.test.assertions = function (totaliser) {
     };
 };
 
+/**
+ * This monster runs the unit tests. Since introducing asynchronous unit testing this piece of code has
+ * growth exponentially. I'd really like to get it back down to a humane size, before it implodes under
+ * its own weight.
+ *
+ * @param profile the testing report.
+ * @param timeout the maximum tine in milliseconds for all tests to be executed.
+ */
 clutch.test.runner = function (profile, timeout) {
     var timer = null;
     var timerId = null;
@@ -165,18 +189,21 @@ clutch.test.runner = function (profile, timeout) {
         profile.complete = true;
     }
 
+    function injectAssertions(testObject, assertions) {
+        var prop = null;
+        for (prop in assertions) {
+            if (assertions.hasOwnProperty(prop)) {
+                testObject[prop] = assertions[prop];
+            }
+        }
+    }
+
     function wrapCallback(testObject, callbackFunc, func, cbIndex, index) {
 
         return function () {
 
-            var prop = null;
-            for (prop in callbackAssertions) {
-                if (callbackAssertions.hasOwnProperty(prop)) {
-                    testObject[prop] = callbackAssertions[prop];
-                }
-            }
-
             var test = profile.tests[index];
+            injectAssertions(testObject, callbackAssertions);
             test.func = callbackFunc + " <- " + func;
             test.callback = callbackFunc;
 
@@ -195,12 +222,7 @@ clutch.test.runner = function (profile, timeout) {
                 testObject.tearDown();
              }
 
-            for (prop in functionAssertions) {
-                if (functionAssertions.hasOwnProperty(prop)) {
-                    testObject[prop] = functionAssertions[prop];
-                }
-            }
-            test = profile.tests[index];
+            injectAssertions(testObject, functionAssertions);
             test.complete = true;
         };
     }
@@ -239,7 +261,9 @@ clutch.test.runner = function (profile, timeout) {
                 profile.index += 2;
                 setTimeout(next, 0);
             }
-            setTimeout(waitForCallback, 50);
+            else {
+                setTimeout(waitForCallback, 100);
+            }
         }
 
         var startAt = new Date().getTime();
@@ -258,7 +282,7 @@ clutch.test.runner = function (profile, timeout) {
             testObject.tearDown();
         }
 
-        setTimeout(waitForCallback, 50);
+        setTimeout(waitForCallback, 100);
     }
 
     function testFunction(test, next) {
@@ -296,13 +320,8 @@ clutch.test.runner = function (profile, timeout) {
 
         var test = profile.tests[profile.index];
         var testObject = test.testObject;
-        var prop = null;
         functionAssertions = clutch.test.assertions(test);
-        for (prop in functionAssertions) {
-            if (functionAssertions.hasOwnProperty(prop)) {
-                testObject[prop] = functionAssertions[prop];
-            }
-        }
+        injectAssertions(testObject, functionAssertions);
 
         if (test.callbacks) {
             testFunctionAndCallbacks(test, next);
@@ -321,6 +340,7 @@ clutch.test.runner = function (profile, timeout) {
             profile.complete = false;
             profile.index = 0;
             profile.total = profile.tests.length;
+
             try {
                 timer = google.gears.factory.create('beta.timer');
                 setTimeout = timer.setTimeout;
@@ -330,6 +350,7 @@ clutch.test.runner = function (profile, timeout) {
                 setTimeout = window.setTimeout;
                 clearTimeout = window.clearTimeout;
             }
+
             if (timeout > 0) {
                 setTimeout(timedOut, timeout);
             }
@@ -346,6 +367,12 @@ clutch.test.runner = function (profile, timeout) {
     };
 };
 
+/**
+ * Creates a unit test.
+ * @param name the unit test name.
+ * @param testObject the test object.
+ * @param timeout the maximum time in milliseconds for all the tests to be executed.
+ */
 clutch.test.unit = function (name, testObject, timeout) {
     var utils = clutch.test.utils;
     var profile = null;
@@ -440,6 +467,11 @@ clutch.test.unit = function (name, testObject, timeout) {
     };
 };
 
+/**
+ * Creates a group of unit tests.
+ * @param arrayOfUnitTests the unit test array.
+ * @param timeout the maximum time in milliseconds for all unit tests to be executed.
+ */
 clutch.test.group = function (arrayOfUnitTests, timeout) {
     var utils = clutch.test.utils;
     var profile = null;

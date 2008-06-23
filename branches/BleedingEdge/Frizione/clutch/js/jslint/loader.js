@@ -23,6 +23,13 @@ THE SOFTWARE.
 /*jslint evil: true */
 /*global clutch */
 
+/**
+ * Loads the JavaScript source code file into the generated JSLint page.
+ * If you make changes to the JavaScript source file (yours, not this one)
+ * remember to refresh the page.
+ *
+ * @param url the absolute URL to the JavaScript source code file.
+ */
 function loadJSLintCode(url) {
     function handleRequest(status, statusText, responseText) {
         var input = document.getElementById('input');

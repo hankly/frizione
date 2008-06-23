@@ -20,4 +20,4 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 */
 
-<%= include '../../src/gears/xhr.js', '../../src/tests/gears/xhr-tests.js' %>
+<%= include '../../src/gears/gears.js', '../../src/gears/xhr.js', '../../src/tests/gears/xhr-tests.js' %>

@@ -27,6 +27,7 @@ if (!this.clutch) {
     clutch = {};
 }
 
+// Nasty piece of cut and paste - well almost. Just in case I add a timestamp to the unit test results.
 clutch.date = {
     toClutchJSON: function () {
         function tens(n) {
@@ -53,6 +54,13 @@ clutch.date = {
     }
 };
 
+/**
+ * Store the unit test results (JSON format) to disk, with the help of the server.
+ *
+ * @param testFunction the test function to actually produce the report.
+ * @param jsonUrl the absolute URL where the report will be stored.
+ * @param viewUrl the absolute URL of the report viewer HTML page.
+ */
 function storeClutchTests(testFunction, jsonUrl, viewUrl) {
 
     jsonUrl = '/run-fixture' + jsonUrl;

@@ -49,6 +49,9 @@ if (!this.clutch) {
     clutch = {};
 }
 
+// Since JSON has no date format, everyone has invented their own. So why not me?
+// Provides patches for JSON and Prototype, but please don't use them both together, they
+// really don't get on at all.
 clutch.date = {
     toStandardJSON: function () {
         function tens(n) {
@@ -130,6 +133,7 @@ clutch.date = {
     }
 };
 
+// The usual, boring string functions that the implementers forgot.
 clutch.string = {
     trim: function (string) {
         return string.replace(/^[\s\u00a0]+/, '').replace(/[\s\u00a0]+$/, '');
@@ -145,7 +149,7 @@ clutch.string = {
     },
 
     toJSON: function (object) {
-        // Prototype
+        // Check for Prototype
         if (Object.toJSON && typeof Object.toJSON === 'function') {
             return Object.toJSON(object);
         }
@@ -155,11 +159,12 @@ clutch.string = {
     },
 
     fromJSON: function (string) {
-        // Prototype
+        // Check for Prototype
         if (String.prototype.evalJSON && typeof String.prototype.evalJSON === 'function') {
             return string.evalJSON(true);
         }
         else {
+            // string RegExps used to keep Opera happy, but made me miserable
             var microsoftDate = new RegExp("^\\\\\\/Date\\((\\d+)\\)\\\\\\/$", "gm");
             var clutchDate = new RegExp("^\\\\\\/Date\\((\\d{4})-(\\d{2})-(\\d{2})T(\\d{2}):(\\d{2}):(\\d{2})(\\.\\d+)?Z\\)\\\\\\/$", "gm");
 
@@ -206,21 +211,84 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 */
 
+/*jslint evil: true */
+/*global clutch, google */
+
+// Just wrapper code, so that if 'beta.xxx' becomes 'gamma.xxx', or the namespace changes (is that really likely?)
+// I won't have to hunt around in a lot of JavaScript files...
+
+if (!this.clutch) {
+    clutch = {};
+}
+
+clutch.gearsFactory = function () {
+    return google.gears.factory;
+};
+
+clutch.createGearsDatabase = function () {
+    return google.gears.factory.create('beta.database');
+};
+
+clutch.createGearsDesktop = function () {
+    return google.gears.factory.create('beta.desktop');
+};
+
+clutch.createGearsHttpRequest = function () {
+    return google.gears.factory.create('beta.httprequest');
+};
+
+clutch.createGearsLocalServer = function () {
+    return google.gears.factory.create('beta.localserver');
+};
+
+clutch.createGearsTimer = function () {
+    return google.gears.factory.create('beta.timer');
+};
+
+clutch.createGearsWorkerPool = function () {
+    return google.gears.factory.create('beta.workerpool');
+};
+/*
+Copyright (c) 2008 John Leach
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in
+all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+THE SOFTWARE.
+*/
+
 /*
 Inspired by Aaron Boodman's Worker2 micro project
 See http://groups.google.com/group/gears-users/browse_thread/thread/62a021c62828b8e4/67f494497639b641
 */
 
 /*jslint evil: true */
-/*global clutch, google, ActiveXObject */
+/*global clutch, ActiveXObject */
 
 if (!this.clutch) {
     clutch = {};
 }
 
+/**
+ * Create an object that will do XHR for us. Could be a Gears HttpRequest object, XMLHttpRequest object,
+ * or one of those ActiveXObject thingies. Anyway, the result is an object that does XHR. Or null, which won't - sigh.
+ */
 clutch.createRequest = function () {
     try {
-        return google.gears.factory.create('beta.httprequest');
+        return clutch.createGearsHttpRequest();
     }
     catch (e) {
         try {
@@ -243,10 +311,11 @@ clutch.createRequest = function () {
     return null;
 };
 
+// Grab a timer. Could be a Gears timer or a window timer. Either way, we get a timer.
 (function () {
     var clutchTimer = null;
     try {
-        clutchTimer = google.gears.factory.create('beta.timer');
+        clutchTimer = clutch.createGearsTimer();
         clutch.setTimeout = function (code, millis) {
             return clutchTimer.setTimeout(code, millis);
         };
@@ -264,6 +333,15 @@ clutch.createRequest = function () {
     }
 })();
 
+/**
+ * Performs an XHR.
+ *
+ * @param method can be "GET", possibly "POST".
+ * @param url the absolute URL to get or post to.
+ * @param optionalParams optional parameters, do your own value encoding though
+ * @param optionalBody damn useful for posts
+ * @param handler who to call when things go right, or wrong.
+ */
 clutch.executeRequest = function (method, url, optionalParams, optionalBody, handler) {
     var REQUEST_TIMEOUT_MS = 5000; // 5 seconds
 

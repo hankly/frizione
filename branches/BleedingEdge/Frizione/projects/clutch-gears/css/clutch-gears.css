@@ -20,5 +20,17 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 */
 
-<%= include '../src/string.js', '../src/gears/gears.js', '../src/gears/xhr.js',
-            '../src/tests/all-tests.js' %>
+a.button {
+    border: 1px solid #007f08;
+    padding: 0.2em;
+    margin: 0.1em;
+    background-color: #d8e8d8;
+    font-family: Verdana;
+    font-size: 12pt;
+    text-decoration: none;
+}
+
+a.button:hover {
+    background-color: #e8f8e8;
+}
+

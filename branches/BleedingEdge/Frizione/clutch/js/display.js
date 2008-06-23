@@ -23,6 +23,11 @@ THE SOFTWARE.
 /*jslint evil: true */
 /*global Ajax, Builder, $ */
 
+/**
+ * This monstrous piece of code produces the unit test report.
+ *
+ * @param summary the unit test results.
+ */
 function displayTestResults(summary) {
 
     function buildErrorReport(name, rows, attrs, type, tests) {
@@ -231,6 +236,7 @@ function displayTestResults(summary) {
         }
     }
 
+    // clutch.test.group don't have a name, clutch.test.unit do...
     var root = $('test-results');
     if (summary.name) {
         displayUnitTest(summary, root, true);
@@ -240,6 +246,11 @@ function displayTestResults(summary) {
     }
 }
 
+/**
+ * Gets the unit test results (JSON format) and displays them in a hopefully useful manner.
+ *
+ * @param url the absolute URL of the unit test results file.
+ */
 function retrieveAndDisplay(url) {
 
     document.observe('dom:loaded', function() {
