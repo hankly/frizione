@@ -5,7 +5,7 @@
 		"logs": 1,
 		"failures": 2,
 		"errors": 1,
-		"time": 0,
+		"time": 28,
 		"abend": null,
 		"messages": []
 	},
@@ -91,7 +91,7 @@
 						"messages": [
 							{
 								"type": "error",
-								"message": "Error: Test error() call"
+								"message": "http://clutch.syger.it/projects/clutch/tests/all-tests.js(622) Error: Test error() call\nError(\"Test error() call\")@:0\n()@http://clutch.syger.it/projects/clutch/tests/all-tests.js:622\ntestFunction([object Object],next)@http://clutch.syger.it/projects/clutch/src/unit-test.js:294\nnext(-10)@http://clutch.syger.it/projects/clutch/src/unit-test.js:328\n"
 							}
 						],
 						"func": "errorTest",
@@ -122,7 +122,7 @@
 				"logs": 0,
 				"failures": 0,
 				"errors": 0,
-				"time": 0,
+				"time": 3,
 				"abend": null,
 				"messages": []
 			},
@@ -134,7 +134,7 @@
 						"logs": 0,
 						"failures": 0,
 						"errors": 0,
-						"time": 0,
+						"time": 1,
 						"abend": null,
 						"messages": [],
 						"func": "testTrim",
@@ -176,7 +176,7 @@
 						"logs": 0,
 						"failures": 0,
 						"errors": 0,
-						"time": 0,
+						"time": 1,
 						"abend": null,
 						"messages": [],
 						"func": "testJsonObject",
@@ -190,7 +190,7 @@
 						"logs": 0,
 						"failures": 0,
 						"errors": 0,
-						"time": 0,
+						"time": 1,
 						"abend": null,
 						"messages": [],
 						"func": "testJsonArray",
@@ -207,7 +207,7 @@
 				"logs": 0,
 				"failures": 0,
 				"errors": 0,
-				"time": 0,
+				"time": 25,
 				"abend": null,
 				"messages": []
 			},
@@ -219,7 +219,7 @@
 						"logs": 0,
 						"failures": 0,
 						"errors": 0,
-						"time": 0,
+						"time": 9,
 						"abend": null,
 						"messages": [],
 						"func": "validUrl",
@@ -247,7 +247,7 @@
 						"logs": 0,
 						"failures": 0,
 						"errors": 0,
-						"time": 0,
+						"time": 8,
 						"abend": null,
 						"messages": [],
 						"func": "invalidUrl",
@@ -275,7 +275,7 @@
 						"logs": 0,
 						"failures": 0,
 						"errors": 0,
-						"time": 0,
+						"time": 8,
 						"abend": null,
 						"messages": [],
 						"func": "abortedRequest",

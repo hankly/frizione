@@ -32,6 +32,15 @@ if (!this.clutch) {
     clutch = {};
 }
 
+/**
+ * A reduced version of /gears/xhr.js, but without gears. Performs an XHR.
+ *
+ * @param method can be "GET", possibly "POST".
+ * @param url the absolute URL to get or post to.
+ * @param optionalParams optional parameters, do your own value encoding though
+ * @param optionalBody damn useful for posts
+ * @param handler who to call when things go right, or wrong.
+ */
 clutch.executeRequest = function (method, url, optionalParams, optionalBody, handler) {
     var REQUEST_TIMEOUT_MS = 5000; // 5 seconds
 

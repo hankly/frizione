@@ -23,17 +23,46 @@ THE SOFTWARE.
 /*jslint evil: true */
 /*global clutch, google */
 
+// Just wrapper code, so that if 'beta.xxx' becomes 'gamma.xxx', or the namespace changes (is that really likely?)
+// I won't have to hunt around in a lot of JavaScript files...
+
 if (!this.clutch) {
     clutch = {};
 }
 
-// Browser sniffing. Disgusting, but sometimes necessary.
-// Modified version of the Prototype library sniffer code.
-clutch.browser =  {
-  IE:           window && (!!(window.attachEvent && !window.opera)),
-  Opera:        window && !!window.opera,
-  WebKit:       navigator && navigator.userAgent.indexOf('AppleWebKit/') > -1,
-  Gecko:        navigator && navigator.userAgent.indexOf('Gecko') > -1 && navigator.userAgent.indexOf('KHTML') === -1,
-  MobileSafari: navigator && !!navigator.userAgent.match(/Apple.*Mobile.*Safari/),
-  Gears:        google && !!google.gears
+clutch.isGearsInstalled = function () {
+    if (window) {
+        return window.google && google && google.gears;
+    }
+    else {
+        return google && google.gears;        
+    }
+};
+
+clutch.gearsFactory = function () {
+    return google.gears.factory;
+};
+
+clutch.createGearsDatabase = function () {
+    return google.gears.factory.create('beta.database');
+};
+
+clutch.createGearsDesktop = function () {
+    return google.gears.factory.create('beta.desktop');
+};
+
+clutch.createGearsHttpRequest = function () {
+    return google.gears.factory.create('beta.httprequest');
+};
+
+clutch.createGearsLocalServer = function () {
+    return google.gears.factory.create('beta.localserver');
+};
+
+clutch.createGearsTimer = function () {
+    return google.gears.factory.create('beta.timer');
+};
+
+clutch.createGearsWorkerPool = function () {
+    return google.gears.factory.create('beta.workerpool');
 };
