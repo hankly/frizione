@@ -1,0 +1,4 @@
+ - Use Ruby jsmin as an alternative to YUICompressor (Done)
+ - Provide a means (JSON file) to allow additions to the main static HTML pages (Done).
+ - Complete asynchronous unit testing (Done)
+ - Complete Fixtures
