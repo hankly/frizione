@@ -50,7 +50,7 @@ function createUnitTests() {
         },
 
         errorTest: function () {
-            this.error(new Error("Test error() call"));
+            throw new Error("Test error() call");
         },
 
         assertTest: function () {

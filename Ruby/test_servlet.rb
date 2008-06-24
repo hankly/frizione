@@ -84,13 +84,16 @@ xXx
     <head>
         <title>Clutch Run Test: '<%= to %>'</title>
         <link rel="stylesheet" href="/clutch/css/clutch.css" type="text/css" media="screen" charset="utf-8" />
+        <% if (gears) %>
+        <script src="/clutch/js/gears/gears_init.js" type="text/javascript" charset="utf-8"></script>
+        <% end %>
         <script src="/clutch/js/json2.js" type="text/javascript" charset="utf-8"></script>
         <script src="/clutch/js/xhr.js" type="text/javascript" charset="utf-8"></script>
         <script src="/clutch/js/saver.js" type="text/javascript" charset="utf-8"></script>
         <script src="/projects/clutch/src/unit-test.js" type="text/javascript" charset="utf-8"></script>
         <script src="/<%= to %>" type="text/javascript" charset="utf-8"></script>
     </head>
-    <body onload="storeClutchTests(runClutchTests, '/<%= json %>', '/<%= view %>');">
+    <body onload="clutch.storeTests(runClutchTests, '/<%= json %>', '/<%= view %>');">
         <p class="MenuHeading">
             <a href="/">Home</a>&#160;
             <a href="/jslint">JSLint</a>&#160;
@@ -128,7 +131,7 @@ xXx
         <script src="/clutch/js/prototype/builder.js" type="text/javascript" charset="utf-8"></script>
         <script src="/clutch/js/display.js" type="text/javascript" charset="utf-8"></script>
         <script type="text/javascript">
-            retrieveAndDisplay('/<%= json %>');
+            clutch.retrieveAndDisplayTestResults('/<%= json %>');
         </script>
     </head>
     <body>
@@ -168,6 +171,7 @@ xXx
         else
             to = from
         end
+        gears = request.query['gears'] == 'true'
         run = request.query['run']
         run = run[1..-1] if run[0...1] == '/'
         view = request.query['view']

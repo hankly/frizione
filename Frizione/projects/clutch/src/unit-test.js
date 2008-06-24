@@ -27,6 +27,10 @@ if (!this.clutch) {
     clutch = {};
 }
 
+if (!this.clutch.test) {
+    clutch.test = {};
+}
+
 // I know, I know - yet another unit testing framework. Well, the world is large, so there's always space for one more.
 // Did I know about JSUnit (http://www.jsunit.net/), yes I did.
 // Did I know about RhinoUnit (http://code.google.com/p/rhinounit/), yes I did.
@@ -36,12 +40,10 @@ if (!this.clutch) {
 // And I still did my own. There's tenacity for you. Ok, maybe not tenacity...
 
 // But why? I mean I really don't like writing reams of code.
-
-clutch.test  = {};
+// ...
 
 // Set of utility functions for the unit test report information.
 clutch.test.utils = {
-
     createTotaliser: function () {
         return {
             complete: false,
@@ -97,9 +99,7 @@ clutch.test.utils = {
  * @param totaliser the unit test totaliser (report).
  */
 clutch.test.assertions = function (totaliser) {
-
     return {
-
         log: function (message) {
             totaliser.logs += 1;
             totaliser.messages.push({ type: 'log', message: message });
@@ -119,11 +119,11 @@ clutch.test.assertions = function (totaliser) {
             totaliser.tests += 1;
             totaliser.errors += 1;
             var message = error.name + ': ' + error.message;
-            if (error.fileName && error.lineNumber && error.stack) {
-                message = error.fileName + '(' + error.lineNumber + ') ' + message + '\n' + error.stack;
+            if (error.filename && error.lineNumber && error.stack) {
+                message = error.filename + '(' + error.lineNumber + ') ' + message + '\n' + error.stack;
             }
-            else if (error.fileName && error.lineNumber) {
-                message = error.fileName + '(' + error.lineNumber + ') ' + message;
+            else if (error.filename && error.lineNumber) {
+                message = error.filename + '(' + error.lineNumber + ') ' + message;
             }
             totaliser.messages.push({ type: "error", message: message });
         },
@@ -154,10 +154,10 @@ clutch.test.assertions = function (totaliser) {
  * @param timeout the maximum tine in milliseconds for all tests to be executed.
  */
 clutch.test.runner = function (profile, timeout) {
-    var timer = null;
+    var gearsTimer = null;
     var timerId = null;
-    var setTimeout = null;
-    var clearTimeout = null;
+    var setTestTimeout = null;
+    var clearTestTimeout = null;
     var functionAssertions = null;
     var callbackAssertions = null;
     var callbacks = null;
@@ -173,7 +173,7 @@ clutch.test.runner = function (profile, timeout) {
 
     function abend(reason) {
         if (timerId) {
-            clearTimeout(timerId);
+            clearTestTimeout(timerId);
         }
 
         reason = reason || "Terminated by User";
@@ -198,10 +198,8 @@ clutch.test.runner = function (profile, timeout) {
         }
     }
 
-    function wrapCallback(testObject, callbackFunc, func, cbIndex, index) {
-
+    function wrapCallback(testObject, callbackFunc, func, callbackIndex, index) {
         return function () {
-
             var test = profile.tests[index];
             injectAssertions(testObject, callbackAssertions);
             test.func = callbackFunc + " <- " + func;
@@ -211,15 +209,20 @@ clutch.test.runner = function (profile, timeout) {
             try {
                 try {
                     startAt = new Date().getTime();
-                    callbacks[cbIndex].apply(testObject, arguments);
+                    callbacks[callbackIndex].apply(testObject, arguments);
                 }
                 finally {
                     test.time += (new Date().getTime() - startAt);
                 }
             }
-            catch(e) {
-                testObject.error(e);
-                testObject.tearDown();
+            catch (e1) {
+                testObject.error(e1);
+                try {
+                    testObject.tearDown();
+                }
+                catch (e2) {
+                    testObject.error(e2);
+                }
              }
 
             injectAssertions(testObject, functionAssertions);
@@ -242,7 +245,6 @@ clutch.test.runner = function (profile, timeout) {
         }
 
         function waitForCallback() {
-
             if (profile.complete) {
                 return;
             }
@@ -256,13 +258,12 @@ clutch.test.runner = function (profile, timeout) {
                 for (; i < length; i += 1) {
                     testObject[testFunction.callbacks[i]] = callbacks[i];
                 }
-                testObject.tearDown();
 
                 profile.index += 2;
-                setTimeout(next, 0);
+                setTestTimeout(next, 0);
             }
             else {
-                setTimeout(waitForCallback, 100);
+                setTestTimeout(waitForCallback, 100);
             }
         }
 
@@ -277,12 +278,17 @@ clutch.test.runner = function (profile, timeout) {
                 test.time += (new Date().getTime() - startAt);
             }
         }
-        catch(e1) {
+        catch (e1) {
             testObject.error(e1);
-            testObject.tearDown();
+            try {
+                testObject.tearDown();
+            }
+            catch (e2) {
+                testObject.error(e2);
+            }
         }
 
-        setTimeout(waitForCallback, 100);
+        setTestTimeout(waitForCallback, 100);
     }
 
     function testFunction(test, next) {
@@ -300,18 +306,18 @@ clutch.test.runner = function (profile, timeout) {
                 testObject.tearDown();
             }
         }
-        catch(e2) {
-            testObject.error(e2);
+        catch (e1) {
+            testObject.error(e1);
         }
 
         profile.index += 1;
-        setTimeout(next, 0);
+        setTestTimeout(next, 0);
     }
 
     function next() {
         if (profile.index >= profile.total) {
             if (timerId) {
-                clearTimeout(timerId);
+                clearTestTimeout(timerId);
             }
             cleanUp();
             profile.complete = true;
@@ -337,22 +343,32 @@ clutch.test.runner = function (profile, timeout) {
 
     return {
         run: function () {
+            // don't try to simplify this stuff, setTestTimeout = window.setTimeout causes all sorts of problems
+            // with Opera and Firefox (which actually crashes)
+            if (window && window.setTimeout) {
+                setTestTimeout = function (code, millis) {
+                    return window.setTimeout(code, millis);
+                };
+                clearTestTimeout = function (timerId) {
+                    window.clearTimeout(timerId);
+                };
+            }
+            else {
+                gearsTimer = clutch.createGearsTimer();
+                setTestTimeout = function (code, millis) {
+                    return gearsTimer.setTimeout(code, millis);
+                };
+                clearTestTimeout = function (timerId) {
+                    gearsTimer.clearTimeout(timerId);
+                };
+            }
+
             profile.complete = false;
             profile.index = 0;
             profile.total = profile.tests.length;
 
-            try {
-                timer = google.gears.factory.create('beta.timer');
-                setTimeout = timer.setTimeout;
-                clearTimeout = timer.clearTimeout;
-            }
-            catch (e) {
-                setTimeout = window.setTimeout;
-                clearTimeout = window.clearTimeout;
-            }
-
             if (timeout > 0) {
-                setTimeout(timedOut, timeout);
+                timerId = setTestTimeout(timedOut, timeout);
             }
             setTimeout(next, 0);
         },
@@ -380,7 +396,6 @@ clutch.test.unit = function (name, testObject, timeout) {
     var runner = null;
 
     return {
-
         prepare: function (parentProfile) {
             if (parentProfile) {
                 profile = parentProfile;
@@ -478,7 +493,6 @@ clutch.test.group = function (arrayOfUnitTests, timeout) {
     var runner = null;
 
     return {
-
         prepare: function () {
             profile = utils.createProfile();
             var length = arrayOfUnitTests.length;

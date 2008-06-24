@@ -1,0 +1,29 @@
+{
+	"name": "Database Tests",
+	"abend": null,
+	"summary": {
+		"tests": 1,
+		"logs": 0,
+		"failures": 0,
+		"errors": 0,
+		"time": 22,
+		"abend": null,
+		"messages": []
+	},
+	"tests": [
+		{
+			"name": "clearDatabase",
+			"summary": {
+				"tests": 1,
+				"logs": 0,
+				"failures": 0,
+				"errors": 0,
+				"time": 22,
+				"abend": null,
+				"messages": [],
+				"func": "clearDatabase",
+				"callback": null
+			}
+		}
+	]
+}

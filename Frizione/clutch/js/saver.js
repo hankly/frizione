@@ -21,7 +21,7 @@ THE SOFTWARE.
 */
 
 /*jslint evil: true */
-/*global clutch, storeClutchTests, ActiveXObject */
+/*global clutch, ActiveXObject */
 
 if (!this.clutch) {
     clutch = {};
@@ -61,11 +61,11 @@ clutch.date = {
  * @param jsonUrl the absolute URL where the report will be stored.
  * @param viewUrl the absolute URL of the report viewer HTML page.
  */
-function storeClutchTests(testFunction, jsonUrl, viewUrl) {
+clutch.storeTests = function (testFunction, jsonUrl, viewUrl) {
 
     jsonUrl = '/run-fixture' + jsonUrl;
     var tests = testFunction();
-    var timerId = null;
+    var intervalId = null;
 
     function handleRequest(status, statusText, responseText) {
         var element = document.getElementById('test-results');
@@ -81,15 +81,16 @@ function storeClutchTests(testFunction, jsonUrl, viewUrl) {
         var element = document.getElementById('test-results');
         var status = tests.check();
         if (status.complete) {
-            window.clearTimeout(timerId);
+            window.clearTimeout(intervalId);
             element.innerHTML = "Unit tests completed...";
             clutch.date.toClutchJSON();
-            clutch.executeRequest("POST", jsonUrl, null, JSON.stringify(tests.summarise(), null, "\t"), handleRequest);
+            clutch.test.executeRequest("POST", jsonUrl,
+                    null, JSON.stringify(tests.summarise(), null, "\t"), 2000, handleRequest);
             return;
         }
         element.innerHTML = "" + status.index + " unit tests of " + status.total + " completed...";
     }
 
-    timerId = window.setInterval(checkTests, 500);
+    intervalId = window.setInterval(checkTests, 500);
     tests.run();
-}
+};

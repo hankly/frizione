@@ -16,17 +16,131 @@
         <p class="MenuHeading">
             Clutch-Gears&#160;
             <a href="/projects/clutch-gears/">Home</a>&#160;
+            <a href="/projects/clutch-gears/jslint">JSLint</a>&#160;
+            <a href="/projects/clutch-gears/joins/">Join/Compress</a>&#160;
             <a href="/projects/clutch-gears/tests/">Unit Tests</a>
         </p>
         <h1>Clutch-Gears Unit Test Page Creation</h1>
+        <p>
+            Make sure that you've installed Gears, and given this domain permission to use Gears <i>before</i> running
+            these tests.
+        </p>
 
         <h2>All Tests</h2>
-        <p>None yet...</p>
+        <div>
+            <form style='display: inline;' action="/run-test/projects/clutch-gears/joins/all-tests.js" enctype="application/x-www-form-urlencoded" method="post">
+                <input name="gears" type="hidden" value="true" />
+                <input name="to" type="hidden" value="/projects/clutch-gears/tests/all-tests.js" />
+                <input name="run" type="hidden" value="/projects/clutch-gears/tests/run-all-tests.html" />
+                <input name="view" type="hidden" value="/projects/clutch-gears/tests/view-all-tests.html" />
+                <input name="json" type="hidden" value="/projects/clutch-gears/tests/all-tests.json" />
+                <input name="view-comment" type="hidden"
+                       value="There should be 2 Failures and 1 Error in these tests, &lt;code&gt;failTest&lt;/code&gt; produces the failures, and &lt;code&gt;errorTest&lt;/code&gt; produces the error." />
+                <input type="submit" value="Create Pages (Join)" />
+            </form>
+            then <a href="/projects/clutch-gears/tests/run-all-tests.html">run</a>
+            and <a href="/projects/clutch-gears/tests/view-all-tests.html">view</a>
+            <code>/tests/all-tests.js</code>
+        </div>
+        <div>
+            <form style='display: inline;' action="/run-test/projects/clutch-gears/tests/all-tests.js" enctype="application/x-www-form-urlencoded" method="post">
+                <input name="gears" type="hidden" value="true" />
+                <input name="run" type="hidden" value="/projects/clutch-gears/tests/run-all-tests.html" />
+                <input name="view" type="hidden" value="/projects/clutch-gears/tests/view-all-tests.html" />
+                <input name="json" type="hidden" value="/projects/clutch-gears/tests/all-tests.json" />
+                <input name="view-comment" type="hidden"
+                       value="There should be 2 Failures and 1 Error in these tests, &lt;code&gt;failTest&lt;/code&gt; produces the failures, and &lt;code&gt;errorTest&lt;/code&gt; produces the error." />
+                <input type="submit" value="Create Pages" />
+            </form>
+            then <a href="/projects/clutch-gears/tests/run-all-tests.html">run</a>
+            and <a href="/projects/clutch-gears/tests/view-all-tests.html">view</a>
+            <code>/tests/all-tests.js</code>
+        </div>
+        <div>
+            <form style='display: inline;' action="/run-join/projects/clutch-gears/joins/all-tests.js" enctype="application/x-www-form-urlencoded" method="post">
+                <input name="to" type="hidden" value="/projects/clutch-gears/tests/all-tests.js" />
+                <input type="submit" value="Join" />
+            </form>
+            then
+            <form style='display: inline;' action="/run-compressor/projects/clutch-gears/tests/all-tests.js" enctype="application/x-www-form-urlencoded" method="post">
+                <input name="jsmin" type="hidden" value="false" />
+                <input name="output" type="hidden" value="/projects/clutch-gears/tests/min-all-tests.js" />
+                <input type="submit" value="Compress" />
+            </form>
+            or
+            <form style='display: inline;' action="/run-compressor/projects/clutch-gears/tests/all-tests.js" enctype="application/x-www-form-urlencoded" method="post">
+                <input name="output" type="hidden" value="/projects/clutch-gears/tests/min-all-tests.js" />
+                <input type="submit" value="JSMin" />
+            </form>
+            <code>/tests/all-tests.js</code>
+        </div>
+        <div>
+            ... then
+            <form style='display: inline;' action="/run-test/projects/clutch-gears/tests/min-all-tests.js" enctype="application/x-www-form-urlencoded" method="post">
+                <input name="gears" type="hidden" value="true" />
+                <input name="run" type="hidden" value="/projects/clutch-gears/tests/run-min-all-tests.html" />
+                <input name="view" type="hidden" value="/projects/clutch-gears/tests/view-min-all-tests.html" />
+                <input name="json" type="hidden" value="/projects/clutch-gears/tests/min-all-tests.json" />
+                <input name="view-comment" type="hidden"
+                       value="There should be 2 Failures and 1 Error in these tests, &lt;code&gt;failTest&lt;/code&gt; produces the failures, and &lt;code&gt;errorTest&lt;/code&gt; produces the error." />
+                <input type="submit" value="Create Pages" />
+            </form>
+            then <a href="/projects/clutch-gears/tests/run-min-all-tests.html">run</a>
+            and <a href="/projects/clutch-gears/tests/view-min-all-tests.html">view</a>
+            <code>/tests/min-all-tests.js</code>
+        </div>
+
+        <h2>Timer Tests</h2>
+        <div>
+            <form style='display: inline;' action="/run-test/projects/clutch-gears/joins/gears/timer-tests.js" enctype="application/x-www-form-urlencoded" method="post">
+                <input name="gears" type="hidden" value="true" />
+                <input name="to" type="hidden" value="/projects/clutch-gears/tests/gears/timer-tests.js" />
+                <input name="run" type="hidden" value="/projects/clutch-gears/tests/gears/run-timer-tests.html" />
+                <input name="view" type="hidden" value="/projects/clutch-gears/tests/gears/view-timer-tests.html" />
+                <input name="json" type="hidden" value="/projects/clutch-gears/tests/gears/timer-tests.json" />
+                <input type="submit" value="Create Pages (Join)" />
+            </form>
+            then <a href="/projects/clutch-gears/tests/gears/run-timer-tests.html">run</a>
+            and <a href="/projects/clutch-gears/tests/gears/view-timer-tests.html">view</a>
+            <code>/tests/gears/timer-tests.js</code>
+        </div>
+
+        <h2>XHR Tests</h2>
+        <div>
+            <form style='display: inline;' action="/run-test/projects/clutch-gears/joins/gears/xhr-tests.js" enctype="application/x-www-form-urlencoded" method="post">
+                <input name="gears" type="hidden" value="true" />
+                <input name="to" type="hidden" value="/projects/clutch-gears/tests/gears/xhr-tests.js" />
+                <input name="run" type="hidden" value="/projects/clutch-gears/tests/gears/run-xhr-tests.html" />
+                <input name="view" type="hidden" value="/projects/clutch-gears/tests/gears/view-xhr-tests.html" />
+                <input name="json" type="hidden" value="/projects/clutch-gears/tests/gears/xhr-tests.json" />
+                <input type="submit" value="Create Pages (Join)" />
+            </form>
+            then <a href="/projects/clutch-gears/tests/gears/run-xhr-tests.html">run</a>
+            and <a href="/projects/clutch-gears/tests/gears/view-xhr-tests.html">view</a>
+            <code>/tests/gears/xhr-tests.js</code>
+        </div>
+
+        <h2>Database Tests</h2>
+        <div>
+            <form style='display: inline;' action="/run-test/projects/clutch-gears/joins/gears/db-tests.js" enctype="application/x-www-form-urlencoded" method="post">
+                <input name="gears" type="hidden" value="true" />
+                <input name="to" type="hidden" value="/projects/clutch-gears/tests/gears/db-tests.js" />
+                <input name="run" type="hidden" value="/projects/clutch-gears/tests/gears/run-db-tests.html" />
+                <input name="view" type="hidden" value="/projects/clutch-gears/tests/gears/view-db-tests.html" />
+                <input name="json" type="hidden" value="/projects/clutch-gears/tests/gears/db-tests.json" />
+                <input type="submit" value="Create Pages (Join)" />
+            </form>
+            then <a href="/projects/clutch-gears/tests/gears/run-db-tests.html">run</a>
+            and <a href="/projects/clutch-gears/tests/gears/view-db-tests.html">view</a>
+            <code>/tests/gears/db-tests.js</code>
+        </div>
 
         <p>&#160;</p>
         <p class="MenuHeading">
             Clutch-Gears&#160;
             <a href="/projects/clutch-gears/">Home</a>&#160;
+            <a href="/projects/clutch-gears/jslint">JSLint</a>&#160;
+            <a href="/projects/clutch-gears/joins/">Join/Compress</a>&#160;
             <a href="/projects/clutch-gears/tests/">Unit Tests</a>
         </p>
         <p class="MenuHeading">

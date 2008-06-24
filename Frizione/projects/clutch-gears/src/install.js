@@ -21,17 +21,11 @@ THE SOFTWARE.
 */
 
 /*jslint evil: true */
-/*global clutch, google */
+/*global clutch, google, $, Builder,
+    checkInstallation, checkPermission, askPermission, checkInstallationAndPermission */
 
-/**
- * Give visual feedback for Gears.
- */
-function checkInstallationAndPermission() {
-    document.observe('dom:loaded', function() {
-        checkInstallation();
-        checkPermission();
-    });
-};
+// Simple check install and permission functions.
+// I don't see any advantage in producing a generic library for these simple functions.
 
 /**
  * Give visual feedback if Gears is installed, or not.
@@ -49,7 +43,8 @@ function checkInstallation() {
         install.insert({ bottom: Builder.node('a', attrs, "Install Gears now") });
         $('not-installed').show();
     }
-};
+}
+
 /**
  * Give visual feedback if permission is granted (or not).
  */
@@ -68,7 +63,7 @@ function checkPermission() {
     else {
         $('no-permission').show();
     }
-};
+}
 
 /**
  * Ask for permission to use Gears, pretty please.
@@ -87,4 +82,14 @@ function askPermission() {
     else {
         $('still-no-permission').show();
     }
-};
+}
+
+/**
+ * Give visual feedback for Gears.
+ */
+function checkInstallationAndPermission() {
+    document.observe('dom:loaded', function() {
+        checkInstallation();
+        checkPermission();
+    });
+}
