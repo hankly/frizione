@@ -6,7 +6,7 @@
 		"logs": 1,
 		"failures": 2,
 		"errors": 1,
-		"time": 0,
+		"time": 3,
 		"abend": null,
 		"messages": []
 	},
@@ -74,12 +74,12 @@
 				"logs": 0,
 				"failures": 0,
 				"errors": 1,
-				"time": 0,
+				"time": 3,
 				"abend": null,
 				"messages": [
 					{
 						"type": "error",
-						"message": "Error: Test error() call"
+						"message": "http://clutch.syger.it/projects/clutch/tests/unit-test-tests.js(75) Error: Test error() call\nError(\"Test error() call\")@:0\n()@http://clutch.syger.it/projects/clutch/tests/unit-test-tests.js:75\ntestFunction([object Object],next)@http://clutch.syger.it/projects/clutch/src/unit-test.js:308\nnext(-10)@http://clutch.syger.it/projects/clutch/src/unit-test.js:342\n"
 					}
 				],
 				"func": "errorTest",

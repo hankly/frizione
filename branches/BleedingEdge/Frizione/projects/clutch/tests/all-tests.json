@@ -1,11 +1,11 @@
 {
 	"abend": null,
 	"summary": {
-		"tests": 36,
+		"tests": 40,
 		"logs": 1,
 		"failures": 2,
 		"errors": 1,
-		"time": 28,
+		"time": 45,
 		"abend": null,
 		"messages": []
 	},
@@ -18,7 +18,7 @@
 				"logs": 1,
 				"failures": 2,
 				"errors": 1,
-				"time": 0,
+				"time": 2,
 				"abend": null,
 				"messages": []
 			},
@@ -63,7 +63,7 @@
 						"logs": 0,
 						"failures": 2,
 						"errors": 0,
-						"time": 0,
+						"time": 1,
 						"abend": null,
 						"messages": [
 							{
@@ -86,12 +86,12 @@
 						"logs": 0,
 						"failures": 0,
 						"errors": 1,
-						"time": 0,
+						"time": 1,
 						"abend": null,
 						"messages": [
 							{
 								"type": "error",
-								"message": "http://clutch.syger.it/projects/clutch/tests/all-tests.js(622) Error: Test error() call\nError(\"Test error() call\")@:0\n()@http://clutch.syger.it/projects/clutch/tests/all-tests.js:622\ntestFunction([object Object],next)@http://clutch.syger.it/projects/clutch/src/unit-test.js:294\nnext(-10)@http://clutch.syger.it/projects/clutch/src/unit-test.js:328\n"
+								"message": "Error: Test error() call"
 							}
 						],
 						"func": "errorTest",
@@ -122,7 +122,7 @@
 				"logs": 0,
 				"failures": 0,
 				"errors": 0,
-				"time": 3,
+				"time": 2,
 				"abend": null,
 				"messages": []
 			},
@@ -190,11 +190,82 @@
 						"logs": 0,
 						"failures": 0,
 						"errors": 0,
-						"time": 1,
+						"time": 0,
 						"abend": null,
 						"messages": [],
 						"func": "testJsonArray",
 						"callback": null
+					}
+				}
+			]
+		},
+		{
+			"name": "Timer Tests",
+			"abend": null,
+			"summary": {
+				"tests": 4,
+				"logs": 0,
+				"failures": 0,
+				"errors": 0,
+				"time": 0,
+				"abend": null,
+				"messages": []
+			},
+			"tests": [
+				{
+					"name": "startSetTimeout",
+					"summary": {
+						"tests": 1,
+						"logs": 0,
+						"failures": 0,
+						"errors": 0,
+						"time": 0,
+						"abend": null,
+						"messages": [],
+						"func": "startSetTimeout",
+						"callback": null
+					}
+				},
+				{
+					"name": "timerSetTimeout <- startSetTimeout",
+					"summary": {
+						"tests": 1,
+						"logs": 0,
+						"failures": 0,
+						"errors": 0,
+						"time": 0,
+						"abend": null,
+						"messages": [],
+						"func": "timerSetTimeout <- startSetTimeout",
+						"callback": "timerSetTimeout"
+					}
+				},
+				{
+					"name": "startSetInterval",
+					"summary": {
+						"tests": 1,
+						"logs": 0,
+						"failures": 0,
+						"errors": 0,
+						"time": 0,
+						"abend": null,
+						"messages": [],
+						"func": "startSetInterval",
+						"callback": null
+					}
+				},
+				{
+					"name": "timerSetInterval <- startSetInterval",
+					"summary": {
+						"tests": 1,
+						"logs": 0,
+						"failures": 0,
+						"errors": 0,
+						"time": 0,
+						"abend": null,
+						"messages": [],
+						"func": "timerSetInterval <- startSetInterval",
+						"callback": "timerSetInterval"
 					}
 				}
 			]
@@ -207,7 +278,7 @@
 				"logs": 0,
 				"failures": 0,
 				"errors": 0,
-				"time": 25,
+				"time": 41,
 				"abend": null,
 				"messages": []
 			},
@@ -219,7 +290,7 @@
 						"logs": 0,
 						"failures": 0,
 						"errors": 0,
-						"time": 9,
+						"time": 14,
 						"abend": null,
 						"messages": [],
 						"func": "validUrl",
@@ -247,7 +318,7 @@
 						"logs": 0,
 						"failures": 0,
 						"errors": 0,
-						"time": 8,
+						"time": 12,
 						"abend": null,
 						"messages": [],
 						"func": "invalidUrl",
@@ -275,7 +346,7 @@
 						"logs": 0,
 						"failures": 0,
 						"errors": 0,
-						"time": 8,
+						"time": 15,
 						"abend": null,
 						"messages": [],
 						"func": "abortedRequest",

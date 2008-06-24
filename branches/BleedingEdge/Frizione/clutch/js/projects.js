@@ -36,7 +36,7 @@ if (!this.clutch) {
  * 
  * @param type the type to display, one of 'home', 'joins', 'jslint' or 'tests'.
  */
-clutch.retrieveAndDisplay = function (type) {
+clutch.retrieveAndDisplayProjects = function (type) {
 
     document.observe('dom:loaded', function() {
         var text = null;

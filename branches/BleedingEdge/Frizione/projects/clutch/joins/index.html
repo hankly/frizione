@@ -183,6 +183,24 @@
             <code>/tests/unit-test-tests.js</code>
         </div>
         <div>
+            <form style='display: inline;' action="/run-join/projects/clutch/joins/gears/timer-tests.js" enctype="application/x-www-form-urlencoded" method="post">
+                <input name="to" type="hidden" value="/projects/clutch/tests/gears/timer-tests.js" />
+                <input type="submit" value="Join" />
+            </form>
+            then
+            <form style='display: inline;' action="/run-compressor/projects/clutch/tests/gears/timer-tests.js" enctype="application/x-www-form-urlencoded" method="post">
+                <input name="jsmin" type="hidden" value="false" />
+                <input name="output" type="hidden" value="/projects/clutch/tests/gears/min-timer-tests.js" />
+                <input type="submit" value="Compress" />
+            </form>
+            or
+            <form style='display: inline;' action="/run-compressor/projects/clutch/tests/gears/timer-tests.js" enctype="application/x-www-form-urlencoded" method="post">
+                <input name="output" type="hidden" value="/projects/clutch/tests/gears/min-timer-tests.js" />
+                <input type="submit" value="JSMin" />
+            </form>
+            <code>/tests/gears/timer-tests.js</code>
+        </div>
+        <div>
             <form style='display: inline;' action="/run-join/projects/clutch/joins/gears/xhr-tests.js" enctype="application/x-www-form-urlencoded" method="post">
                 <input name="to" type="hidden" value="/projects/clutch/tests/gears/xhr-tests.js" />
                 <input type="submit" value="Join" />

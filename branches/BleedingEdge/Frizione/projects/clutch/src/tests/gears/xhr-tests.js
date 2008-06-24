@@ -33,8 +33,8 @@ function createXhrTests() {
         ],
 
         validUrl: function () {
-            var abort = clutch.executeRequest("GET", '/projects/clutch/src/tests/gears/xhr-test-data.json',
-                    null, null, this.validUrlHandler);
+            var abort = clutch.xhr.executeRequest("GET", '/projects/clutch/src/tests/gears/xhr-test-data.json',
+                    null, null, 2000, this.validUrlHandler);
             this.checkAbort(abort);
         },
 
@@ -43,8 +43,8 @@ function createXhrTests() {
         },
 
         invalidUrl: function () {
-            var abort = clutch.executeRequest("GET", '/projects/clutch/src/tests/gears/invalid-url.json',
-                    null, null, this.invalidUrlHandler);
+            var abort = clutch.xhr.executeRequest("GET", '/projects/clutch/src/tests/gears/invalid-url.json',
+                    null, null, 250, this.invalidUrlHandler);
             this.checkAbort(abort);
         },
 
@@ -53,8 +53,8 @@ function createXhrTests() {
         },
 
         abortedRequest: function () {
-            var abort = clutch.executeRequest("GET", '/projects/clutch/src/tests/gears/invalid-url.json',
-                    null, null, this.abortedRequestHandler);
+            var abort = clutch.xhr.executeRequest("GET", '/projects/clutch/src/tests/gears/invalid-url.json',
+                    null, null, 2000, this.abortedRequestHandler);
             this.checkAbort(abort);
             abort();
         },
@@ -70,7 +70,7 @@ function createXhrTests() {
             this.assert(typeof abort === 'function', "Returned value is not a function");
         }
         
-    }, 18000);
+    }, 5000);
 }
 
 function runClutchTests() {

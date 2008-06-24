@@ -21,14 +21,18 @@ THE SOFTWARE.
 */
 
 /*jslint evil: true */
-/*global Ajax, Builder, $ */
+/*global clutch, Ajax, Builder, $ */
+
+if (!this.clutch) {
+    clutch = {};
+}
 
 /**
  * This monstrous piece of code produces the unit test report.
  *
  * @param summary the unit test results.
  */
-function displayTestResults(summary) {
+clutch.displayTestResults = function (summary) {
 
     function buildErrorReport(name, rows, attrs, type, tests) {
         var testsLength = tests.length;
@@ -244,14 +248,14 @@ function displayTestResults(summary) {
     else {
         displayUnitGroup(summary, root, true);
     }
-}
+};
 
 /**
  * Gets the unit test results (JSON format) and displays them in a hopefully useful manner.
  *
  * @param url the absolute URL of the unit test results file.
  */
-function retrieveAndDisplay(url) {
+clutch.retrieveAndDisplayTestResults = function (url) {
 
     document.observe('dom:loaded', function() {
         var request = new Ajax.Request(url, {
@@ -259,7 +263,7 @@ function retrieveAndDisplay(url) {
             parameters: { nocache: new Date().getTime() },
             onSuccess: function (transport) {
                 var result = transport.responseText.evalJSON(true);
-                displayTestResults(result);
+                clutch.displayTestResults(result);
             },
             onFailure: function () {
                 var root = $('test-results');
@@ -269,4 +273,4 @@ function retrieveAndDisplay(url) {
             }
         });
     });
-}
+};

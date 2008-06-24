@@ -4,13 +4,14 @@
     <head>
         <title>Clutch Run Test: 'projects/clutch/tests/all-tests.js'</title>
         <link rel="stylesheet" href="/clutch/css/clutch.css" type="text/css" media="screen" charset="utf-8" />
+        
         <script src="/clutch/js/json2.js" type="text/javascript" charset="utf-8"></script>
         <script src="/clutch/js/xhr.js" type="text/javascript" charset="utf-8"></script>
         <script src="/clutch/js/saver.js" type="text/javascript" charset="utf-8"></script>
         <script src="/projects/clutch/src/unit-test.js" type="text/javascript" charset="utf-8"></script>
         <script src="/projects/clutch/tests/all-tests.js" type="text/javascript" charset="utf-8"></script>
     </head>
-    <body onload="storeClutchTests(runClutchTests, '/projects/clutch/tests/all-tests.json', '/projects/clutch/tests/view-all-tests.html');">
+    <body onload="clutch.storeTests(runClutchTests, '/projects/clutch/tests/all-tests.json', '/projects/clutch/tests/view-all-tests.html');">
         <p class="MenuHeading">
             <a href="/">Home</a>&#160;
             <a href="/jslint">JSLint</a>&#160;

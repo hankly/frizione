@@ -32,9 +32,16 @@ if (!this.clutch) {
     clutch = {};
 }
 
-clutch.createRequest = function () {
+if (!this.clutch.xhr) {
+    clutch.xhr = {};
+}
+
+/**
+ * Creates an XHR object.
+ */
+clutch.xhr.createRequest = function () {
     try {
-        return google.gears.factory.create('beta.httprequest');
+        return clutch.createGearsHttpRequest();
     }
     catch (e) {
         try {
@@ -57,47 +64,36 @@ clutch.createRequest = function () {
     return null;
 };
 
-(function () {
-    var clutchTimer = null;
-    try {
-        clutchTimer = google.gears.factory.create('beta.timer');
-        clutch.setTimeout = function (code, millis) {
-            return clutchTimer.setTimeout(code, millis);
-        };
-        clutch.clearTimeout = function (timerId) {
-            clutchTimer.clearTimeout(timerId);
-        };
-    }
-    catch (e) {
-        clutch.setTimeout = function (code, millis) {
-            return window.setTimeout(code, millis);
-        };
-        clutch.clearTimeout = function (timerId) {
-            window.clearTimeout(timerId);
-        };
-    }
-})();
+/**
+ * Executes an XHR.
+ *
+ * @param method can be "GET", possibly "POST".
+ * @param url the absolute URL to get or post to.
+ * @param optionalParams optional parameters, do your own value encoding though
+ * @param optionalBody damn useful for posts
+ * @param timeout the optional maximum amount of time to wait for a reply.
+ * @param handler who to call when things go right, or wrong.
+ */
+clutch.xhr.executeRequest = function (method, url, optionalParams, optionalBody, timeout, handler) {
+    var requestTimeout = timeout || 5000; // 5 seconds
 
-clutch.executeRequest = function (method, url, optionalParams, optionalBody, handler) {
-    var REQUEST_TIMEOUT_MS = 5000; // 5 seconds
-
-    var request = clutch.createRequest();
+    var request = clutch.xhr.createRequest();
     var terminated = false;
-    var timerId = clutch.setTimeout(function() {
+    var timerId = clutch.timer.setTimeout(function () {
             terminated = true;
             if (request) {
                 request.abort();
                 request = null;
             }
             handler(-1, "Timeout", "Timeout");
-        }, REQUEST_TIMEOUT_MS);
-    var n;
+        }, requestTimeout);
+    var param;
     var qmark = "?";
 
     if (optionalParams) {
-        for (n in optionalParams) {
-            if (optionalParams.hasOwnProperty(n)) {
-                url += qmark + n + "=" + optionalParams[n];
+        for (param in optionalParams) {
+            if (optionalParams.hasOwnProperty(param)) {
+                url += qmark + param + "=" + optionalParams[param];
                 qmark = "";
             }
         }
@@ -126,7 +122,7 @@ clutch.executeRequest = function (method, url, optionalParams, optionalBody, han
 
                     terminated = true;
                     request = null;
-                    clutch.clearTimeout(timerId);
+                    clutch.timer.clearTimeout(timerId);
 
                     // Browsers return 0 for xhr against file://. Normalize this.
                     if (status === 0) {
@@ -150,7 +146,7 @@ clutch.executeRequest = function (method, url, optionalParams, optionalBody, han
                 terminated = true;
                 request.abort();
                 request = null;
-                clutch.clearTimeout(timerId);
+                clutch.timer.clearTimeout(timerId);
             }
             handler(-1, "Aborted", "Aborted");
         };
@@ -158,11 +154,11 @@ clutch.executeRequest = function (method, url, optionalParams, optionalBody, han
     catch(e) {
         terminated = true;
         request = null;
-        clutch.clearTimeout(timerId);
+        clutch.timer.clearTimeout(timerId);
 
         // Set a short timeout just to get off the stack so that the call flow is
         // the same as with successful requests (subtle bugs otherwise).
-        clutch.setTimeout(handler, 0);
+        clutch.timer.setTimeout(handler, 0);
 
         // Return a nop function so that callers don't need to care whether we
         // succeeded if they want to abort the previous request.
