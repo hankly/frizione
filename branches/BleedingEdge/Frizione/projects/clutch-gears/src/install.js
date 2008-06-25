@@ -28,45 +28,7 @@ THE SOFTWARE.
 // I don't see any advantage in producing a generic library for these simple functions.
 
 /**
- * Give visual feedback if Gears is installed, or not.
- */
-function checkInstallation() {
-    if (clutch.isGearsInstalled()) {
-        $('installed').show();
-    }
-    else {
-        var install = $('install');
-        var attrs = { 'class': 'button' };
-        attrs.href = "http://gears.google.com/?action=install" +
-            "&message=" + encodeURIComponent("Clutch-Gears - Gears Installation") +
-            "&return=" + encodeURIComponent("http://clutch.syger.it/projects/clutch-gears/static/install.html");
-        install.insert({ bottom: Builder.node('a', attrs, "Install Gears now") });
-        $('not-installed').show();
-    }
-}
-
-/**
- * Give visual feedback if permission is granted (or not).
- */
-function checkPermission() {
-    if (clutch.isGearsInstalled()) {
-        if (!clutch.gearsFactory().hasPermission) {
-            var permission = $('permission');
-            var attrs = { 'class': 'button', 'onclick': 'askPermission();' };
-            permission.insert({ bottom: Builder.node('a', attrs, "Give 'Clutch-Gears' permission to run Gears now") });
-            $('no-permission').show();
-        }
-        else {
-            $('has-permission').show();
-        }
-    }
-    else {
-        $('no-permission').show();
-    }
-}
-
-/**
- * Ask for permission to use Gears, pretty please.
+ * Ask permission to use Gears.
  */
 function askPermission() {
 
@@ -88,6 +50,39 @@ function askPermission() {
  * Give visual feedback for Gears.
  */
 function checkInstallationAndPermission() {
+
+    function checkInstallation() {
+        if (clutch.isGearsInstalled()) {
+            $('installed').show();
+        }
+        else {
+            var install = $('install');
+            var attrs = { 'class': 'button' };
+            attrs.href = "http://gears.google.com/?action=install" +
+                "&message=" + encodeURIComponent("Clutch-Gears - Gears Installation") +
+                "&return=" + encodeURIComponent("http://clutch.syger.it/projects/clutch-gears/static/install.html");
+            install.insert({ bottom: Builder.node('a', attrs, "Install Gears now") });
+            $('not-installed').show();
+        }
+    }
+
+    function checkPermission() {
+        if (clutch.isGearsInstalled()) {
+            if (!clutch.gearsFactory().hasPermission) {
+                var permission = $('permission');
+                var attrs = { 'class': 'button', 'onclick': 'askPermission();' };
+                permission.insert({ bottom: Builder.node('a', attrs, "Give 'Clutch-Gears' permission to run Gears now") });
+                $('no-permission').show();
+            }
+            else {
+                $('has-permission').show();
+            }
+        }
+        else {
+            $('no-permission').show();
+        }
+    }
+
     document.observe('dom:loaded', function() {
         checkInstallation();
         checkPermission();

@@ -43,6 +43,175 @@ THE SOFTWARE.
 */
 
 /*jslint evil: true */
+/*global clutch, JSON */
+
+if (!this.clutch) {
+    clutch = {};
+}
+
+// Since JSON has no date format, everyone has invented their own. So why not me?
+// Provides patches for JSON and Prototype, but please don't use them both together, they
+// really don't get on at all.
+clutch.date = {
+    toStandardJSON: function () {
+        function tens(n) {
+            // Format integers to have at least two digits.
+            return n < 10 ? '0' + n : n;
+        }
+
+        function hundreds(n) {
+            // Format integers to have at least three digits.
+            return n < 100 ? '0' + tens(n) : n;
+        }
+
+        Date.prototype.toJSON = function () {
+
+            return this.getUTCFullYear()  + '-' +
+                 tens(this.getUTCMonth() + 1) + '-' +
+                 tens(this.getUTCDate())  + 'T' +
+                 tens(this.getUTCHours()) + ':' +
+                 tens(this.getUTCMinutes()) + ':' +
+                 tens(this.getUTCSeconds()) + '.' +
+                 hundreds(this.getUTCMilliseconds()) + 'Z';
+        };
+    },
+
+    toMicrosoftJSON: function () {
+        Date.prototype.toJSON = function () {
+            return "\\/Date(" + this.getTime() + ")\\/";
+        };
+    },
+
+    toClutchJSON: function () {
+        function tens(n) {
+            // Format integers to have at least two digits.
+            return n < 10 ? '0' + n : n;
+        }
+
+        function hundreds(n) {
+            // Format integers to have at least three digits.
+            return n < 100 ? '0' + tens(n) : n;
+        }
+
+        Date.prototype.toJSON = function () {
+            return "\\/Date(" +
+                 this.getUTCFullYear()  + '-' +
+                 tens(this.getUTCMonth() + 1) + '-' +
+                 tens(this.getUTCDate())  + 'T' +
+                 tens(this.getUTCHours()) + ':' +
+                 tens(this.getUTCMinutes()) + ':' +
+                 tens(this.getUTCSeconds()) + '.' +
+                 hundreds(this.getUTCMilliseconds()) + 'Z' +
+                 ")\\/";
+        };
+    },
+
+    evalJSON: function () {
+        // Prototype
+        if (String.prototype.evalJSON && typeof String.prototype.evalJSON === 'function') {
+            var microsoftDate = new RegExp("^\\\\\\/Date\\((\\d+)\\)\\\\\\/$", "gm");
+            var clutchDate = new RegExp("^\\\\\\/Date\\((\\d{4})-(\\d{2})-(\\d{2})T(\\d{2}):(\\d{2}):(\\d{2})(\\.\\d+)?Z\\)\\\\\\/$", "gm");
+
+            String.prototype.evalJSON = function(sanitize) {
+              var json = this.unfilterJSON();
+              try {
+                if (!sanitize || json.isJSON()) {
+                    json = json.replace(microsoftDate, function (str, p1, offset, s) {
+                        return "new Date(" + p1 + ")";
+                    });
+                    json = json.replace(clutchDate, function (str, p1, p2, p3, p4, p5, p6, p7, offset, s) {
+                        var millis = p7 || ".0";
+                        millis = millis.slice(1);
+                        return "new Date(Date.UTC(" + (+p1) + ", " + (+p2 - 1) + ", " + (+p3) + ", " + (+p4) + ", " + (+p5) + ", " + (+p6) + ", " + (+millis) + "))";
+                    });
+                    return new Function('return (' + json + ');')();
+                }
+              } catch (e) { }
+              throw new SyntaxError('Badly formed JSON string: ' + this.inspect());
+            };
+        }
+    }
+};
+
+// The usual, boring string functions that the implementers forgot.
+clutch.string = {
+    trim: function (string) {
+        return string.replace(/^[\s\u00a0]+/, '').replace(/[\s\u00a0]+$/, '');
+    },
+
+    startsWith: function (string, match) {
+        return string.indexOf(match) === 0;
+    },
+
+    endsWith: function (string, match) {
+        var offset = string.length - match.length;
+        return offset >= 0 && string.lastIndexOf(match) === offset;
+    },
+
+    toJSON: function (object) {
+        // Check for Prototype
+        if (Object.toJSON && typeof Object.toJSON === 'function') {
+            return Object.toJSON(object);
+        }
+        else {
+            return JSON.stringify(object);
+        }
+    },
+
+    fromJSON: function (string) {
+        // Check for Prototype
+        if (String.prototype.evalJSON && typeof String.prototype.evalJSON === 'function') {
+            return string.evalJSON(true);
+        }
+        else {
+            // string RegExps used to keep Opera happy, but made me miserable
+            var microsoftDate = new RegExp("^\\\\\\/Date\\((\\d+)\\)\\\\\\/$", "gm");
+            var clutchDate = new RegExp("^\\\\\\/Date\\((\\d{4})-(\\d{2})-(\\d{2})T(\\d{2}):(\\d{2}):(\\d{2})(\\.\\d+)?Z\\)\\\\\\/$", "gm");
+
+            return JSON.parse(string, function (key, value) {
+                var match, millis;
+                if (typeof value === 'string') {
+                    match = microsoftDate.exec(value);
+                    if (match) {
+                        return new Date(+match[1]);
+                    }
+                    else {
+                        match = clutchDate.exec(value);
+                        if (match) {
+                            millis = match[7] || ".0";
+                            millis = match[7].slice(1);
+                            return new Date(Date.UTC(+match[1], +match[2] - 1, +match[3], +match[4], +match[5], +match[6], +millis));
+                        }
+                    }
+                }
+                return value;
+            });
+        }
+    }
+};
+/*
+Copyright (c) 2008 John Leach
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in
+all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+THE SOFTWARE.
+*/
+
+/*jslint evil: true */
 /*global clutch, google */
 
 // Just wrapper code, so that if 'beta.xxx' becomes 'gamma.xxx', or the namespace changes (is that really likely?)
@@ -88,6 +257,70 @@ clutch.createGearsTimer = function () {
 clutch.createGearsWorkerPool = function () {
     return google.gears.factory.create('beta.workerpool');
 };
+/*
+Copyright (c) 2008 John Leach
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in
+all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+THE SOFTWARE.
+*/
+
+/*jslint evil: true */
+/*global clutch, google */
+
+if (!this.clutch) {
+    clutch = {};
+}
+
+if (!this.clutch.timer) {
+    clutch.timer = {};
+}
+
+// Creates timer functions using either the browser timer or a Gears timer when no browser timer is available.
+
+(function () {
+    var gearsTimer = null;
+
+    // don't try to simplify this stuff, clutch.timer.setTimeout = window.setTimeout causes all sorts of problems
+    // with Opera and Firefox (which actually crashes)
+    if (this.window && window.setTimeout) {
+        clutch.timer.setTimeout = function (code, millis) {
+            return window.setTimeout(code, millis);
+        };
+        clutch.timer.setInterval = function (code, millis) {
+            return window.setInterval(code, millis);
+        };
+        clutch.timer.clearTimeout = function (timerId) {
+            window.clearTimeout(timerId);
+        };
+    }
+    else {
+        gearsTimer = clutch.createGearsTimer();
+        clutch.timer.setTimeout = function (code, millis) {
+            return gearsTimer.setTimeout(code, millis);
+        };
+        clutch.timer.setInterval = function (code, millis) {
+            return gearsTimer.setInterval(code, millis);
+        };
+        clutch.timer.clearTimeout = function (timerId) {
+            gearsTimer.clearTimeout(timerId);
+        };
+    }
+})();
 /*
 Copyright (c) 2008 John Leach
 
@@ -304,71 +537,42 @@ THE SOFTWARE.
 */
 
 /*jslint evil: true */
-/*global clutch, google, createXhrTests, runXhrTests */
+/*global clutch, google */
 
-function createDatabaseTests() {
-    var logger = null;
+// Simple WorkerPool termination functions.
+// I don't see any advantage in producing a generic library for these simple functions.
 
-    return clutch.test.unit('Database Tests', {
-
-        clutchTests: [
-            { func: 'clearDatabase', callbacks: null },
-            { func: 'addRows', callbacks: null },
-            { func: 'readRowsAsc', callbacks: null },
-            { func: 'readRowsDesc', callbacks: null }
-        ],
-
-        setUp: function () {
-            if (logger === null) {
-                logger = clutch.db.logger('clutch_gears');
-            }
-        },
-
-        clearDatabase: function () {
-            logger.removeAll();
-            var rows = logger.list();
-            this.assert(rows === null, "Logger database should have no rows");
-        },
-
-        addRows: function () {
-            var index = 1;
-            var length = 10;
-            var rowsAffected = null;
-            for (index = 1; index <= length; index += 1) {
-                rowsAffected = logger.log("log", "test value = " + index);
-                this.assert(rowsAffected === 1, "Rows affected by log() !== 1");
-            }
-        },
-
-        readRowsAsc: function () {
-            var results = logger.list({ orderBy: 'id ASC' });
-            this.assert(results.length === 10, "Show have read 10 rows");
-            var index = 1;
-            var length = 10;
-            var result = null;
-            for (index = 1; index <= length; index += 1) {
-                result = results[index - 1];
-                this.assert(result.value === ("test value = " + index),
-                        "Row[" + index + "].value should have been 'test value = " + index +
-                        "', but was '" + result.value + "'");
-            }
-        },
-
-        readRowsDesc: function () {
-            var results = logger.list({ orderBy: 'id DESC' });
-            this.assert(results.length === 10, "Show have read 10 rows");
-            var index = 10;
-            var result = null;
-            for (index = 10; index >= 1; index -= 1) {
-                result = results[10 - index];
-                this.assert(result.value === ("test value = " + index),
-                        "Row[" + (11 - index) + "].value should have been 'test value = " + index +
-                        "', but was '" + result.value + "'");
-            }
-        }
-    }, 5000);
+if (!this.clutch) {
+    clutch = {};
 }
 
-function runClutchTests() {
-    return createDatabaseTests();
-}
+/**
+ * Logs received messages, errors and timer intervals.
+ */
+clutch.workerPoolLogger = function () {
+    var self = google.gears.workerPool;
+    var logger = clutch.db.logger('clutch_gears');
+
+    function actOnTimer() {
+        var now = new Date();
+        logger.log("timer", now.toUTCString() + " " + now.getUTCMilliseconds());
+    }
+
+    function actOnMessage(depr1, depr2, message) {
+        var now = new Date();
+        logger.log("message", now.toUTCString() + " " + now.getUTCMilliseconds() + " " + message.body);
+        self.sendMessage("Message logged", message.sender);
+    }
+
+    function actOnError(error) {
+        var now = new Date();
+        logger.log("error", now.toUTCString() + " " + now.getUTCMilliseconds() + " Error(" + error.lineNumber + '): ' + error.message);
+        return false;
+    }
+
+    self.onmessage = actOnMessage;
+    self.onerror = actOnError;
+    clutch.timer.setInterval(actOnTimer, 500);
+};
+
+clutch.workerPoolLogger();

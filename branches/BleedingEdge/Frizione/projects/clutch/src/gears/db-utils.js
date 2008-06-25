@@ -46,7 +46,7 @@ clutch.db.fromSingleRow = function (result, columns) {
     var length = columns.length;
     var name = null;
     var value = {};
-    for (; i < length; i += 1) {
+    for (i = 0; i < length; i += 1) {
         name = columns[i];
         value[name] = result.fieldByName(name);
     }
@@ -74,7 +74,7 @@ clutch.db.fromRows = function (result, columns) {
     while (result.isValidRow()) {
         value = {};
         values.push(value);
-        for (; i < length; i += 1) {
+        for (i = 0; i < length; i += 1) {
             name = columns[i];
             value[name] = result.fieldByName(name);
         }
@@ -91,27 +91,25 @@ clutch.db.fromRows = function (result, columns) {
  * @param params the optional parameters
  */
 clutch.db.optionalQuery = function (params) {
-    if (!params) {
-        return "";
-    }
-
     var query = "";
-    if (params.where) {
-        query = ' WHERE ' + params.where;
-    }
-    if (params.groupBy) {
-        query += ' GROUP BY ' + params.groupBy;
-    }
-    if (params.having) {
-        query += ' HAVING ' + params.having;
-    }
-    if (params.orderBy) {
-        query += ' ORDER BY ' + params.orderBy;
-    }
-    if (params.limit) {
-        query += ' LIMIT ' + params.limit;
-        if (params.offset) {
-            query += ' OFFSET ' + params.offset;
+    if (params) {
+        if (params.where) {
+            query = ' WHERE ' + params.where;
+        }
+        if (params.groupBy) {
+            query += ' GROUP BY ' + params.groupBy;
+        }
+        if (params.having) {
+            query += ' HAVING ' + params.having;
+        }
+        if (params.orderBy) {
+            query += ' ORDER BY ' + params.orderBy;
+        }
+        if (params.limit) {
+            query += ' LIMIT ' + params.limit;
+            if (params.offset) {
+                query += ' OFFSET ' + params.offset;
+            }
         }
     }
     return query;

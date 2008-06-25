@@ -536,7 +536,7 @@ clutch.db.fromSingleRow = function (result, columns) {
     var length = columns.length;
     var name = null;
     var value = {};
-    for (; i < length; i += 1) {
+    for (i = 0; i < length; i += 1) {
         name = columns[i];
         value[name] = result.fieldByName(name);
     }
@@ -564,7 +564,7 @@ clutch.db.fromRows = function (result, columns) {
     while (result.isValidRow()) {
         value = {};
         values.push(value);
-        for (; i < length; i += 1) {
+        for (i = 0; i < length; i += 1) {
             name = columns[i];
             value[name] = result.fieldByName(name);
         }
@@ -581,27 +581,25 @@ clutch.db.fromRows = function (result, columns) {
  * @param params the optional parameters
  */
 clutch.db.optionalQuery = function (params) {
-    if (!params) {
-        return "";
-    }
-
     var query = "";
-    if (params.where) {
-        query = ' WHERE ' + params.where;
-    }
-    if (params.groupBy) {
-        query += ' GROUP BY ' + params.groupBy;
-    }
-    if (params.having) {
-        query += ' HAVING ' + params.having;
-    }
-    if (params.orderBy) {
-        query += ' ORDER BY ' + params.orderBy;
-    }
-    if (params.limit) {
-        query += ' LIMIT ' + params.limit;
-        if (params.offset) {
-            query += ' OFFSET ' + params.offset;
+    if (params) {
+        if (params.where) {
+            query = ' WHERE ' + params.where;
+        }
+        if (params.groupBy) {
+            query += ' GROUP BY ' + params.groupBy;
+        }
+        if (params.having) {
+            query += ' HAVING ' + params.having;
+        }
+        if (params.orderBy) {
+            query += ' ORDER BY ' + params.orderBy;
+        }
+        if (params.limit) {
+            query += ' LIMIT ' + params.limit;
+            if (params.offset) {
+                query += ' OFFSET ' + params.offset;
+            }
         }
     }
     return query;
@@ -1404,19 +1402,65 @@ THE SOFTWARE.
 /*global clutch, google, createXhrTests, runXhrTests */
 
 function createDatabaseTests() {
+    var logger = null;
+
     return clutch.test.unit('Database Tests', {
 
         clutchTests: [
-            { func: 'clearDatabase', callbacks: null }
+            { func: 'clearDatabase', callbacks: null },
+            { func: 'addRows', callbacks: null },
+            { func: 'readRowsAsc', callbacks: null },
+            { func: 'readRowsDesc', callbacks: null }
         ],
 
+        setUp: function () {
+            if (logger === null) {
+                logger = clutch.db.logger('clutch_gears');
+            }
+        },
+
         clearDatabase: function () {
-            var logger = clutch.db.logger('clutch_gears');
             logger.removeAll();
             var rows = logger.list();
             this.assert(rows === null, "Logger database should have no rows");
-        }
+        },
 
+        addRows: function () {
+            var index = 1;
+            var length = 10;
+            var rowsAffected = null;
+            for (index = 1; index <= length; index += 1) {
+                rowsAffected = logger.log("log", "test value = " + index);
+                this.assert(rowsAffected === 1, "Rows affected by log() !== 1");
+            }
+        },
+
+        readRowsAsc: function () {
+            var results = logger.list({ orderBy: 'id ASC' });
+            this.assert(results.length === 10, "Show have read 10 rows");
+            var index = 1;
+            var length = 10;
+            var result = null;
+            for (index = 1; index <= length; index += 1) {
+                result = results[index - 1];
+                this.assert(result.value === ("test value = " + index),
+                        "Row[" + index + "].value should have been 'test value = " + index +
+                        "', but was '" + result.value + "'");
+            }
+        },
+
+        readRowsDesc: function () {
+            var results = logger.list({ orderBy: 'id DESC' });
+            this.assert(results.length === 10, "Show have read 10 rows");
+            var index = 10;
+            var result = null;
+            for (index = 10; index >= 1; index -= 1) {
+                result = results[10 - index];
+                this.assert(result.value === ("test value = " + index),
+                        "Row[" + (11 - index) + "].value should have been 'test value = " + index +
+                        "', but was '" + result.value + "'");
+            }
+        }
     }, 5000);
 }
 
