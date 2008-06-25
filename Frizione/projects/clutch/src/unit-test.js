@@ -147,11 +147,11 @@ clutch.test.assertions = function (totaliser) {
 
 /**
  * This monster runs the unit tests. Since introducing asynchronous unit testing this piece of code has
- * growth exponentially. I'd really like to get it back down to a humane size, before it implodes under
+ * grown exponentially. I'd really like to get it back down to a humane size, before it implodes under
  * its own weight.
  *
  * @param profile the testing report.
- * @param timeout the maximum tine in milliseconds for all tests to be executed.
+ * @param timeout the maximum time in milliseconds for all tests to be executed.
  */
 clutch.test.runner = function (profile, timeout) {
     var gearsTimer = null;

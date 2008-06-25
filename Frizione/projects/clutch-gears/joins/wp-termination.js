@@ -20,41 +20,8 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 */
 
-a.button {
-    border: 1px solid #007f08;
-    padding: 0.2em;
-    margin: 0.1em;
-    background-color: #d8e8d8;
-    font-family: Verdana serif;
-    font-size: 12pt;
-    text-decoration: none;
-}
-
-a.button:hover {
-    background-color: #e8f8e8;
-}
-
-p#start-up, p#external-link {
-    margin: 0.5em 1.0em;
-    font-weight: bold;
-}
-
-table#db-results thead {
-    background-color: #e8f8e8;
-}
-
-table#db-results tbody {
-    background-color: #d8e8d8;
-}
-
-table#db-results th {
-    font-weight: normal;
-}
-
-table#db-results td {
-    text-align: left;
-    font-family: 'Courier New' monospace;
-    font-size: 12pt;
-    padding: 0.2em 0.4em;
-}
-
+<%= include '../../clutch/src/gears/gears.js',
+            '../../clutch/src/gears/timer.js',
+            '../../clutch/src/gears/db-utils.js',
+            '../../clutch/src/gears/db-logger.js',
+            '../src/wp-termination.js' %>
