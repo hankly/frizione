@@ -1,11 +1,11 @@
 {
 	"abend": null,
 	"summary": {
-		"tests": 73,
+		"tests": 78,
 		"logs": 1,
 		"failures": 2,
 		"errors": 1,
-		"time": 819,
+		"time": 775,
 		"abend": null,
 		"messages": []
 	},
@@ -18,7 +18,7 @@
 				"logs": 1,
 				"failures": 2,
 				"errors": 1,
-				"time": 2,
+				"time": 1,
 				"abend": null,
 				"messages": []
 			},
@@ -86,7 +86,7 @@
 						"logs": 0,
 						"failures": 0,
 						"errors": 1,
-						"time": 2,
+						"time": 1,
 						"abend": null,
 						"messages": [
 							{
@@ -122,7 +122,7 @@
 				"logs": 0,
 				"failures": 0,
 				"errors": 0,
-				"time": 3,
+				"time": 2,
 				"abend": null,
 				"messages": []
 			},
@@ -190,7 +190,7 @@
 						"logs": 0,
 						"failures": 0,
 						"errors": 0,
-						"time": 1,
+						"time": 0,
 						"abend": null,
 						"messages": [],
 						"func": "testJsonArray",
@@ -207,7 +207,7 @@
 				"logs": 0,
 				"failures": 0,
 				"errors": 0,
-				"time": 2,
+				"time": 1,
 				"abend": null,
 				"messages": []
 			},
@@ -233,7 +233,7 @@
 						"logs": 0,
 						"failures": 0,
 						"errors": 0,
-						"time": 1,
+						"time": 0,
 						"abend": null,
 						"messages": [],
 						"func": "timerSetTimeout <- startSetTimeout",
@@ -247,7 +247,7 @@
 						"logs": 0,
 						"failures": 0,
 						"errors": 0,
-						"time": 0,
+						"time": 1,
 						"abend": null,
 						"messages": [],
 						"func": "startSetInterval",
@@ -261,7 +261,7 @@
 						"logs": 0,
 						"failures": 0,
 						"errors": 0,
-						"time": 1,
+						"time": 0,
 						"abend": null,
 						"messages": [],
 						"func": "timerSetInterval <- startSetInterval",
@@ -278,7 +278,7 @@
 				"logs": 0,
 				"failures": 0,
 				"errors": 0,
-				"time": 2,
+				"time": 0,
 				"abend": null,
 				"messages": []
 			},
@@ -290,7 +290,7 @@
 						"logs": 0,
 						"failures": 0,
 						"errors": 0,
-						"time": 1,
+						"time": 0,
 						"abend": null,
 						"messages": [],
 						"func": "validUrl",
@@ -346,7 +346,7 @@
 						"logs": 0,
 						"failures": 0,
 						"errors": 0,
-						"time": 1,
+						"time": 0,
 						"abend": null,
 						"messages": [],
 						"func": "abortedRequest",
@@ -373,11 +373,11 @@
 			"name": "Database Tests",
 			"abend": null,
 			"summary": {
-				"tests": 33,
+				"tests": 38,
 				"logs": 0,
 				"failures": 0,
 				"errors": 0,
-				"time": 810,
+				"time": 771,
 				"abend": null,
 				"messages": []
 			},
@@ -389,7 +389,7 @@
 						"logs": 0,
 						"failures": 0,
 						"errors": 0,
-						"time": 107,
+						"time": 52,
 						"abend": null,
 						"messages": [],
 						"func": "clearDatabase",
@@ -403,7 +403,7 @@
 						"logs": 0,
 						"failures": 0,
 						"errors": 0,
-						"time": 701,
+						"time": 716,
 						"abend": null,
 						"messages": [],
 						"func": "addRows",
@@ -435,6 +435,20 @@
 						"abend": null,
 						"messages": [],
 						"func": "readRowsDesc",
+						"callback": null
+					}
+				},
+				{
+					"name": "readRowsLimit",
+					"summary": {
+						"tests": 5,
+						"logs": 0,
+						"failures": 0,
+						"errors": 0,
+						"time": 1,
+						"abend": null,
+						"messages": [],
+						"func": "readRowsLimit",
 						"callback": null
 					}
 				}

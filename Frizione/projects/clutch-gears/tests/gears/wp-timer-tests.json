@@ -1,0 +1,72 @@
+{
+	"abend": null,
+	"name": "Timer Tests",
+	"summary": {
+		"abend": null,
+		"errors": 0,
+		"failures": 0,
+		"logs": 0,
+		"messages": [],
+		"tests": 4,
+		"time": 0,
+		"date": "Wed, 25 Jun 2008 21:27:12 UTC"
+	},
+	"tests": [
+		{
+			"name": "startSetTimeout",
+			"summary": {
+				"abend": null,
+				"callback": null,
+				"errors": 0,
+				"failures": 0,
+				"func": "startSetTimeout",
+				"logs": 0,
+				"messages": [],
+				"tests": 1,
+				"time": 0
+			}
+		},
+		{
+			"name": "timerSetTimeout <- startSetTimeout",
+			"summary": {
+				"abend": null,
+				"callback": "timerSetTimeout",
+				"errors": 0,
+				"failures": 0,
+				"func": "timerSetTimeout <- startSetTimeout",
+				"logs": 0,
+				"messages": [],
+				"tests": 1,
+				"time": 0
+			}
+		},
+		{
+			"name": "startSetInterval",
+			"summary": {
+				"abend": null,
+				"callback": null,
+				"errors": 0,
+				"failures": 0,
+				"func": "startSetInterval",
+				"logs": 0,
+				"messages": [],
+				"tests": 1,
+				"time": 0
+			}
+		},
+		{
+			"name": "timerSetInterval <- startSetInterval",
+			"summary": {
+				"abend": null,
+				"callback": "timerSetInterval",
+				"errors": 0,
+				"failures": 0,
+				"func": "timerSetInterval <- startSetInterval",
+				"logs": 0,
+				"messages": [],
+				"tests": 1,
+				"time": 0
+			}
+		}
+	]
+}

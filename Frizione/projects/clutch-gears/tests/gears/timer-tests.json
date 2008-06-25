@@ -8,7 +8,8 @@
 		"errors": 0,
 		"time": 0,
 		"abend": null,
-		"messages": []
+		"messages": [],
+		"date": "Wed, 25 Jun 2008 21:19:28 UTC"
 	},
 	"tests": [
 		{

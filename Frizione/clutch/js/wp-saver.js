@@ -21,7 +21,7 @@ THE SOFTWARE.
 */
 
 /*jslint evil: true */
-/*global clutch, ActiveXObject */
+/*global clutch */
 
 if (!this.clutch) {
     clutch = {};
@@ -55,17 +55,17 @@ clutch.date = {
 };
 
 /**
- * Store the unit test results (JSON format) to disk, with the help of the server.
+ * Store the WorkerPool unit test results (JSON format) to disk, with the help of the server.
  *
- * @param testFunction the test function to actually produce the report.
+ * @param sriptUrl the JavaScript test code to be run in a WorkerPool.
  * @param jsonUrl the absolute URL where the report will be stored.
  * @param viewUrl the absolute URL of the report viewer HTML page.
  */
-clutch.storeTests = function (testFunction, jsonUrl, viewUrl) {
+clutch.storeTests = function (scriptUrl, jsonUrl, viewUrl) {
     jsonUrl = '/run-fixture' + jsonUrl;
     var date = new Date().toUTCString();
-    var tests = testFunction();
-    var intervalId = null;
+    var worker = null;
+    var workerId = null;
 
     function handleRequest(status, statusText, responseText) {
         var element = document.getElementById('test-results');
@@ -77,22 +77,33 @@ clutch.storeTests = function (testFunction, jsonUrl, viewUrl) {
         }
     }
 
-    function checkTests() {
+    function sendStatusMessage() {
+        worker.sendMessage({ command: 'clutch.test.status' }, workerId);
+    }
+
+    function checkTests(results) {
         var element = document.getElementById('test-results');
-        var status = tests.check();
-        if (status.complete) {
-            window.clearTimeout(intervalId);
+        var status = results.status;
+        if (status.complete && results.summary) {
             element.innerHTML = "Unit tests completed...";
             clutch.date.toClutchJSON();
-            var summary = tests.summarise();
-            summary.summary.date = date;
+            results.summary.summary.date = date;
             clutch.test.executeRequest("POST", jsonUrl,
-                    null, JSON.stringify(summary, null, "\t"), 2000, handleRequest);
+                    null, JSON.stringify(results.summary, null, "\t"), 2000, handleRequest);
             return;
         }
         element.innerHTML = "" + status.index + " unit tests of " + status.total + " completed...";
+        window.setTimeout(sendStatusMessage, 500);
     }
 
-    intervalId = window.setInterval(checkTests, 500);
-    tests.run();
+    function actOnMessage(depr1, depr2, message) {
+        if (message.sender === workerId) {
+            checkTests(message.body);
+        }
+    }
+
+    worker = clutch.createGearsWorkerPool();
+    worker.onmessage = actOnMessage;
+    workerId = worker.createWorkerFromUrl(scriptUrl + "?nocache=" + new Date().getTime());
+    worker.sendMessage({ command: 'clutch.test.run' }, workerId);
 };

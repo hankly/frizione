@@ -22,7 +22,7 @@
         </p>
         <h1>Clutch-Gears Join/Compress File Creation</h1>
 
-        <h2>Timer Unit Tests</h2>
+        <h2>Low Level Tests</h2>
         <div>
             <form style='display: inline;' action="/run-join/projects/clutch-gears/joins/gears/timer-tests.js" enctype="application/x-www-form-urlencoded" method="post">
                 <input name="to" type="hidden" value="/projects/clutch-gears/tests/gears/timer-tests.js" />
@@ -41,8 +41,6 @@
             </form>
             <code>/tests/gears/timer-tests.js</code>
         </div>
-
-        <h2>XHR Unit Tests</h2>
         <div>
             <form style='display: inline;' action="/run-join/projects/clutch-gears/joins/gears/xhr-tests.js" enctype="application/x-www-form-urlencoded" method="post">
                 <input name="to" type="hidden" value="/projects/clutch-gears/tests/gears/xhr-tests.js" />
@@ -61,8 +59,6 @@
             </form>
             <code>/tests/gears/xhr-tests.js</code>
         </div>
-
-        <h2>Database Unit Tests</h2>
         <div>
             <form style='display: inline;' action="/run-join/projects/clutch-gears/joins/gears/db-tests.js" enctype="application/x-www-form-urlencoded" method="post">
                 <input name="to" type="hidden" value="/projects/clutch-gears/tests/gears/db-tests.js" />
@@ -80,6 +76,62 @@
                 <input type="submit" value="JSMin" />
             </form>
             <code>/tests/gears/db-tests.js</code>
+        </div>
+
+        <h2>Low Level Tests (WorkerPool)</h2>
+        <div>
+            <form style='display: inline;' action="/run-join/projects/clutch-gears/joins/gears/wp-timer-tests.js" enctype="application/x-www-form-urlencoded" method="post">
+                <input name="to" type="hidden" value="/projects/clutch-gears/tests/gears/wp-timer-tests.js" />
+                <input type="submit" value="Join" />
+            </form>
+            then
+            <form style='display: inline;' action="/run-compressor/projects/clutch-gears/tests/gears/wp-timer-tests.js" enctype="application/x-www-form-urlencoded" method="post">
+                <input name="jsmin" type="hidden" value="false" />
+                <input name="output" type="hidden" value="/projects/clutch-gears/tests/gears/min-wp-timer-tests.js" />
+                <input type="submit" value="Compress" />
+            </form>
+            or
+            <form style='display: inline;' action="/run-compressor/projects/clutch-gears/tests/gears/wp-timer-tests.js" enctype="application/x-www-form-urlencoded" method="post">
+                <input name="output" type="hidden" value="/projects/clutch-gears/tests/gears/min-wp-timer-tests.js" />
+                <input type="submit" value="JSMin" />
+            </form>
+            <code>/tests/gears/wp-timer-tests.js</code>
+        </div>
+        <div>
+            <form style='display: inline;' action="/run-join/projects/clutch-gears/joins/gears/wp-xhr-tests.js" enctype="application/x-www-form-urlencoded" method="post">
+                <input name="to" type="hidden" value="/projects/clutch-gears/tests/gears/wp-xhr-tests.js" />
+                <input type="submit" value="Join" />
+            </form>
+            then
+            <form style='display: inline;' action="/run-compressor/projects/clutch-gears/tests/gears/wp-xhr-tests.js" enctype="application/x-www-form-urlencoded" method="post">
+                <input name="jsmin" type="hidden" value="false" />
+                <input name="output" type="hidden" value="/projects/clutch-gears/tests/gears/min-wp-xhr-tests.js" />
+                <input type="submit" value="Compress" />
+            </form>
+            or
+            <form style='display: inline;' action="/run-compressor/projects/clutch-gears/tests/gears/wp-xhr-tests.js" enctype="application/x-www-form-urlencoded" method="post">
+                <input name="output" type="hidden" value="/projects/clutch-gears/tests/gears/min-wp-xhr-tests.js" />
+                <input type="submit" value="JSMin" />
+            </form>
+            <code>/tests/gears/wp-xhr-tests.js</code>
+        </div>
+        <div>
+            <form style='display: inline;' action="/run-join/projects/clutch-gears/joins/gears/wp-db-tests.js" enctype="application/x-www-form-urlencoded" method="post">
+                <input name="to" type="hidden" value="/projects/clutch-gears/tests/gears/wp-db-tests.js" />
+                <input type="submit" value="Join" />
+            </form>
+            then
+            <form style='display: inline;' action="/run-compressor/projects/clutch-gears/tests/gears/wp-db-tests.js" enctype="application/x-www-form-urlencoded" method="post">
+                <input name="jsmin" type="hidden" value="false" />
+                <input name="output" type="hidden" value="/projects/clutch-gears/tests/gears/min-wp-db-tests.js" />
+                <input type="submit" value="Compress" />
+            </form>
+            or
+            <form style='display: inline;' action="/run-compressor/projects/clutch-gears/tests/gears/wp-db-tests.js" enctype="application/x-www-form-urlencoded" method="post">
+                <input name="output" type="hidden" value="/projects/clutch-gears/tests/gears/min-wp-db-tests.js" />
+                <input type="submit" value="JSMin" />
+            </form>
+            <code>/tests/gears/wp-db-tests.js</code>
         </div>
 
         <h2>WorkerPool Termination Tests</h2>

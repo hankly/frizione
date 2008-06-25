@@ -549,30 +549,26 @@ if (!this.clutch) {
 /**
  * Logs received messages, errors and timer intervals.
  */
-clutch.workerPoolLogger = function () {
-    var self = google.gears.workerPool;
+(function () {
+    var wp = google.gears.workerPool;
     var logger = clutch.db.logger('clutch_gears');
 
     function actOnTimer() {
-        var now = new Date();
-        logger.log("timer", now.toUTCString() + " " + now.getUTCMilliseconds());
+        logger.log("timer", new Date().toJSON());
     }
 
     function actOnMessage(depr1, depr2, message) {
-        var now = new Date();
-        logger.log("message", now.toUTCString() + " " + now.getUTCMilliseconds() + " " + message.body);
-        self.sendMessage("Message logged", message.sender);
+        logger.log("message", new Date().toJSON() + " " + message.body);
+        wp.sendMessage("Message logged", message.sender);
     }
 
     function actOnError(error) {
-        var now = new Date();
-        logger.log("error", now.toUTCString() + " " + now.getUTCMilliseconds() + " Error(" + error.lineNumber + '): ' + error.message);
+        logger.log("error", new Date().toJSON() + " Error(" + error.lineNumber + '): ' + error.message);
         return false;
     }
 
-    self.onmessage = actOnMessage;
-    self.onerror = actOnError;
+    clutch.date.toStandardJSON();
+    wp.onmessage = actOnMessage;
+    wp.onerror = actOnError;
     clutch.timer.setInterval(actOnTimer, 500);
-};
-
-clutch.workerPoolLogger();
+})();

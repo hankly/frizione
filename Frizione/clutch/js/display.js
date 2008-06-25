@@ -117,10 +117,10 @@ clutch.displayTestResults = function (summary) {
         attrs = { 'class': 'test summary' };
         var noAttrs = {};
         var rate = summary.tests ? (100 * (summary.tests - summary.failures - summary.errors)) / summary.tests : 0.0;
-        var headers = ["Tests", "Failures", "Errors", "Success Rate", "Time (ms)"];
+        var headers = ["Tests", "Failures", "Errors", "Success Rate", "Time (ms)", "Date" ];
         var info = [
             summary.tests.toString(), summary.failures.toString(), summary.errors.toString(),
-            rate.toFixed(2) + "%", summary.time.toString()
+            rate.toFixed(2) + "%", summary.time.toString(), summary.date
         ];
         var node = Builder.node('table', attrs, [
             Builder.node('thead', noAttrs, Builder.node('tr', noAttrs, buildRow('th', noAttrs, headers))),

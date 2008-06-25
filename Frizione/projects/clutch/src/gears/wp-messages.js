@@ -20,39 +20,39 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 */
 
+/*
+Inspired by Aaron Boodman's Worker2 micro project
+See http://groups.google.com/group/gears-users/browse_thread/thread/62a021c62828b8e4/67f494497639b641
+*/
+
 /*jslint evil: true */
 /*global clutch, google */
-
-// Simple WorkerPool termination functions.
-// I don't see any advantage in producing a generic library for these simple functions.
 
 if (!this.clutch) {
     clutch = {};
 }
+if (!this.clutch.wp) {
+    clutch.wp = {};
+}
 
 /**
- * Logs received messages, errors and timer intervals.
+ * Message handlers (functions) for specific commands.
  */
-(function () {
-    var wp = google.gears.workerPool;
-    var logger = clutch.db.logger('clutch_gears');
-
-    function actOnTimer() {
-        logger.log("timer", new Date().toJSON());
+clutch.wp.handlers = {
+    'default': function (message) {
+        throw new Error("No message handler for '" + message.body.command + "'");
     }
+};
 
-    function actOnMessage(depr1, depr2, message) {
-        logger.log("message", new Date().toJSON() + " " + message.body);
-        wp.sendMessage("Message logged", message.sender);
-    }
-
-    function actOnError(error) {
-        logger.log("error", new Date().toJSON() + " Error(" + error.lineNumber + '): ' + error.message);
-        return false;
-    }
-
-    clutch.date.toStandardJSON();
-    wp.onmessage = actOnMessage;
-    wp.onerror = actOnError;
-    clutch.timer.setInterval(actOnTimer, 500);
-})();
+/**
+ * WorkerPool message handler.
+ *
+ * @param depr1 deprecated message contents (not used).
+ * @param depr2 deprectaed sender id (not used).
+ * @param message the message object.
+ */
+clutch.wp.onMessage = function (depr1, depr2, message) {
+    var body = message.body;
+    var handler = clutch.wp.handlers[body.command] || clutch.wp.handlers['default'];
+    handler(message);
+};
