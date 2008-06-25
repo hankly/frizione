@@ -20,39 +20,15 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 */
 
-/*jslint evil: true */
-/*global clutch, google */
-
-// Simple WorkerPool termination functions.
-// I don't see any advantage in producing a generic library for these simple functions.
-
-if (!this.clutch) {
-    clutch = {};
-}
-
-/**
- * Logs received messages, errors and timer intervals.
- */
-(function () {
-    var wp = google.gears.workerPool;
-    var logger = clutch.db.logger('clutch_gears');
-
-    function actOnTimer() {
-        logger.log("timer", new Date().toJSON());
-    }
-
-    function actOnMessage(depr1, depr2, message) {
-        logger.log("message", new Date().toJSON() + " " + message.body);
-        wp.sendMessage("Message logged", message.sender);
-    }
-
-    function actOnError(error) {
-        logger.log("error", new Date().toJSON() + " Error(" + error.lineNumber + '): ' + error.message);
-        return false;
-    }
-
-    clutch.date.toStandardJSON();
-    wp.onmessage = actOnMessage;
-    wp.onerror = actOnError;
-    clutch.timer.setInterval(actOnTimer, 500);
-})();
+<%= include '../../clutch/src/string.js',
+            '../../clutch/src/gears/gears.js',
+            '../../clutch/src/gears/timer.js',
+            '../../clutch/src/gears/xhr.js',
+            '../../clutch/src/gears/db-utils.js',
+            '../../clutch/src/gears/db-logger.js',
+            '../../clutch/src/tests/all-tests.js',
+            '../src/tests/all-tests.js',
+            '../../../clutch/js/json2.js',
+            '../../clutch/src/unit-test.js',
+            '../../clutch/src/gears/wp-messages.js',
+            '../../clutch/src/gears/wp-unit-test.js' %>

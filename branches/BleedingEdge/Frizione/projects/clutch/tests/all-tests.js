@@ -297,7 +297,7 @@ if (!this.clutch.timer) {
 
     // don't try to simplify this stuff, clutch.timer.setTimeout = window.setTimeout causes all sorts of problems
     // with Opera and Firefox (which actually crashes)
-    if (window && window.setTimeout) {
+    if (this.window && window.setTimeout) {
         clutch.timer.setTimeout = function (code, millis) {
             return window.setTimeout(code, millis);
         };

@@ -315,7 +315,8 @@ function createDatabaseTests() {
             { func: 'clearDatabase', callbacks: null },
             { func: 'addRows', callbacks: null },
             { func: 'readRowsAsc', callbacks: null },
-            { func: 'readRowsDesc', callbacks: null }
+            { func: 'readRowsDesc', callbacks: null },
+            { func: 'readRowsLimit', callbacks: null }
         ],
 
         setUp: function () {
@@ -332,9 +333,9 @@ function createDatabaseTests() {
 
         addRows: function () {
             var index = 1;
-            var length = 10;
+            var last = 10;
             var rowsAffected = null;
-            for (index = 1; index <= length; index += 1) {
+            for (index = 1; index <= last; index += 1) {
                 rowsAffected = logger.log("log", "test value = " + index);
                 this.assert(rowsAffected === 1, "Rows affected by log() !== 1");
             }
@@ -342,11 +343,11 @@ function createDatabaseTests() {
 
         readRowsAsc: function () {
             var results = logger.list({ orderBy: 'id ASC' });
-            this.assert(results.length === 10, "Show have read 10 rows");
+            this.assert(results.length === 10, "Should have read 10 rows, but read " + results.length);
             var index = 1;
-            var length = 10;
+            var last = 10;
             var result = null;
-            for (index = 1; index <= length; index += 1) {
+            for (index = 1; index <= last; index += 1) {
                 result = results[index - 1];
                 this.assert(result.value === ("test value = " + index),
                         "Row[" + index + "].value should have been 'test value = " + index +
@@ -356,13 +357,27 @@ function createDatabaseTests() {
 
         readRowsDesc: function () {
             var results = logger.list({ orderBy: 'id DESC' });
-            this.assert(results.length === 10, "Show have read 10 rows");
+            this.assert(results.length === 10, "Should have read 10 rows, but read " + results.length);
             var index = 10;
             var result = null;
             for (index = 10; index >= 1; index -= 1) {
                 result = results[10 - index];
                 this.assert(result.value === ("test value = " + index),
                         "Row[" + (11 - index) + "].value should have been 'test value = " + index +
+                        "', but was '" + result.value + "'");
+            }
+        },
+
+        readRowsLimit: function () {
+            var results = logger.list({ orderBy: 'id ASC', limit: 4, offset: 2 });
+            this.assert(results.length === 4, "Should have read 4 rows, but read " + results.length);
+            var index = 3;
+            var last = 6;
+            var result = null;
+            for (index = 3; index <= last; index += 1) {
+                result = results[index - 3];
+                this.assert(result.value === ("test value = " + index),
+                        "Row[" + index + "].value should have been 'test value = " + index +
                         "', but was '" + result.value + "'");
             }
         }

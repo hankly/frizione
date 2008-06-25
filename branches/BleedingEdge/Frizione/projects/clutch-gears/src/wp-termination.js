@@ -54,7 +54,7 @@ function startWorkerPool() {
 
     worker = clutch.createGearsWorkerPool();
     worker.onmessage = actOnMessage;
-    workerId = worker.createWorkerFromUrl('/projects/clutch-gears/tests/wp-logger.js');
+    workerId = worker.createWorkerFromUrl('/projects/clutch-gears/tests/wp-logger.js?nocache=' + new Date().getTime());
     sendMessage();
 }
 
