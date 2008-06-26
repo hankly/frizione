@@ -37,12 +37,39 @@ if (!this.clutch) {
     var wp = google.gears.workerPool;
     var logger = clutch.db.logger('clutch_gears');
 
+    function timeConsumer() {
+        logger.log("start long process", new Date().toJSON());
+
+        var number = 1;
+        var maxNumber = 8000;
+        var primeFlag = true;
+        var maxTest = 0;
+        var test = 0;
+        for (number = 1; number <= maxNumber; number += 1) {
+            primeFlag = true;
+            maxTest = number / 2;
+            if (( number !== 2 ) && (( number % 2) === 0)) {
+                primeFlag = false;
+            }
+            test = 3;
+            while ((test <= maxTest) && (primeFlag)) {
+                if ((number % test) === 0) {
+                    primeFlag = false;
+                }
+                test = test + 2;
+            }
+        }
+
+        logger.log("end long process", new Date().toJSON());
+    }
+
     function actOnTimer() {
         logger.log("timer", new Date().toJSON());
     }
 
     function actOnMessage(depr1, depr2, message) {
         logger.log("message", new Date().toJSON() + " " + message.body);
+        timeConsumer();
         wp.sendMessage("Message logged", message.sender);
     }
 

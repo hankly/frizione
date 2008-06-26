@@ -7,8 +7,8 @@
 		"logs": 1,
 		"messages": [],
 		"tests": 78,
-		"time": 843,
-		"date": "Wed, 25 Jun 2008 21:48:59 UTC"
+		"time": 954,
+		"date": "Thu, 26 Jun 2008 16:02:41 UTC"
 	},
 	"tests": [
 		{
@@ -281,7 +281,7 @@
 				"logs": 0,
 				"messages": [],
 				"tests": 11,
-				"time": 31
+				"time": 32
 			},
 			"tests": [
 				{
@@ -295,7 +295,7 @@
 						"logs": 0,
 						"messages": [],
 						"tests": 2,
-						"time": 31
+						"time": 32
 					}
 				},
 				{
@@ -380,7 +380,7 @@
 				"logs": 0,
 				"messages": [],
 				"tests": 38,
-				"time": 812
+				"time": 922
 			},
 			"tests": [
 				{
@@ -394,7 +394,7 @@
 						"logs": 0,
 						"messages": [],
 						"tests": 1,
-						"time": 109
+						"time": 47
 					}
 				},
 				{
@@ -408,7 +408,7 @@
 						"logs": 0,
 						"messages": [],
 						"tests": 10,
-						"time": 703
+						"time": 875
 					}
 				},
 				{

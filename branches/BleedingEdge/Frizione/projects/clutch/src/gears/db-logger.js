@@ -53,7 +53,7 @@ clutch.db.logger = function (name) {
 
         get: function (id) {
             var result = db.execute('SELECT id, name, value FROM clutch_logger WHERE id = ?', [ id ]);
-            return clutch.db.fromSingleRow(result, columns);
+            return clutch.db.fromRow(result, columns);
         },
 
         list: function (params) {

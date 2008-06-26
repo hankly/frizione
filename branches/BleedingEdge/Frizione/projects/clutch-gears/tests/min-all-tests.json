@@ -1,13 +1,14 @@
 {
 	"abend": null,
 	"summary": {
-		"tests": 41,
+		"tests": 78,
 		"logs": 1,
 		"failures": 2,
 		"errors": 1,
-		"time": 156,
+		"time": 1126,
 		"abend": null,
-		"messages": []
+		"messages": [],
+		"date": "Thu, 26 Jun 2008 16:04:22 UTC"
 	},
 	"tests": [
 		{
@@ -278,7 +279,7 @@
 				"logs": 0,
 				"failures": 0,
 				"errors": 0,
-				"time": 78,
+				"time": 0,
 				"abend": null,
 				"messages": []
 			},
@@ -290,7 +291,7 @@
 						"logs": 0,
 						"failures": 0,
 						"errors": 0,
-						"time": 62,
+						"time": 0,
 						"abend": null,
 						"messages": [],
 						"func": "validUrl",
@@ -346,7 +347,7 @@
 						"logs": 0,
 						"failures": 0,
 						"errors": 0,
-						"time": 16,
+						"time": 0,
 						"abend": null,
 						"messages": [],
 						"func": "abortedRequest",
@@ -373,11 +374,11 @@
 			"name": "Database Tests",
 			"abend": null,
 			"summary": {
-				"tests": 1,
+				"tests": 38,
 				"logs": 0,
 				"failures": 0,
 				"errors": 0,
-				"time": 78,
+				"time": 1126,
 				"abend": null,
 				"messages": []
 			},
@@ -389,10 +390,66 @@
 						"logs": 0,
 						"failures": 0,
 						"errors": 0,
-						"time": 78,
+						"time": 94,
 						"abend": null,
 						"messages": [],
 						"func": "clearDatabase",
+						"callback": null
+					}
+				},
+				{
+					"name": "addRows",
+					"summary": {
+						"tests": 10,
+						"logs": 0,
+						"failures": 0,
+						"errors": 0,
+						"time": 1032,
+						"abend": null,
+						"messages": [],
+						"func": "addRows",
+						"callback": null
+					}
+				},
+				{
+					"name": "readRowsAsc",
+					"summary": {
+						"tests": 11,
+						"logs": 0,
+						"failures": 0,
+						"errors": 0,
+						"time": 0,
+						"abend": null,
+						"messages": [],
+						"func": "readRowsAsc",
+						"callback": null
+					}
+				},
+				{
+					"name": "readRowsDesc",
+					"summary": {
+						"tests": 11,
+						"logs": 0,
+						"failures": 0,
+						"errors": 0,
+						"time": 0,
+						"abend": null,
+						"messages": [],
+						"func": "readRowsDesc",
+						"callback": null
+					}
+				},
+				{
+					"name": "readRowsLimit",
+					"summary": {
+						"tests": 5,
+						"logs": 0,
+						"failures": 0,
+						"errors": 0,
+						"time": 0,
+						"abend": null,
+						"messages": [],
+						"func": "readRowsLimit",
 						"callback": null
 					}
 				}

@@ -6,9 +6,10 @@
 		"logs": 0,
 		"failures": 0,
 		"errors": 0,
-		"time": 1047,
+		"time": 922,
 		"abend": null,
-		"messages": []
+		"messages": [],
+		"date": "Thu, 26 Jun 2008 16:03:03 UTC"
 	},
 	"tests": [
 		{
@@ -18,7 +19,7 @@
 				"logs": 0,
 				"failures": 0,
 				"errors": 0,
-				"time": 47,
+				"time": 62,
 				"abend": null,
 				"messages": [],
 				"func": "clearDatabase",
@@ -32,7 +33,7 @@
 				"logs": 0,
 				"failures": 0,
 				"errors": 0,
-				"time": 1000,
+				"time": 844,
 				"abend": null,
 				"messages": [],
 				"func": "addRows",
@@ -46,7 +47,7 @@
 				"logs": 0,
 				"failures": 0,
 				"errors": 0,
-				"time": 0,
+				"time": 16,
 				"abend": null,
 				"messages": [],
 				"func": "readRowsAsc",

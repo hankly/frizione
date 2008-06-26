@@ -30,10 +30,10 @@ if (!this.clutch) {
 // Browser sniffing. Disgusting, but sometimes necessary.
 // Modified version of the Prototype library sniffer code.
 clutch.browser =  {
-  IE:           window && (!!(window.attachEvent && !window.opera)),
-  Opera:        window && !!window.opera,
-  WebKit:       navigator && navigator.userAgent.indexOf('AppleWebKit/') > -1,
-  Gecko:        navigator && navigator.userAgent.indexOf('Gecko') > -1 && navigator.userAgent.indexOf('KHTML') === -1,
-  MobileSafari: navigator && !!navigator.userAgent.match(/Apple.*Mobile.*Safari/),
-  Gears:        google && !!google.gears
+  IE:           !!window && (!!(window.attachEvent && !window.opera)),
+  Opera:        !!window && !!window.opera,
+  WebKit:       !!navigator && navigator.userAgent.indexOf('AppleWebKit/') > -1,
+  Gecko:        !!navigator && navigator.userAgent.indexOf('Gecko') > -1 && navigator.userAgent.indexOf('KHTML') === -1,
+  MobileSafari: !!navigator && !!navigator.userAgent.match(/Apple.*Mobile.*Safari/),
+  Gears:        !!google && !!google.gears
 };

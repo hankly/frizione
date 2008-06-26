@@ -31,11 +31,11 @@ if (!this.clutch) {
 }
 
 clutch.isGearsInstalled = function () {
-    if (window) {
-        return window.google && google && google.gears;
+    if (!!window) {
+        return !!window.google && !!google && !!google.gears;
     }
     else {
-        return google && google.gears;        
+        return !!google && !!google.gears;        
     }
 };
 

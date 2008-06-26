@@ -53,11 +53,11 @@ if (!this.clutch) {
 }
 
 clutch.isGearsInstalled = function () {
-    if (window) {
-        return window.google && google && google.gears;
+    if (!!window) {
+        return !!window.google && !!google && !!google.gears;
     }
     else {
-        return google && google.gears;        
+        return !!google && !!google.gears;        
     }
 };
 
@@ -127,7 +127,7 @@ if (!this.clutch.db) {
  * @param result the ResultSet to convert.
  * @param columns the columns to extract.
  */
-clutch.db.fromSingleRow = function (result, columns) {
+clutch.db.fromRow = function (result, columns) {
     if (!result.isValidRow()) {
         result.close();
         return null;
@@ -259,7 +259,7 @@ clutch.db.logger = function (name) {
 
         get: function (id) {
             var result = db.execute('SELECT id, name, value FROM clutch_logger WHERE id = ?', [ id ]);
-            return clutch.db.fromSingleRow(result, columns);
+            return clutch.db.fromRow(result, columns);
         },
 
         list: function (params) {

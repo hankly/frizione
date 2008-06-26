@@ -222,7 +222,7 @@ if (!this.clutch) {
 }
 
 clutch.isGearsInstalled = function () {
-    if (window) {
+    if (this.window) {
         return window.google && google && google.gears;
     }
     else {
@@ -567,8 +567,36 @@ if (!this.clutch) {
         return false;
     }
 
+    function timeConsumer() {
+        logger.log("start long process", new Date().toJSON());
+
+        var number = 1;
+        var maxNumber = 8000;
+        var primeFlag = true;
+        var maxTest = 0;
+        var test = 0;
+        for (number = 1; number <= maxNumber; number += 1) {
+            primeFlag = true;
+            maxTest = number / 2;
+            if (( number !== 2 ) && (( number % 2) === 0)) {
+                primeFlag = false;
+            }
+            test = 3;
+            while ((test <= maxTest) && (primeFlag)) {
+                if ((number % test) === 0) {
+                    primeFlag = false;
+                }
+                test = test + 2;
+            }
+        }
+
+        logger.log("end long process", new Date().toJSON());
+        clutch.timer.setTimeout(timeConsumer, 10);
+    }
+
     clutch.date.toStandardJSON();
     wp.onmessage = actOnMessage;
     wp.onerror = actOnError;
     clutch.timer.setInterval(actOnTimer, 500);
+    clutch.timer.setTimeout(timeConsumer, 10);
 })();
