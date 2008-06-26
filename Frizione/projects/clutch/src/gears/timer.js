@@ -48,6 +48,9 @@ if (!this.clutch.timer) {
         clutch.timer.clearTimeout = function (timerId) {
             window.clearTimeout(timerId);
         };
+        clutch.timer.clearInterval = function (timerId) {
+            window.clearInterval(timerId);
+        };
     }
     else {
         gearsTimer = clutch.createGearsTimer();
@@ -59,6 +62,9 @@ if (!this.clutch.timer) {
         };
         clutch.timer.clearTimeout = function (timerId) {
             gearsTimer.clearTimeout(timerId);
+        };
+        clutch.timer.clearInterval = function (timerId) {
+            gearsTimer.clearInterval(timerId);
         };
     }
 })();
