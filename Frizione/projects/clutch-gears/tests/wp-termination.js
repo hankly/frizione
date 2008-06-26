@@ -53,7 +53,7 @@ if (!this.clutch) {
 }
 
 clutch.isGearsInstalled = function () {
-    if (window) {
+    if (this.window) {
         return window.google && google && google.gears;
     }
     else {
@@ -390,9 +390,10 @@ function startWorkerPool() {
     function actOnMessage(depr1, depr2, message) {
         if (message.sender === workerId) {
             if (!linkSet) {
-                $('external-link').replace("<p id = 'external-link'><code>WorkerPool</code> running. " +
-                                           "Please click on this <a href='http://www.syger.it/'>link</a> " +
-                                           "then come back after a few seconds.</p>");
+                $('external-link').replace("<p id = 'external-link'><code>WorkerPool</code> now running. " +
+                                           "Let it run for a few seconds, then click on this " +
+                                           "<a href='http://www.syger.it/'>link</a> " +
+                                           "and then come back to this page.</p>");
                 linkSet = true;
             }
             clutch.timer.setTimeout(sendMessage, 250);

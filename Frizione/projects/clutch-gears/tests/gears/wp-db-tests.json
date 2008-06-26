@@ -8,8 +8,8 @@
 		"logs": 0,
 		"messages": [],
 		"tests": 38,
-		"time": 1125,
-		"date": "Wed, 25 Jun 2008 21:20:24 UTC"
+		"time": 1156,
+		"date": "Thu, 26 Jun 2008 16:03:19 UTC"
 	},
 	"tests": [
 		{
@@ -65,7 +65,7 @@
 				"logs": 0,
 				"messages": [],
 				"tests": 11,
-				"time": 0
+				"time": 15
 			}
 		},
 		{
@@ -79,7 +79,7 @@
 				"logs": 0,
 				"messages": [],
 				"tests": 5,
-				"time": 0
+				"time": 16
 			}
 		}
 	]

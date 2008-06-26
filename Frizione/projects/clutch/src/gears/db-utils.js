@@ -37,7 +37,7 @@ if (!this.clutch.db) {
  * @param result the ResultSet to convert.
  * @param columns the columns to extract.
  */
-clutch.db.fromSingleRow = function (result, columns) {
+clutch.db.fromRow = function (result, columns) {
     if (!result.isValidRow()) {
         result.close();
         return null;
