@@ -27,6 +27,9 @@ if (!this.clutch) {
     clutch = {};
 }
 
+// Since JSON has no date format, everyone has invented their own. So why not me?
+// Provides patches for JSON and Prototype, but please don't use them both together, they
+// really don't get on at all.
 clutch.date = {
     toStandardJSON: function () {
         function tens(n) {
@@ -108,6 +111,7 @@ clutch.date = {
     }
 };
 
+// The usual, boring string functions that the implementers forgot.
 clutch.string = {
     trim: function (string) {
         return string.replace(/^[\s\u00a0]+/, '').replace(/[\s\u00a0]+$/, '');
@@ -123,7 +127,7 @@ clutch.string = {
     },
 
     toJSON: function (object) {
-        // Prototype
+        // Check for Prototype
         if (Object.toJSON && typeof Object.toJSON === 'function') {
             return Object.toJSON(object);
         }
@@ -133,11 +137,12 @@ clutch.string = {
     },
 
     fromJSON: function (string) {
-        // Prototype
+        // Check for Prototype
         if (String.prototype.evalJSON && typeof String.prototype.evalJSON === 'function') {
             return string.evalJSON(true);
         }
         else {
+            // string RegExps used to keep Opera happy, but made me miserable
             var microsoftDate = new RegExp("^\\\\\\/Date\\((\\d+)\\)\\\\\\/$", "gm");
             var clutchDate = new RegExp("^\\\\\\/Date\\((\\d{4})-(\\d{2})-(\\d{2})T(\\d{2}):(\\d{2}):(\\d{2})(\\.\\d+)?Z\\)\\\\\\/$", "gm");
 

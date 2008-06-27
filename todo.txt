@@ -1,4 +1,5 @@
- - Use Ruby jsmin as an alternative to YUICompressor (Done)
- - Provide a means (JSON file) to allow additions to the main static HTML pages (Done).
- - Complete asynchronous unit testing (Done)
+ - Create Clutch-Gears example project (Done)
+ - Create Install test page (Done)
+ - Create Database example unit test.
+ - Create WorkerPool example unit test.
  - Complete Fixtures

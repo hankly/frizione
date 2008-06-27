@@ -27,7 +27,16 @@ if (!this.clutch) {
     clutch = {};
 }
 
-clutch.retrieveAndDisplay = function (type) {
+/**
+ * With the help of the server, grabs all the /projects metadata files,
+ * and then lists the ones that have a definition for 'type'.
+ * This is a decoupling mechanism so that clutch can live in its own
+ * version control repository, and your code (in a /projects sub-directory) can live
+ * in a different source control repository.
+ * 
+ * @param type the type to display, one of 'home', 'joins', 'jslint' or 'tests'.
+ */
+clutch.retrieveAndDisplayProjects = function (type) {
 
     document.observe('dom:loaded', function() {
         var text = null;

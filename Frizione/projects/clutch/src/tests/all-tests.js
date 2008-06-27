@@ -23,12 +23,16 @@ THE SOFTWARE.
 /*jslint evil: true */
 /*global clutch, runClutchTests */
 
-<%= include './string-tests.js', './unit-test-tests.js', './gears/xhr-tests.js' %>
+<%= include './string-tests.js',
+            './unit-test-tests.js',
+            './gears/timer-tests.js',
+            './gears/xhr-tests.js' %>
 
 function runClutchTests() {
     return clutch.test.group([
             createUnitTests(),
             createStringTests(),
+            createTimerTests(),
             createXhrTests()
-        ], 30000);
+        ], 8000);
 }

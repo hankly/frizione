@@ -2,12 +2,12 @@
      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
     <head>
-        <title>Clutch</title>
+        <title>Clutch Version 0.3</title>
         <link rel="stylesheet" href="/clutch/css/clutch.css" type="text/css" media="screen" charset="utf-8" />
         <script src="/clutch/js/prototype/prototype.js" type="text/javascript" charset="utf-8"></script>
         <script src="/clutch/js/projects.js" type="text/javascript" charset="utf-8"></script>
         <script type="text/javascript">
-            clutch.retrieveAndDisplay('home');
+            clutch.retrieveAndDisplayProjects('home');
         </script>
     </head>
     <body>
@@ -19,28 +19,18 @@
             <a href="/clutch/docs/Clutch.pdf">Documentation</a>
         </p>
 
-        <h1>Clutch JSLint Checks</h1>
-        <p>Uses JSLint to check the correctness of the JavaScript code files.</p>
-        <ul>
-            <li><a href="/jslint">JSLint Page Creation and Tests</a></li>
-        </ul>
+        <h1>Clutch Version 0.3</h1>
+        <div style="margin: 0 1.0em;">
+            <p style="float: right; margin: 0 1.0em;">
+                <img style="border: 1px solid #3084cc;"
+                        width="100" height="76" src="/clutch/docs/Images/clutch-tiny.png" alt="A real clutch"/>
+            </p>
+            <p><a href="/jslint">JSLint Page Creation and Tests</a></p>
+            <p><a href="/joins">Join/Compress File Creation</a></p>
+            <p><a href="/tests">Unit Test Page Creation</a></p>
+        </div>
 
-        <h1>Clutch Join/Compress Utilities</h1>
-        <p>Join together (concatenate) several JavaScript or text files to produce one single JavaScript file.</p>
-        <p>Compress a (possibly joined and hopefully tested) JavaScript file to produce the smallest possible file.</p>
-        <ul>
-            <li><a href="/joins">Join/Compress File Creation</a></li>
-        </ul>
-
-        <h1>Clutch Tests</h1>
-        <p>Create static HTML pages, then run and view unit or functional tests on your JavaScript code.</p>
-        <p>The results are stored in JSON files.</p>
-        <ul>
-            <li><a href="/tests">Unit Test Page Creation</a></li>
-        </ul>
-
-        <h1>Clutch Controlled Projects</h1>
-        <p>Projects in Clutch's clutches:</p>
+        <h1>Projects in Clutch's clutches:</h1>
         <p id="projects">Checking...</p>
 
         <p>&#160;</p>
