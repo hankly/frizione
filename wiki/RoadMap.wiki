@@ -5,7 +5,11 @@
 
 Frizione is still in its infancy. Until it reaches the ultimate open source project stability goal (that is to say version 1.0), it will probably duck and weave around numerous problems, possibly finding solutions, and most likely making breaking changes with respect to previous versions.
 
-Currently I'm working on reaching version 0.2, which has asynchronous unit testing, and a separate {{{/projects}}} folder for your own code. Both of these changes will unfortunately break code based on the previous (0.1.1) version. I don't like breaking code, because I probably have more code reliant on Frizione than anyone, so I'm also upsetting myself.
+Currently I'm working on reaching version 0.4, which should have better automation processes using a 'convention rather than configuration' technique. I'll also be spending a little time on extending the Clutch library, which is pretty anemic at the moment.
+
+Version 0.3, the latest release, has asynchronous unit testing, {{{WorkerPool}}} unit testing, and a separate {{{/projects}}} folder for your own code.
+
+Some of these changes will unfortunately break code based on the previous (0.2 or 0.1.1) versions. I don't like breaking code, because I probably have more code reliant on Frizione than anyone, so I'm also upsetting myself. I can unfortunately envisage that further breakages are very likely as Clutch gradually takes form. 
 
 The advantages are that I can now unit test XHR calls (and callbacks), and the clutch library has been moved into the {{{/projects/clutch}}} folder - so it's eating its own dog food.
 
