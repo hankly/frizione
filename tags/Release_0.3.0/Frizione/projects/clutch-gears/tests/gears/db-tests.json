@@ -1,0 +1,86 @@
+{
+	"name": "Database Tests",
+	"abend": null,
+	"summary": {
+		"tests": 38,
+		"logs": 0,
+		"failures": 0,
+		"errors": 0,
+		"time": 922,
+		"abend": null,
+		"messages": [],
+		"date": "Thu, 26 Jun 2008 16:03:03 UTC"
+	},
+	"tests": [
+		{
+			"name": "clearDatabase",
+			"summary": {
+				"tests": 1,
+				"logs": 0,
+				"failures": 0,
+				"errors": 0,
+				"time": 62,
+				"abend": null,
+				"messages": [],
+				"func": "clearDatabase",
+				"callback": null
+			}
+		},
+		{
+			"name": "addRows",
+			"summary": {
+				"tests": 10,
+				"logs": 0,
+				"failures": 0,
+				"errors": 0,
+				"time": 844,
+				"abend": null,
+				"messages": [],
+				"func": "addRows",
+				"callback": null
+			}
+		},
+		{
+			"name": "readRowsAsc",
+			"summary": {
+				"tests": 11,
+				"logs": 0,
+				"failures": 0,
+				"errors": 0,
+				"time": 16,
+				"abend": null,
+				"messages": [],
+				"func": "readRowsAsc",
+				"callback": null
+			}
+		},
+		{
+			"name": "readRowsDesc",
+			"summary": {
+				"tests": 11,
+				"logs": 0,
+				"failures": 0,
+				"errors": 0,
+				"time": 0,
+				"abend": null,
+				"messages": [],
+				"func": "readRowsDesc",
+				"callback": null
+			}
+		},
+		{
+			"name": "readRowsLimit",
+			"summary": {
+				"tests": 5,
+				"logs": 0,
+				"failures": 0,
+				"errors": 0,
+				"time": 0,
+				"abend": null,
+				"messages": [],
+				"func": "readRowsLimit",
+				"callback": null
+			}
+		}
+	]
+}

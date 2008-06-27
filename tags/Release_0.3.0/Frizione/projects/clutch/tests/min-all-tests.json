@@ -1,0 +1,373 @@
+{
+	"abend": null,
+	"summary": {
+		"tests": 40,
+		"logs": 1,
+		"failures": 2,
+		"errors": 1,
+		"time": 0,
+		"abend": null,
+		"messages": []
+	},
+	"tests": [
+		{
+			"name": "Assertion Tests",
+			"abend": null,
+			"summary": {
+				"tests": 7,
+				"logs": 1,
+				"failures": 2,
+				"errors": 1,
+				"time": 0,
+				"abend": null,
+				"messages": []
+			},
+			"tests": [
+				{
+					"name": "logTest",
+					"summary": {
+						"tests": 1,
+						"logs": 1,
+						"failures": 0,
+						"errors": 0,
+						"time": 0,
+						"abend": null,
+						"messages": [
+							{
+								"type": "log",
+								"message": "Test log message"
+							}
+						],
+						"func": "logTest",
+						"callback": null
+					}
+				},
+				{
+					"name": "passTest",
+					"summary": {
+						"tests": 2,
+						"logs": 0,
+						"failures": 0,
+						"errors": 0,
+						"time": 0,
+						"abend": null,
+						"messages": [],
+						"func": "passTest",
+						"callback": null
+					}
+				},
+				{
+					"name": "failTest",
+					"summary": {
+						"tests": 2,
+						"logs": 0,
+						"failures": 2,
+						"errors": 0,
+						"time": 0,
+						"abend": null,
+						"messages": [
+							{
+								"type": "fail",
+								"message": "Test fail() call"
+							},
+							{
+								"type": "fail",
+								"message": "assert(false) guaranteed to fail"
+							}
+						],
+						"func": "failTest",
+						"callback": null
+					}
+				},
+				{
+					"name": "errorTest",
+					"summary": {
+						"tests": 1,
+						"logs": 0,
+						"failures": 0,
+						"errors": 1,
+						"time": 0,
+						"abend": null,
+						"messages": [
+							{
+								"type": "error",
+								"message": "[Error:\r\nname: Error\r\nmessage: Test error() call\r\n]"
+							}
+						],
+						"func": "errorTest",
+						"callback": null
+					}
+				},
+				{
+					"name": "assertTest",
+					"summary": {
+						"tests": 1,
+						"logs": 0,
+						"failures": 0,
+						"errors": 0,
+						"time": 0,
+						"abend": null,
+						"messages": [],
+						"func": "assertTest",
+						"callback": null
+					}
+				}
+			]
+		},
+		{
+			"name": "String Tests",
+			"abend": null,
+			"summary": {
+				"tests": 18,
+				"logs": 0,
+				"failures": 0,
+				"errors": 0,
+				"time": 0,
+				"abend": null,
+				"messages": []
+			},
+			"tests": [
+				{
+					"name": "testTrim",
+					"summary": {
+						"tests": 2,
+						"logs": 0,
+						"failures": 0,
+						"errors": 0,
+						"time": 0,
+						"abend": null,
+						"messages": [],
+						"func": "testTrim",
+						"callback": null
+					}
+				},
+				{
+					"name": "testStartsWith",
+					"summary": {
+						"tests": 4,
+						"logs": 0,
+						"failures": 0,
+						"errors": 0,
+						"time": 0,
+						"abend": null,
+						"messages": [],
+						"func": "testStartsWith",
+						"callback": null
+					}
+				},
+				{
+					"name": "testEndsWith",
+					"summary": {
+						"tests": 4,
+						"logs": 0,
+						"failures": 0,
+						"errors": 0,
+						"time": 0,
+						"abend": null,
+						"messages": [],
+						"func": "testEndsWith",
+						"callback": null
+					}
+				},
+				{
+					"name": "testJsonObject",
+					"summary": {
+						"tests": 4,
+						"logs": 0,
+						"failures": 0,
+						"errors": 0,
+						"time": 0,
+						"abend": null,
+						"messages": [],
+						"func": "testJsonObject",
+						"callback": null
+					}
+				},
+				{
+					"name": "testJsonArray",
+					"summary": {
+						"tests": 4,
+						"logs": 0,
+						"failures": 0,
+						"errors": 0,
+						"time": 0,
+						"abend": null,
+						"messages": [],
+						"func": "testJsonArray",
+						"callback": null
+					}
+				}
+			]
+		},
+		{
+			"name": "Timer Tests",
+			"abend": null,
+			"summary": {
+				"tests": 4,
+				"logs": 0,
+				"failures": 0,
+				"errors": 0,
+				"time": 0,
+				"abend": null,
+				"messages": []
+			},
+			"tests": [
+				{
+					"name": "startSetTimeout",
+					"summary": {
+						"tests": 1,
+						"logs": 0,
+						"failures": 0,
+						"errors": 0,
+						"time": 0,
+						"abend": null,
+						"messages": [],
+						"func": "startSetTimeout",
+						"callback": null
+					}
+				},
+				{
+					"name": "timerSetTimeout <- startSetTimeout",
+					"summary": {
+						"tests": 1,
+						"logs": 0,
+						"failures": 0,
+						"errors": 0,
+						"time": 0,
+						"abend": null,
+						"messages": [],
+						"func": "timerSetTimeout <- startSetTimeout",
+						"callback": "timerSetTimeout"
+					}
+				},
+				{
+					"name": "startSetInterval",
+					"summary": {
+						"tests": 1,
+						"logs": 0,
+						"failures": 0,
+						"errors": 0,
+						"time": 0,
+						"abend": null,
+						"messages": [],
+						"func": "startSetInterval",
+						"callback": null
+					}
+				},
+				{
+					"name": "timerSetInterval <- startSetInterval",
+					"summary": {
+						"tests": 1,
+						"logs": 0,
+						"failures": 0,
+						"errors": 0,
+						"time": 0,
+						"abend": null,
+						"messages": [],
+						"func": "timerSetInterval <- startSetInterval",
+						"callback": "timerSetInterval"
+					}
+				}
+			]
+		},
+		{
+			"name": "XHR Tests",
+			"abend": null,
+			"summary": {
+				"tests": 11,
+				"logs": 0,
+				"failures": 0,
+				"errors": 0,
+				"time": 0,
+				"abend": null,
+				"messages": []
+			},
+			"tests": [
+				{
+					"name": "validUrl",
+					"summary": {
+						"tests": 2,
+						"logs": 0,
+						"failures": 0,
+						"errors": 0,
+						"time": 0,
+						"abend": null,
+						"messages": [],
+						"func": "validUrl",
+						"callback": null
+					}
+				},
+				{
+					"name": "validUrlHandler <- validUrl",
+					"summary": {
+						"tests": 1,
+						"logs": 0,
+						"failures": 0,
+						"errors": 0,
+						"time": 0,
+						"abend": null,
+						"messages": [],
+						"func": "validUrlHandler <- validUrl",
+						"callback": "validUrlHandler"
+					}
+				},
+				{
+					"name": "invalidUrl",
+					"summary": {
+						"tests": 2,
+						"logs": 0,
+						"failures": 0,
+						"errors": 0,
+						"time": 0,
+						"abend": null,
+						"messages": [],
+						"func": "invalidUrl",
+						"callback": null
+					}
+				},
+				{
+					"name": "invalidUrlHandler <- invalidUrl",
+					"summary": {
+						"tests": 1,
+						"logs": 0,
+						"failures": 0,
+						"errors": 0,
+						"time": 0,
+						"abend": null,
+						"messages": [],
+						"func": "invalidUrlHandler <- invalidUrl",
+						"callback": "invalidUrlHandler"
+					}
+				},
+				{
+					"name": "abortedRequest",
+					"summary": {
+						"tests": 2,
+						"logs": 0,
+						"failures": 0,
+						"errors": 0,
+						"time": 0,
+						"abend": null,
+						"messages": [],
+						"func": "abortedRequest",
+						"callback": null
+					}
+				},
+				{
+					"name": "abortedRequestHandler <- abortedRequest",
+					"summary": {
+						"tests": 3,
+						"logs": 0,
+						"failures": 0,
+						"errors": 0,
+						"time": 0,
+						"abend": null,
+						"messages": [],
+						"func": "abortedRequestHandler <- abortedRequest",
+						"callback": "abortedRequestHandler"
+					}
+				}
+			]
+		}
+	]
+}

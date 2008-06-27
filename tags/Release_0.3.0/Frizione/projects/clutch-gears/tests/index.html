@@ -1,0 +1,271 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+    <head>
+        <title>Clutch-Gears Unit Test Page Creation</title>
+        <link rel="stylesheet" href="/clutch/css/clutch.css" type="text/css" media="screen" charset="utf-8" />
+    </head>
+    <body>
+        <p class="MenuHeading">
+            <a href="/">Home</a>&#160;
+            <a href="/jslint">JSLint</a>&#160;
+            <a href="/joins">Join/Compress</a>&#160;
+            <a href="/tests">Unit Tests</a>&#160;
+            <a href="/clutch/docs/Clutch.pdf">Documentation</a>
+        </p>
+        <p class="MenuHeading">
+            Clutch-Gears&#160;
+            <a href="/projects/clutch-gears/">Home</a>&#160;
+            <a href="/projects/clutch-gears/jslint">JSLint</a>&#160;
+            <a href="/projects/clutch-gears/joins/">Join/Compress</a>&#160;
+            <a href="/projects/clutch-gears/tests/">Unit Tests</a>
+        </p>
+        <h1>Clutch-Gears Unit Test Page Creation</h1>
+        <p>
+            Make sure that you've installed Gears, and given this domain permission to use Gears <i>before</i> running
+            these tests.
+        </p>
+
+        <h2>All Tests</h2>
+        <div>
+            <form style='display: inline;' action="/run-test/projects/clutch-gears/joins/all-tests.js" enctype="application/x-www-form-urlencoded" method="post">
+                <input name="gears" type="hidden" value="gears" />
+                <input name="to" type="hidden" value="/projects/clutch-gears/tests/all-tests.js" />
+                <input name="run" type="hidden" value="/projects/clutch-gears/tests/run-all-tests.html" />
+                <input name="view" type="hidden" value="/projects/clutch-gears/tests/view-all-tests.html" />
+                <input name="json" type="hidden" value="/projects/clutch-gears/tests/all-tests.json" />
+                <input name="run-comment" type="hidden"
+                       value="Gears must be installed and permission given &lt;i&gt;before&lt;/i&gt; running these tests." />
+                <input name="view-comment" type="hidden"
+                       value="There should be 2 Failures and 1 Error in these tests, &lt;code&gt;failTest&lt;/code&gt; produces the failures, and &lt;code&gt;errorTest&lt;/code&gt; produces the error." />
+                <input type="submit" value="Create Pages (Join)" />
+            </form>
+            then <a href="/projects/clutch-gears/tests/run-all-tests.html">run</a>
+            and <a href="/projects/clutch-gears/tests/view-all-tests.html">view</a>
+            <code>/tests/all-tests.js</code>
+        </div>
+        <div>
+            <form style='display: inline;' action="/run-test/projects/clutch-gears/tests/all-tests.js" enctype="application/x-www-form-urlencoded" method="post">
+                <input name="gears" type="hidden" value="gears" />
+                <input name="run" type="hidden" value="/projects/clutch-gears/tests/run-all-tests.html" />
+                <input name="view" type="hidden" value="/projects/clutch-gears/tests/view-all-tests.html" />
+                <input name="json" type="hidden" value="/projects/clutch-gears/tests/all-tests.json" />
+                <input name="run-comment" type="hidden"
+                       value="Gears must be installed and permission given &lt;i&gt;before&lt;/i&gt; running these tests." />
+                <input name="view-comment" type="hidden"
+                       value="There should be 2 Failures and 1 Error in these tests, &lt;code&gt;failTest&lt;/code&gt; produces the failures, and &lt;code&gt;errorTest&lt;/code&gt; produces the error." />
+                <input type="submit" value="Create Pages" />
+            </form>
+            then <a href="/projects/clutch-gears/tests/run-all-tests.html">run</a>
+            and <a href="/projects/clutch-gears/tests/view-all-tests.html">view</a>
+            <code>/tests/all-tests.js</code>
+        </div>
+        <div>
+            <form style='display: inline;' action="/run-join/projects/clutch-gears/joins/all-tests.js" enctype="application/x-www-form-urlencoded" method="post">
+                <input name="to" type="hidden" value="/projects/clutch-gears/tests/all-tests.js" />
+                <input type="submit" value="Join" />
+            </form>
+            then
+            <form style='display: inline;' action="/run-compressor/projects/clutch-gears/tests/all-tests.js" enctype="application/x-www-form-urlencoded" method="post">
+                <input name="jsmin" type="hidden" value="false" />
+                <input name="output" type="hidden" value="/projects/clutch-gears/tests/min-all-tests.js" />
+                <input type="submit" value="Compress" />
+            </form>
+            or
+            <form style='display: inline;' action="/run-compressor/projects/clutch-gears/tests/all-tests.js" enctype="application/x-www-form-urlencoded" method="post">
+                <input name="output" type="hidden" value="/projects/clutch-gears/tests/min-all-tests.js" />
+                <input type="submit" value="JSMin" />
+            </form>
+            <code>/tests/all-tests.js</code>
+        </div>
+        <div>
+            ... then
+            <form style='display: inline;' action="/run-test/projects/clutch-gears/tests/min-all-tests.js" enctype="application/x-www-form-urlencoded" method="post">
+                <input name="gears" type="hidden" value="gears" />
+                <input name="run" type="hidden" value="/projects/clutch-gears/tests/run-min-all-tests.html" />
+                <input name="view" type="hidden" value="/projects/clutch-gears/tests/view-min-all-tests.html" />
+                <input name="json" type="hidden" value="/projects/clutch-gears/tests/min-all-tests.json" />
+                <input name="run-comment" type="hidden"
+                       value="Gears must be installed and permission given &lt;i&gt;before&lt;/i&gt; running these tests." />
+                <input name="view-comment" type="hidden"
+                       value="There should be 2 Failures and 1 Error in these tests, &lt;code&gt;failTest&lt;/code&gt; produces the failures, and &lt;code&gt;errorTest&lt;/code&gt; produces the error." />
+                <input type="submit" value="Create Pages" />
+            </form>
+            then <a href="/projects/clutch-gears/tests/run-min-all-tests.html">run</a>
+            and <a href="/projects/clutch-gears/tests/view-min-all-tests.html">view</a>
+            <code>/tests/min-all-tests.js</code>
+        </div>
+
+        <h2>All Tests (WorkerPool)</h2>
+        <div>
+            <form style='display: inline;' action="/run-test/projects/clutch-gears/joins/wp-all-tests.js" enctype="application/x-www-form-urlencoded" method="post">
+                <input name="gears" type="hidden" value="workerpool" />
+                <input name="to" type="hidden" value="/projects/clutch-gears/tests/wp-all-tests.js" />
+                <input name="run" type="hidden" value="/projects/clutch-gears/tests/run-wp-all-tests.html" />
+                <input name="view" type="hidden" value="/projects/clutch-gears/tests/view-wp-all-tests.html" />
+                <input name="json" type="hidden" value="/projects/clutch-gears/tests/wp-all-tests.json" />
+                <input name="run-comment" type="hidden"
+                       value="Gears must be installed and permission given &lt;i&gt;before&lt;/i&gt; running these tests." />
+                <input name="view-comment" type="hidden"
+                       value="There should be 2 Failures and 1 Error in these tests, &lt;code&gt;failTest&lt;/code&gt; produces the failures, and &lt;code&gt;errorTest&lt;/code&gt; produces the error." />
+                <input type="submit" value="Create Pages (Join)" />
+            </form>
+            then <a href="/projects/clutch-gears/tests/run-wp-all-tests.html">run</a>
+            and <a href="/projects/clutch-gears/tests/view-wp-all-tests.html">view</a>
+            <code>/tests/wp-all-tests.js</code>
+        </div>
+        <div>
+            <form style='display: inline;' action="/run-test/projects/clutch-gears/tests/wp-all-tests.js" enctype="application/x-www-form-urlencoded" method="post">
+                <input name="gears" type="hidden" value="workerpool" />
+                <input name="run" type="hidden" value="/projects/clutch-gears/tests/run-wp-all-tests.html" />
+                <input name="view" type="hidden" value="/projects/clutch-gears/tests/view-wp-all-tests.html" />
+                <input name="json" type="hidden" value="/projects/clutch-gears/tests/wp-all-tests.json" />
+                <input name="run-comment" type="hidden"
+                       value="Gears must be installed and permission given &lt;i&gt;before&lt;/i&gt; running these tests." />
+                <input name="view-comment" type="hidden"
+                       value="There should be 2 Failures and 1 Error in these tests, &lt;code&gt;failTest&lt;/code&gt; produces the failures, and &lt;code&gt;errorTest&lt;/code&gt; produces the error." />
+                <input type="submit" value="Create Pages" />
+            </form>
+            then <a href="/projects/clutch-gears/tests/run-wp-all-tests.html">run</a>
+            and <a href="/projects/clutch-gears/tests/view-wp-all-tests.html">view</a>
+            <code>/tests/wp-all-tests.js</code>
+        </div>
+        <div>
+            <form style='display: inline;' action="/run-join/projects/clutch-gears/joins/wp-all-tests.js" enctype="application/x-www-form-urlencoded" method="post">
+                <input name="to" type="hidden" value="/projects/clutch-gears/tests/wp-all-tests.js" />
+                <input type="submit" value="Join" />
+            </form>
+            then
+            <form style='display: inline;' action="/run-compressor/projects/clutch-gears/tests/wp-all-tests.js" enctype="application/x-www-form-urlencoded" method="post">
+                <input name="jsmin" type="hidden" value="false" />
+                <input name="output" type="hidden" value="/projects/clutch-gears/tests/min-wp-all-tests.js" />
+                <input type="submit" value="Compress" />
+            </form>
+            or
+            <form style='display: inline;' action="/run-compressor/projects/clutch-gears/tests/wp-all-tests.js" enctype="application/x-www-form-urlencoded" method="post">
+                <input name="output" type="hidden" value="/projects/clutch-gears/tests/min-wp-all-tests.js" />
+                <input type="submit" value="JSMin" />
+            </form>
+            <code>/tests/wp-all-tests.js</code>
+        </div>
+        <div>
+            ... then
+            <form style='display: inline;' action="/run-test/projects/clutch-gears/tests/min-wp-all-tests.js" enctype="application/x-www-form-urlencoded" method="post">
+                <input name="gears" type="hidden" value="workerpool" />
+                <input name="run" type="hidden" value="/projects/clutch-gears/tests/run-min-wp-all-tests.html" />
+                <input name="view" type="hidden" value="/projects/clutch-gears/tests/view-min-wp-all-tests.html" />
+                <input name="json" type="hidden" value="/projects/clutch-gears/tests/min-wp-all-tests.json" />
+                <input name="run-comment" type="hidden"
+                       value="Gears must be installed and permission given &lt;i&gt;before&lt;/i&gt; running these tests." />
+                <input name="view-comment" type="hidden"
+                       value="There should be 2 Failures and 1 Error in these tests, &lt;code&gt;failTest&lt;/code&gt; produces the failures, and &lt;code&gt;errorTest&lt;/code&gt; produces the error." />
+                <input type="submit" value="Create Pages" />
+            </form>
+            then <a href="/projects/clutch-gears/tests/run-min-wp-all-tests.html">run</a>
+            and <a href="/projects/clutch-gears/tests/view-min-wp-all-tests.html">view</a>
+            <code>/tests/min-wp-all-tests.js</code>
+        </div>
+
+        <h2>Low Level Tests</h2>
+        <div>
+            <form style='display: inline;' action="/run-test/projects/clutch-gears/joins/gears/timer-tests.js" enctype="application/x-www-form-urlencoded" method="post">
+                <input name="gears" type="hidden" value="gears" />
+                <input name="to" type="hidden" value="/projects/clutch-gears/tests/gears/timer-tests.js" />
+                <input name="run" type="hidden" value="/projects/clutch-gears/tests/gears/run-timer-tests.html" />
+                <input name="view" type="hidden" value="/projects/clutch-gears/tests/gears/view-timer-tests.html" />
+                <input name="json" type="hidden" value="/projects/clutch-gears/tests/gears/timer-tests.json" />
+                <input type="submit" value="Create Pages (Join)" />
+            </form>
+            then <a href="/projects/clutch-gears/tests/gears/run-timer-tests.html">run</a>
+            and <a href="/projects/clutch-gears/tests/gears/view-timer-tests.html">view</a>
+            <code>/tests/gears/timer-tests.js</code>
+        </div>
+        <div>
+            <form style='display: inline;' action="/run-test/projects/clutch-gears/joins/gears/xhr-tests.js" enctype="application/x-www-form-urlencoded" method="post">
+                <input name="gears" type="hidden" value="gears" />
+                <input name="to" type="hidden" value="/projects/clutch-gears/tests/gears/xhr-tests.js" />
+                <input name="run" type="hidden" value="/projects/clutch-gears/tests/gears/run-xhr-tests.html" />
+                <input name="view" type="hidden" value="/projects/clutch-gears/tests/gears/view-xhr-tests.html" />
+                <input name="json" type="hidden" value="/projects/clutch-gears/tests/gears/xhr-tests.json" />
+                <input type="submit" value="Create Pages (Join)" />
+            </form>
+            then <a href="/projects/clutch-gears/tests/gears/run-xhr-tests.html">run</a>
+            and <a href="/projects/clutch-gears/tests/gears/view-xhr-tests.html">view</a>
+            <code>/tests/gears/xhr-tests.js</code>
+        </div>
+        <div>
+            <form style='display: inline;' action="/run-test/projects/clutch-gears/joins/gears/db-tests.js" enctype="application/x-www-form-urlencoded" method="post">
+                <input name="gears" type="hidden" value="gears" />
+                <input name="to" type="hidden" value="/projects/clutch-gears/tests/gears/db-tests.js" />
+                <input name="run" type="hidden" value="/projects/clutch-gears/tests/gears/run-db-tests.html" />
+                <input name="view" type="hidden" value="/projects/clutch-gears/tests/gears/view-db-tests.html" />
+                <input name="json" type="hidden" value="/projects/clutch-gears/tests/gears/db-tests.json" />
+                <input name="run-comment" type="hidden"
+                       value="Gears must be installed and permission given &lt;i&gt;before&lt;/i&gt; running these tests." />
+                <input type="submit" value="Create Pages (Join)" />
+            </form>
+            then <a href="/projects/clutch-gears/tests/gears/run-db-tests.html">run</a>
+            and <a href="/projects/clutch-gears/tests/gears/view-db-tests.html">view</a>
+            <code>/tests/gears/db-tests.js</code>
+        </div>
+
+        <h2>Low Level Tests (WorkerPool)</h2>
+        <div>
+            <form style='display: inline;' action="/run-test/projects/clutch-gears/joins/gears/wp-timer-tests.js" enctype="application/x-www-form-urlencoded" method="post">
+                <input name="gears" type="hidden" value="workerpool" />
+                <input name="to" type="hidden" value="/projects/clutch-gears/tests/gears/wp-timer-tests.js" />
+                <input name="run" type="hidden" value="/projects/clutch-gears/tests/gears/run-wp-timer-tests.html" />
+                <input name="view" type="hidden" value="/projects/clutch-gears/tests/gears/view-wp-timer-tests.html" />
+                <input name="json" type="hidden" value="/projects/clutch-gears/tests/gears/wp-timer-tests.json" />
+                <input type="submit" value="Create Pages (Join)" />
+            </form>
+            then <a href="/projects/clutch-gears/tests/gears/run-wp-timer-tests.html">run</a>
+            and <a href="/projects/clutch-gears/tests/gears/view-wp-timer-tests.html">view</a>
+            <code>/tests/gears/wp-timer-tests.js</code>
+        </div>
+        <div>
+            <form style='display: inline;' action="/run-test/projects/clutch-gears/joins/gears/wp-xhr-tests.js" enctype="application/x-www-form-urlencoded" method="post">
+                <input name="gears" type="hidden" value="workerpool" />
+                <input name="to" type="hidden" value="/projects/clutch-gears/tests/gears/wp-xhr-tests.js" />
+                <input name="run" type="hidden" value="/projects/clutch-gears/tests/gears/run-wp-xhr-tests.html" />
+                <input name="view" type="hidden" value="/projects/clutch-gears/tests/gears/view-wp-xhr-tests.html" />
+                <input name="json" type="hidden" value="/projects/clutch-gears/tests/gears/wp-xhr-tests.json" />
+                <input type="submit" value="Create Pages (Join)" />
+            </form>
+            then <a href="/projects/clutch-gears/tests/gears/run-wp-xhr-tests.html">run</a>
+            and <a href="/projects/clutch-gears/tests/gears/view-wp-xhr-tests.html">view</a>
+            <code>/tests/gears/wp-xhr-tests.js</code>
+        </div>
+        <div>
+            <form style='display: inline;' action="/run-test/projects/clutch-gears/joins/gears/wp-db-tests.js" enctype="application/x-www-form-urlencoded" method="post">
+                <input name="gears" type="hidden" value="workerpool" />
+                <input name="to" type="hidden" value="/projects/clutch-gears/tests/gears/wp-db-tests.js" />
+                <input name="run" type="hidden" value="/projects/clutch-gears/tests/gears/run-wp-db-tests.html" />
+                <input name="view" type="hidden" value="/projects/clutch-gears/tests/gears/view-wp-db-tests.html" />
+                <input name="json" type="hidden" value="/projects/clutch-gears/tests/gears/wp-db-tests.json" />
+                <input name="run-comment" type="hidden"
+                       value="Gears must be installed and permission given &lt;i&gt;before&lt;/i&gt; running these tests." />
+                <input type="submit" value="Create Pages (Join)" />
+            </form>
+            then <a href="/projects/clutch-gears/tests/gears/run-wp-db-tests.html">run</a>
+            and <a href="/projects/clutch-gears/tests/gears/view-wp-db-tests.html">view</a>
+            <code>/tests/gears/wp-db-tests.js</code>
+        </div>
+
+        <p>&#160;</p>
+        <p class="MenuHeading">
+            Clutch-Gears&#160;
+            <a href="/projects/clutch-gears/">Home</a>&#160;
+            <a href="/projects/clutch-gears/jslint">JSLint</a>&#160;
+            <a href="/projects/clutch-gears/joins/">Join/Compress</a>&#160;
+            <a href="/projects/clutch-gears/tests/">Unit Tests</a>
+        </p>
+        <p class="MenuHeading">
+            <a href="/">Home</a>&#160;
+            <a href="/jslint">JSLint</a>&#160;
+            <a href="/joins">Join/Compress</a>&#160;
+            <a href="/tests">Unit Tests</a>&#160;
+            <a href="/clutch/docs/Clutch.pdf">Documentation</a>
+        </p>
+    </body>
+</html>
