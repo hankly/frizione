@@ -21,9 +21,18 @@ THE SOFTWARE.
 */
 
 /*jslint evil: true */
-/*global Ajax, Builder, $ */
+/*global clutch, Ajax, Builder, $ */
 
-function displayTestResults(summary) {
+if (!this.clutch) {
+    clutch = {};
+}
+
+/**
+ * This monstrous piece of code produces the unit test report.
+ *
+ * @param summary the unit test results.
+ */
+clutch.displayTestResults = function (summary) {
 
     function buildErrorReport(name, rows, attrs, type, tests) {
         var testsLength = tests.length;
@@ -108,10 +117,10 @@ function displayTestResults(summary) {
         attrs = { 'class': 'test summary' };
         var noAttrs = {};
         var rate = summary.tests ? (100 * (summary.tests - summary.failures - summary.errors)) / summary.tests : 0.0;
-        var headers = ["Tests", "Failures", "Errors", "Success Rate", "Time (ms)"];
+        var headers = ["Tests", "Failures", "Errors", "Success Rate", "Time (ms)", "Date" ];
         var info = [
             summary.tests.toString(), summary.failures.toString(), summary.errors.toString(),
-            rate.toFixed(2) + "%", summary.time.toString()
+            rate.toFixed(2) + "%", summary.time.toString(), summary.date
         ];
         var node = Builder.node('table', attrs, [
             Builder.node('thead', noAttrs, Builder.node('tr', noAttrs, buildRow('th', noAttrs, headers))),
@@ -231,6 +240,7 @@ function displayTestResults(summary) {
         }
     }
 
+    // clutch.test.group don't have a name, clutch.test.unit do...
     var root = $('test-results');
     if (summary.name) {
         displayUnitTest(summary, root, true);
@@ -238,9 +248,14 @@ function displayTestResults(summary) {
     else {
         displayUnitGroup(summary, root, true);
     }
-}
+};
 
-function retrieveAndDisplay(url) {
+/**
+ * Gets the unit test results (JSON format) and displays them in a hopefully useful manner.
+ *
+ * @param url the absolute URL of the unit test results file.
+ */
+clutch.retrieveAndDisplayTestResults = function (url) {
 
     document.observe('dom:loaded', function() {
         var request = new Ajax.Request(url, {
@@ -248,7 +263,7 @@ function retrieveAndDisplay(url) {
             parameters: { nocache: new Date().getTime() },
             onSuccess: function (transport) {
                 var result = transport.responseText.evalJSON(true);
-                displayTestResults(result);
+                clutch.displayTestResults(result);
             },
             onFailure: function () {
                 var root = $('test-results');
@@ -258,4 +273,4 @@ function retrieveAndDisplay(url) {
             }
         });
     });
-}
+};

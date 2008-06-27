@@ -21,7 +21,7 @@ THE SOFTWARE.
 */
 
 /*
-Slightly modified from my article.
+Slightly modified from my article. This one works...
 See http://www.syger.it/Tutorials/JavaScriptIntrospector.html
 */
 
@@ -32,11 +32,24 @@ if (!this.clutch) {
     clutch = {};
 }
 
+/**
+ * Provides a little help to the standard typeof keyword. Just a little less brain-dead, but still pretty comatose.
+ *
+ * @param obj the object you want the type of
+ */
 clutch.typeOf = function (obj) {
     var type = typeof obj;
     return type === "object" && !obj ? "null" : type;
 };
 
+/**
+ * Creates a string representation of an object.
+ *
+ * @param name the name of the object.
+ * @param obj the object to introspect.
+ * @param indent the optional start indentation, something like "  ", defaults to ""
+ * @param levels optional, how many levels to drill down to, helps avoid recursion - default is 1.
+ */
 clutch.introspect = function (name, obj, indent, levels) {
     indent = indent || "";
     if (clutch.typeOf(levels) !== "number") {

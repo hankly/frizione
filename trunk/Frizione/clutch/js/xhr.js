@@ -32,8 +32,22 @@ if (!this.clutch) {
     clutch = {};
 }
 
-clutch.executeRequest = function (method, url, optionalParams, optionalBody, handler) {
-    var REQUEST_TIMEOUT_MS = 5000; // 5 seconds
+if (!this.clutch.test) {
+    clutch.test = {};
+}
+
+/**
+ * A reduced version of /gears/xhr.js, but without gears. Performs an XHR.
+ *
+ * @param method can be "GET", possibly "POST".
+ * @param url the absolute URL to get or post to.
+ * @param optionalParams optional parameters, do your own value encoding though
+ * @param optionalBody damn useful for posts
+ * @param timeout the optional maximum amount of time to wait for a reply.
+ * @param handler who to call when things go right, or wrong.
+ */
+clutch.test.executeRequest = function (method, url, optionalParams, optionalBody, timeout, handler) {
+    var requestTimeout = timeout || 5000; // 5 seconds
 
     function createRequest() {
         try {
@@ -57,18 +71,18 @@ clutch.executeRequest = function (method, url, optionalParams, optionalBody, han
 
     var request = createRequest();
     var terminated = false;
-    var timerId = setTimeout(function () {
+    var requestTimerId = window.setTimeout(function () {
             terminated = true;
             request = null;
             handler();
-        }, REQUEST_TIMEOUT_MS);
-    var n = null;
+        }, requestTimeout);
+    var param = null;
     var qmark = "?";
 
     if (optionalParams) {
-        for (n in optionalParams) {
-            if (optionalParams.hasOwnProperty(n)) {
-                url += qmark + n + "=" + optionalParams[n];
+        for (param in optionalParams) {
+            if (optionalParams.hasOwnProperty(param)) {
+                url += qmark + param + "=" + optionalParams[param];
                 qmark = "";
             }
         }
@@ -97,7 +111,7 @@ clutch.executeRequest = function (method, url, optionalParams, optionalBody, han
 
                     terminated = true;
                     request = null;
-                    clearTimeout(timerId);
+                    window.clearTimeout(requestTimerId);
 
                     // Browsers return 0 for xhr against file://. Normalize this.
                     if (status === 0) {
@@ -122,10 +136,10 @@ clutch.executeRequest = function (method, url, optionalParams, optionalBody, han
     catch(e) {
         terminated = true;
         request = null;
-        clearTimeout(timerId);
+        window.clearTimeout(requestTimerId);
 
         // Set a short timeout just to get off the stack so that the call flow is
         // the same as with successful requests (subtle bugs otherwise).
-        setTimeout(handler, 0);
+        window.setTimeout(handler, 0);
     }
 };

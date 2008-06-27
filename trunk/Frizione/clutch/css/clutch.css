@@ -53,8 +53,9 @@ h2 {
 	color: #3084cc;
 }
 
-li {
+div, p, li {
     margin: 0.25cm 0 0.25cm 0;
+    padding: 0;
 }
 
 .MenuHeading {
@@ -66,14 +67,16 @@ li {
 }
 
 code, .Code {
-	font-size: 10pt;
+	font-size: 12pt;
 }
 
 input[type=submit] {
     border: 1px solid #007f08;
     padding: 0.2em;
-    margin: 0;
+    margin: 0.1em;
     background-color: #d8e8d8;
+    font-family: Verdana;
+    font-size: 12pt;
 }
 
 input[type=submit]:hover {

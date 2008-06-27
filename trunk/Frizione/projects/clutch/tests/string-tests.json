@@ -2,7 +2,6 @@
 	"name": "String Tests",
 	"abend": null,
 	"summary": {
-		"complete": false,
 		"tests": 18,
 		"logs": 0,
 		"failures": 0,

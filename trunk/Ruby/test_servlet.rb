@@ -52,18 +52,18 @@ class TestServlet < HTTPServlet::AbstractServlet
         </p>
 
         <h1>Test Page Creation Results</h1>
-        <% if (error) %>
+<% if (error) %>
         <p>Error: <%= error %></p>
-        <% else %>
-        <%   if (to == from) %>
+<% else %>
+<%   if (to == from) %>
         <p><code>Code:</code> <%= from %></p>
-        <%   else %>
+<%   else %>
         <p><code>From:</code> <%= from %></p>
         <p><code>&#160;&#160;To:</code> <a href='/<%= to %>'><%= to %></a> (<%= to_size %> bytes)</p>
-        <% end %>
+<%   end %>
         <p><code>&#160;Run:</code> <a href='/<%= run %>'><%= run %></a></p>
         <p><code>View:</code> <a href='/<%= view %>'><%= view %></a></p>
-        <% end %>
+<% end %>
 
         <p>&#160;</p>
         <p class="MenuHeading">
@@ -84,13 +84,25 @@ xXx
     <head>
         <title>Clutch Run Test: '<%= to %>'</title>
         <link rel="stylesheet" href="/clutch/css/clutch.css" type="text/css" media="screen" charset="utf-8" />
+<% if (gears) %>
+        <script src="/clutch/js/gears/gears_init.js" type="text/javascript" charset="utf-8"></script>
+<% end %>
         <script src="/clutch/js/json2.js" type="text/javascript" charset="utf-8"></script>
         <script src="/clutch/js/xhr.js" type="text/javascript" charset="utf-8"></script>
+<% if (gears == nil || gears == 'gears') %>
         <script src="/clutch/js/saver.js" type="text/javascript" charset="utf-8"></script>
         <script src="/projects/clutch/src/unit-test.js" type="text/javascript" charset="utf-8"></script>
         <script src="/<%= to %>" type="text/javascript" charset="utf-8"></script>
+<% else %>
+        <script src="/projects/clutch/src/gears/gears.js" type="text/javascript" charset="utf-8"></script>
+        <script src="/clutch/js/wp-saver.js" type="text/javascript" charset="utf-8"></script>
+<% end %>
     </head>
-    <body onload="storeClutchTests(runClutchTests, '/<%= json %>', '/<%= view %>');">
+<% if (gears == nil || gears == 'gears') %>
+    <body onload="clutch.storeTests(runClutchTests, '/<%= json %>', '/<%= view %>');">
+<% else %>
+    <body onload="clutch.storeTests('/<%= to %>', '/<%= json %>', '/<%= view %>');">
+<% end %>
         <p class="MenuHeading">
             <a href="/">Home</a>&#160;
             <a href="/jslint">JSLint</a>&#160;
@@ -100,9 +112,9 @@ xXx
         </p>
 
         <h1>Clutch Run Test: '<%= to %>'</h1>
-        <% if (run_comment) %>
+<% if (run_comment) %>
         <p><%= run_comment %></p>
-        <% end %>
+<% end %>
         <div id="test-results">Running...</div>
 
         <p>&#160;</p>
@@ -128,7 +140,7 @@ xXx
         <script src="/clutch/js/prototype/builder.js" type="text/javascript" charset="utf-8"></script>
         <script src="/clutch/js/display.js" type="text/javascript" charset="utf-8"></script>
         <script type="text/javascript">
-            retrieveAndDisplay('/<%= json %>');
+            clutch.retrieveAndDisplayTestResults('/<%= json %>');
         </script>
     </head>
     <body>
@@ -141,9 +153,9 @@ xXx
         </p>
 
         <h1>Clutch View Test '<%= to %>'</h1>
-        <% if (view_comment) %>
+<% if (view_comment) %>
         <p><%= view_comment %></p>
-        <% end %>
+<% end %>
         <div id="test-results"></div>
 
         <p>&#160;</p>
@@ -168,6 +180,7 @@ xXx
         else
             to = from
         end
+        gears = request.query['gears']
         run = request.query['run']
         run = run[1..-1] if run[0...1] == '/'
         view = request.query['view']

@@ -49,6 +49,9 @@ if (!this.clutch) {
     clutch = {};
 }
 
+// Since JSON has no date format, everyone has invented their own. So why not me?
+// Provides patches for JSON and Prototype, but please don't use them both together, they
+// really don't get on at all.
 clutch.date = {
     toStandardJSON: function () {
         function tens(n) {
@@ -130,6 +133,7 @@ clutch.date = {
     }
 };
 
+// The usual, boring string functions that the implementers forgot.
 clutch.string = {
     trim: function (string) {
         return string.replace(/^[\s\u00a0]+/, '').replace(/[\s\u00a0]+$/, '');
@@ -145,7 +149,7 @@ clutch.string = {
     },
 
     toJSON: function (object) {
-        // Prototype
+        // Check for Prototype
         if (Object.toJSON && typeof Object.toJSON === 'function') {
             return Object.toJSON(object);
         }
@@ -155,11 +159,12 @@ clutch.string = {
     },
 
     fromJSON: function (string) {
-        // Prototype
+        // Check for Prototype
         if (String.prototype.evalJSON && typeof String.prototype.evalJSON === 'function') {
             return string.evalJSON(true);
         }
         else {
+            // string RegExps used to keep Opera happy, but made me miserable
             var microsoftDate = new RegExp("^\\\\\\/Date\\((\\d+)\\)\\\\\\/$", "gm");
             var clutchDate = new RegExp("^\\\\\\/Date\\((\\d{4})-(\\d{2})-(\\d{2})T(\\d{2}):(\\d{2}):(\\d{2})(\\.\\d+)?Z\\)\\\\\\/$", "gm");
 
@@ -206,6 +211,138 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 */
 
+/*jslint evil: true */
+/*global clutch, google */
+
+// Just wrapper code, so that if 'beta.xxx' becomes 'gamma.xxx', or the namespace changes (is that really likely?)
+// I won't have to hunt around in a lot of JavaScript files...
+
+if (!this.clutch) {
+    clutch = {};
+}
+
+clutch.isGearsInstalled = function () {
+    if (window) {
+        return window.google && google && google.gears;
+    }
+    else {
+        return google && google.gears;        
+    }
+};
+
+clutch.gearsFactory = function () {
+    return google.gears.factory;
+};
+
+clutch.createGearsDatabase = function () {
+    return google.gears.factory.create('beta.database');
+};
+
+clutch.createGearsDesktop = function () {
+    return google.gears.factory.create('beta.desktop');
+};
+
+clutch.createGearsHttpRequest = function () {
+    return google.gears.factory.create('beta.httprequest');
+};
+
+clutch.createGearsLocalServer = function () {
+    return google.gears.factory.create('beta.localserver');
+};
+
+clutch.createGearsTimer = function () {
+    return google.gears.factory.create('beta.timer');
+};
+
+clutch.createGearsWorkerPool = function () {
+    return google.gears.factory.create('beta.workerpool');
+};
+/*
+Copyright (c) 2008 John Leach
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in
+all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+THE SOFTWARE.
+*/
+
+/*jslint evil: true */
+/*global clutch, google */
+
+if (!this.clutch) {
+    clutch = {};
+}
+
+if (!this.clutch.timer) {
+    clutch.timer = {};
+}
+
+// Creates timer functions using either the browser timer or a Gears timer when no browser timer is available.
+
+(function () {
+    var gearsTimer = null;
+
+    // don't try to simplify this stuff, clutch.timer.setTimeout = window.setTimeout causes all sorts of problems
+    // with Opera and Firefox (which actually crashes)
+    if (this.window && window.setTimeout) {
+        clutch.timer.setTimeout = function (code, millis) {
+            return window.setTimeout(code, millis);
+        };
+        clutch.timer.setInterval = function (code, millis) {
+            return window.setInterval(code, millis);
+        };
+        clutch.timer.clearTimeout = function (timerId) {
+            window.clearTimeout(timerId);
+        };
+    }
+    else {
+        gearsTimer = clutch.createGearsTimer();
+        clutch.timer.setTimeout = function (code, millis) {
+            return gearsTimer.setTimeout(code, millis);
+        };
+        clutch.timer.setInterval = function (code, millis) {
+            return gearsTimer.setInterval(code, millis);
+        };
+        clutch.timer.clearTimeout = function (timerId) {
+            gearsTimer.clearTimeout(timerId);
+        };
+    }
+})();
+/*
+Copyright (c) 2008 John Leach
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in
+all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+THE SOFTWARE.
+*/
+
 /*
 Inspired by Aaron Boodman's Worker2 micro project
 See http://groups.google.com/group/gears-users/browse_thread/thread/62a021c62828b8e4/67f494497639b641
@@ -218,9 +355,16 @@ if (!this.clutch) {
     clutch = {};
 }
 
-clutch.createRequest = function () {
+if (!this.clutch.xhr) {
+    clutch.xhr = {};
+}
+
+/**
+ * Creates an XHR object.
+ */
+clutch.xhr.createRequest = function () {
     try {
-        return google.gears.factory.create('beta.httprequest');
+        return clutch.createGearsHttpRequest();
     }
     catch (e) {
         try {
@@ -243,47 +387,36 @@ clutch.createRequest = function () {
     return null;
 };
 
-(function () {
-    var clutchTimer = null;
-    try {
-        clutchTimer = google.gears.factory.create('beta.timer');
-        clutch.setTimeout = function (code, millis) {
-            return clutchTimer.setTimeout(code, millis);
-        };
-        clutch.clearTimeout = function (timerId) {
-            clutchTimer.clearTimeout(timerId);
-        };
-    }
-    catch (e) {
-        clutch.setTimeout = function (code, millis) {
-            return window.setTimeout(code, millis);
-        };
-        clutch.clearTimeout = function (timerId) {
-            window.clearTimeout(timerId);
-        };
-    }
-})();
+/**
+ * Executes an XHR.
+ *
+ * @param method can be "GET", possibly "POST".
+ * @param url the absolute URL to get or post to.
+ * @param optionalParams optional parameters, do your own value encoding though
+ * @param optionalBody damn useful for posts
+ * @param timeout the optional maximum amount of time to wait for a reply.
+ * @param handler who to call when things go right, or wrong.
+ */
+clutch.xhr.executeRequest = function (method, url, optionalParams, optionalBody, timeout, handler) {
+    var requestTimeout = timeout || 5000; // 5 seconds
 
-clutch.executeRequest = function (method, url, optionalParams, optionalBody, handler) {
-    var REQUEST_TIMEOUT_MS = 5000; // 5 seconds
-
-    var request = clutch.createRequest();
+    var request = clutch.xhr.createRequest();
     var terminated = false;
-    var timerId = clutch.setTimeout(function() {
+    var timerId = clutch.timer.setTimeout(function () {
             terminated = true;
             if (request) {
                 request.abort();
                 request = null;
             }
             handler(-1, "Timeout", "Timeout");
-        }, REQUEST_TIMEOUT_MS);
-    var n;
+        }, requestTimeout);
+    var param;
     var qmark = "?";
 
     if (optionalParams) {
-        for (n in optionalParams) {
-            if (optionalParams.hasOwnProperty(n)) {
-                url += qmark + n + "=" + optionalParams[n];
+        for (param in optionalParams) {
+            if (optionalParams.hasOwnProperty(param)) {
+                url += qmark + param + "=" + optionalParams[param];
                 qmark = "";
             }
         }
@@ -312,7 +445,7 @@ clutch.executeRequest = function (method, url, optionalParams, optionalBody, han
 
                     terminated = true;
                     request = null;
-                    clutch.clearTimeout(timerId);
+                    clutch.timer.clearTimeout(timerId);
 
                     // Browsers return 0 for xhr against file://. Normalize this.
                     if (status === 0) {
@@ -336,7 +469,7 @@ clutch.executeRequest = function (method, url, optionalParams, optionalBody, han
                 terminated = true;
                 request.abort();
                 request = null;
-                clutch.clearTimeout(timerId);
+                clutch.timer.clearTimeout(timerId);
             }
             handler(-1, "Aborted", "Aborted");
         };
@@ -344,11 +477,11 @@ clutch.executeRequest = function (method, url, optionalParams, optionalBody, han
     catch(e) {
         terminated = true;
         request = null;
-        clutch.clearTimeout(timerId);
+        clutch.timer.clearTimeout(timerId);
 
         // Set a short timeout just to get off the stack so that the call flow is
         // the same as with successful requests (subtle bugs otherwise).
-        clutch.setTimeout(handler, 0);
+        clutch.timer.setTimeout(handler, 0);
 
         // Return a nop function so that callers don't need to care whether we
         // succeeded if they want to abort the previous request.
@@ -541,7 +674,7 @@ function createUnitTests() {
         },
 
         errorTest: function () {
-            this.error(new Error("Test error() call"));
+            throw new Error("Test error() call");
         },
 
         assertTest: function () {
@@ -552,6 +685,73 @@ function createUnitTests() {
 
 function runClutchTests() {
     return createUnitTests();
+}
+/*
+Copyright (c) 2008 John Leach
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in
+all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+THE SOFTWARE.
+*/
+
+/*jslint evil: true */
+/*global clutch, google */
+
+function createTimerTests() {
+    return clutch.test.unit('Timer Tests', {
+
+        clutchTests: [
+            { func: 'startSetTimeout', callbacks: [ 'timerSetTimeout' ] },
+            { func: 'startSetInterval', callbacks: [ 'timerSetInterval' ] }
+        ],
+
+        timerId: null,
+        timerStart: null,
+
+        startSetTimeout: function () {
+            this.timerId = clutch.timer.setTimeout(this.timerSetTimeout, 250);
+            this.timerStart = new Date().getTime();
+            this.assert(this.timerId !== null, "Timer Id is null");
+        },
+
+        timerSetTimeout: function () {
+            clutch.timer.clearTimeout(this.timerId);
+            var time = new Date().getTime() - this.timerStart;
+            // be generous, timers aren't very precise
+            this.assert(time >= (250 - 25), "Time <= 250 ms (" + time + ")");
+        },
+
+        startSetInterval: function () {
+            this.timerId = clutch.timer.setInterval(this.timerSetInterval, 250);
+            this.timerStart = new Date().getTime();
+            this.assert(this.timerId !== null, "Timer Id is null");
+        },
+
+        timerSetInterval: function () {
+            clutch.timer.clearTimeout(this.timerId);
+            var time = new Date().getTime() - this.timerStart;
+            // be generous, timers aren't very precise
+            this.assert(time >= (250 - 25), "Time <= 250 ms (" + time + ")");
+        }
+    }, 1000);
+}
+
+function runClutchTests() {
+    return createTimerTests();
 }
 /*
 Copyright (c) 2008 John Leach
@@ -588,8 +788,8 @@ function createXhrTests() {
         ],
 
         validUrl: function () {
-            var abort = clutch.executeRequest("GET", '/projects/clutch/src/tests/gears/xhr-test-data.json',
-                    null, null, this.validUrlHandler);
+            var abort = clutch.xhr.executeRequest("GET", '/projects/clutch/src/tests/gears/xhr-test-data.json',
+                    null, null, 2000, this.validUrlHandler);
             this.checkAbort(abort);
         },
 
@@ -598,8 +798,8 @@ function createXhrTests() {
         },
 
         invalidUrl: function () {
-            var abort = clutch.executeRequest("GET", '/projects/clutch/src/tests/gears/invalid-url.json',
-                    null, null, this.invalidUrlHandler);
+            var abort = clutch.xhr.executeRequest("GET", '/projects/clutch/src/tests/gears/invalid-url.json',
+                    null, null, 250, this.invalidUrlHandler);
             this.checkAbort(abort);
         },
 
@@ -608,8 +808,8 @@ function createXhrTests() {
         },
 
         abortedRequest: function () {
-            var abort = clutch.executeRequest("GET", '/projects/clutch/src/tests/gears/invalid-url.json',
-                    null, null, this.abortedRequestHandler);
+            var abort = clutch.xhr.executeRequest("GET", '/projects/clutch/src/tests/gears/invalid-url.json',
+                    null, null, 2000, this.abortedRequestHandler);
             this.checkAbort(abort);
             abort();
         },
@@ -625,7 +825,7 @@ function createXhrTests() {
             this.assert(typeof abort === 'function', "Returned value is not a function");
         }
         
-    }, 18000);
+    }, 5000);
 }
 
 function runClutchTests() {
@@ -636,6 +836,7 @@ function runClutchTests() {
     return clutch.test.group([
             createUnitTests(),
             createStringTests(),
+            createTimerTests(),
             createXhrTests()
-        ], 30000);
+        ], 8000);
 }

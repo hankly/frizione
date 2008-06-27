@@ -23,7 +23,18 @@ THE SOFTWARE.
 /*jslint evil: true */
 /*global clutch */
 
-function loadJSLintCode(url) {
+if (!this.clutch) {
+    clutch = {};
+}
+
+/**
+ * Loads the JavaScript source code file into the generated JSLint page.
+ * If you make changes to the JavaScript source file (yours, not this one)
+ * remember to refresh the page.
+ *
+ * @param url the absolute URL to the JavaScript source code file.
+ */
+clutch.loadJSLintCode = function (url) {
     function handleRequest(status, statusText, responseText) {
         var input = document.getElementById('input');
         if (status >= 200 && status <= 299) {
@@ -37,5 +48,5 @@ function loadJSLintCode(url) {
     }
 
     var params = { nocache: new Date().getTime() };
-    clutch.executeRequest("GET", url, params, null, handleRequest);
-}
+    clutch.test.executeRequest("GET", url, params, null, 1000, handleRequest);
+};

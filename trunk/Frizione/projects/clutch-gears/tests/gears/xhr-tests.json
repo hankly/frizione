@@ -1,0 +1,99 @@
+{
+	"name": "XHR Tests",
+	"abend": null,
+	"summary": {
+		"tests": 11,
+		"logs": 0,
+		"failures": 0,
+		"errors": 0,
+		"time": 0,
+		"abend": null,
+		"messages": []
+	},
+	"tests": [
+		{
+			"name": "validUrl",
+			"summary": {
+				"tests": 2,
+				"logs": 0,
+				"failures": 0,
+				"errors": 0,
+				"time": 0,
+				"abend": null,
+				"messages": [],
+				"func": "validUrl",
+				"callback": null
+			}
+		},
+		{
+			"name": "validUrlHandler <- validUrl",
+			"summary": {
+				"tests": 1,
+				"logs": 0,
+				"failures": 0,
+				"errors": 0,
+				"time": 0,
+				"abend": null,
+				"messages": [],
+				"func": "validUrlHandler <- validUrl",
+				"callback": "validUrlHandler"
+			}
+		},
+		{
+			"name": "invalidUrl",
+			"summary": {
+				"tests": 2,
+				"logs": 0,
+				"failures": 0,
+				"errors": 0,
+				"time": 0,
+				"abend": null,
+				"messages": [],
+				"func": "invalidUrl",
+				"callback": null
+			}
+		},
+		{
+			"name": "invalidUrlHandler <- invalidUrl",
+			"summary": {
+				"tests": 1,
+				"logs": 0,
+				"failures": 0,
+				"errors": 0,
+				"time": 0,
+				"abend": null,
+				"messages": [],
+				"func": "invalidUrlHandler <- invalidUrl",
+				"callback": "invalidUrlHandler"
+			}
+		},
+		{
+			"name": "abortedRequest",
+			"summary": {
+				"tests": 2,
+				"logs": 0,
+				"failures": 0,
+				"errors": 0,
+				"time": 0,
+				"abend": null,
+				"messages": [],
+				"func": "abortedRequest",
+				"callback": null
+			}
+		},
+		{
+			"name": "abortedRequestHandler <- abortedRequest",
+			"summary": {
+				"tests": 3,
+				"logs": 0,
+				"failures": 0,
+				"errors": 0,
+				"time": 0,
+				"abend": null,
+				"messages": [],
+				"func": "abortedRequestHandler <- abortedRequest",
+				"callback": "abortedRequestHandler"
+			}
+		}
+	]
+}
