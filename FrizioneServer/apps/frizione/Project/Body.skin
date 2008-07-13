@@ -1,0 +1,97 @@
+        <p class="MenuHeading">
+            <a href="/frizione">Home</a>&#160;
+            <a href="/frizione/docs/Clutch.pdf">Documentation</a>&#160;
+            <a href="/frizione/<% response.project.dir %>"><% response.project.name %></a>
+        </p>
+        <h1><% response.title %></h1>
+
+        <div style="margin: 0 1.0em;">
+            <p style="float: right; margin: 0 1.0em;">
+                <img style="border: 1px solid #3084cc;" width="100" height="76" alt="A real clutch"
+                        src="/frizione/imgs/clutch-tiny.png" />
+            </p>
+            <p>
+                The following files (thanks to their extensions) have been selected for special loving care by
+                Frizione.
+            </p>
+        </div>
+
+        <div style="margin: 0 1.5em; clear: both;">
+            <h2>CSS files</h2>
+            <p>Join files (<code>*.join.css</code>):&#160;
+                <% project.filesCount action="cssjoin"
+                    dir=<% response.project.dir %>
+                    list=<% response.project.files %>
+                    includes=".join.css" %>
+            </p>
+
+            <p>Minify files (<code>*.min.css</code>):&#160;
+                <% project.filesCount action="cssminify"
+                    dir=<% response.project.dir %>
+                    list=<% response.project.files %>
+                    includes=".min.css" %>
+            </p>
+
+            <h2>JavaScript files</h2>
+            <p>Join files (<code>*.join.js</code>):&#160;
+                <% project.filesCount action="jsjoin"
+                    dir=<% response.project.dir %>
+                    list=<% response.project.files %>
+                    includes=".join.js" %>
+            </p>
+
+            <p>Minify files (<code>*.min.js</code>):&#160;
+                <% project.filesCount action="jsminify"
+                    dir=<% response.project.dir %>
+                    list=<% response.project.files %>
+                    includes=".min.js" %>
+            </p>
+
+            <p>Test files (<code>*.test.js</code>):&#160;
+                <% project.filesCount action="jstest"
+                    dir=<% response.project.dir %>
+                    list=<% response.project.files %>
+                    includes=".test.js" %>
+            </p>
+
+            <p>JSLint files (<code>*.js</code>):&#160;
+                <% project.filesCount action="jslint"
+                    dir=<% response.project.dir %>
+                    list=<% response.project.files %>
+                    includes=".js"
+                    excludes=".join.js, .test.js, .min.js" %>
+            </p>
+
+            <h2>JSON files</h2>
+            <p>Viewable files (<code>*.json</code>):&#160;
+                <% project.filesCount action="jsonview"
+                    dir=<% response.project.dir %>
+                    list=<% response.project.files %>
+                    includes=".json"
+                    excludes=".test.json" %>
+            </p>
+            <p>Test results files (<code>*.test.json</code>):&#160;
+                <% project.filesCount action="jsontest"
+                    dir=<% response.project.dir %>
+                    list=<% response.project.files %>
+                    includes=".test.json"%>
+            </p>
+
+            <h2>Static files</h2>
+            <p>Viewable files (<code>*.html</code>):&#160;
+                <% project.filesCount action="htmlview"
+                    dir=<% response.project.dir %>
+                    list=<% response.project.files %>
+                    includes=".html" %>
+            </p>
+
+            <p>&#160;</p>
+            <p><a class='button' href='/frizione/<% response.project.dir %>?action=refresh'>Refresh file list</a></p>
+        </div>
+
+        <p style="clear: both;">&#160;</p>
+        <p class="MenuHeading">
+            <a href="/frizione">Home</a>&#160;
+            <a href="/frizione/docs/Clutch.pdf">Documentation</a>&#160;
+            <a href="/frizione/<% response.project.dir %>"><% response.project.name %></a>
+        </p>
