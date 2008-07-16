@@ -21,15 +21,23 @@ THE SOFTWARE.
 */
 
 /**
- * Default (main) action.
+ * Default (main) action for the frizione application.
  */
 function main_action() {
 
     app.debug("Main Request " + req.path);
 
     switch (req.data.action) {
-        case "refresh":
+        case "refreshprojects":
             app.debug("Main Request refresh project list");
+            allProjects(true);
+            break;
+        case "refreshapplications":
+            app.debug("Main Request refresh application list");
+            allApplications(true);
+            break;
+        case "refreshmodules":
+            app.debug("Main Request refresh modules list");
             allProjects(true);
             break;
     }
@@ -47,9 +55,9 @@ function renderMainPage() {
     data.href = this.href();
     data.title = qualifiedVersion();
 
-    data.head = this.renderSkinAsString('Head');
+    data.head = renderSkinAsString('Head');
     data.body = this.renderSkinAsString('Body');
-    this.renderSkin('Layout');
+    renderSkin('Layout');
 }
 
 /**

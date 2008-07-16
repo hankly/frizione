@@ -33,20 +33,8 @@ function constructor(info) {
     this.home = info.home;
     this.dir = info.dir;
     this.path = info.path;
-
-    this.services = { };
-    this.services.jslint = new JsLint(this);
-    this.services.jsonview = new View(this, 'json');
-    this.services.htmlview = new View(this, 'html');
-    this.services.cssjoin = new Join(this, 'css');
-    this.services.jsjoin = new Join(this, 'js');
-    this.services.cssminify = new Minify(this, 'css');
-    this.services.jsminify = new Minify(this, 'js');
-    this.services.jstest = new Test(this, 'js');
-    this.services.jsontest = new Test(this, 'json');
-    this.services.readfixture = new Fixture(this, 'read');
-    this.services.writefixture = new Fixture(this, 'write');
-
+    this.type = 'project';
+    this.services = setServices(this);
     this.refreshFiles();
 }
 

@@ -21,15 +21,15 @@ THE SOFTWARE.
 */
 
 /**
- * Default (main) action.
+ * Default (main) action for test operations.
  */
 function main_action() {
 
     app.debug("Test Request " + req.path);
 
     var path = req.path.split('/');
-    if (path.length > 2) {
-        var file = '/' + path.slice(2, path.length).join('/');
+    if (path.length > 3) {
+        var file = '/' + path.slice(3, path.length).join('/');
         if (this.type === 'json') {
             this.renderTestResultPage(file);
         }
@@ -41,7 +41,7 @@ function main_action() {
         switch (req.data.action) {
             case "refresh":
                 app.debug("Test Request refresh files list");
-                this.project.refreshFiles();
+                this.group.refreshFiles();
                 break;
         }
         this.renderMainPage();
@@ -57,10 +57,10 @@ function renderMainPage() {
     var data = res.data;
     data.root = root.href();
     data.href = this.href();
-    data.project = this.project;
+    data.group = this.group;
 
     var typeName = 'JavaScript';
-    data.title = typeName + " Test : " + this.project.name + " : " + qualifiedVersion();
+    data.title = typeName + " Test : " + this.group.name + " : " + qualifiedVersion();
     data.explain = "Frizione just can't wait to test the following JavaScript files, though it might take a while:";
     data.action = 'jstest';
     data.includes = ".test.js";
@@ -68,7 +68,7 @@ function renderMainPage() {
     switch (this.type) {
         case 'json':
             typeName = "JSON";
-            data.title = typeName + " Test Results : " + this.project.name + " : " + qualifiedVersion();
+            data.title = typeName + " Test Results : " + this.group.name + " : " + qualifiedVersion();
             data.explain = "Frizione just can't wait to display the following JSON test results files:";
             data.action = 'jsontest';
             data.includes = ".test.json";
@@ -76,7 +76,7 @@ function renderMainPage() {
             break;
     }
 
-    data.head = this.renderSkinAsString('Head');
+    data.head = renderSkinAsString('Head');
     data.body = this.renderSkinAsString('Body');
     this.renderSkin('Layout');
 }
@@ -92,15 +92,15 @@ function renderTestPage(file) {
     var data = res.data;
     data.root = root.href();
     data.href = this.href();
-    data.title = "JavaScript Test : " + this.project.name + " : " + qualifiedVersion();
+    data.title = "JavaScript Test : " + this.group.name + " : " + qualifiedVersion();
     data.version = qualifiedVersion();
-    data.project = this.project;
+    data.group = this.group;
 
-    data.file = '/' + this.project.dir + file;
+    data.file = file;
 app.debug("Start join " + req.runtime);
-    var result = services.join(this.project.path + file);
+    var result = services.join(this.group.path + file);
 app.debug("Start services " + req.runtime);
-    services.execute(result, 'test', 'js', data, projectsDir().toString() + '/' + this.project.dir);
+    services.execute(result, 'test', 'js', data, groupDir(this.group).toString() + '/' + this.group.dir);
 app.debug("End services " + req.runtime);
 
     data.head = this.renderSkinAsString('Head.Test');
@@ -122,12 +122,12 @@ function renderTestResultPage(file) {
     data.href = this.href();
     data.title = "JSON Test Results : " + qualifiedVersion();
     data.version = qualifiedVersion();
-    data.project = this.project;
+    data.group = this.group;
 
-    data.file = '/' + this.project.dir + file;
-    data.json = fileutils.readJson(this.project.path + file);
+    data.file = file;
+    data.json = fileutils.readJson(this.group.path + file);
 
-    data.head = this.renderSkinAsString('Head');
+    data.head = renderSkinAsString('Head');
     data.body = this.renderSkinAsString('Body.Result');
     this.renderSkin('Layout');
 }

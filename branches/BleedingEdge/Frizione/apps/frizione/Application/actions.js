@@ -21,30 +21,23 @@ THE SOFTWARE.
 */
 
 /**
- * Default (main) action for JSLint operations.
+ * Default (main) action for the specified application.
  */
 function main_action() {
 
-    app.debug("JsLint Request " + req.path);
+    app.debug("Application Request " + req.path);
 
-    var path = req.path.split('/');
-    if (path.length > 3) {
-        var file = '/' + path.slice(3, path.length).join('/');
-        this.renderLintPage(file);
+    switch (req.data.action) {
+        case "refresh":
+            app.debug("Application Request refresh file list");
+            this.refreshFiles();
+            break;
     }
-    else {
-        switch (req.data.action) {
-            case "refresh":
-                app.debug("JsLint Request refresh files list");
-                this.group.refreshFiles();
-                break;
-        }
-        this.renderMainPage();
-    }
+    this.renderMainPage();
 }
 
 /**
- * Renders the list page.
+ * Renders the main application page.
  */
 function renderMainPage() {
     res.charset = "UTF8";
@@ -52,41 +45,11 @@ function renderMainPage() {
     var data = res.data;
     data.root = root.href();
     data.href = this.href();
-    data.group = this.group;
-
-    data.title = "JSLint : " + this.group.name + " : " + qualifiedVersion();
+    data.title = this.name + " : " + qualifiedVersion();
+    data.group = this;
 
     data.head = renderSkinAsString('Head');
     data.body = this.renderSkinAsString('Body');
-    renderSkin('Layout');
-}
-
-/**
- * Renders the lint page.
- *
- * @param file the JavaScript file to lint.
- */
-function renderLintPage(file) {
-    res.charset = "UTF8";
-
-    var data = res.data;
-    data.root = root.href();
-    data.href = this.href();
-    data.title = "JSLint : " + this.group.name + " : " + qualifiedVersion();
-    data.version = qualifiedVersion();
-    data.group = this.group;
-
-    var text = fileutils.readText(this.group.path + file);
-    data.file = file;
-    data.text = encode(text);
-    var options = jslintOptions(this.group.path);
-    data.options = options;
-    data.result = JSLINT(text, options);
-    data.errors = JSLINT.errors;
-    data.report = JSLINT.report();
-
-    data.head = renderSkinAsString('Head');
-    data.body = this.renderSkinAsString('Body.Lint');
     renderSkin('Layout');
 }
 
@@ -97,6 +60,10 @@ function renderLintPage(file) {
  * @return the object that handles the element.
  */
 function getChildElement(name) {
-    app.debug("JsLint.getChildElement " + name);
+    app.debug("Application.getChildElement " + name);
+    var service = this.services[name];
+    if (service) {
+        return service;
+    }
     return this;
 }

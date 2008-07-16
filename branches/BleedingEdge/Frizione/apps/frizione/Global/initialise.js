@@ -28,7 +28,7 @@ app.addRepository('modules/frizione/fileutils.js');
 app.addRepository('modules/frizione/ejs.js');
 app.addRepository('modules/frizione/services.js');
 
-PROJECT_FILE = "/clutch.json";
+FRIZIONE_FILE = "/frizione.json";
 JSLINT_OPTIONS_FILE = "/jslint.options.json";
 
 /**
@@ -42,6 +42,32 @@ function onStart(name) {
     dirs.docs = new StaticFiles('docs');
     dirs.imgs = new StaticFiles('imgs');
     dirs.js =  new StaticFiles('js');
+    dirs.projects = new HopObject();
+    dirs.projects.main_action = function () {
+        res.redirect('/frizione/');  
+    };
+    dirs.projects.getChildElement = function (name) {
+        app.debug("Projects.getChildElement " + name);
+        return projectByDir(name) || this;
+    };
+    dirs.applications = new HopObject();
+    dirs.applications.main_action = function () {
+        res.redirect('/frizione/');
+    };
+    dirs.applications.getChildElement = function (name) {
+        app.debug("Applications.getChildElement " + name);
+        return applicationByDir(name) || this;
+    };
+    dirs.modules = new HopObject();
+    dirs.modules.main_action = function () {
+        res.redirect('/frizione/');
+    };
+    dirs.modules.getChildElement = function (name) {
+        app.debug("Modules.getChildElement " + name);
+        return moduleByDir(name) || this;          
+    };
     app.data.dirs = dirs;
     allProjects();
+    allApplications();
+    allModules();
 }

@@ -21,15 +21,24 @@ THE SOFTWARE.
 */
 
 /**
- * Join object constructor.
+ * Module object constructor.
  *
- * @class Join
+ * @class Module
  * @constructor
- * @param group the project/application/module object.
- * @param type the join type, either 'css' or 'js'.
+ * @param info the (modified) project json file contents.
  */
-function constructor(group, type) {
-    app.debug('Join ' + type + ": " + group.type + ": " + group.name);
-    this.group = group;
-    this.type = type;
+function constructor(info) {
+    app.debug('Module ' + info.name);
+    this.name = info.name;
+    this.home = info.home;
+    this.dir = info.dir;
+    this.path = info.path;
+    this.type = 'module';
+    this.services = setServices(this);
+    this.refreshFiles();
+}
+
+function refreshFiles() {
+    app.debug('Module ' + this.name + ' refresh files');
+    this.files = fileutils.listAll(this.path, [ '.css', '.js', '.json', '.html' ], null);
 }

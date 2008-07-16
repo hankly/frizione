@@ -158,8 +158,8 @@ fileutils = {
      * Gets the specified file type list recursively.
      *
      * @param root the root directory.
-     * @param includes the includable file extensions array (with leading dot), foe example ".png".
-     * @param excludes the excludable file extensions array (with leading dot), foe example ".exclude.png".
+     * @param includes the includable file extensions array (with leading dot), for example ".png".
+     * @param excludes the excludable file extensions array (with leading dot), for example ".exclude.png".
      * @param dir the relative directory.
      * @param results the list results.
      * @return the file list.
@@ -203,8 +203,8 @@ fileutils = {
      * Gets the specified file type list.
      *
      * @param root the root directory.
-     * @param includes the includable file extensions array (with leading dot), foe example ".png".
-     * @param excludes the excludable file extensions array (with leading dot), foe example ".exclude.png".
+     * @param includes the includable file extensions array (with leading dot), for example ".png".
+     * @param excludes the excludable file extensions array (with leading dot), for example ".exclude.png".
      * @return the file list.
      */
     listAll: function (root, includes, excludes) {
@@ -217,8 +217,8 @@ fileutils = {
      * Filters a files list.
      *
      * @param list the files list.
-     * @param includes the includable file extensions (with leading dot), foe example ".png".
-     * @param excludes the excludable file extensions (with leading dot), foe example ".exclude.png".
+     * @param includes the includable file extensions (with leading dot), for example ".png".
+     * @param excludes the excludable file extensions (with leading dot), for example ".exclude.png".
      * @return the filtered (and sorted) files list.
      */
     filterList: function (list, includes, excludes) {

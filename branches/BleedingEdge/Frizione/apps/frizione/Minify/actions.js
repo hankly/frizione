@@ -21,22 +21,22 @@ THE SOFTWARE.
 */
 
 /**
- * Default (main) action.
+ * Default (main) action for minify operations.
  */
 function main_action() {
 
     app.debug("Minify Request " + req.path);
 
     var path = req.path.split('/');
-    if (path.length > 2) {
-        var file = '/' + path.slice(2, path.length).join('/');
+    if (path.length > 3) {
+        var file = '/' + path.slice(3, path.length).join('/');
         this.renderMinifyPage(file);
     }
     else {
         switch (req.data.action) {
             case "refresh":
                 app.debug("Minify Request refresh files list");
-                this.project.refreshFiles();
+                this.group.refreshFiles();
                 break;
         }
         this.renderMainPage();
@@ -52,7 +52,7 @@ function renderMainPage() {
     var data = res.data;
     data.root = root.href();
     data.href = this.href();
-    data.project = this.project;
+    data.group = this.group;
     data.type = this.type;
 
     var typeName = 'CSS';
@@ -70,11 +70,11 @@ function renderMainPage() {
             break;
     }
 
-    data.title = typeName + " Minify : " + this.project.name + " : " + qualifiedVersion();
+    data.title = typeName + " Minify : " + this.group.name + " : " + qualifiedVersion();
 
-    data.head = this.renderSkinAsString('Head');
+    data.head = renderSkinAsString('Head');
     data.body = this.renderSkinAsString('Body');
-    this.renderSkin('Layout');
+    renderSkin('Layout');
 }
 
 /**
@@ -100,20 +100,20 @@ function renderMinifyPage(file) {
             break;
     }
 
-    data.title = typeName + " Minify : " + this.project.name + " : " + qualifiedVersion();
+    data.title = typeName + " Minify : " + this.group.name + " : " + qualifiedVersion();
     data.version = qualifiedVersion();
-    data.project = this.project;
+    data.group = this.group;
 
-    data.file = '/' + this.project.dir + file;
+    data.file = file;
 app.debug("Start join " + req.runtime);
-    var result = services.join(this.project.path + file);
+    var result = services.join(this.group.path + file);
 app.debug("Start services " + req.runtime);
-    services.execute(result, 'minify', this.type, data, projectsDir().toString() + '/' + this.project.dir);
+    services.execute(result, 'minify', this.type, data, groupDir(this.group).toString() + '/' + this.group.dir);
 app.debug("End services " + req.runtime);
 
-    data.head = this.renderSkinAsString('Head');
+    data.head = renderSkinAsString('Head');
     data.body = this.renderSkinAsString('Body.Minify');
-    this.renderSkin('Layout');
+    renderSkin('Layout');
 }
 
 /**

@@ -29,8 +29,8 @@ function main_action_post() {
 
     res.charset = "UTF8";
     var path = req.path.split('/');
-    if (path.length > 2 && path[1] === "writefixture") {
-        var file = '/' + path.slice(2, path.length).join('/');
+    if (path.length > 3 && path[2] === "writefixture") {
+        var file = '/' + path.slice(3, path.length).join('/');
         var reader = req.getServletRequest().getReader();
         var buffer = new java.lang.StringBuffer(1024);
         while (true) {
@@ -46,7 +46,7 @@ function main_action_post() {
         reader.close();
         var data = String(buffer);
 
-        path = this.project.path + file;
+        path = this.group.path + file;
         app.debug("Fixture write: " + path);
         fileutils.makeDirs(path);
         fileutils.writeJson(path, data);
@@ -68,21 +68,19 @@ function main_action_get() {
 
     res.charset = "UTF8";
     var path = req.path.split('/');
-    if (path.length > 2 && path[1] === "readfixture") {
-        var file = '/' + path.slice(2, path.length).join('/');
+    if (path.length > 3 && path[2] === "readfixture") {
+        var file = '/' + path.slice(3, path.length).join('/');
 
-        path = this.project.path + file;
+        path = this.group.path + file;
         app.debug("Fixture read: " + path);
 
         if (fileutils.exists(path)) {
-            var result = services.join(this.project.path + file, 'UTF-8', req.queryParams);
+            var result = services.join(path, 'UTF-8', req.queryParams);
             res.status = 200;
             res.write(result);
         }
         else {
-
             app.debug("Fixture read: " + path + " the file doesn't exist");
-
             res.status = 404;
             res.write("The requested file doesn't exist");            
         }

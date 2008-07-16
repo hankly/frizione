@@ -21,7 +21,7 @@ THE SOFTWARE.
 */
 
 /**
- * Default (main) action.
+ * Default (main) action for the specified project.
  */
 function main_action() {
 
@@ -37,7 +37,7 @@ function main_action() {
 }
 
 /**
- * Renders the main page.
+ * Renders the main project page.
  */
 function renderMainPage() {
     res.charset = "UTF8";
@@ -46,11 +46,11 @@ function renderMainPage() {
     data.root = root.href();
     data.href = this.href();
     data.title = this.name + " : " + qualifiedVersion();
-    data.project = this;
+    data.group = this;
 
-    data.head = this.renderSkinAsString('Head');
+    data.head = renderSkinAsString('Head');
     data.body = this.renderSkinAsString('Body');
-    this.renderSkin('Layout');
+    renderSkin('Layout');
 }
 
 /**

@@ -25,13 +25,13 @@ THE SOFTWARE.
   *
   * Parameters:
   * <ul>
-  * <li><code>type</code> the clutch.json file property, usually "home".</li>
+  * <li><code>type</code> the frizione.json file property, usually "name".</li>
   * </ul>
   * 
   * @param params invocation parameters.
   */
 function projectsList_macro(params) {
-    var type = (params && params.type) ? params.type : "home";
+    var type = (params && params.type) ? params.type : "name";
     var html = "";
     var list = app.data.projects.list;
     var names = app.data.projects.names;
@@ -40,11 +40,69 @@ function projectsList_macro(params) {
         var project = names[name];
         app.debug("project '" + name + "' list '" + project + "'");
         if (name && project[type]) {
-            html += "<p><a href='" + '/frizione/' + project.dir + "/'>" + name + "</a></p>";
+            html += "<p><a href='" + '/frizione/projects/' + project.dir + "/'>" + name + "</a></p>";
         }
     }
     if (html === "") {
         return "<p>No projects found</p>";
+    }
+    return html;
+}
+
+/**
+  * Macro that lists all applications.
+  *
+  * Parameters:
+  * <ul>
+  * <li><code>type</code> the frizione.json file property, usually "name".</li>
+  * </ul>
+  *
+  * @param params invocation parameters.
+  */
+function applicationsList_macro(params) {
+    var type = (params && params.type) ? params.type : "name";
+    var html = "";
+    var list = app.data.applications.list;
+    var names = app.data.applications.names;
+    for (var i = 0; i < list.length; i++) {
+        var name = list[i];
+        var application = names[name];
+        app.debug("application '" + name + "' list '" + application + "'");
+        if (name && application[type]) {
+            html += "<p><a href='" + '/frizione/applications/' + application.dir + "/'>" + name + "</a></p>";
+        }
+    }
+    if (html === "") {
+        return "<p>No applications found</p>";
+    }
+    return html;
+}
+
+/**
+  * Macro that lists all modules.
+  *
+  * Parameters:
+  * <ul>
+  * <li><code>type</code> the frizione.json file property, usually "name".</li>
+  * </ul>
+  *
+  * @param params invocation parameters.
+  */
+function modulesList_macro(params) {
+    var type = (params && params.type) ? params.type : "name";
+    var html = "";
+    var list = app.data.modules.list;
+    var names = app.data.modules.names;
+    for (var i = 0; i < list.length; i++) {
+        var name = list[i];
+        var module = names[name];
+        app.debug("module '" + name + "' list '" + module + "'");
+        if (name && module[type]) {
+            html += "<p><a href='" + '/frizione/modules/' + module.dir + "/'>" + name + "</a></p>";
+        }
+    }
+    if (html === "") {
+        return "<p>No modules found</p>";
     }
     return html;
 }

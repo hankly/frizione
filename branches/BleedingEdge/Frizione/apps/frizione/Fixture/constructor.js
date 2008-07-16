@@ -25,11 +25,11 @@ THE SOFTWARE.
  *
  * @class Fixture
  * @constructor
- * @param project the project object.
+ * @param group the project/application/module object.
  * @param type the fixture type, either 'read' or 'write'.
  */
-function constructor(project, type) {
-    app.debug('Fixture ' + type + ": " + project.name);
-    this.project = project;
+function constructor(group, type) {
+    app.debug('Fixture ' + type + ": " + group.type + ": " + group.name);
+    this.group = group;
     this.type = type;
 }
