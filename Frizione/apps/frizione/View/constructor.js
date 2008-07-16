@@ -25,11 +25,11 @@ THE SOFTWARE.
  *
  * @class View
  * @constructor
- * @param project the project object.
+ * @param group the project/application/module object.
  * @param type the view type, either 'json' or 'html'.
  */
-function constructor(project, type) {
-    app.debug('View ' + type + ": " + project.name);
-    this.project = project;
+function constructor(group, type) {
+    app.debug('View ' + type + ": " + group.type + ": " + group.name);
+    this.group = group;
     this.type = type;
 }

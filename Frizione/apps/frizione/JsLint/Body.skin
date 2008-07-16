@@ -1,7 +1,7 @@
         <p class="MenuHeading">
             <a href="/frizione">Home</a>&#160;
             <a href="/frizione/docs/Clutch.pdf">Documentation</a>&#160;
-            <a href="/frizione/<% response.project.dir %>"><% response.project.name %></a>
+            <a href="/frizione/<% response.group.type %>s/<% response.group.dir %>"><% response.group.name %></a>
         </p>
         <h1><% response.title %></h1>
 
@@ -15,19 +15,21 @@
         </div>
 
         <div style="margin: 0 1.5em; clear: both;">
-            <% project.filesList action="jslint"
-                    dir=<% response.project.dir %>
-                    list=<% response.project.files %>
-                    includes=".js"
-                    excludes=".join.js, .test.js, .min.js" %>
-
+            <% filesList action="jslint"
+                group=<% response.group %>
+                includes=".js"
+                excludes=".join.js, .test.js, .min.js" %>
             <p>&#160;</p>
-            <p><a class='button' href='/frizione/<% response.project.dir %>/jslint/?action=refresh'>Refresh file list</a></p>
+            <p>
+                <a class='button' href='/frizione/<% response.group.type %>s/<% response.group.dir %>/<% response.action %>?action=refresh'>
+                    Refresh file list
+                </a>
+            </p>
         </div>
 
         <p style="clear: both;">&#160;</p>
         <p class="MenuHeading">
             <a href="/frizione">Home</a>&#160;
             <a href="/frizione/docs/Clutch.pdf">Documentation</a>&#160;
-            <a href="/frizione/<% response.project.dir %>"><% response.project.name %></a>
+            <a href="/frizione/<% response.group.type %>s/<% response.group.dir %>"><% response.group.name %></a>
         </p>

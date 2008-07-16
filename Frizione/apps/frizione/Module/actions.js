@@ -21,15 +21,49 @@ THE SOFTWARE.
 */
 
 /**
- * Join object constructor.
- *
- * @class Join
- * @constructor
- * @param group the project/application/module object.
- * @param type the join type, either 'css' or 'js'.
+ * Default (main) action for the specified module.
  */
-function constructor(group, type) {
-    app.debug('Join ' + type + ": " + group.type + ": " + group.name);
-    this.group = group;
-    this.type = type;
+function main_action() {
+
+    app.debug("Module Request " + req.path);
+
+    switch (req.data.action) {
+        case "refresh":
+            app.debug("Module Request refresh file list");
+            this.refreshFiles();
+            break;
+    }
+    this.renderMainPage();
+}
+
+/**
+ * Renders the main module page.
+ */
+function renderMainPage() {
+    res.charset = "UTF8";
+
+    var data = res.data;
+    data.root = root.href();
+    data.href = this.href();
+    data.title = this.name + " : " + qualifiedVersion();
+    data.group = this;
+
+    data.head = renderSkinAsString('Head');
+    data.body = this.renderSkinAsString('Body');
+    renderSkin('Layout');
+}
+
+/**
+ * Method used by Helma request path resolution.
+ *
+ * @param name the path element name.
+ * @return the object that handles the element.
+ */
+function getChildElement(name) {
+    app.debug("Module.getChildElement " + name);
+    var service = this.services[name];
+    if (service) {
+        return service;
+    }
+    return this;
 }

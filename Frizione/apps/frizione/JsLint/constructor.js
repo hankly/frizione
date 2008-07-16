@@ -25,9 +25,9 @@ THE SOFTWARE.
  *
  * @class JsLint
  * @constructor
- * @param project the project object.
+ * @param group the project/application/module object.
  */
-function constructor(project) {
-    app.debug('JsLint ' + project.name);
-    this.project = project;
+function constructor(group) {
+    app.debug('JSLint: ' + group.type + ": " + group.name);
+    this.group = group;
 }

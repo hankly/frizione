@@ -21,22 +21,22 @@ THE SOFTWARE.
 */
 
 /**
- * Default (main) action.
+ * Default (main) action for join operations.
  */
 function main_action() {
 
     app.debug("Join Request " + req.path);
 
     var path = req.path.split('/');
-    if (path.length > 2) {
-        var file = '/' + path.slice(2, path.length).join('/');
+    if (path.length > 3) {
+        var file = '/' + path.slice(3, path.length).join('/');
         this.renderJoinPage(file);
     }
     else {
         switch (req.data.action) {
             case "refresh":
                 app.debug("Join Request refresh files list");
-                this.project.refreshFiles();
+                this.group.refreshFiles();
                 break;
         }
         this.renderMainPage();
@@ -50,7 +50,7 @@ function renderMainPage() {
     res.charset = "UTF8";
     res.data.root = root.href();
     res.data.href = this.href();
-    res.data.project = this.project;
+    res.data.group = this.group;
     res.data.type = this.type;
 
     var typeName = 'CSS';
@@ -68,11 +68,11 @@ function renderMainPage() {
             break;
     }
 
-    res.data.title = typeName + " Join : " + this.project.name + " : " + qualifiedVersion();
+    res.data.title = typeName + " Join : " + this.group.name + " : " + qualifiedVersion();
 
-    res.data.head = this.renderSkinAsString('Head');
+    res.data.head = renderSkinAsString('Head');
     res.data.body = this.renderSkinAsString('Body');
-    this.renderSkin('Layout');
+    renderSkin('Layout');
 }
 
 /**
@@ -97,20 +97,20 @@ function renderJoinPage(file) {
             break;
     }
 
-    data.title = typeName + " Join : " + this.project.name + " : " + qualifiedVersion();
+    data.title = typeName + " Join : " + this.group.name + " : " + qualifiedVersion();
     data.version = qualifiedVersion();
-    data.project = this.project;
+    data.group = this.group;
 
-    data.file = '/' + this.project.dir + file;
+    data.file = '/' + this.group.dir + file;
 app.debug("Start join " + req.runtime);
-    var result = services.join(this.project.path + file);
+    var result = services.join(this.group.path + file);
 app.debug("Start services " + req.runtime);
-    services.execute(result, 'join', this.type, data, projectsDir().toString() + '/' + this.project.dir);
+    services.execute(result, 'join', this.type, data, groupDir(this.group).toString() + '/' + this.group.dir);
 app.debug("End services " + req.runtime);
 
-    res.data.head = this.renderSkinAsString('Head');
+    res.data.head = renderSkinAsString('Head');
     res.data.body = this.renderSkinAsString('Body.Join');
-    this.renderSkin('Layout');
+    renderSkin('Layout');
 }
 
 /**

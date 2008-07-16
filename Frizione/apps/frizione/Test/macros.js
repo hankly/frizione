@@ -28,12 +28,12 @@ function setJavaScriptTags_macro() {
     var type = data.testParams.type;
     var compressed = getProperty('compressed') === 'true';
 
-    if (!data.hasErrors) {
+    if (!data.hasErrors && data.group.type === 'project') {
         switch(type) {
             case 'gears':
                 if (compressed) {
                     return '<script src="/frizione/js/gears-unittester.cjs" type="text/javascript" charset="utf-8"></script>'
-                         + '<script src="' + projectsMountPoint() + '/' + data.project.dir + data.to + '?nocache=' + new Date().getTime() + '" type="text/javascript" charset="utf-8"></script>';
+                         + '<script src="' + projectsMountPoint() + '/' + data.group.dir + data.to + '?nocache=' + new Date().getTime() + '" type="text/javascript" charset="utf-8"></script>';
                 }
                 else {
                     return '<script src="/frizione/js/gears_init.cjs" type="text/javascript" charset="utf-8"></script>'
@@ -41,7 +41,7 @@ function setJavaScriptTags_macro() {
                          + '<script src="/frizione/js/xhr.cjs" type="text/javascript" charset="utf-8"></script>'
                          + '<script src="/frizione/js/unit-test.cjs" type="text/javascript" charset="utf-8"></script>'
                          + '<script src="/frizione/js/gears-saver.cjs" type="text/javascript" charset="utf-8"></script>'
-                         + '<script src="' + projectsMountPoint() + '/' + data.project.dir + data.to + '?nocache=' + new Date().getTime() + '" type="text/javascript" charset="utf-8"></script>';
+                         + '<script src="' + projectsMountPoint() + '/' + data.group.dir + data.to + '?nocache=' + new Date().getTime() + '" type="text/javascript" charset="utf-8"></script>';
                 }
 
             case 'workerpool':
@@ -58,14 +58,14 @@ function setJavaScriptTags_macro() {
             default:
                 if (compressed) {
                     return '<script src="/frizione/js/browser-unittester.cjs" type="text/javascript" charset="utf-8"></script>'
-                         + '<script src="' + projectsMountPoint() + '/' + data.project.dir + data.to + '?nocache=' + new Date().getTime() + '" type="text/javascript" charset="utf-8"></script>';
+                         + '<script src="' + projectsMountPoint() + '/' + data.group.dir + data.to + '?nocache=' + new Date().getTime() + '" type="text/javascript" charset="utf-8"></script>';
                 }
                 else {
                     return '<script src="/frizione/js/json2.cjs" type="text/javascript" charset="utf-8"></script>'
                          + '<script src="/frizione/js/xhr.cjs" type="text/javascript" charset="utf-8"></script>'
                          + '<script src="/frizione/js/unit-test.cjs" type="text/javascript" charset="utf-8"></script>'
                          + '<script src="/frizione/js/saver.cjs" type="text/javascript" charset="utf-8"></script>'
-                         + '<script src="' + projectsMountPoint() + '/' + data.project.dir + data.to + '?nocache=' + new Date().getTime() + '" type="text/javascript" charset="utf-8"></script>';
+                         + '<script src="' + projectsMountPoint() + '/' + data.group.dir + data.to + '?nocache=' + new Date().getTime() + '" type="text/javascript" charset="utf-8"></script>';
                 }
         }
     }
@@ -79,9 +79,9 @@ function setBodyTag_macro() {
     var type = data.testParams.type;
     var params = data.testParams;
 
-    if (!data.hasErrors) {
-        var frizione = "/frizione/" + data.project.dir + '/';
-        var project = projectsMountPoint() + '/' + data.project.dir;
+    if (!data.hasErrors && data.group.type === 'project') {
+        var frizione = "/frizione/" + data.group.type + "s/" + data.group.dir + '/';
+        var project = projectsMountPoint() + '/' + data.group.dir;
         switch(type) {
             case 'workerpool':
                 var func = 'onload=\'clutch.storeTests("'

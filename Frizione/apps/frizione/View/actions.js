@@ -21,17 +21,17 @@ THE SOFTWARE.
 */
 
 /**
- * Default (main) action.
+ * Default (main) action for view operations.
  */
 function main_action() {
 
     app.debug("View Request " + req.path);
 
     var path = req.path.split('/');
-    if (path.length > 2) {
-        var file = '/' + path.slice(2, path.length).join('/');
+    if (path.length > 3) {
+        var file = '/' + path.slice(3, path.length).join('/');
         if (this.type === 'html') {
-            res.redirect(projectsMountPoint() + '/' + this.project.dir + file)
+            res.redirect(projectsMountPoint() + '/' + this.group.dir + file);
         }
         else {
             this.renderViewPage(file);
@@ -41,7 +41,7 @@ function main_action() {
         switch (req.data.action) {
             case "refresh":
                 app.debug("View Request refresh files list");
-                this.project.refreshFiles();
+                this.group.refreshFiles();
                 break;
         }
         this.renderMainPage();
@@ -57,7 +57,7 @@ function renderMainPage() {
     var data = res.data;
     data.root = root.href();
     data.href = this.href();
-    data.project = this.project;
+    data.group = this.group;
     data.type = this.type;
 
     var typeName = 'JSON';
@@ -75,11 +75,11 @@ function renderMainPage() {
             break;
     }
 
-    data.title = typeName + " View : " + this.project.name + " : " + qualifiedVersion();
+    data.title = typeName + " View : " + this.group.name + " : " + qualifiedVersion();
 
-    data.head = this.renderSkinAsString('Head');
+    data.head = renderSkinAsString('Head');
     data.body = this.renderSkinAsString('Body');
-    this.renderSkin('Layout');
+    renderSkin('Layout');
 }
 
 /**
@@ -101,9 +101,9 @@ function renderViewPage(file) {
     data.file = '/' + this.project.dir + file;
     data.text = encode(text);
 
-    data.head = this.renderSkinAsString('Head');
+    data.head = renderSkinAsString('Head');
     data.body = this.renderSkinAsString('Body.View');
-    this.renderSkin('Layout');
+    renderSkin('Layout');
 }
 
 /**

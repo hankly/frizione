@@ -21,7 +21,88 @@ THE SOFTWARE.
 */
 
 /**
-  * Reports the results and errors of the join/minify/test commands.
+  * Macro that counts filtered project/application/module files.
+  *
+  * Parameters:
+  * <ul>
+  * <li><code>action</code> action value.</li>
+  * <li><code>group</code> the group object.</li>
+  * <li><code>includes</code> a comma separeated list of extensions.</li>
+  * <li><code>excludes</code> an optional comma separated list of excluded extensions.</li>
+  * </ul>
+  *
+  * @param params invocation parameters.
+  */
+function filesCount_macro(params) {
+    var action = (params && params.action) ? params.action : null;
+    var group = (params && params.group) ? params.group : null;
+    var includes = (params && params.includes) ? params.includes : null;
+    var excludes = (params && params.excludes) ? params.excludes : null;
+    if (group === null || includes === null || action === null) {
+        return "[Missing parameters: No files found]";
+    }
+
+    var dir = group.dir;
+    var type = group.type;
+    includes = includes.split(/\s?,\s?/);
+    excludes = excludes ? excludes.split(/\s?,\s?/) : null;
+    var result = fileutils.filterList(group.files, includes, excludes);
+    if (result.length > 0) {
+        var units = result.length === 1 ? "file" : "files";
+        return "<a href='/frizione/" + type + "s/" + dir + "/" + action + "'>" + result.length + " " + units + "</a>";
+    }
+    else {
+        return "No files found";
+    }
+}
+
+/**
+  * Macro that lists filtered application files.
+  *
+  * Required parameters:
+  * <ul>
+  * <li><code>action</code> action value.</li>
+  * <li><code>group</code> the group object.</li>
+  * <li><code>includes</code> a comma separeated list of extensions.</li>
+  * <li><code>excludes</code> an optional comma separated list of excluded extensions.</li>
+  * </ul>
+  *
+  * @param params invocation parameters.
+  */
+function filesList_macro(params) {
+    var action = (params && params.action) ? params.action : null;
+    var group = (params && params.group) ? params.group : null;
+    var includes = (params && params.includes) ? params.includes : null;
+    var excludes = (params && params.excludes) ? params.excludes : null;
+    if (group === null || includes === null || action === null) {
+        return "<p>[Missing parameters: No files found]</p>";
+    }
+
+    var dir = group.dir;
+    var type = group.type;
+    includes = includes.split(/\s?,\s?/);
+    excludes = excludes ? excludes.split(/\s?,\s?/) : null;
+    var result = fileutils.filterList(group.files, includes, excludes);
+    var length = result.length;
+    if (length > 0) {
+        var html = "";
+        for (var i = 0; i < length; i += 1) {
+            var file = result[i];
+            html += "<p>"
+                      + "<a href='/frizione/" + type + "s/" + dir + "/" + action + encode(file) + "'>"
+                          + "<code>" + encode(file) + "</code>"
+                      + "</a>"
+                  + "</p>";
+        }
+        return html;
+    }
+    else {
+        return "<p>No files found</p>";
+    }
+}
+
+/**
+  * Reports the title of the join/minify/test commands.
   *
   * Parameters:
   * <ul>
@@ -30,28 +111,72 @@ THE SOFTWARE.
   *
   * @param params invocation parameters.
   */
-function commandsReport_macro(params) {
+function commandTitleReport_macro(params) {
     var data = res.data;
 
     data.hasErrors = hasCommandErrors();
     if (!data.hasErrors) {
         switch (params.type) {
             case 'join':
-                return successfulJoin();
+                return '<h2>Successful join (concatenation)</h2>'
+                     + '<p>Frizione is delighted to inform you that the join was completed with the following results:</p>';
             case 'minify':
-                return successfulMinify();
+                return '<h2>Successful minify</h2>'
+                        + '<p>Frizione is delighted to inform you that the minify was completed with the following results:</p>';
             case 'test':
-                return successfulTest();
+                return '<h2>Successful test preparation</h2>'
+                     + '<p>Frizione is delighted to inform you that the file: <code>' + data.file + '</code> is ready for testing:</p>';
         }
     }
     switch (params.type) {
         case 'join':
-            return failedJoin();
+            return '<h2>Uhm, bad news, so brace yourself.</h2>'
+                 + '<p>Frizione got confused while attempting to join (concatenate) the file: <code>' + data.file + '</code>:</p>';
         case 'minify':
-            return failedMinify();
+            return '<h2>Uhm, bad news, so brace yourself.</h2>'
+                 + '<p>Frizione got confused while attempting to minify the file: <code>' + data.file + '</code>:</p>';
         case 'test':
-            return failedTest();
+            return '<h2>Uhm, bad news, so brace yourself.</h2>'
+                 + '<p>Frizione got confused attempting to prepare the file: <code>' + data.file + '</code> for testing:</p>';
     }
+}
+
+/**
+  * Reports the results and errors of the join/minify/test command.
+  *
+  * Parameters:
+  * <ul>
+  * <li><code>type</code> the command type, one of 'join', 'minify', or 'test'.</li>
+  * </ul>
+  *
+  * @param params invocation parameters.
+  */
+function commandReport_macro(params) {
+    var data = res.data;
+    var result = "";
+
+    data.hasErrors = hasCommandErrors();
+    if (!data.hasErrors) {
+        switch (params.type) {
+            case 'join':
+                return successReport();
+            case 'minify':
+                return successReport();
+            case 'test':
+                result = successReport()
+                     + '<div style="margin: 0 1.0em;">'
+                     + '<h2>Unit Tests</h2>'
+                     + '<div style="margin: 0 0.5em;">';
+                if (data.testParams.rc) {
+                    result += '<p>' + data.testParams.rc + '</p>';
+                }
+                result += '<div id="test-results"></div>'
+                        + '</div>'
+                        + '</div>';
+                return result;
+        }
+    }
+    return failedReport();
 }
 
 /**
@@ -75,90 +200,26 @@ function hasCommandErrors() {
 }
 
 /**
- * Reports the successful join results.
- */
-function successfulJoin() {
-    var data = res.data;
-    var result = '<h2>Successful join (concatenation)</h2></div><div style="margin: 0 1.5em; clear: both;">'
-    result += '<p>Frizione successfully joined (concatenated) the file: <code>' + data.file + '</code></p>';
-    return result + successReport();
-}
-
-/**
- * Reports the successful minify results.
- */
-function successfulMinify() {
-    var data = res.data;
-    var result = '<h2>Successful minify</h2></div><div style="margin: 0 1.5em; clear: both;">'
-    result += '<p>Frizione successfully minified the file: <code>' + data.file + '</code></p>';
-    return result + successReport();
-}
-
-/**
- * Reports the successful test results.
- */
-function successfulTest() {
-    var data = res.data;
-    var result = '<h2>Successful test preparation</h2></div><div style="margin: 0 1.5em; clear: both;">'
-    result += '<p>Frizione successfully prepared the file: <code>' + data.file + '</code> for testing</p>';
-    result += successReport();
-    result += '</div><div style="margin: 0 1.0em;"><h2>Unit Tests</h2><div style="margin: 0 0.5em;">';
-    if (data.testParams.rc) {
-        result += '<p>' + data.testParams.rc + '</p>';
-    }
-    result += '<div id="test-results"></div></div>';
-    return result;
-}
-
-/**
  * Reports the successful execution results.
  */
 function successReport() {
     var data = res.data;
 
-    var result = '<p><code>&#160;&#160;to: /' + data.project.dir + data.to + '</code></p>';
+    var result = '<div style="margin: 0 1.5em; clear: both;">';
+    result += '<p><code>&#160;&#160;to: ' + data.to + '</code></p>';
     result += '<p><code>&#160;&#160;&#160;&#160;&#160;&#160;size: </code>' + data.textLength + ' characters</p>';
     if (data.minifyParams) {
         result += '<p><code>&#160;&#160;&#160;&#160;&#160;&#160;minified size: </code>' + data.minifyParams.minifiedTextLength + ' characters</p>';
     }
     if (data.testParams) {
-        result += '<p><code>json: /' + data.project.dir + data.testParams.json + '</code></p>';        
+        result += '<p><code>json: ' + data.testParams.json + '</code></p>';
     }
     if (data.gzip) {
-        result += '<p><code>gzip: /' + data.project.dir + data.gzip + '</code></p>';
+        result += '<p><code>gzip: ' + data.gzip + '</code></p>';
         result += '<p><code>&#160;&#160;&#160;&#160;&#160;&#160;size: </code>' + data.gzipLength + ' bytes</p>';
     }
+    result += '</div>';
     return result;
-}
-
-/**
- * Reports the failed join results.
- */
-function failedJoin() {
-    var data = res.data;
-    var result = '<h2>Uhm, bad news, so brace yourself.</h2></div><div style="margin: 0 1.5em; clear: both;">';
-    result += '<p>Frizione got confused while attempting to join (concatenate) the file: <code>' + data.file + '</code></p>';
-    return result + failedReport();
-}
-
-/**
- * Reports the failed minify results.
- */
-function failedMinify() {
-    var data = res.data;
-    var result = '<h2>Uhm, bad news, so brace yourself.</h2></div><div style="margin: 0 1.5em; clear: both;">';
-    result += '<p>Frizione got confused while attempting to minify the file: <code>' + data.file + '</code></p>';
-    return result + failedReport();
-}
-
-/**
- * Reports the failed test results.
- */
-function failedTest() {
-    var data = res.data;
-    var result = '<h2>Uhm, bad news, so brace yourself.</h2></div><div style="margin: 0 1.5em; clear: both;">';
-    result += '<p>Frizione got confused attempting to prepare the file: <code>' + data.file + '</code> for testing</p>';
-    return result + failedReport();
 }
 
 /**
@@ -169,8 +230,7 @@ function failedReport() {
     var errors = null;
     var i = 0;
     var length = 0;
-    var result = "";
-
+    var result = '<div style="margin: 0 1.5em; clear: both;">';
     if (data.joinParams && data.joinParams.errors) {
         result += '<p>Join parameter errors:</p><ul>';
         errors = data.joinParams.errors;
@@ -198,5 +258,6 @@ function failedReport() {
         }
         result += '</ul>';
     }
+    result += '</div>';
     return result;
 }

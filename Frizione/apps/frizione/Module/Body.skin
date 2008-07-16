@@ -1,7 +1,7 @@
         <p class="MenuHeading">
             <a href="/frizione">Home</a>&#160;
             <a href="/frizione/docs/Clutch.pdf">Documentation</a>&#160;
-            <a href="/frizione/projects/<% response.group.dir %>"><% response.group.name %></a>
+            <a href="/frizione/modules/<% response.group.dir %>"><% response.group.name %></a>
         </p>
         <h1><% response.title %></h1>
 
@@ -37,18 +37,6 @@
                     includes=".join.js" %>
             </p>
 
-            <p>Minify files (<code>*.min.js</code>):&#160;
-                <% filesCount action="jsminify"
-                    group=<% response.group %>
-                    includes=".min.js" %>
-            </p>
-
-            <p>Test files (<code>*.test.js</code>):&#160;
-                <% filesCount action="jstest"
-                    group=<% response.group %>
-                    includes=".test.js" %>
-            </p>
-
             <p>JSLint files (<code>*.js</code>):&#160;
                 <% filesCount action="jslint"
                     group=<% response.group %>
@@ -63,26 +51,14 @@
                     includes=".json"
                     excludes=".test.json" %>
             </p>
-            <p>Test results files (<code>*.test.json</code>):&#160;
-                <% filesCount action="jsontest"
-                    group=<% response.group %>
-                    includes=".test.json"%>
-            </p>
-
-            <h2>Static files</h2>
-            <p>Viewable files (<code>*.html</code>):&#160;
-                <% filesCount action="htmlview"
-                    group=<% response.group %>
-                    includes=".html" %>
-            </p>
 
             <p>&#160;</p>
-            <p><a class='button' href='/frizione/projects/<% response.group.dir %>?action=refresh'>Refresh file list</a></p>
+            <p><a class='button' href='/frizione/modules/<% response.group.dir %>?action=refresh'>Refresh file list</a></p>
         </div>
 
         <p style="clear: both;">&#160;</p>
         <p class="MenuHeading">
             <a href="/frizione">Home</a>&#160;
             <a href="/frizione/docs/Clutch.pdf">Documentation</a>&#160;
-            <a href="/frizione/projects/<% response.group.dir %>"><% response.group.name %></a>
+            <a href="/frizione/modules/<% response.group.dir %>"><% response.group.name %></a>
         </p>

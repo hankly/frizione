@@ -21,7 +21,7 @@ THE SOFTWARE.
 */
 
 /**
- * Gets the clutch projects canonical directory
+ * Gets the frizione projects canonical directory
  *
  * @return the canonical directory.
  */
@@ -32,7 +32,7 @@ function projectsDir() {
 }
 
 /**
- * Gets the clutch projects mountpoint
+ * Gets the frizione projects mountpoint
  *
  * @return the mountpoint.
  */
@@ -53,40 +53,9 @@ function allProjects(refresh) {
             return app.data.projects;
         }
     }
-    var projects = {};
-    var names = {};
-    var list = [];
-    var dirList = projectsDir().listFiles();
-    if (dirList) {
-        for (var i = 0; i < dirList.length; i++) {
-            var dir = dirList[i];
-            if (dir.isDirectory()) {
-                var name = dir.name;
-                var lowerName = name.toLowerCase();
-                if (lowerName !== "cvs" && lowerName !== ".svn") {
-                    var infoFile = new java.io.File(dir.getCanonicalFile().toString() + PROJECT_FILE);
-                    if (infoFile.exists() && infoFile.isFile()) {
-
-                        var info = fileutils.readJson(infoFile.getCanonicalFile().toString());
-                        info.dir = name;
-                        info.path = dir.getCanonicalFile().toString();
-                        list.push(info.name);
-
-                        // Create a default jslint.json file if there isn't one
-                        jslintOptions(info.path);
-
-                        app.debug("Storing projects[" + name + "], projectNames[" + info.name + "]");
-                        var project = new Project(info);
-                        projects[name] = project;
-                        names[info.name] = project;
-                    }
-                }
-            }
-        }
-    }
-
-    list.sort();
-    return app.data.projects = { list: list, names: names, projects: projects };
+    return app.data.projects = createFileList(projectsDir(), function (info) {
+        return new Project(info);
+    });
 }
 
 /**
@@ -96,23 +65,5 @@ function allProjects(refresh) {
  */
 function projectByDir(dir) {
     allProjects();
-    return app.data.projects.projects[dir];
-}
-
-/**
- * Gets the JSLint options from the specified path.
- *
- * @param path the project file path.
- * @return the JSLint options object.
- */
-function jslintOptions(path) {
-    var jslintFile = new java.io.File(path + JSLINT_OPTIONS_FILE);
-    if (!jslintFile.exists()) {
-        var jslintOptions = services.defaultJslintOptions();
-        fileutils.writeJson(path + JSLINT_OPTIONS_FILE, JSON.stringify(jslintOptions, null, "\t"));
-        return jslintOptions;
-    }
-    else {
-        return fileutils.readJson(path + JSLINT_OPTIONS_FILE);
-    }
+    return app.data.projects.groups[dir];
 }

@@ -34,7 +34,7 @@ function createXhrTests() {
         ],
 
         validUrl: function () {
-            var abort = clutch.xhr.executeRequest("GET", '/frizione/clutch/readfixture/js/dev-test/gears/xhr-test-data.json',
+            var abort = clutch.xhr.executeRequest("GET", '/frizione/projects/clutch/readfixture/js/dev-test/gears/xhr-test-data.json',
                     null, null, 2000, this.validUrlHandler);
             this.checkAbort(abort);
         },
@@ -44,7 +44,7 @@ function createXhrTests() {
         },
 
         invalidUrl: function () {
-            var abort = clutch.xhr.executeRequest("GET", '/frizione/clutch/readfixture/invalid-url.json',
+            var abort = clutch.xhr.executeRequest("GET", '/frizione/projects/clutch/readfixture/invalid-url.json',
                     null, null, 2000, this.invalidUrlHandler);
             this.checkAbort(abort);
         },
@@ -54,7 +54,7 @@ function createXhrTests() {
         },
 
         abortedRequest: function () {
-            var abort = clutch.xhr.executeRequest("GET", '/frizione/clutch/readfixture/invalid-url.json',
+            var abort = clutch.xhr.executeRequest("GET", '/frizione/projects/clutch/readfixture/invalid-url.json',
                     null, null, 2000, this.abortedRequestHandler);
             this.checkAbort(abort);
             abort();

@@ -21,15 +21,37 @@ THE SOFTWARE.
 */
 
 /**
- * Join object constructor.
+ * Gets the Helma applications canonical directory
  *
- * @class Join
- * @constructor
- * @param group the project/application/module object.
- * @param type the join type, either 'css' or 'js'.
+ * @return the canonical directory.
  */
-function constructor(group, type) {
-    app.debug('Join ' + type + ": " + group.type + ": " + group.name);
-    this.group = group;
-    this.type = type;
+function applicationsDir() {
+    return new java.io.File(app.getServerDir() + '/apps').getCanonicalFile();
+}
+
+/**
+ * Gets the current applications list.
+ *
+ * @param refresh refresh list flag (default is false).
+ * @return the project list.
+ */
+function allApplications(refresh) {
+    if (!refresh) {
+        if (app.data.applications) {
+            return app.data.applications;
+        }
+    }
+    return app.data.applications = createFileList(applicationsDir(), function (info) {
+        return new Application(info);
+    });
+}
+
+/**
+ * Gets the application by directory name.
+ *
+ * @param dir the directory name.
+ */
+function applicationByDir(dir) {
+    allApplications();
+    return app.data.applications.groups[dir];
 }

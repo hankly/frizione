@@ -21,7 +21,7 @@ THE SOFTWARE.
 */
 
 YUICOMPRESSOR = 'modules/frizione/yuicompressor-2.3.5.jar';
-app.addRepository(YUICOMPRESSOR);
+// app.addRepository(YUICOMPRESSOR);
 
 services = {
 
@@ -233,7 +233,7 @@ app.debug("Start gzip " + req.runtime);
             compressor.compress(outputWriter, params.mc, !params.munge, params.v, params.ps, !params.opt);
             return outputWriter.toString();
             */
-
+            /**/
             var commands = [
                     'java',
                     '-jar',
@@ -273,6 +273,7 @@ app.debug("Start gzip " + req.runtime);
             var exitValue = compressor.waitFor();
             compressor.destroy();
             return String(inputStream.buffer);
+            /**/
         }
     },
 

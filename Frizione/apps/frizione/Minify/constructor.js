@@ -25,11 +25,11 @@ THE SOFTWARE.
  *
  * @class Minify
  * @constructor
- * @param project the project object.
+ * @param group the project/application/module object.
  * @param type the minify type, either 'css' or 'js'.
  */
-function constructor(project, type) {
-    app.debug('Minify ' + type + ": " + project.name);
-    this.project = project;
+function constructor(group, type) {
+    app.debug('Minify ' + type + ": " + group.type + ": " + group.name);
+    this.group = group;
     this.type = type;
 }
