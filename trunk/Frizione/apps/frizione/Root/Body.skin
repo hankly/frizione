@@ -1,0 +1,37 @@
+        <p class="MenuHeading">
+            <a href="/frizione">Home</a>&#160;
+            <a href="/frizione/docs/Clutch.pdf">Documentation</a>
+        </p>
+        <h1><% response.title %></h1>
+
+        <div style="margin: 0 1.0em;">
+            <p style="float: right; margin: 0 1.0em;">
+                <img style="border: 1px solid #3084cc;" width="100" height="76" alt="A real clutch"
+                        src="/frizione/imgs/clutch-tiny.png" />
+            </p>
+            <h2>Projects, Applications and Modules in Frizione's clutches:</h2>
+        </div>
+
+        <div style="margin: 0 1.5em; clear: both;">
+            <h2>Projects in Frizione's clutches:</h2>
+            <% root.projectsList type="name" %>
+            <p><a class='button' href='/frizione?action=refreshprojects'>Refresh project list</a></p>
+        </div>
+
+        <div style="margin: 0 1.5em; clear: both;">
+            <h2>Applications in Frizione's clutches:</h2>
+            <% root.applicationsList type="name" %>
+            <p><a class='button' href='/frizione?action=refreshapplications'>Refresh application list</a></p>
+        </div>
+
+        <div style="margin: 0 1.5em; clear: both;">
+            <h2>Modules in Frizione's clutches:</h2>
+            <% root.modulesList type="name" %>
+            <p><a class='button' href='/frizione?action=refreshmodules'>Refresh module list</a></p>
+        </div>
+
+        <p style="clear: both;">&#160;</p>
+        <p class="MenuHeading">
+            <a href="/frizione">Home</a>&#160;
+            <a href="/frizione/docs/Clutch.pdf">Documentation</a>
+        </p>        
