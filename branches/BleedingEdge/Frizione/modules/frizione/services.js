@@ -21,20 +21,21 @@ THE SOFTWARE.
 */
 
 YUICOMPRESSOR = 'modules/frizione/yuicompressor-2.3.5.jar';
-// app.addRepository(YUICOMPRESSOR);
+app.addRepository(YUICOMPRESSOR);
 
 services = {
 
     /**
      * Executes a join/minify/test command, and stores the results.
      *
+     * @param file the original file path.
      * @param text the text content to join/minify/test.
      * @param command the command, one of 'join', 'minify', or 'test'.
      * @param type the file type, one of 'js' or 'css'.
      * @param result the results object.
      * @param toPath the destination path.
      */
-    execute: function (text, command, type, result, toPath) {
+    execute: function (file, text, command, type, result, toPath) {
 
         result.joinParams = services.parseJoinParams(text);
         result.minifyParams = services.parseMinifyParams(text);
@@ -77,7 +78,7 @@ services = {
         result.cs = (result.minifyParams && result.minifyParams.cs) ? result.minifyParams.cs : "UTF-8";
 
         if (result.joinParams) {
-            result.joinParams.errors = services.checkJoinParams(result.joinParams);
+            result.joinParams.errors = services.checkJoinParams(result.joinParams, file, result.to, result.gzip);
             if (result.joinParams.errors) {
                 return;
             }
@@ -94,7 +95,7 @@ services = {
 
         var minifiedText = null;
         if (result.minifyParams) {
-            result.minifyParams.errors = services.checkMinifyParams(result.minifyParams);
+            result.minifyParams.errors = services.checkMinifyParams(result.minifyParams, file, result.to, result.gzip);
             result.minifyParams.textLength = result.length;
             if (result.minifyParams.errors === null) {
 app.debug("Start minify " + req.runtime);
@@ -116,7 +117,7 @@ app.debug("Start minify " + req.runtime);
         }
 
         if (result.testParams) {
-            result.testParams.errors = services.checkTestParams(result.testParams);
+            result.testParams.errors = services.checkTestParams(result.testParams, file, result.to, result.gzip);
         }
         if (command === 'test') {
             if (result.testParams === null) {
@@ -150,7 +151,7 @@ app.debug("Start gzip " + req.runtime);
     /**
      * Joins (concatenates) the specified file.
      *
-     * @param path the file path to join.
+     * @param path the project path to join.
      * @param charset the character set to use (defaults to "UTF-8").
      * @param data the data to insert (defaults to the empty object { }).
      * @return the joined file contents.
@@ -351,13 +352,22 @@ app.debug("Start gzip " + req.runtime);
      * </ul>
      *
      * @param params the parameters to check.
+     * @param file the original file path.
+     * @param to the amalgamated output file path.
+     * @param gzip the amalgamated gzip file path.
      * @return an array of errors, or null if no errors occurred.
      */
-    checkJoinParams: function (params) {
+    checkJoinParams: function (params, file, to, gzip) {
         var errors = [];
 
-        if (!params.to) {
+        if (!params.to && !to) {
             errors.push("Missing 'to' parameter value");
+        }
+        if (to === params.to && file === to) {
+            errors.push("The original file cannot be overwritten by the 'to' parameter");
+        }
+        if (gzip === params.gzip && file === gzip) {
+            errors.push("The original file cannot be overwritten by the 'gzip' parameter");
         }
         return errors.length > 0 ? errors : null;
     },
@@ -378,9 +388,12 @@ app.debug("Start gzip " + req.runtime);
      * </ul>
      *
      * @param params the parameters to check.
+     * @param file the original file path.
+     * @param to the amalgamated output file path.
+     * @param gzip the amalgamated gzip file path.
      * @return an array of errors, or null if no errors occurred.
      */
-    checkMinifyParams: function (params) {
+    checkMinifyParams: function (params, file, to, gzip) {
         var errors = [];
 
         if (!params.to) {
@@ -436,6 +449,12 @@ app.debug("Start gzip " + req.runtime);
                 params.v = false;
             }
         }
+        if (to === params.to && file === to) {
+            errors.push("The original file cannot be overwritten by the 'to' parameter");
+        }
+        if (gzip === params.gzip && file === gzip) {
+            errors.push("The original file cannot be overwritten by the 'gzip' parameter");
+        }
         return errors.length > 0 ? errors : null;
     },
 
@@ -450,13 +469,16 @@ app.debug("Start gzip " + req.runtime);
      * <li><code>json</code> the file path to write the unit test JSON file to.</li>
      * <li><code>rc</code> the run comment to be displayed.</li>
      * <li><code>vc</code> the view comment to be displayed.</li>
-     * <li><code>type</code> the test type, one of 'browser', 'gears', 'workerpool' (default is 'browser').</li>
+     * <li><code>type</code> the test environment type, one of 'browser', 'gears', 'workerpool' (default is 'browser').</li>
      * </ul>
      *
      * @param params the parameters to check.
+     * @param file the original file path.
+     * @param to the amalgamated output file path.
+     * @param gzip the amalgamated gzip file path.
      * @return an array of errors, or null if no errors occurred.
      */
-    checkTestParams: function (params) {
+    checkTestParams: function (params, file, to, gzip) {
         var errors = [];
 
         if (!params.to) {
@@ -478,6 +500,15 @@ app.debug("Start gzip " + req.runtime);
         }
         if (!params.json) {
             errors.push("Missing 'json' parameter value");
+        }
+        if (to === params.to && file === to) {
+            errors.push("The original file cannot be overwritten by the 'to' parameter");
+        }
+        if (gzip === params.gzip && file === gzip) {
+            errors.push("The original file cannot be overwritten by the 'gzip' parameter");
+        }
+        if (file === params.json) {
+            errors.push("The original file cannot be overwritten by the 'json' parameter");
         }
         return errors.length > 0 ? errors : null;
     },

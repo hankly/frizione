@@ -108,7 +108,7 @@ function renderMinifyPage(file) {
 app.debug("Start join " + req.runtime);
     var result = services.join(this.group.path + file);
 app.debug("Start services " + req.runtime);
-    services.execute(result, 'minify', this.type, data, groupDir(this.group).toString() + '/' + this.group.dir);
+    services.execute(file, result, 'minify', this.type, data, groupDir(this.group).toString() + '/' + this.group.dir);
 app.debug("End services " + req.runtime);
 
     data.head = renderSkinAsString('Head');

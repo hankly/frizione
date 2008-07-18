@@ -93,12 +93,12 @@ function renderViewPage(file) {
     var data = res.data;
     data.root = root.href();
     data.href = this.href();
-    data.title = "JSON View : " + this.project.name + " : " + qualifiedVersion();
+    data.title = "JSON View : " + this.group.name + " : " + qualifiedVersion();
     data.version = qualifiedVersion();
-    data.project = this.project;
+    data.group = this.group;
 
-    var text = fileutils.readText(this.project.path + file);
-    data.file = '/' + this.project.dir + file;
+    var text = fileutils.readText(this.group.path + file);
+    data.file = file;
     data.text = encode(text);
 
     data.head = renderSkinAsString('Head');

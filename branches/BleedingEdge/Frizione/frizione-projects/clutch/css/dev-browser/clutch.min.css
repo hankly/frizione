@@ -20,6 +20,6 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 */
 
-/*minify to: /css/clutch-all.css 
+/*minify to: /css/clutch-all.css
        gzip: /css/clutch-all.css.gz */
 <%= include('./clutch.css', './jslint.css') %>
