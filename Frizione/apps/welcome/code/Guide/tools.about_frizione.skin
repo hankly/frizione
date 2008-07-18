@@ -1,0 +1,15 @@
+<h1>frizione</h1>
+
+<p>The Frizione application allows you to develop, test, and deploy your
+    JavaScript projects.</p>
+
+<p>In this special Helma installation, the Frizione application can be accessed
+    using the <a href="http://<% request.http_host %>/frizione">
+    http://<% request.http_host %>/frizione</a> mountpoint.</p>
+
+<img src="/static/guide/frizione.png" width="480" height="650" />
+
+<p>Note that there are no security restricitions for frizione, as it is specifically designed
+    to be run on the developer's computer. It is <b>not</b> designed for public (intranet, or internet)
+    consumption.</p>
+

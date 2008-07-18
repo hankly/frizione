@@ -1,0 +1,66 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+    <head>
+        <title>Clutch-Gears Install Checks</title>
+        <link rel="stylesheet" href="/projects/clutch-gears/css/clutch-gears.css" type="text/css" media="screen" charset="utf-8" />
+        <script src="/projects/clutch-gears/js/install.js" type="text/javascript" charset="utf-8"></script>
+        <script type="text/javascript">
+            checkInstallationAndPermission();
+        </script>
+    </head>
+    <body>
+        <p class="MenuHeading">
+            <a href="/frizione">Home</a>&#160;
+            <a href="/frizione/docs/Clutch.pdf">Documentation</a>&#160;
+            <a href="/frizione/projects/clutch-gears">Clutch - Gears Project</a>&#160;
+            <a href="/frizione/projects/clutch-gears/htmlview">HTML View</a>
+        </p>
+
+        <h1>Clutch-Gears Install Checks</h1>
+
+        <noscript>Clutch-Gears can't work without JavaScript, sorry.</noscript>
+
+        <p>
+            The 'Install Gears now' button below appears <i>only</i> if Gears is not installed. A message is also
+            displayed to show if Gears is already installed, or not.
+        </p>
+        <div style="margin: 0.5em 1.0em;">
+            <span id="install" style="float: left;"></span>
+            <span id="installed" style="display: none;"><b>Gears is installed.</b></span>
+            <span id="not-installed" style="display: none;">&#160;Gears is <b>not</b> installed.</span>
+        </div>
+
+        <p>
+            With Gears installed, click on the ask permission button below. If you've already given permission,
+            the button <b>won't</b> appear, so remove permission for <code>http://clutch.syger.it</code> (or whatever URL
+            you've mapped <code>localhost</code> to), then refresh the page.
+        </p>
+        <div style="margin: 0.5em 1.0em;">
+            <span id="permission" style="float: left;"></span>
+            <span id="has-permission" style="display: none;"><b>Permission has been granted.</b></span>
+            <span id="no-permission" style="display: none;">&#160;Permission has <b>not</b> been granted.</span>
+        </div>
+        <div style="margin: 0.5em 1.0em;">
+            <span id="now-has-permission" style="display: none;">Permission has <b>now</b> been granted.</span>
+            <span id="still-no-permission" style="display: none;">Permission has <b>still not</b> been granted.</span>
+        </div>
+
+        <h2>Observations:</h2>
+        <p>
+            The <code>Factory.getPermission()</code> function expects a 32 x 32 pixel image, and does <b>not</b> provide
+            any formatting of the optional <code>extraMessage</code> parameter. Here is a snapshot of the dialog:
+        </p>
+        <p style="text-align: center">
+            <img alt="Gears Permission Dialog" src="/projects/clutch-gears/imgs/permission-dialog.png" width="368" height="305" />
+        </p>
+
+        <p style="clear: both;">&#160;</p>
+        <p class="MenuHeading">
+            <a href="/frizione">Home</a>&#160;
+            <a href="/frizione/docs/Clutch.pdf">Documentation</a>&#160;
+            <a href="/frizione/projects/clutch-gears">Clutch - Gears Project</a>&#160;
+            <a href="/frizione/projects/clutch-gears/htmlview">HTML View</a>
+        </p>
+    </body>
+</html>

@@ -1,5 +1,2 @@
- - Create Clutch-Gears example project (Done)
- - Create Install test page (Done)
- - Create Database example unit test.
- - Create WorkerPool example unit test.
+ - Add documentation generation code.
  - Complete Fixtures
