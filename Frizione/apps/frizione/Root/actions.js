@@ -69,8 +69,5 @@ function renderMainPage() {
 function getChildElement(name) {
     app.debug("Root.getChildElement " + name);
     var files = app.data.dirs[name];
-    if (files) {
-        return files;
-    }
-    return projectByDir(name) || this;
+    return files || this;
 }
