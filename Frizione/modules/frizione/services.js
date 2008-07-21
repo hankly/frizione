@@ -20,9 +20,6 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 */
 
-YUICOMPRESSOR = 'modules/frizione/yuicompressor-2.3.5.jar';
-app.addRepository(YUICOMPRESSOR);
-
 services = {
 
     /**
@@ -186,55 +183,49 @@ app.debug("Start gzip " + req.runtime);
         }
         else {
 
-            /* Just doesn't work, probably because rhino is already present...
+            /* Just doesn't work, probably because rhino is already present*/
             var reporter = {
+
+                errors: [],
 
                 messages: [],
 
+                format: function(message, source, line, column) {
+                    return source + "(" + line + ":" + column + ") " + message;
+                },
+
                 warning: function(message, source, line, lineText, column) {
-                    reporter.messages.push({
-                            type: "warning",
-                            message: message,
-                            source: source,
-                            line: line,
-                            column: column,
-                            lineText: lineText
-                    });
+                    reporter.messages.push(reporter.format(message, source, line, column));
                 },
 
                 error: function (message, source, line, lineText, column) {
-                    reporter.messages.push({
-                            type: "error",
-                            message: message,
-                            source: source,
-                            line: line,
-                            column: column,
-                            lineText: lineText
-                    });
+                    var text = reporter.format(message, source, line, column);
+                    reporter.messages.push(text);
+                    reporter.errors.push(text);
                 },
 
                 runtimeError: function (message, source, line, lineText, column) {
-                    reporter.messages.push({
-                            type: "fatal",
-                            message: message,
-                            source: source,
-                            line: line,
-                            column: column,
-                            lineText: lineText
-                    });
+                    var text = reporter.format(message, source, line, column);
+                    reporter.messages.push(text);
+                    reporter.errors.push(text);
                     return new org.mozilla.javascript.EvaluatorException(message);
                 }
             };
 
-            params.errors = reporter.messages;
             var errorReporter = new org.mozilla.javascript.ErrorReporter(reporter);
             compressor = new com.yahoo.platform.yui.compressor.JavaScriptCompressor(inputReader, errorReporter);
             inputReader.close();
+            if (reporter.errors.length > 0) {
+                params.errors = reporter.errors;
+            }
+            if (reporter.messages.length > 0) {
+                params.messages = reporter.messages;
+            }
 
-            compressor.compress(outputWriter, params.mc, !params.munge, params.v, params.ps, !params.opt);
-            return outputWriter.toString();
-            */
+            compressor.compress(outputWriter, params.mc, params.munge, params.v, params.ps, !params.opt);
+            return String(outputWriter.toString());
             /**/
+            /*
             var commands = [
                     'java',
                     '-jar',
@@ -274,7 +265,7 @@ app.debug("Start gzip " + req.runtime);
             var exitValue = compressor.waitFor();
             compressor.destroy();
             return String(inputStream.buffer);
-            /**/
+            */
         }
     },
 

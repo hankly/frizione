@@ -33,11 +33,9 @@ function main_action() {
         this.renderLintPage(file);
     }
     else {
-        switch (req.data.action) {
-            case "refresh":
-                app.debug("JsLint Request refresh files list");
-                this.group.refreshFiles();
-                break;
+        if  (req.data.action === "refresh") {
+            app.debug("JsLint Request refresh files list");
+            this.group.refreshFiles();
         }
         this.renderMainPage();
     }
@@ -53,6 +51,7 @@ function renderMainPage() {
     data.root = root.href();
     data.href = this.href();
     data.group = this.group;
+    data.action = 'jslint';
 
     data.title = "JSLint : " + this.group.name + " : " + qualifiedVersion();
 

@@ -20,6 +20,9 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 */
 
+/*globals app, res, req */
+/*globals Application, java, createFileList */
+
 /**
  * Gets the Helma applications canonical directory
  *
@@ -41,9 +44,10 @@ function allApplications(refresh) {
             return app.data.applications;
         }
     }
-    return app.data.applications = createFileList(applicationsDir(), function (info) {
+    app.data.applications = createFileList(applicationsDir(), function (info) {
         return new Application(info);
     });
+    return app.data.applications;
 }
 
 /**

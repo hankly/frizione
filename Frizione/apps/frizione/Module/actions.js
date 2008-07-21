@@ -27,11 +27,9 @@ function main_action() {
 
     app.debug("Module Request " + req.path);
 
-    switch (req.data.action) {
-        case "refresh":
-            app.debug("Module Request refresh file list");
-            this.refreshFiles();
-            break;
+    if (req.data.action === "refresh") {
+        app.debug("Module Request refresh file list");
+        this.refreshFiles();
     }
     this.renderMainPage();
 }

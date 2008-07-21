@@ -20,6 +20,9 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 */
 
+/*globals app, res, req */
+/*globals root, renderSkin, renderSkinAsString, qualifiedVersion */
+
 /**
  * Default (main) action for the specified application.
  */
@@ -27,11 +30,9 @@ function main_action() {
 
     app.debug("Application Request " + req.path);
 
-    switch (req.data.action) {
-        case "refresh":
-            app.debug("Application Request refresh file list");
-            this.refreshFiles();
-            break;
+    if (req.data.action === "refresh") {
+        app.debug("Application Request refresh file list");
+        this.refreshFiles();
     }
     this.renderMainPage();
 }

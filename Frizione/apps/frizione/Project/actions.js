@@ -27,11 +27,9 @@ function main_action() {
 
     app.debug("Project Request " + req.path);
 
-    switch (req.data.action) {
-        case "refresh":
-            app.debug("Project Request refresh file list");
-            this.refreshFiles();
-            break;
+    if (req.data.action === "refresh") {
+        app.debug("Project Request refresh file list");
+        this.refreshFiles();
     }
     this.renderMainPage();
 }

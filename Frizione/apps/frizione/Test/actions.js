@@ -38,11 +38,9 @@ function main_action() {
         }
     }
     else {
-        switch (req.data.action) {
-            case "refresh":
-                app.debug("Test Request refresh files list");
-                this.group.refreshFiles();
-                break;
+        if (req.data.action === "refresh") {
+            app.debug("Test Request refresh files list");
+            this.group.refreshFiles();
         }
         this.renderMainPage();
     }

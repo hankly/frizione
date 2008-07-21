@@ -204,12 +204,24 @@ function hasCommandErrors() {
  */
 function successReport() {
     var data = res.data;
+    var messages = null
+    var i = 0;
+    var length = 0;
 
     var result = '<div style="margin: 0 1.5em; clear: both;">';
     result += '<p><code>&#160;&#160;to: ' + data.to + '</code></p>';
     result += '<p><code>&#160;&#160;&#160;&#160;&#160;&#160;size: </code>' + data.textLength + ' characters</p>';
     if (data.minifyParams) {
         result += '<p><code>&#160;&#160;&#160;&#160;&#160;&#160;minified size: </code>' + data.minifyParams.minifiedTextLength + ' characters</p>';
+        if (data.minifyParams.messages) {
+            messages = data.minifyParams.messages;
+            length = messages.length;
+            result += '<p><code>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;messages:</code><ul>';
+            for (i = 0; i < length; i += 1) {
+                result += '<li><code>' + messages[i] + '</code></li>';
+            }
+            result += '</ul></p>';
+        }
     }
     if (data.testParams) {
         result += '<p><code>json: ' + data.testParams.json + '</code></p>';

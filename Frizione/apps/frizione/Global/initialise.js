@@ -20,6 +20,10 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 */
 
+/*globals app, res, req */
+/*globals HopObject, StaticFiles, projectByDir, applicationByDir, moduleByDir */
+/*globals FRIZIONE_FILE, JSLINT_OPTIONS_FILE, allProjects, allApplications, allModules */
+
 app.addRepository('modules/core/String.js');
 app.addRepository('modules/frizione/json2.js');
 app.addRepository('modules/frizione/fulljslint.js');
