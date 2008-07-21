@@ -168,24 +168,32 @@ clutch.test.runner = function (profile, timeout) {
 
     (function () {
         // don't try to simplify this stuff, setTestTimeout = window.setTimeout causes all sorts of problems
-         // with Opera and Firefox (which actually crashes)
+        // with Opera and Firefox (which actually crashes)
         if (!!this.window && !!this.window.setTimeout) {
-             setTestTimeout = function (code, millis) {
-                 return window.setTimeout(code, millis);
-             };
-             clearTestTimeout = function (timerId) {
-                 window.clearTimeout(timerId);
-             };
-         }
-         else {
-             gearsTimer = clutch.createGearsTimer();
-             setTestTimeout = function (code, millis) {
-                 return gearsTimer.setTimeout(code, millis);
-             };
-             clearTestTimeout = function (timerId) {
-                 gearsTimer.clearTimeout(timerId);
-             };
-         }
+            setTestTimeout = function (code, millis) {
+                return window.setTimeout(code, millis);
+            };
+            clearTestTimeout = function (timerId) {
+                window.clearTimeout(timerId);
+            };
+        }
+        else if (!!this.crash && !!this.crash.timer) {
+            setTestTimeout = function (code, millis) {
+                return crash.timer.setTimeout(code, millis);
+            };
+            clearTestTimeout = function (timerId) {
+                crash.timer.clearTimeout(timerId);
+            };
+        }
+        else {
+            gearsTimer = clutch.createGearsTimer();
+            setTestTimeout = function (code, millis) {
+                return gearsTimer.setTimeout(code, millis);
+            };
+            clearTestTimeout = function (timerId) {
+                gearsTimer.clearTimeout(timerId);
+            };
+        }
     })();
 
     function cleanUp() {

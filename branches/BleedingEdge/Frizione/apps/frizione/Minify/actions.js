@@ -33,11 +33,9 @@ function main_action() {
         this.renderMinifyPage(file);
     }
     else {
-        switch (req.data.action) {
-            case "refresh":
-                app.debug("Minify Request refresh files list");
-                this.group.refreshFiles();
-                break;
+        if (req.data.action === "refresh") {
+            app.debug("Minify Request refresh files list");
+            this.group.refreshFiles();
         }
         this.renderMainPage();
     }

@@ -1,0 +1,72 @@
+{
+	"name": "Timer Tests",
+	"abend": null,
+	"summary": {
+		"tests": 4,
+		"logs": 0,
+		"failures": 0,
+		"errors": 0,
+		"time": 0,
+		"abend": null,
+		"messages": [],
+		"date": "Sat, 12 Jul 2008 19:50:21 GMT"
+	},
+	"tests": [
+		{
+			"name": "startSetTimeout",
+			"summary": {
+				"tests": 1,
+				"logs": 0,
+				"failures": 0,
+				"errors": 0,
+				"time": 0,
+				"abend": null,
+				"messages": [],
+				"func": "startSetTimeout",
+				"callback": null
+			}
+		},
+		{
+			"name": "timerSetTimeout <- startSetTimeout",
+			"summary": {
+				"tests": 1,
+				"logs": 0,
+				"failures": 0,
+				"errors": 0,
+				"time": 0,
+				"abend": null,
+				"messages": [],
+				"func": "timerSetTimeout <- startSetTimeout",
+				"callback": "timerSetTimeout"
+			}
+		},
+		{
+			"name": "startSetInterval",
+			"summary": {
+				"tests": 1,
+				"logs": 0,
+				"failures": 0,
+				"errors": 0,
+				"time": 0,
+				"abend": null,
+				"messages": [],
+				"func": "startSetInterval",
+				"callback": null
+			}
+		},
+		{
+			"name": "timerSetInterval <- startSetInterval",
+			"summary": {
+				"tests": 1,
+				"logs": 0,
+				"failures": 0,
+				"errors": 0,
+				"time": 0,
+				"abend": null,
+				"messages": [],
+				"func": "timerSetInterval <- startSetInterval",
+				"callback": "timerSetInterval"
+			}
+		}
+	]
+}

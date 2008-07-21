@@ -33,11 +33,9 @@ function main_action() {
         this.renderJoinPage(file);
     }
     else {
-        switch (req.data.action) {
-            case "refresh":
-                app.debug("Join Request refresh files list");
-                this.group.refreshFiles();
-                break;
+        if  (req.data.action === "refresh") {
+            app.debug("Join Request refresh files list");
+            this.group.refreshFiles();
         }
         this.renderMainPage();
     }
@@ -48,30 +46,32 @@ function main_action() {
  */
 function renderMainPage() {
     res.charset = "UTF8";
-    res.data.root = root.href();
-    res.data.href = this.href();
-    res.data.group = this.group;
-    res.data.type = this.type;
+
+    var data = res.data;
+    data.root = root.href();
+    data.href = this.href();
+    data.group = this.group;
+    data.type = this.type;
 
     var typeName = 'CSS';
-    res.data.explain = "Frizione will be thrilled to join (concatenate) the following CSS files, though it might take a while:";
-    res.data.action = 'cssjoin';
-    res.data.includes = ".join.css";
-    res.data.excludes = null;
+    data.explain = "Frizione will be thrilled to join (concatenate) the following CSS files, though it might take a while:";
+    data.action = 'cssjoin';
+    data.includes = ".join.css";
+    data.excludes = null;
     switch (this.type) {
         case 'js':
             typeName = "JavaScript";
-            res.data.explain = "Frizione will be trilled to join (concatenate) the following JavaScript files, though it might take a while:";
-            res.data.action = 'jsjoin';
-            res.data.includes = ".join.js";
-            res.data.excludes = null;
+            data.explain = "Frizione will be trilled to join (concatenate) the following JavaScript files, though it might take a while:";
+            data.action = 'jsjoin';
+            data.includes = ".join.js";
+            data.excludes = null;
             break;
     }
 
-    res.data.title = typeName + " Join : " + this.group.name + " : " + qualifiedVersion();
+    data.title = typeName + " Join : " + this.group.name + " : " + qualifiedVersion();
 
-    res.data.head = renderSkinAsString('Head');
-    res.data.body = this.renderSkinAsString('Body');
+    data.head = renderSkinAsString('Head');
+    data.body = this.renderSkinAsString('Body');
     renderSkin('Layout');
 }
 
@@ -82,6 +82,7 @@ function renderMainPage() {
  */
 function renderJoinPage(file) {
     res.charset = "UTF8";
+
     var data = res.data;
     data.root = root.href();
     data.href = this.href();
@@ -89,12 +90,10 @@ function renderJoinPage(file) {
     var typeName = 'CSS';
     data.back = "cssjoin";
     data.backText = "CSS Join";
-    switch (this.type) {
-        case 'js':
-            typeName = "JavaScript";
-            data.back = "jsjoin";
-            data.backText = "JavaScript Join";
-            break;
+    if (this.type === 'js') {
+        typeName = "JavaScript";
+        data.back = "jsjoin";
+        data.backText = "JavaScript Join";
     }
 
     data.title = typeName + " Join : " + this.group.name + " : " + qualifiedVersion();
@@ -108,8 +107,8 @@ app.debug("Start services " + req.runtime);
     services.execute(file, result, 'join', this.type, data, groupDir(this.group).toString() + '/' + this.group.dir);
 app.debug("End services " + req.runtime);
 
-    res.data.head = renderSkinAsString('Head');
-    res.data.body = this.renderSkinAsString('Body.Join');
+    data.head = renderSkinAsString('Head');
+    data.body = this.renderSkinAsString('Body.Join');
     renderSkin('Layout');
 }
 

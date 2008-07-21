@@ -1,0 +1,2 @@
+Main-Class: com.yahoo.platform.yui.compressor.YUICompressor
+Class-Path: jargs-1.0.jar rhino-ext.jar rhino.jar 
