@@ -26,8 +26,8 @@ THE SOFTWARE.
 /*test to: /js/test/all.js
      json: /js/test/all.test.json
      type: gears */
-<%= this.include('../dev/gears/gears.js', '../dev/gears/timer.js', '../dev/string.js', '../dev/gears/xhr.js', '../dev/gears/db-utils.js', '../dev/gears/db-logger.js') %>
-<%= this.include('./string.js', './unit-test.js', './gears/timer.js', './gears/xhr.js', './gears/db.js') %>
+<%= include('../dev/gears/gears.js', '../dev/gears/timer.js', '../dev/string.js', '../dev/gears/xhr.js', '../dev/gears/db-utils.js', '../dev/gears/db-logger.js') %>
+<%= include('./string.js', './unit-test.js', './gears/timer.js', './gears/xhr.js', './gears/db.js') %>
 
 function runClutchTests() {
     return clutch.test.group([

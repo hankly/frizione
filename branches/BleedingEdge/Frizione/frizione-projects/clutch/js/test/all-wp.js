@@ -96,6 +96,7 @@ clutch.createGearsTimer = function () {
 clutch.createGearsWorkerPool = function () {
     return google.gears.factory.create('beta.workerpool');
 };
+
 /*
 Copyright (c) 2008 John Leach
 
@@ -166,6 +167,7 @@ if (!this.clutch.timer) {
         };
     }
 })();
+
 /*
 Copyright (c) 2008 John Leach
 
@@ -335,6 +337,7 @@ clutch.string = {
         }
     }
 };
+
 /*
 Copyright (c) 2008 John Leach
 
@@ -502,6 +505,7 @@ clutch.xhr.executeRequest = function (method, url, optionalParams, optionalBody,
         return function () {};
     }
 };
+
 /*
 Copyright (c) 2008 John Leach
 
@@ -618,6 +622,7 @@ clutch.db.optionalQuery = function (params) {
     }
     return query;
 };
+
 /*
 Copyright (c) 2008 John Leach
 
@@ -695,6 +700,7 @@ clutch.db.logger = function (name) {
         }
     };
 };
+
 /*
     http://www.JSON.org/json2.js
     2008-05-25
@@ -1167,6 +1173,7 @@ replace(/(?:^|:|,)(?:\s*\[)+/g, ''))) {
         };
     }();
 }
+
 /*
 Copyright (c) 2008 John Leach
 
@@ -1329,32 +1336,47 @@ clutch.test.assertions = function (totaliser) {
 clutch.test.runner = function (profile, timeout) {
     var gearsTimer = null;
     var timerId = null;
+    var intervalId = null;
     var setTestTimeout = null;
+    var setTestInterval = null;
     var clearTestTimeout = null;
+    var clearTestInterval = null;
     var functionAssertions = null;
     var callbackAssertions = null;
     var callbacks = null;
 
     (function () {
         // don't try to simplify this stuff, setTestTimeout = window.setTimeout causes all sorts of problems
-         // with Opera and Firefox (which actually crashes)
+        // with Opera and Firefox (which actually crashes)
         if (!!this.window && !!this.window.setTimeout) {
-             setTestTimeout = function (code, millis) {
-                 return window.setTimeout(code, millis);
-             };
-             clearTestTimeout = function (timerId) {
-                 window.clearTimeout(timerId);
-             };
-         }
-         else {
-             gearsTimer = clutch.createGearsTimer();
-             setTestTimeout = function (code, millis) {
-                 return gearsTimer.setTimeout(code, millis);
-             };
-             clearTestTimeout = function (timerId) {
-                 gearsTimer.clearTimeout(timerId);
-             };
-         }
+            setTestTimeout = function (code, millis) {
+                return window.setTimeout(code, millis);
+            };
+            setTestInterval = function (code, millis) {
+                return window.setInterval(code, millis);
+            };
+            clearTestTimeout = function (timerId) {
+                window.clearTimeout(timerId);
+            };
+            clearTestInterval = function (timerId) {
+                window.clearInterval(timerId);
+            };
+        }
+        else {
+            gearsTimer = clutch.createGearsTimer();
+            setTestTimeout = function (code, millis) {
+                return gearsTimer.setTimeout(code, millis);
+            };
+            setTestInterval = function (code, millis) {
+                return gearsTimer.setInterval(code, millis);
+            };
+            clearTestTimeout = function (timerId) {
+                gearsTimer.clearTimeout(timerId);
+            };
+            clearTestInterval = function (timerId) {
+                gearsTimer.clearInterval(timerId);
+            };
+        }
     })();
 
     function cleanUp() {
@@ -1369,6 +1391,9 @@ clutch.test.runner = function (profile, timeout) {
     function abend(reason) {
         if (timerId) {
             clearTestTimeout(timerId);
+        }
+        if (intervalId) {
+            clearTestInterval(intervalId);
         }
 
         reason = reason || "Terminated by User";
@@ -1455,10 +1480,9 @@ clutch.test.runner = function (profile, timeout) {
                 }
 
                 profile.index += 2;
+                clearTestInterval(intervalId);
+                intervalId = null;
                 setTestTimeout(next, 0);
-            }
-            else {
-                setTestTimeout(waitForCallback, 100);
             }
         }
 
@@ -1483,7 +1507,7 @@ clutch.test.runner = function (profile, timeout) {
             }
         }
 
-        setTestTimeout(waitForCallback, 100);
+        intervalId = setTestInterval(waitForCallback, 100);
     }
 
     function testFunction(test, next) {
@@ -1513,6 +1537,9 @@ clutch.test.runner = function (profile, timeout) {
         if (profile.index >= profile.total) {
             if (timerId) {
                 clearTestTimeout(timerId);
+            }
+            if (intervalId) {
+                clearTestInterval(intervalId);
             }
             cleanUp();
             profile.complete = true;
@@ -1717,6 +1744,7 @@ clutch.test.group = function (arrayOfUnitTests, timeout) {
         }
     };
 };
+
 /*
 Copyright (c) 2008 John Leach
 
@@ -1775,6 +1803,7 @@ clutch.wp.onMessage = function (depr1, depr2, message) {
     var handler = clutch.wp.handlers[body.command] || clutch.wp.handlers['default'];
     handler(message);
 };
+
 /*
 Copyright (c) 2008 John Leach
 
@@ -1820,6 +1849,7 @@ THE SOFTWARE.
 
     wp.onmessage = clutch.wp.onMessage;
 })();
+
 /*
 Copyright (c) 2008 John Leach
 
@@ -1930,6 +1960,7 @@ function createStringTests() {
 function runClutchTests() {
     return createStringTests();
 }
+
 /*
 Copyright (c) 2008 John Leach
 
@@ -1995,6 +2026,7 @@ function createUnitTests() {
 function runClutchTests() {
     return createUnitTests();
 }
+
 /*
 Copyright (c) 2008 John Leach
 
@@ -2063,6 +2095,7 @@ function createTimerTests() {
 function runClutchTests() {
     return createTimerTests();
 }
+
 /*
 Copyright (c) 2008 John Leach
 
@@ -2142,6 +2175,7 @@ function createXhrTests() {
 function runClutchTests() {
     return createXhrTests();
 }
+
 /*
 Copyright (c) 2008 John Leach
 
@@ -2249,6 +2283,7 @@ function createDatabaseTests() {
 function runClutchTests() {
     return createDatabaseTests();
 }
+
 
 function runClutchTests() {
     return clutch.test.group([

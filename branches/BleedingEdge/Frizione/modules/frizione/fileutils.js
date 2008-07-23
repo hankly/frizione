@@ -79,20 +79,22 @@ fileutils = {
 
             var length = file.length();
             var reader = new java.io.BufferedReader(new java.io.InputStreamReader(new java.io.FileInputStream(path), charset || "UTF-8"));
-            var textBuffer = new java.lang.StringBuffer(length + 10);
+            // var textBuffer = new java.lang.StringBuffer(length + 10);
+            var lines = [];
             while (true) {
                 var line = reader.readLine();
                 if (line == null) {
                     break;
                 }
-                if (textBuffer.length() > 0) {
-                    textBuffer.append('\n');
-                }
-                textBuffer.append(line);
+                //if (textBuffer.length() > 0) {
+                //    textBuffer.append('\n');
+                //}
+                //textBuffer.append(line);
+                lines.push(line);
             }
             reader.close();
-            reader = null;
-            return String(textBuffer);
+            //return String(textBuffer);
+            return lines.join('\n');
         }
         throw new Error("File " + file.getCanonicalFile() + " doesn't exist, or isn't a file");
     },

@@ -20,6 +20,9 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 */
 
+/*jslint evil: true */
+/*globals app, req, res, crash */
+
 /**
  * Default (main) action for test operations.
  */
@@ -34,7 +37,12 @@ function main_action() {
             this.renderTestResultPage(file);
         }
         else {
-            this.renderTestPage(file);
+            if (this.group.type === 'application' || this.group.type === 'module') {
+                this.renderEmbeddedTestPage(file);
+            }
+            else {
+                this.renderTestPage(file);
+            }
         }
     }
     else {
@@ -63,15 +71,13 @@ function renderMainPage() {
     data.action = 'jstest';
     data.includes = ".test.js";
     data.excludes = null;
-    switch (this.type) {
-        case 'json':
-            typeName = "JSON";
-            data.title = typeName + " Test Results : " + this.group.name + " : " + qualifiedVersion();
-            data.explain = "Frizione just can't wait to display the following JSON test results files:";
-            data.action = 'jsontest';
-            data.includes = ".test.json";
-            data.excludes = null;
-            break;
+    if (this.type === 'json') {
+        typeName = "JSON";
+        data.title = typeName + " Test Results : " + this.group.name + " : " + qualifiedVersion();
+        data.explain = "Frizione just can't wait to display the following JSON test results files:";
+        data.action = 'jsontest';
+        data.includes = ".test.json";
+        data.excludes = null;
     }
 
     data.head = renderSkinAsString('Head');
@@ -106,6 +112,70 @@ app.debug("End services " + req.runtime);
     this.renderSkin('Layout');
 }
 
+/**
+ * Renders the test result page.
+ *
+ * @param file the JavaScript file to test.
+ */
+function renderEmbeddedTestPage(file) {
+    res.charset = "UTF8";
+
+    var data = res.data;
+    data.root = root.href();
+    data.href = this.href();
+    data.title = "JavaScript Test : " + this.group.name + " : " + qualifiedVersion();
+    data.version = qualifiedVersion();
+    data.group = this.group;
+
+    data.file = file;
+    app.debug("Start join " + req.runtime);
+    var result = services.join(this.group.path + file);
+    app.debug("End join " + req.runtime);
+    data.testParams = services.parseTestParams(result);
+    if (data.testParams === null) {
+        data.testParams = {};
+        data.testParams.errors = [ 'No /*test ... */ command found in text' ];
+    }
+    else {
+        data.testParams.to = "./"; // the to parameter is superfluous here
+        data.testParams.errors = services.checkTestParams(data.testParams, file, file, null);
+    }
+
+    if (data.testParams.errors) {
+        data.head = renderSkinAsString('Head');
+        data.body = this.renderSkinAsString('Body.Test');
+    }
+    else {
+        eval(result);
+        if (!runCrashTests) {
+            data.testParams.errors = [ "No 'runCrashTests' function defined" ];
+            data.head = renderSkinAsString('Head');
+            data.body = this.renderSkinAsString('Body.Test');
+        }
+        else {
+            var tests = runCrashTests();
+            var date = new Date().toUTCString();
+            tests.run();
+
+            var status = tests.check();
+            while (status.complete === false) {
+                crash.timer.pause(100);
+                status = tests.check();
+            }
+
+            data.json = tests.summarise();
+            data.json.summary.date = date;
+            result = JSON.stringify(data.json, null, "\t");
+            var path = this.group.path + data.testParams.json;
+            fileutils.makeDirs(path);
+            fileutils.writeJson(path, result);
+
+            data.head = renderSkinAsString('Head');
+            data.body = this.renderSkinAsString('Body.Result');
+        }
+    }
+    this.renderSkin('Layout');
+}
 
 /**
  * Renders the test result page.

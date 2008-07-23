@@ -31,10 +31,10 @@
             </p>
 
             <h2>JavaScript files</h2>
-            <p>Join files (<code>*.join.js</code>):&#160;
-                <% filesCount action="jsjoin"
+            <p>Test files (<code>*.test.js</code>):&#160;
+                <% filesCount action="jstest"
                     group=<% response.group %>
-                    includes=".join.js" %>
+                    includes=".test.js" %>
             </p>
 
             <p>JSLint files (<code>*.js</code>):&#160;
@@ -50,6 +50,12 @@
                     group=<% response.group %>
                     includes=".json"
                     excludes=".test.json" %>
+            </p>
+
+            <p>Test results files (<code>*.test.json</code>):&#160;
+                <% filesCount action="jsontest"
+                    group=<% response.group %>
+                    includes=".test.json"%>
             </p>
 
             <p>&#160;</p>
