@@ -25,6 +25,14 @@ THE SOFTWARE.
 /*globals FRIZIONE_FILE, JSLINT_OPTIONS_FILE, allProjects, allApplications, allModules */
 
 app.addRepository('modules/core/String.js');
+
+app.addRepository('modules/crash/loader.js');
+
+crash.include('/modules/crash/loader.js');
+crash.include('/modules/crash/timer.js');
+crash.include('/modules/crash/introspect.js');
+crash.include('/modules/crash/unit-test.js');
+
 app.addRepository('modules/frizione/json2.js');
 app.addRepository('modules/frizione/fulljslint.js');
 

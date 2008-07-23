@@ -29,16 +29,16 @@ function main_action() {
     
     switch (this.dir) {
         case 'js':
-            this.renderJavaScript(req.path);
+            this.renderJavaScript(this.staticDir() + '/' + req.path);
             break;
         case 'css':
-            this.renderCascadingStyleSheet(req.path);
+            this.renderCascadingStyleSheet(this.staticDir() + '/' + req.path);
             break;
         case 'imgs':
-            this.renderImage(req.path);
+            this.renderImage(this.staticDir() + '/' + req.path);
             break;
         case 'docs':
-            this.renderDocument(req.path);
+            this.renderDocument(this.staticDocsDir() + '/' + req.path);
             break;
     }
 }

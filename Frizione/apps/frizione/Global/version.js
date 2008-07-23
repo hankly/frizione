@@ -37,5 +37,5 @@ function qualifiedVersion() {
  * @return the version number.
  */
 function version() {
-    return "0.4";
+    return "0.5";
 }

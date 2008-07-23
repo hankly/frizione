@@ -21,14 +21,14 @@ THE SOFTWARE.
 */
 
 /*jslint evil: false */
-/*global clutch, google */
+/*global crash, google */
 
-if (!this.clutch) {
-    clutch = {};
+if (!this.crash) {
+    crash = {};
 }
 
-if (!this.clutch.test) {
-    clutch.test = {};
+if (!this.crash.test) {
+    crash.test = {};
 }
 
 // I know, I know - yet another unit testing framework. Well, the world is large, so there's always space for one more.
@@ -43,7 +43,7 @@ if (!this.clutch.test) {
 // ...
 
 // Set of utility functions for the unit test report information.
-clutch.test.utils = {
+crash.test.utils = {
 
     createTotaliser: function () {
         return {
@@ -99,7 +99,7 @@ clutch.test.utils = {
  *
  * @param totaliser the unit test totaliser (report).
  */
-clutch.test.assertions = function (totaliser) {
+crash.test.assertions = function (totaliser) {
 
     var assertions = {
 
@@ -157,8 +157,7 @@ clutch.test.assertions = function (totaliser) {
  * @param profile the testing report.
  * @param timeout the maximum time in milliseconds for all tests to be executed.
  */
-clutch.test.runner = function (profile, timeout) {
-    var gearsTimer = null;
+crash.test.runner = function (profile, timeout) {
     var timerId = null;
     var intervalId = null;
     var setTestTimeout = null;
@@ -186,19 +185,18 @@ clutch.test.runner = function (profile, timeout) {
                 window.clearInterval(timerId);
             };
         }
-        else {
-            gearsTimer = clutch.createGearsTimer();
+        else if (!!this.crash && !!this.crash.timer) {
             setTestTimeout = function (code, millis) {
-                return gearsTimer.setTimeout(code, millis);
+                return crash.timer.setTimeout(code, millis);
             };
             setTestInterval = function (code, millis) {
-                return gearsTimer.setInterval(code, millis);
+                return crash.timer.setInterval(code, millis);
             };
             clearTestTimeout = function (timerId) {
-                gearsTimer.clearTimeout(timerId);
+                crash.timer.clearTimeout(timerId);
             };
             clearTestInterval = function (timerId) {
-                gearsTimer.clearInterval(timerId);
+                crash.timer.clearInterval(timerId);
             };
         }
     })();
@@ -206,7 +204,7 @@ clutch.test.runner = function (profile, timeout) {
     function cleanUp() {
         var i = 0;
         var total = profile.total;
-        var removeProps = clutch.test.utils.removeTotaliserProperties;
+        var removeProps = crash.test.utils.removeTotaliserProperties;
         for (; i < total; i += 1) {
             removeProps(profile.tests[i]);
         }
@@ -280,7 +278,7 @@ clutch.test.runner = function (profile, timeout) {
         var length = test.callbacks.length;
         var i = 0;
         var index = profile.index + 1;
-        callbackAssertions = clutch.test.assertions(profile.tests[index]);
+        callbackAssertions = crash.test.assertions(profile.tests[index]);
         callbacks = [];
         for (; i < length; i += 1) {
             callback = test.callbacks[i];
@@ -372,7 +370,7 @@ clutch.test.runner = function (profile, timeout) {
 
         var test = profile.tests[profile.index];
         var testObject = test.testObject;
-        functionAssertions = clutch.test.assertions(test);
+        functionAssertions = crash.test.assertions(test);
         injectAssertions(testObject, functionAssertions);
 
         if (test.callbacks) {
@@ -417,8 +415,8 @@ clutch.test.runner = function (profile, timeout) {
  * @param testObject the test object.
  * @param timeout the maximum time in milliseconds for all the tests to be executed.
  */
-clutch.test.unit = function (name, testObject, timeout) {
-    var utils = clutch.test.utils;
+crash.test.unit = function (name, testObject, timeout) {
+    var utils = crash.test.utils;
     var profile = null;
     var tests = [];
     var runner = null;
@@ -439,8 +437,8 @@ clutch.test.unit = function (name, testObject, timeout) {
             var test = null;
             var prop = null;
             var totaliser = null;
-            if (testObject.clutchTests) {
-                testArray = testObject.clutchTests;
+            if (testObject.crashTests) {
+                testArray = testObject.crashTests;
                 length = testArray.length;
                 for (i = 0; i < length; i += 1) {
                     test = testArray[i];
@@ -482,7 +480,7 @@ clutch.test.unit = function (name, testObject, timeout) {
             if (!profile) {
                 this.prepare();
             }
-            runner = clutch.test.runner(profile, timeout);
+            runner = crash.test.runner(profile, timeout);
             runner.run();
         },
 
@@ -516,8 +514,8 @@ clutch.test.unit = function (name, testObject, timeout) {
  * @param arrayOfUnitTests the unit test array.
  * @param timeout the maximum time in milliseconds for all unit tests to be executed.
  */
-clutch.test.group = function (arrayOfUnitTests, timeout) {
-    var utils = clutch.test.utils;
+crash.test.group = function (arrayOfUnitTests, timeout) {
+    var utils = crash.test.utils;
     var profile = null;
     var runner = null;
 
@@ -538,7 +536,7 @@ clutch.test.group = function (arrayOfUnitTests, timeout) {
             if (!profile) {
                 this.prepare();
             }
-            runner = clutch.test.runner(profile, timeout);
+            runner = crash.test.runner(profile, timeout);
             runner.run();
         },
 

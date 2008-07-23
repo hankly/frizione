@@ -26,13 +26,22 @@ THE SOFTWARE.
  * @return the canonical directory.
  */
 function staticDir() {
-    return new java.io.File('./apps/frizione/StaticFiles').getCanonicalFile();
+    return new java.io.File('./apps/frizione/StaticFiles').getCanonicalFile().toString();
+}
+
+/**
+ * Gets the clutch static document canonical directory.
+ *
+ * @return the canonical directory.
+ */
+function staticDocsDir() {
+    return new java.io.File('../').getCanonicalFile().toString();
 }
 
 /**
  * Renders the specified JavaScript file.
  *
- * @param path the relative path to the file.
+ * @param path the absolute path to the file.
  */
 function renderJavaScript(path) {
     res.contentType = "application/javascript";
@@ -43,7 +52,7 @@ function renderJavaScript(path) {
 /**
  * Renders the specified Cascading Style Sheet file.
  *
- * @param path the relative path to the file.
+ * @param path the absolute path to the file.
  */
 function renderCascadingStyleSheet(path) {
     res.contentType = "text/css";
@@ -54,25 +63,25 @@ function renderCascadingStyleSheet(path) {
 /**
  * Renders the specified text file.
  *
- * @param path the relative path to the file.
+ * @param path the absolute path to the file.
  */
 function renderTextFile(path) {
     var encoding = req.getHeader('accept-encoding');
     if (encoding && encoding.indexOf('gzip') >= 0) {
-        if (fileutils.exists(this.staticDir().toString() + '/' + path + ".gz")) {
+        if (fileutils.exists(path + ".gz")) {
             res.addHeader('Content-Encoding', 'gzip');
             app.debug("StaticFiles Modified Request " + req.path + ".gz");
             this.renderBinaryFile(path + '.gz');
             return;
         }
     }
-    res.write(fileutils.readText(this.staticDir().toString() + '/' + path));
+    res.write(fileutils.readText(path));
 }
 
 /**
  * Renders the specified Portable Network Graphics file.
  *
- * @param path the relative path to the file.
+ * @param path the absolute path to the file.
  */
 function renderImage(path) {
     if (path.endsWith('.png')) {
@@ -87,7 +96,7 @@ function renderImage(path) {
 /**
  * Renders the specified Portable Document Format file.
  *
- * @param path the relative path to the file.
+ * @param path the absolute path to the file.
  */
 function renderDocument(path) {
     res.contentType = "application/pdf";
@@ -97,8 +106,8 @@ function renderDocument(path) {
 /**
  * Renders the specified binary file.
  *
- * @param path the relative path to the file.
+ * @param path the absolute path to the file.
  */
 function renderBinaryFile(path) {
-    res.writeBinary(fileutils.readBinary(this.staticDir().toString() + '/' + path));
+    res.writeBinary(fileutils.readBinary(path));
 }

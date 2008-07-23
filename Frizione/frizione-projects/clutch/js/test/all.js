@@ -96,6 +96,7 @@ clutch.createGearsTimer = function () {
 clutch.createGearsWorkerPool = function () {
     return google.gears.factory.create('beta.workerpool');
 };
+
 /*
 Copyright (c) 2008 John Leach
 
@@ -166,6 +167,7 @@ if (!this.clutch.timer) {
         };
     }
 })();
+
 /*
 Copyright (c) 2008 John Leach
 
@@ -335,6 +337,7 @@ clutch.string = {
         }
     }
 };
+
 /*
 Copyright (c) 2008 John Leach
 
@@ -502,6 +505,7 @@ clutch.xhr.executeRequest = function (method, url, optionalParams, optionalBody,
         return function () {};
     }
 };
+
 /*
 Copyright (c) 2008 John Leach
 
@@ -618,6 +622,7 @@ clutch.db.optionalQuery = function (params) {
     }
     return query;
 };
+
 /*
 Copyright (c) 2008 John Leach
 
@@ -695,6 +700,7 @@ clutch.db.logger = function (name) {
         }
     };
 };
+
 /*
 Copyright (c) 2008 John Leach
 
@@ -805,6 +811,7 @@ function createStringTests() {
 function runClutchTests() {
     return createStringTests();
 }
+
 /*
 Copyright (c) 2008 John Leach
 
@@ -870,6 +877,7 @@ function createUnitTests() {
 function runClutchTests() {
     return createUnitTests();
 }
+
 /*
 Copyright (c) 2008 John Leach
 
@@ -938,6 +946,7 @@ function createTimerTests() {
 function runClutchTests() {
     return createTimerTests();
 }
+
 /*
 Copyright (c) 2008 John Leach
 
@@ -1017,6 +1026,7 @@ function createXhrTests() {
 function runClutchTests() {
     return createXhrTests();
 }
+
 /*
 Copyright (c) 2008 John Leach
 
@@ -1124,6 +1134,7 @@ function createDatabaseTests() {
 function runClutchTests() {
     return createDatabaseTests();
 }
+
 
 function runClutchTests() {
     return clutch.test.group([

@@ -20,25 +20,5 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 */
 
-/**
- * Application object constructor.
- *
- * @class Application
- * @constructor
- * @param info the (modified) project json file contents.
- */
-function constructor(info) {
-    app.debug('Application ' + info.name);
-    this.name = info.name;
-    this.home = info.home;
-    this.dir = info.dir;
-    this.path = info.path;
-    this.type = 'application';
-    this.services = setServices(this);
-    this.refreshFiles();
-}
-
-function refreshFiles() {
-    app.debug('Application ' + this.name + ' refresh files');
-    this.files = fileutils.listAll(this.path, [ '.css', '.js', '.json', '.html' ], null);
-}
+/*test json: /test/unit-test.test.json */
+<%= this.include('./unit-test.js') %>

@@ -7,8 +7,8 @@
 		"logs": 1,
 		"messages": [],
 		"tests": 78,
-		"time": 1441,
-		"date": "Tue, 15 Jul 2008 23:24:41 GMT"
+		"time": 907,
+		"date": "Wed, 23 Jul 2008 18:01:10 UTC"
 	},
 	"tests": [
 		{
@@ -125,7 +125,7 @@
 				"logs": 0,
 				"messages": [],
 				"tests": 18,
-				"time": 3
+				"time": 0
 			},
 			"tests": [
 				{
@@ -139,7 +139,7 @@
 						"logs": 0,
 						"messages": [],
 						"tests": 2,
-						"time": 1
+						"time": 0
 					}
 				},
 				{
@@ -181,7 +181,7 @@
 						"logs": 0,
 						"messages": [],
 						"tests": 4,
-						"time": 1
+						"time": 0
 					}
 				},
 				{
@@ -195,7 +195,7 @@
 						"logs": 0,
 						"messages": [],
 						"tests": 4,
-						"time": 1
+						"time": 0
 					}
 				}
 			]
@@ -281,7 +281,7 @@
 				"logs": 0,
 				"messages": [],
 				"tests": 11,
-				"time": 14
+				"time": 0
 			},
 			"tests": [
 				{
@@ -295,7 +295,7 @@
 						"logs": 0,
 						"messages": [],
 						"tests": 2,
-						"time": 5
+						"time": 0
 					}
 				},
 				{
@@ -323,7 +323,7 @@
 						"logs": 0,
 						"messages": [],
 						"tests": 2,
-						"time": 4
+						"time": 0
 					}
 				},
 				{
@@ -351,7 +351,7 @@
 						"logs": 0,
 						"messages": [],
 						"tests": 2,
-						"time": 5
+						"time": 0
 					}
 				},
 				{
@@ -380,7 +380,7 @@
 				"logs": 0,
 				"messages": [],
 				"tests": 38,
-				"time": 1424
+				"time": 907
 			},
 			"tests": [
 				{
@@ -394,7 +394,7 @@
 						"logs": 0,
 						"messages": [],
 						"tests": 1,
-						"time": 115
+						"time": 94
 					}
 				},
 				{
@@ -408,7 +408,7 @@
 						"logs": 0,
 						"messages": [],
 						"tests": 10,
-						"time": 1308
+						"time": 813
 					}
 				},
 				{
@@ -436,7 +436,7 @@
 						"logs": 0,
 						"messages": [],
 						"tests": 11,
-						"time": 1
+						"time": 0
 					}
 				},
 				{
