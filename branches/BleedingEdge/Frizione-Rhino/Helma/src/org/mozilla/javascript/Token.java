@@ -42,9 +42,6 @@
 
 package org.mozilla.javascript;
 
-/*helma patch start*/
-/*helma patch end*/
-
 /**
  * This class implements the JavaScript scanner.
  *

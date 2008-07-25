@@ -26,18 +26,11 @@ THE SOFTWARE.
 
 app.addRepository('modules/core/String.js');
 
-app.addRepository('modules/crash/loader.js');
+app.addRepository('modules/crash/crash-frizione.js');
 
-crash.include('/modules/crash/loader.js');
-crash.include('/modules/crash/timer.js');
-crash.include('/modules/crash/introspect.js');
-crash.include('/modules/crash/unit-test.js');
-
-app.addRepository('modules/frizione/json2.js');
 app.addRepository('modules/frizione/fulljslint.js');
 
 app.addRepository('modules/frizione/fileutils.js');
-app.addRepository('modules/frizione/ejs.js');
 app.addRepository('modules/frizione/services.js');
 
 FRIZIONE_FILE = "/frizione.json";

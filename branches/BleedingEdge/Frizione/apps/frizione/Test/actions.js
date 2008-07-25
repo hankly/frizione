@@ -107,8 +107,45 @@ app.debug("Start services " + req.runtime);
     services.execute(file, result, 'test', 'js', data, groupDir(this.group).toString() + '/' + this.group.dir);
 app.debug("End services " + req.runtime);
 
-    data.head = this.renderSkinAsString('Head.Test');
-    data.body = this.renderSkinAsString('Body.Test');
+    if (data.testParams && data.testParams.type === 'rhino') {
+        if (data.testParams.errors) {
+            data.head = renderSkinAsString('Head');
+            data.body = this.renderSkinAsString('Body.Test');
+        }
+        else {
+            eval(result);
+            if (!runCrashTests) {
+                data.testParams.errors = [ "No 'runCrashTests' function defined" ];
+                data.head = renderSkinAsString('Head');
+                data.body = this.renderSkinAsString('Body.Test');
+            }
+            else {
+                var tests = runCrashTests();
+                var date = new Date().toUTCString();
+                tests.run();
+
+                var status = tests.check();
+                while (status.complete === false) {
+                    crash.timer.pause(100);
+                    status = tests.check();
+                }
+
+                data.json = tests.summarise();
+                data.json.summary.date = date;
+                result = JSON.stringify(data.json, null, "\t");
+                var path = this.group.path + data.testParams.json;
+                fileutils.makeDirs(path);
+                fileutils.writeJson(path, result);
+
+                data.head = renderSkinAsString('Head');
+                data.body = this.renderSkinAsString('Body.Result');
+            }
+        }
+    }
+    else {
+        data.head = this.renderSkinAsString('Head.Test');
+        data.body = this.renderSkinAsString('Body.Test');
+    }
     this.renderSkin('Layout');
 }
 

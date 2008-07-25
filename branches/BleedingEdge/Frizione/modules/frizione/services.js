@@ -156,7 +156,8 @@ app.debug("Start gzip " + req.runtime);
     join: function (path, charset, data) {
         charset = charset || "UTF-8";
         data = data || { };
-        return new EJS(path, charset, '<').render(data);
+        return crash.st.load(path, {}, charset, '<');
+        //        return new EJS(path, charset, '<').render(data);
     },
 
     /**
@@ -460,7 +461,7 @@ app.debug("Start gzip " + req.runtime);
      * <li><code>json</code> the file path to write the unit test JSON file to.</li>
      * <li><code>rc</code> the run comment to be displayed.</li>
      * <li><code>vc</code> the view comment to be displayed.</li>
-     * <li><code>type</code> the test environment type, one of 'browser', 'gears', 'workerpool' (default is 'browser').</li>
+     * <li><code>type</code> the test environment type, one of 'browser', 'gears', 'workerpool', 'rhino' (default is 'browser').</li>
      * </ul>
      *
      * @param params the parameters to check.
@@ -472,12 +473,6 @@ app.debug("Start gzip " + req.runtime);
     checkTestParams: function (params, file, to, gzip) {
         var errors = [];
 
-        if (!params.to) {
-            errors.push("Missing 'to' parameter value");
-        }
-        if (!params.cs) {
-            params.cs = "UTF-8";
-        }
         if (!params.type) {
             params.type = 'browser';
         }
@@ -486,8 +481,19 @@ app.debug("Start gzip " + req.runtime);
             case 'gears':
             case 'workerpool':
                 break;
+            case 'rhino':
+                if (!params.to) {
+                    params.to = './';
+                }
+                break;
             default:
                 errors.push("Unknown type value '" + params.type + "'");
+        }
+        if (!params.to) {
+            errors.push("Missing 'to' parameter value");
+        }
+        if (!params.cs) {
+            params.cs = "UTF-8";
         }
         if (!params.json) {
             errors.push("Missing 'json' parameter value");
