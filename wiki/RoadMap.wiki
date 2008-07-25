@@ -5,7 +5,7 @@
 
 Frizione is still in its infancy. Until it reaches the ultimate open source project stability goal (that is to say version 1.0), it will probably duck and weave around numerous problems, possibly finding solutions, and most likely making breaking changes with respect to previous versions.
 
-Currently I'm working on reaching version 0.5, which has better integration with Rhino based tools, and will add other JavaScript based tools. I'll also be spending a little time on extending the Clutch library, which is pretty anemic at the moment.
+Currently I'm working on reaching version 0.5, which has better integration with Rhino based tools, and will add other !JavaScript based tools. I'll also be spending a little time on extending the Clutch library, which is pretty anemic at the moment.
 
 I've had an interesting email discussion with Michael Mathews, the author of [http://jsdoctoolkit.org/ JsDoc Toolkit] which has inspired me to take a slightly different look at the current frizione codebase. Essentially, there is a lot of useful code locked away inside a JavaScript based server - and it needn't be.
 
