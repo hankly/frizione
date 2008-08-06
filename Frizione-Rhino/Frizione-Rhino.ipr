@@ -30,6 +30,13 @@
       <maximumHeapSize value="128" />
       <properties />
     </buildFile>
+    <buildFile url="file://$PROJECT_DIR$/Crash/build.xml">
+      <additionalClassPath />
+      <antReference projectDefault="true" />
+      <customJdkName value="" />
+      <maximumHeapSize value="128" />
+      <properties />
+    </buildFile>
   </component>
   <component name="BuildJarProjectSettings">
     <option name="BUILD_JARS_ON_MAKE" value="false" />
@@ -253,6 +260,7 @@
   <component name="ProjectFileVersion" converted="true" />
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/Crash/Crash.iml" filepath="$PROJECT_DIR$/Crash/Crash.iml" group="Frizione" />
       <module fileurl="file://$PROJECT_DIR$/Frizione/Frizione.iml" filepath="$PROJECT_DIR$/Frizione/Frizione.iml" group="Frizione" />
       <module fileurl="file://$PROJECT_DIR$/Helma/Helma.iml" filepath="$PROJECT_DIR$/Helma/Helma.iml" group="Frizione" />
       <module fileurl="file://$PROJECT_DIR$/Rhino/Rhino.iml" filepath="$PROJECT_DIR$/Rhino/Rhino.iml" group="Frizione" />
