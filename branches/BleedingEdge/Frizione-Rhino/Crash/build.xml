@@ -20,7 +20,7 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -->
-<project name="Frizione" default="usage" basedir=".">
+<project name="Crash" default="usage" basedir=".">
 
     <!--
         Initialise the build properties
@@ -29,11 +29,11 @@ THE SOFTWARE.
 
         <property name="home.dir" value="."/>
         <property name="build.dir" value="${home.dir}/build"/>
+        <property name="build.lib" value="${home.dir}/lib"/>
         <property name="build.src" value="${home.dir}/src"/>
         <property name="build.classes" value="${build.dir}/classes"/>
 
         <property name="rhino.home.dir" value="../Rhino"/>
-        <property name="yuicompressor.home.dir" value="../YUICompressor"/>
 
         <property name="debug" value="on"/>
         <property name="optimize" value="on"/>
@@ -47,12 +47,12 @@ THE SOFTWARE.
     <target name="help" depends="usage" />
     <target name="usage">
         <echo>
-Frizione build instructions
+Crash build instructions
   available targets are:
-  compile       compiles the source code to ./build/classes"
-  rhino-jar     generates the ./build/ext-rhino.jar file
-  clean         clean up temporary build directories and files
-  usage         provides help on using the build tool (default)"
+  compile    compiles the source code to ./build/classes"
+  crash-jar  generates the ./build/crash.jar file
+  clean      clean up temporary build directories and files
+  usage      provides help on using the build tool (default)"
 See comments inside the build.xml file for more details.
         </echo>
     </target>
@@ -62,9 +62,7 @@ See comments inside the build.xml file for more details.
     -->
     <target name="compile" depends="init">
         <ant antfile="${rhino.home.dir}/build.xml" inheritAll="false" target="compile-all"/>
-        <ant antfile="${rhino.home.dir}/build.xml" inheritAll="false" target="compile-debugger"/>
-        <ant antfile="${yuicompressor.home.dir}/build.xml" inheritAll="false" target="compile"/>
-
+        <ant antfile="${rhino.home.dir}/build.xml" inheritAll="false" target="jar"/>
         <mkdir dir="${build.dir}"/>
         <mkdir dir="${build.classes}"/>
         <javac srcdir="${build.src}"
@@ -74,22 +72,25 @@ See comments inside the build.xml file for more details.
                debug="${debug}"
                deprecation="${deprecation}"
                optimize="${optimize}"
-               includeAntRuntime="no"
-               classpath="${rhino.home.dir}/build/classes"/>
+               includeAntRuntime="no">
+            <classpath>
+                <pathelement path="${rhino.home.dir}/build/classes"/>
+            </classpath>
+        </javac>
     </target>
 
     <!--
-        Creates the rhino-ext.jar file in the build directory
+        Creates the crash.jar file in the build directory
     -->
-    <target name="rhino-jar" depends="compile">
+    <target name="crash-jar" depends="compile">
         <copy todir="${build.classes}">
-            <fileset dir="${yuicompressor.home.dir}/build/classes">
-               <exclude name="**/YUICompressor*.class"/>
+            <fileset dir="${build.src}">
+                <include name="**/*.js"/>
              </fileset>
         </copy>
-        <jar jarfile="${build.dir}/rhino-ext.jar"
+        <jar jarfile="${build.dir}/crash.jar"
              basedir="${build.classes}"
-             includes="**/*.class" />
+             manifest="${build.src}/manifest.txt"/>
     </target>
 
     <!--
