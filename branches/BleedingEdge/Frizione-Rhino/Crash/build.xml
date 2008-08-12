@@ -49,10 +49,10 @@ THE SOFTWARE.
         <echo>
 Crash build instructions
   available targets are:
-  compile    compiles the source code to ./build/classes"
+  compile    compiles the source code to ./build/classes
   crash-jar  generates the ./build/crash.jar file
   clean      clean up temporary build directories and files
-  usage      provides help on using the build tool (default)"
+  usage      provides help on using the build tool (default)
 See comments inside the build.xml file for more details.
         </echo>
     </target>
@@ -85,7 +85,8 @@ See comments inside the build.xml file for more details.
     <target name="crash-jar" depends="compile">
         <copy todir="${build.classes}">
             <fileset dir="${build.src}">
-                <include name="**/*.js"/>
+                <exclude name="**/manifest.txt"/>
+                <exclude name="**/*.java"/>
              </fileset>
         </copy>
         <jar jarfile="${build.dir}/crash.jar"

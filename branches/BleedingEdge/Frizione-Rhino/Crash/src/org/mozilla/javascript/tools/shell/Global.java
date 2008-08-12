@@ -50,6 +50,10 @@ import org.mozilla.javascript.*;
 import org.mozilla.javascript.tools.ToolErrorReporter;
 import org.mozilla.javascript.serialize.*;
 
+/*crash patch start*/
+import it.syger.crash.tools.shell.Crash;
+/*crash patch end*/
+
 /**
  * This class provides for sharing functions across multiple threads.
  * This is of particular interest to server applications.
@@ -143,10 +147,9 @@ public class Global extends ImporterTopLevel
         history = (NativeArray) cx.newArray(this, 0);
         defineProperty("history", history, ScriptableObject.DONTENUM);
 /*crash patch start*/
-        String jarUrl = getClass().getResource("/it/syger/crash/tools/shell/Main.class").toString();
-        int index = jarUrl.indexOf('!');
-        jarUrl = jarUrl.substring(0, index + 1);
-        defineProperty("jarUrl", jarUrl, ScriptableObject.DONTENUM);
+        Crash.defineClass(this);
+        Crash crash = new Crash(this);
+        defineProperty("crash", crash, ScriptableObject.DONTENUM);
 /*crash patch end*/
         initialized = true;
     }
