@@ -21,4 +21,58 @@ THE SOFTWARE.
 */
 
 print("Hello from Crash main...");
-print("global.jarUrl = " + jarUrl);
+print("crash.root = " + crash.root);
+print("Jar contents:");
+var entries = crash.jar.entries();
+var entry = null;
+while (entries.hasMoreElements()) {
+    entry = entries.nextElement();
+    if (entry.isDirectory()) {
+        print("  dir: " + entry.getName());
+    }
+    else {
+        print(" file: " + entry.getName());
+    }
+}
+
+// load the crash loader...
+load(crash.root + '/' + "crash/core/rhino/loader.js");
+
+// unit test
+crash.load("crash/core/file.js");
+crash.load("crash/core/string.js");
+crash.load("crash/core/timer.js");
+crash.load("crash/template/simple-template.js");
+crash.load("crash/third-party/fulljslint.js");
+crash.load("crash/third-party/json2.js");
+crash.load("crash/unit-test/unit-test.js");
+crash.load("crash/unit-test/unit-test-report.js");
+crash.load("crash/xml/writer.js");
+
+print("Running unit tests...");
+eval(crash.st.load(crash.resource("test/all.test.js"), {}, "UTF-8", '<'));
+var tests = runCrashTests();
+var date = new Date().toUTCString();
+tests.run();
+
+var status = tests.check();
+while (status.complete === false) {
+    crash.timer.pause(100);
+    status = tests.check();
+}
+
+var json = tests.summarise();
+json.summary.date = date;
+var result = JSON.stringify(json, null, "\t");
+
+var data = {};
+data.head = "./head.html";
+data.body = "./body.html";
+data.relative = "./"
+data.document = crash.resource("crash/unit-test/html/document.html");
+var html = crash.test.htmlReport(json, data);
+
+var file = crash.file('unit-test.html');
+file.writeText(html);
+print("Unit test results written to: " + file.file.toString());
+quit();
