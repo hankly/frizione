@@ -3,12 +3,12 @@
 	"summary": {
 		"abend": null,
 		"errors": 1,
-		"failures": 2,
+		"failures": 3,
 		"logs": 1,
 		"messages": [],
 		"tests": 78,
-		"time": 907,
-		"date": "Wed, 23 Jul 2008 18:01:10 UTC"
+		"time": 828,
+		"date": "Tue, 12 Aug 2008 14:25:02 UTC"
 	},
 	"tests": [
 		{
@@ -277,11 +277,11 @@
 			"summary": {
 				"abend": null,
 				"errors": 0,
-				"failures": 0,
+				"failures": 1,
 				"logs": 0,
 				"messages": [],
 				"tests": 11,
-				"time": 0
+				"time": 32
 			},
 			"tests": [
 				{
@@ -295,7 +295,7 @@
 						"logs": 0,
 						"messages": [],
 						"tests": 2,
-						"time": 0
+						"time": 32
 					}
 				},
 				{
@@ -304,10 +304,15 @@
 						"abend": null,
 						"callback": "validUrlHandler",
 						"errors": 0,
-						"failures": 0,
+						"failures": 1,
 						"func": "validUrlHandler <- validUrl",
 						"logs": 0,
-						"messages": [],
+						"messages": [
+							{
+								"message": "Status not between 200 and 299: 500, Internal Server Error",
+								"type": "fail"
+							}
+						],
 						"tests": 1,
 						"time": 0
 					}
@@ -380,7 +385,7 @@
 				"logs": 0,
 				"messages": [],
 				"tests": 38,
-				"time": 907
+				"time": 796
 			},
 			"tests": [
 				{
@@ -394,7 +399,7 @@
 						"logs": 0,
 						"messages": [],
 						"tests": 1,
-						"time": 94
+						"time": 93
 					}
 				},
 				{
@@ -408,7 +413,7 @@
 						"logs": 0,
 						"messages": [],
 						"tests": 10,
-						"time": 813
+						"time": 703
 					}
 				},
 				{

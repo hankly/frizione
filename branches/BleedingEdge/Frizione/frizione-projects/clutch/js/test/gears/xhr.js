@@ -56,12 +56,14 @@ if (!this.clutch) {
 }
 
 clutch.isGearsInstalled = function () {
-    if (this.window) {
-        return window.google && google && google.gears;
-    }
-    else {
-        return google && google.gears;
-    }
+    return (function () {
+        if (!!this.window) {
+            return window.google && google && google.gears;
+        }
+        else {
+            return google && google.gears;
+        }
+    })();
 };
 
 clutch.gearsFactory = function () {
@@ -131,8 +133,7 @@ if (!this.clutch.timer) {
 
     // don't try to simplify this stuff, clutch.timer.setTimeout = window.setTimeout causes all sorts of problems
     // with Opera and Firefox (which actually crashes)
-    if (!!this.window
-            && !!this.window.setTimeout) {
+    if (!!this.window && !!this.window.setTimeout) {
         clutch.timer.setTimeout = function (code, millis) {
             return window.setTimeout(code, millis);
         };
@@ -365,7 +366,7 @@ function createXhrTests() {
         ],
 
         validUrl: function () {
-            var abort = clutch.xhr.executeRequest("GET", '/frizione/clutch/readfixture/js/dev-test/gears/xhr-test-data.json',
+            var abort = clutch.xhr.executeRequest("GET", '/frizione/projects/clutch/readfixture/js/dev-test/gears/xhr-test-data.json',
                     null, null, 2000, this.validUrlHandler);
             this.checkAbort(abort);
         },
@@ -375,7 +376,7 @@ function createXhrTests() {
         },
 
         invalidUrl: function () {
-            var abort = clutch.xhr.executeRequest("GET", '/frizione/clutch/readfixture/invalid-url.json',
+            var abort = clutch.xhr.executeRequest("GET", '/frizione/projects/clutch/readfixture/invalid-url.json',
                     null, null, 2000, this.invalidUrlHandler);
             this.checkAbort(abort);
         },
@@ -385,7 +386,7 @@ function createXhrTests() {
         },
 
         abortedRequest: function () {
-            var abort = clutch.xhr.executeRequest("GET", '/frizione/clutch/readfixture/invalid-url.json',
+            var abort = clutch.xhr.executeRequest("GET", '/frizione/projects/clutch/readfixture/invalid-url.json',
                     null, null, 2000, this.abortedRequestHandler);
             this.checkAbort(abort);
             abort();

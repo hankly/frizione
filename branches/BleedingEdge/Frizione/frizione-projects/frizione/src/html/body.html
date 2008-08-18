@@ -1,0 +1,39 @@
+    <body>
+        <p class="MenuHeading">
+            <a href="/frizione">Home</a>&#160;
+            <a href="/frizione/docs/Clutch.pdf">Documentation</a>
+        </p>
+        <h1><%= title %></h1>
+
+        <div class='standard'>
+            <p class='floatright'>
+                <img style="border: 1px solid #3084cc;" width="100" height="76" alt="A real clutch"
+                        src="/frizione/imgs/clutch-tiny.png" />
+            </p>
+            <h2>Applications, Modules and Projects in Frizione's clutches:</h2>
+        </div>
+
+        <div class='indented'>
+            <h2>Applications in Frizione's clutches:</h2>
+<%= applications %>
+            <p><a class='button' href='/frizione?action=refreshapplications'>Refresh application list</a></p>
+        </div>
+
+        <div class='indented'>
+            <h2>Modules in Frizione's clutches:</h2>
+<%= modules %>
+            <p><a class='button' href='/frizione?action=refreshmodules'>Refresh module list</a></p>
+        </div>
+
+        <div class='indented'>
+            <h2>Projects in Frizione's clutches:</h2>
+<%= projects %>
+            <p><a class='button' href='/frizione?action=refreshprojects'>Refresh project list</a></p>
+        </div>
+
+        <p>&#160;</p>
+        <p class="MenuHeading">
+            <a href="/frizione">Home</a>&#160;
+            <a href="/frizione/docs/Clutch.pdf">Documentation</a>
+        </p>
+    </body>
