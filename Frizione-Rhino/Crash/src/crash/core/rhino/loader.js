@@ -23,34 +23,34 @@ THE SOFTWARE.
 /*
 Inspired by Michael Mathew's IO.include
 http://code.google.com/p/jsdoc-toolkit/
- */
+*/
 
 /*globals crash, java, load */
 
 /**
- * The root crash URL.
+ * @property The root crash URL.
  */
 //crash.root = null;
 
 /**
- * Load a file or the entire contents of a directory.
+ * Load (execute) a JavaScript file or the entire contents of a directory.
  *
  * @param {String} rel the relative URL to the file or directory from the crash jar file.
- * @param (Function} filter optional name filter for directory loading.
-*/
+ * @param {Function} filter optional name filter for directory loading.
+ */
 crash.load = function (rel, filter) {
     if (rel.charAt(0) === '/') {
         rel = rel.substring(1);
     }
-    var entry = crash.jar.getEntry(rel);
+    var entry = crash.jar.getEntry(rel + '/');
     if (entry === null) {
-        entry = crash.jar.getEntry(rel + '/');
+        entry = crash.jar.getEntry(rel);
         if (entry === null) {
             throw new Error("Can't execute crash.load(" + rel + ") because the entry doesn't exist");
         }
-        else {
-            rel = rel + '/';
-        }
+    }
+    else {
+        rel = rel + '/';
     }
     if (entry.isDirectory()) {
         var entries = crash.jar.entries();
@@ -60,8 +60,8 @@ crash.load = function (rel, filter) {
         while (entries.hasMoreElements()) {
             entry = entries.nextElement();
             if (entry.isDirectory() === false) {
-                name = entry.getName();
-                if (name.length > length) {
+                name = String(entry.getName());
+                if (name.length > length && name.substring(0, length) === rel) {
                     name = name.substring(length);
                     if (name.indexOf('/') < 0) {
                         if (filter ? filter(name) : true) {

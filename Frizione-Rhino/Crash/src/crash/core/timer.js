@@ -23,6 +23,10 @@ THE SOFTWARE.
 /*globals crash, java */
 
 if (!this.crash.timer) {
+
+    /**
+     * @namespace Implementation of 'classic' timer functions for the Rhino environment.
+     */
     crash.timer = {};
 }
 
@@ -35,8 +39,9 @@ if (!this.crash.timer) {
      * Creates a timer object which calls a function after the specified number of milliseconds.
      *
      * @param {Function} func the function to call.
-     * @param {Number) millis the number of milliseconds to wait.
-     * @param (Boolean) repeat true if the function must be called repeatedly
+     * @param {Number} millis the number of milliseconds to wait.
+     * @param {Boolean} repeat true if the function must be called repeatedly
+     * @return {Number} the timer identifier.
      */
     var makeTimer = function (func, millis, repeat) {
         var timer = {
@@ -92,8 +97,8 @@ if (!this.crash.timer) {
      * Calls a function after the specified number of milliseconds.
      *
      * @param {Function} func the function to call.
-     * @param {Number) millis the number of milliseconds to wait.
-     * @return {Number) the timer identifier.
+     * @param {Number} millis the number of milliseconds to wait.
+     * @return {Number} the timer identifier.
      */
     crash.timer.setTimeout = function (func, millis) {
         return makeTimer(func, millis, false);
@@ -104,8 +109,8 @@ if (!this.crash.timer) {
      * delay between each call.
      *
      * @param {Function} func the function to call.
-     * @param {Number) millis the number of milliseconds to wait.
-     * @return {Number) the timer identifier.
+     * @param {Number} millis the number of milliseconds to wait.
+     * @return {Number} the timer identifier.
      */
     crash.timer.setInterval = function (func, millis) {
         return makeTimer(func, millis, true);
@@ -123,7 +128,7 @@ if (!this.crash.timer) {
     /**
      * Removes a previously set interval.
      *
-     * @param {Number} id the iterval identifier.
+     * @param {Number} id the interval identifier.
      */
     crash.timer.clearInterval = function (id) {
         var ident = id.toString();
@@ -135,7 +140,8 @@ if (!this.crash.timer) {
 
     /**
      * Causes the program to pause for the specified number of milliseconds.
-     *
+     * This is not part of the classical timer function suite.
+     * 
      * @param {Number} millis the number of milliseconds to pause.
      */
     crash.timer.pause = function (millis) {

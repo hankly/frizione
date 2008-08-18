@@ -35,9 +35,10 @@ if (!this.crash.test) {
  *
  * @param {Object} report the unit test summary.
  * @param {Object} result the unit test report.
+ * @param {boolean} useCache the (optional) use template cache flag, defaults to true.
  * @result {String} the HTML document.
  */
-crash.test.htmlReport = function (report, result) {
+crash.test.htmlReport = function (report, result, useCache) {
     var xml = crash.xml;
 
     /**
@@ -267,5 +268,8 @@ crash.test.htmlReport = function (report, result) {
         unitGroupReport(report, result, true);
     }
 
-    return crash.st.load(resource, result, "UTF-8", '<');
+    if (typeof useCache === 'undefined') {
+        useCache = true;
+    }
+    return crash.st.load(resource, result, "UTF-8", '<', useCache);
 };
