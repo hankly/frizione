@@ -20,25 +20,66 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 */
 
+/*global app, req, res, frizione */
+
 /**
  * Project object constructor.
  *
  * @class Project
  * @constructor
- * @param info the (modified) project json file contents.
+ * @param {Object} info the (modified) project json file contents.
  */
 function constructor(info) {
     app.debug('Project ' + info.name);
     this.name = info.name;
     this.home = info.home;
+    this.prefix = info.prefix;
+    this.root = info.root;
     this.dir = info.dir;
     this.path = info.path;
     this.type = 'project';
-    this.services = setServices(this);
+    this.services = frizione.service.setServices(this);
     this.refreshFiles();
 }
 
+/**
+ * Default (main) action for the specified application.
+ */
+function main_action() {
+
+    app.debug("Project Request " + req.path);
+
+    if (req.data.action === "refresh") {
+        app.debug("Project Request refresh file list");
+        this.refreshFiles();
+    }
+
+    var data = {};
+    data.jsJoinMinify = true;
+    data.staticFiles = true;
+    frizione.macros.groupMainPage(this, data);
+}
+
+/**
+ * Refresh the project files list.
+ */
 function refreshFiles() {
     app.debug('Project ' + this.name + ' refresh files');
-    this.files = fileutils.listAll(this.path, [ '.css', '.js', '.json', '.html' ], null);
+    var file = frizione.file(this.path);
+    this.files = file.list([ '.css', '.js', '.json', '.html' ], null);
+}
+
+/**
+ * Method used by Helma request path resolution.
+ *
+ * @param {String} name the path element name.
+ * @return {Object} the object that handles the element.
+ */
+function getChildElement(name) {
+    app.debug("Project.getChildElement " + name);
+    var service = this.services[name];
+    if (service) {
+        return service;
+    }
+    return this;
 }

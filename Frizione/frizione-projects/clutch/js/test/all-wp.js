@@ -96,7 +96,6 @@ clutch.createGearsTimer = function () {
 clutch.createGearsWorkerPool = function () {
     return google.gears.factory.create('beta.workerpool');
 };
-
 /*
 Copyright (c) 2008 John Leach
 
@@ -167,7 +166,6 @@ if (!this.clutch.timer) {
         };
     }
 })();
-
 /*
 Copyright (c) 2008 John Leach
 
@@ -337,7 +335,6 @@ clutch.string = {
         }
     }
 };
-
 /*
 Copyright (c) 2008 John Leach
 
@@ -505,7 +502,6 @@ clutch.xhr.executeRequest = function (method, url, optionalParams, optionalBody,
         return function () {};
     }
 };
-
 /*
 Copyright (c) 2008 John Leach
 
@@ -622,7 +618,6 @@ clutch.db.optionalQuery = function (params) {
     }
     return query;
 };
-
 /*
 Copyright (c) 2008 John Leach
 
@@ -700,7 +695,6 @@ clutch.db.logger = function (name) {
         }
     };
 };
-
 /*
     http://www.JSON.org/json2.js
     2008-05-25
@@ -1173,7 +1167,6 @@ replace(/(?:^|:|,)(?:\s*\[)+/g, ''))) {
         };
     }();
 }
-
 /*
 Copyright (c) 2008 John Leach
 
@@ -1744,7 +1737,6 @@ clutch.test.group = function (arrayOfUnitTests, timeout) {
         }
     };
 };
-
 /*
 Copyright (c) 2008 John Leach
 
@@ -1803,7 +1795,6 @@ clutch.wp.onMessage = function (depr1, depr2, message) {
     var handler = clutch.wp.handlers[body.command] || clutch.wp.handlers['default'];
     handler(message);
 };
-
 /*
 Copyright (c) 2008 John Leach
 
@@ -1849,7 +1840,6 @@ THE SOFTWARE.
 
     wp.onmessage = clutch.wp.onMessage;
 })();
-
 /*
 Copyright (c) 2008 John Leach
 
@@ -1960,7 +1950,6 @@ function createStringTests() {
 function runClutchTests() {
     return createStringTests();
 }
-
 /*
 Copyright (c) 2008 John Leach
 
@@ -2026,7 +2015,6 @@ function createUnitTests() {
 function runClutchTests() {
     return createUnitTests();
 }
-
 /*
 Copyright (c) 2008 John Leach
 
@@ -2095,7 +2083,6 @@ function createTimerTests() {
 function runClutchTests() {
     return createTimerTests();
 }
-
 /*
 Copyright (c) 2008 John Leach
 
@@ -2175,7 +2162,6 @@ function createXhrTests() {
 function runClutchTests() {
     return createXhrTests();
 }
-
 /*
 Copyright (c) 2008 John Leach
 
@@ -2283,7 +2269,6 @@ function createDatabaseTests() {
 function runClutchTests() {
     return createDatabaseTests();
 }
-
 
 function runClutchTests() {
     return clutch.test.group([

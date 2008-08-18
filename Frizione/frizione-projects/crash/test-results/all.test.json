@@ -1,0 +1,280 @@
+{
+	"summary": {
+		"errors": 2,
+		"time": 15,
+		"messages": [],
+		"tests": 26,
+		"failures": 2,
+		"logs": 1,
+		"abend": null,
+		"date": "Tue, 12 Aug 2008 18:11:16 GMT"
+	},
+	"abend": null,
+	"tests": [
+		{
+			"tests": [
+				{
+					"summary": {
+						"callback": null,
+						"errors": 0,
+						"messages": [],
+						"abend": null,
+						"failures": 0,
+						"time": 0,
+						"func": "testStartsWith",
+						"tests": 4,
+						"logs": 0
+					},
+					"name": "testStartsWith"
+				},
+				{
+					"summary": {
+						"callback": null,
+						"errors": 1,
+						"messages": [
+							{
+								"type": "error",
+								"message": "TypeError: Cannot find function toClutchJSON in object [object Object]."
+							}
+						],
+						"abend": null,
+						"failures": 0,
+						"time": 0,
+						"func": "testJsonObject",
+						"tests": 1,
+						"logs": 0
+					},
+					"name": "testJsonObject"
+				},
+				{
+					"summary": {
+						"callback": null,
+						"errors": 0,
+						"messages": [],
+						"abend": null,
+						"failures": 0,
+						"time": 0,
+						"func": "testTrim",
+						"tests": 2,
+						"logs": 0
+					},
+					"name": "testTrim"
+				},
+				{
+					"summary": {
+						"callback": null,
+						"errors": 0,
+						"messages": [],
+						"abend": null,
+						"failures": 0,
+						"time": 0,
+						"func": "testEndsWith",
+						"tests": 4,
+						"logs": 0
+					},
+					"name": "testEndsWith"
+				},
+				{
+					"summary": {
+						"callback": null,
+						"errors": 0,
+						"messages": [],
+						"abend": null,
+						"failures": 0,
+						"time": 15,
+						"func": "testJsonArray",
+						"tests": 4,
+						"logs": 0
+					},
+					"name": "testJsonArray"
+				}
+			],
+			"name": "String Tests",
+			"abend": null,
+			"summary": {
+				"errors": 1,
+				"time": 15,
+				"messages": [],
+				"tests": 15,
+				"failures": 0,
+				"logs": 0,
+				"abend": null
+			}
+		},
+		{
+			"tests": [
+				{
+					"summary": {
+						"callback": null,
+						"errors": 0,
+						"messages": [
+							{
+								"type": "log",
+								"message": "Test log message"
+							}
+						],
+						"abend": null,
+						"failures": 0,
+						"time": 0,
+						"func": "logTest",
+						"tests": 1,
+						"logs": 1
+					},
+					"name": "logTest"
+				},
+				{
+					"summary": {
+						"callback": null,
+						"errors": 0,
+						"messages": [],
+						"abend": null,
+						"failures": 0,
+						"time": 0,
+						"func": "passTest",
+						"tests": 2,
+						"logs": 0
+					},
+					"name": "passTest"
+				},
+				{
+					"summary": {
+						"callback": null,
+						"errors": 0,
+						"messages": [
+							{
+								"type": "fail",
+								"message": "Test fail() call"
+							},
+							{
+								"type": "fail",
+								"message": "assert(false) guaranteed to fail"
+							}
+						],
+						"abend": null,
+						"failures": 2,
+						"time": 0,
+						"func": "failTest",
+						"tests": 2,
+						"logs": 0
+					},
+					"name": "failTest"
+				},
+				{
+					"summary": {
+						"callback": null,
+						"errors": 1,
+						"messages": [
+							{
+								"type": "error",
+								"message": "Error: Test error() call"
+							}
+						],
+						"abend": null,
+						"failures": 0,
+						"time": 0,
+						"func": "errorTest",
+						"tests": 1,
+						"logs": 0
+					},
+					"name": "errorTest"
+				},
+				{
+					"summary": {
+						"callback": null,
+						"errors": 0,
+						"messages": [],
+						"abend": null,
+						"failures": 0,
+						"time": 0,
+						"func": "assertTest",
+						"tests": 1,
+						"logs": 0
+					},
+					"name": "assertTest"
+				}
+			],
+			"name": "Assertion Tests",
+			"abend": null,
+			"summary": {
+				"errors": 1,
+				"time": 0,
+				"messages": [],
+				"tests": 7,
+				"failures": 2,
+				"logs": 1,
+				"abend": null
+			}
+		},
+		{
+			"tests": [
+				{
+					"summary": {
+						"callback": null,
+						"errors": 0,
+						"messages": [],
+						"abend": null,
+						"failures": 0,
+						"time": 0,
+						"func": "startSetTimeout",
+						"tests": 1,
+						"logs": 0
+					},
+					"name": "startSetTimeout"
+				},
+				{
+					"summary": {
+						"callback": "timerSetTimeout",
+						"errors": 0,
+						"messages": [],
+						"abend": null,
+						"failures": 0,
+						"time": 0,
+						"func": "timerSetTimeout <- startSetTimeout",
+						"tests": 1,
+						"logs": 0
+					},
+					"name": "timerSetTimeout <- startSetTimeout"
+				},
+				{
+					"summary": {
+						"callback": null,
+						"errors": 0,
+						"messages": [],
+						"abend": null,
+						"failures": 0,
+						"time": 0,
+						"func": "startSetInterval",
+						"tests": 1,
+						"logs": 0
+					},
+					"name": "startSetInterval"
+				},
+				{
+					"summary": {
+						"callback": "timerSetInterval",
+						"errors": 0,
+						"messages": [],
+						"abend": null,
+						"failures": 0,
+						"time": 0,
+						"func": "timerSetInterval <- startSetInterval",
+						"tests": 1,
+						"logs": 0
+					},
+					"name": "timerSetInterval <- startSetInterval"
+				}
+			],
+			"name": "Timer Tests",
+			"abend": null,
+			"summary": {
+				"errors": 0,
+				"time": 0,
+				"messages": [],
+				"tests": 4,
+				"failures": 0,
+				"logs": 0,
+				"abend": null
+			}
+		}
+	]
+}
