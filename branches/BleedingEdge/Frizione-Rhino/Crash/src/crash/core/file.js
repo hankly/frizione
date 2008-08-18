@@ -26,12 +26,17 @@ THE SOFTWARE.
 /**
  * File manipulation functions.
  *
+ * @class
  * @param {String} path the file path.
+ * @return {Object} The file manipulation object.
  */
 crash.file = function (path) {
 
     var result = {
 
+        /**
+         * @property {Object} The underlying Java File object.
+         */
         file: new java.io.File(path).getAbsoluteFile(),
 
         /**

@@ -36,18 +36,14 @@ while (entries.hasMoreElements()) {
 }
 
 // load the crash loader...
-load(crash.root + '/' + "crash/core/rhino/loader.js");
+load(crash.root + "/crash/core/rhino/loader.js");
 
 // unit test
-crash.load("crash/core/file.js");
-crash.load("crash/core/string.js");
-crash.load("crash/core/timer.js");
-crash.load("crash/template/simple-template.js");
-crash.load("crash/third-party/fulljslint.js");
-crash.load("crash/third-party/json2.js");
-crash.load("crash/unit-test/unit-test.js");
-crash.load("crash/unit-test/unit-test-report.js");
-crash.load("crash/xml/writer.js");
+crash.load("crash/core");
+crash.load("crash/template");
+crash.load("crash/third-party");
+crash.load("crash/unit-test");
+crash.load("crash/xml");
 
 print("Running unit tests...");
 eval(crash.st.load(crash.resource("test/all.test.js"), {}, "UTF-8", '<'));
@@ -74,5 +70,5 @@ var html = crash.test.htmlReport(json, data);
 
 var file = crash.file('unit-test.html');
 file.writeText(html);
-print("Unit test results written to: " + file.file.toString());
+print("Unit test results written to: " + file.file);
 quit();

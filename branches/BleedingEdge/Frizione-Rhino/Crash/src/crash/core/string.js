@@ -30,7 +30,14 @@ THE SOFTWARE.
 // Since JSON has no date format, everyone has invented their own. So why not me?
 // Provides patches for JSON and Prototype, but please don't use them both together, they
 // really don't get on at all.
+/**
+ * @namespace Setter functions for diverse Date JSON formats.
+ */
 crash.date = {
+
+    /**
+     * Sets the 'standard' JSON Date format.
+     */
     toStandardJSON: function () {
         function tens(n) {
             // Format integers to have at least two digits.
@@ -42,6 +49,11 @@ crash.date = {
             return n < 100 ? '0' + tens(n) : n;
         }
 
+        /**
+         * Converts the Date object to JSON format.
+         *
+         * @return {String} The Date in JSON format.
+         */
         Date.prototype.toJSON = function () {
 
             return this.getUTCFullYear()  + '-' +
@@ -54,12 +66,18 @@ crash.date = {
         };
     },
 
+    /**
+     * Sets the Microsoft JSON Date format.
+     */
     toMicrosoftJSON: function () {
         Date.prototype.toJSON = function () {
             return "\\/Date(" + this.getTime() + ")\\/";
         };
     },
 
+    /**
+     * Sets the Crash JSON Date format.
+     */
     toCrashJSON: function () {
         function tens(n) {
             // Format integers to have at least two digits.
@@ -112,19 +130,43 @@ crash.date = {
 };
 
 // The usual, boring string functions that the implementers forgot.
+
+/**
+ * Trims leading and trailing whitespace from a string.
+ *
+ * @return {String} the trimmed string.
+ */
 String.prototype.trim = function () {
     return this.replace(/^[\s\u00a0]+/, '').replace(/[\s\u00a0]+$/, '');
 };
 
+/**
+ * Checks if the string starts with the specified substring.
+ *
+ * @param {String} match the substring to check.
+ * @return {Boolean} <code>true</code> if the string starts with the specified substring, otherwise <code>false</code>.
+ */
 String.prototype.startsWith = function (match) {
     return this.indexOf(match) === 0;
 };
 
+/**
+ * Checks if the string ends with the specified substring.
+ *
+ * @param {String} match the substring to check.
+ * @return {Boolean} <code>true</code> if the string ends with the specified substring, otherwise <code>false</code>.
+ */
 String.prototype.endsWith = function (match) {
     var offset = this.length - match.length;
     return offset >= 0 && this.lastIndexOf(match) === offset;
 };
 
+/**
+ * Converts an object to JSON format.
+ *
+ * @param {Object} object the object to convert.
+ * @return {String} the JSON format of the object.
+ */
 String.prototype.toJSON = function (object) {
     // Check for Prototype
     if (Object.toJSON && typeof Object.toJSON === 'function') {
@@ -135,6 +177,12 @@ String.prototype.toJSON = function (object) {
     }
 };
 
+/**
+ * Converts a JSON formatted string to an object.
+ *
+ * @param {String} string the JSON formatted string.
+ * @return {Object} the JavaScript object.
+ */
 String.prototype.fromJSON = function (string) {
     // Check for Prototype
     if (String.prototype.evalJSON && typeof String.prototype.evalJSON === 'function') {

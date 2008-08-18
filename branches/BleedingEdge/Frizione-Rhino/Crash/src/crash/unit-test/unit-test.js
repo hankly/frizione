@@ -20,7 +20,6 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 */
 
-/*jslint evil: false */
 /*global crash */
 
 /**
@@ -28,6 +27,10 @@ THE SOFTWARE.
  */
 
 if (!this.crash.test) {
+
+    /**
+     * @namespace Specialised functions for unit testing.
+     */
     crash.test = {};
 }
 
@@ -387,9 +390,10 @@ crash.test.runner = function (profile, timeout) {
 
 /**
  * Creates a unit test.
- * @param name the unit test name.
- * @param testObject the test object.
- * @param timeout the maximum time in milliseconds for all the tests to be executed.
+ *
+ * @param {String} name the unit test name.
+ * @param {Object} testObject the test object.
+ * @param {Number} timeout the maximum time in milliseconds for all the tests to be executed.
  */
 crash.test.unit = function (name, testObject, timeout) {
     var utils = crash.test.utils;
@@ -487,10 +491,11 @@ crash.test.unit = function (name, testObject, timeout) {
 
 /**
  * Creates a group of unit tests.
- * @param arrayOfUnitTests the unit test array.
- * @param timeout the maximum time in milliseconds for all unit tests to be executed.
+ *
+ * @param {Array} tests the unit test array.
+ * @param {Number} timeout the maximum time in milliseconds for all unit tests to be executed.
  */
-crash.test.group = function (arrayOfUnitTests, timeout) {
+crash.test.group = function (tests, timeout) {
     var utils = crash.test.utils;
     var profile = null;
     var runner = null;
@@ -499,11 +504,11 @@ crash.test.group = function (arrayOfUnitTests, timeout) {
 
         prepare: function () {
             profile = utils.createProfile();
-            var length = arrayOfUnitTests.length;
+            var length = tests.length;
             var unitTest = null;
             var i = null;
             for (i = 0; i < length; i += 1) {
-                unitTest = arrayOfUnitTests[i];
+                unitTest = tests[i];
                 unitTest.prepare(profile);
             }
         },
@@ -527,12 +532,12 @@ crash.test.group = function (arrayOfUnitTests, timeout) {
         summarise: function () {
             var total = utils.createTotaliser();
             var results = [];
-            var length = arrayOfUnitTests.length;
+            var length = tests.length;
             var unitTest = null;
             var unitSummary = null;
             var i = null;
             for (i = 0; i < length; i += 1) {
-                unitTest = arrayOfUnitTests[i];
+                unitTest = tests[i];
                 unitSummary = unitTest.summarise();
                 utils.sumTotaliser(unitSummary.summary, total);
                 results.push(unitSummary);

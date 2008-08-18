@@ -29,15 +29,33 @@ THE SOFTWARE.
 /*globals crash, JSLINT */
 
 /**
- * @requires crash.resource
+ * @namespace Specialised functions for a simple templating mechanism.
  */
-
 crash.st = {
 
+    /**
+     * The template cache.
+     */
     cache: {},
 
+    /**
+     * Creates the template environment.
+     * The environment function is called by <a href="#.load">crash.st.load</a>, and receives all its
+     * parameters directly from that function.
+     * Currently the only method available (in the template) is include.
+     * 
+     * @param {crash.resource} resource the template resource.
+     * @param {Object} data the template data.
+     * @param {String} charset the template character set.
+     * @param {String} delim the template delimiter.
+     * @return {Object} the template environment.
+     */
     environment: function (resource, data, charset, delim) {
         return {
+
+            /**
+             * Includes a comma separated list of templates, each relative to the position of the current template.
+             */
             include: function () {
                 var result = [];
                 var length = arguments.length;
@@ -53,15 +71,36 @@ crash.st = {
         };
     },
 
-    load: function (resource, data, charset, delim) {
-        var cached = crash.st.cache[resource.original];
-        if (cached) {
-            return cached.render(data);
+    /**
+     * Loads and executes the template.
+     *
+     * @param {crash.resource} resource the template resource.
+     * @param {Object} data the (optional) template data, defaults to {}.
+     * @param {String} charset the (optional) template character set, defaults to "UTF-8".
+     * @param {String} delim the (optional) template delimiter character, defaults to '<'.
+     * @param {boolean} useCache the (optional) use cache flag, defaults to true.
+     * @return {String} the executed template.
+     */
+    load: function (resource, data, charset, delim, useCache) {
+        data = data || {};
+        if (typeof useCache === 'undefined') {
+            useCache = true;
+        }
+
+        var oldCache = null;
+        if (useCache) {
+            var cached = crash.st.cache[resource.original];
+            if (cached) {
+                return cached.render(data);
+            }
+        }
+        else {
+            oldCache = crash.st.cache;
+            crash.st.cache = {};
         }
 
         charset = charset || "UTF-8";
         delim = delim || '<';
-        data = data || {};
         var compiled = {
 
             process: null,
@@ -237,6 +276,9 @@ crash.st = {
         }
 
         crash.st.cache[resource.url] = compiled;
+        if (oldCache !== null) {
+            crash.st.cache = oldCache;
+        }
         return compiled.render(data);
     }
 };

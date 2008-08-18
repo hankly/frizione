@@ -23,6 +23,10 @@ THE SOFTWARE.
 /*globals java, crash */
 
 if (!this.crash.streams) {
+
+    /**
+     * @namespace Specialised functions for reading from and writing to streams.
+     */
     crash.streams = {};
 }
 
@@ -30,8 +34,8 @@ if (!this.crash.streams) {
  * Reads the entire binary contents from an input stream.
  *
  * @param {InputStream} stream the input stream of the binary resource.
- * @param (int) length the (optional) binary resource length.
- * @return {Byte[]} the contents as a byte array, or null if the resource doesn't exist.
+ * @param {Number} length the (optional) binary resource length.
+ * @return {byte[]} the contents as a byte array, or null if the resource doesn't exist.
  */
 crash.streams.readBinary = function (stream, length) {
     try {

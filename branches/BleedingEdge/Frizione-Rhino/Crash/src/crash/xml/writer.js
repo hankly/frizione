@@ -22,8 +22,17 @@ THE SOFTWARE.
 
 /*global crash */
 
+/**
+ * @namespace Specialised functions for XML text generation.
+ */
 crash.xml = {
 
+    /**
+     * Encodes text, specifically escaping &amp;, &lt; and &gt; characters.
+     *
+     * @param {String} text the text to encode.
+     * @return {String} the encoded text.
+     */
     textEncode: function (text) {
         return text.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
     },
