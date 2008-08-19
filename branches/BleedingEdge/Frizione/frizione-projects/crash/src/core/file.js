@@ -38,7 +38,7 @@ crash.file = function (path) {
      * @class
      * @name crash.fileUtils
      */
-    var result = /** @lends crash.fileUtils.prototype */ {
+    var result = /** @scope crash.fileUtils.prototype */ {
 
         /**
          * The underlying Java File object.

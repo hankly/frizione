@@ -54,7 +54,7 @@ JSDOC.TokenStream.prototype.look = function(/**Number*/n, /**Boolean*/considerWh
                 return new JSDOC.Token("", "VOID", "END_OF_STREAM");
             }
 
-			if (i !== this.cursor && (this.tokens[i] === undefined || this.tokens[i].is("SPACE") || this.tokens[i].is("NEWLINE"))) {
+            if (i !== this.cursor && (this.tokens[i] === undefined || this.tokens[i].is("WHIT"))) {
 				if (n < 0) {
                     i -= 1;
                 }

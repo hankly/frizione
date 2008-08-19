@@ -28,7 +28,14 @@ http://code.google.com/p/jsdoc-toolkit/
 /*globals crash, java, load */
 
 /**
- * @property The root crash URL.
+ * @name crash
+ * @namespace Crash is a Rhino specific generic JavaScript library.
+ */
+
+/**
+ * @name crash.root
+ * @field
+ * The root crash URL.
  */
 //crash.root = null;
 
@@ -83,7 +90,7 @@ crash.load("crash/core/streams.js");
  * Finds a resource, and provides functions to load the resource as binary or text.
  *
  * @param {String} rel the relative URL to the resource from the crash jar file.
- * @return {Object} the resource loader.
+ * @return {crash.resourceUtils} the resource loader.
  */
 crash.resource = function (rel) {
 
@@ -101,10 +108,19 @@ crash.resource = function (rel) {
 
     function makeResource(rel) {
 
-        var res = {
+        /**
+         * The resource loader object.
+         * This object is constructed via the {@link crash.resource} function.
+         *
+         * @class
+         * @name crash.resourceUtils
+         */
+        var res = /** @scope crash.resourceUtils.prototype */ {
 
             /**
              * The original resource relative url.
+             *
+             * @type String
              */
             original: rel,
 
@@ -112,7 +128,7 @@ crash.resource = function (rel) {
              * Finds a resource, and provides functions to load the resource as binary or text.
               *
              * @param rel (String) rel the relative URL wrt this resource.
-             * @return {Object} the resource loader.
+             * @return {crash.resourceUtils} the resource loader.
              */
             resource: function (rel) {
                 return makeResource(check(res.original, rel));
@@ -121,8 +137,8 @@ crash.resource = function (rel) {
             /**
              * Reads the entire binary contents of the resource.
              *
-             * @param (int) length the (optional) binary resource length.
-             * @return {byte[]} the contents as a byte array, or null if the resource doesn't exist.
+             * @param {Number} length the (optional) binary resource length.
+             * @return {byte[]} the contents as a byte array, or <code>null</code> if the resource doesn't exist.
              */
             readBinary: function (length) {
                 var stream = crash.jar.getInputStream(crash.jar.getEntry(rel));
@@ -132,8 +148,8 @@ crash.resource = function (rel) {
             /**
              * Reads the entire text contents of the resource.
              *
-             * @param {String} charset the character set to use (defaults to "UTF-8").
-             * @return {String} the contents as text, or null if the resource doesn't exist.
+             * @param {String} charset the (optional) character set to use, defaults to "UTF-8".
+             * @return {String} the contents as text, or <code>null</code> if the resource doesn't exist.
              */
             readText: function (charset) {
                 var stream = crash.jar.getInputStream(crash.jar.getEntry(rel));

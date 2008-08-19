@@ -1,4 +1,5 @@
 /*globals JSDOC, Opt */
+
 /**
 	@overview
 	@date $Date: 2008-06-08 22:57:25 +0100 (Sun, 08 Jun 2008) $
@@ -40,7 +41,7 @@ JSDOC.opt = Opt.get(
 );
 
 /** The current version string of this application. */
-JSDOC.VERSION = "2.0.1";
+JSDOC.VERSION = "2.0.3";
 
 /** Print out usage information and quit. */
 JSDOC.usage = function() {

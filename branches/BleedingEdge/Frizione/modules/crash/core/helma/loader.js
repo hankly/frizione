@@ -38,7 +38,6 @@ if (!this.crash) {
 crash.dir = app.getServerDir() + '/modules';
 
 /**
- * @field
  * The root crash URL.
  */
 crash.root = new java.io.File(crash.dir).toURL();
@@ -113,7 +112,7 @@ crash.resource = function (rel) {
          * @class
          * @name crash.resourceUtils
          */
-        var res = /** crash.resourceUtils.prototype */ {
+        var res = /** @scope crash.resourceUtils.prototype */ {
 
             /**
              * The original resource relative url.
@@ -126,7 +125,7 @@ crash.resource = function (rel) {
              * Finds a resource, and provides functions to load the resource as binary or text.
               *
              * @param rel (String) rel the relative URL wrt this resource.
-             * @return {Object} the resource loader.
+             * @return {crash.resourceUtils} the resource loader.
              */
             resource: function (rel) {
                 return makeResource(check(res.original, rel));
@@ -135,8 +134,8 @@ crash.resource = function (rel) {
             /**
              * Reads the entire binary contents of the resource.
              *
-             * @param (int) length the (optional) binary resource length.
-             * @return {byte[]} the contents as a byte array, or null if the resource doesn't exist.
+             * @param {Number} length the (optional) binary resource length.
+             * @return {byte[]} the contents as a byte array, or <code>null</code> if the resource doesn't exist.
              */
             readBinary: function (length) {
                 var stream = new java.io.FileInputStream(new java.io.File(crash.dir, '/' + rel));
@@ -146,8 +145,8 @@ crash.resource = function (rel) {
             /**
              * Reads the entire text contents of the resource.
              *
-             * @param {String} charset the (optional) character set to use (defaults to "UTF-8").
-             * @return {String} the contents as text, or null if the resource doesn't exist.
+             * @param {String} charset the (optional) character set to use, defaults to "UTF-8".
+             * @return {String} the contents as text, or <code>null</code> if the resource doesn't exist.
              */
             readText: function (charset) {
                 var stream = new java.io.FileInputStream(new java.io.File(crash.dir, '/' + rel));
