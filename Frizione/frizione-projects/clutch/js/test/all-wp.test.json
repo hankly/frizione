@@ -3,12 +3,12 @@
 	"summary": {
 		"abend": null,
 		"errors": 1,
-		"failures": 3,
+		"failures": 2,
 		"logs": 1,
 		"messages": [],
 		"tests": 78,
-		"time": 828,
-		"date": "Tue, 12 Aug 2008 14:25:02 UTC"
+		"time": 1073,
+		"date": "Tue, 19 Aug 2008 08:58:46 GMT"
 	},
 	"tests": [
 		{
@@ -125,7 +125,7 @@
 				"logs": 0,
 				"messages": [],
 				"tests": 18,
-				"time": 0
+				"time": 2
 			},
 			"tests": [
 				{
@@ -139,7 +139,7 @@
 						"logs": 0,
 						"messages": [],
 						"tests": 2,
-						"time": 0
+						"time": 1
 					}
 				},
 				{
@@ -181,7 +181,7 @@
 						"logs": 0,
 						"messages": [],
 						"tests": 4,
-						"time": 0
+						"time": 1
 					}
 				},
 				{
@@ -277,11 +277,11 @@
 			"summary": {
 				"abend": null,
 				"errors": 0,
-				"failures": 1,
+				"failures": 0,
 				"logs": 0,
 				"messages": [],
 				"tests": 11,
-				"time": 32
+				"time": 19
 			},
 			"tests": [
 				{
@@ -295,7 +295,7 @@
 						"logs": 0,
 						"messages": [],
 						"tests": 2,
-						"time": 32
+						"time": 6
 					}
 				},
 				{
@@ -304,17 +304,12 @@
 						"abend": null,
 						"callback": "validUrlHandler",
 						"errors": 0,
-						"failures": 1,
+						"failures": 0,
 						"func": "validUrlHandler <- validUrl",
 						"logs": 0,
-						"messages": [
-							{
-								"message": "Status not between 200 and 299: 500, Internal Server Error",
-								"type": "fail"
-							}
-						],
+						"messages": [],
 						"tests": 1,
-						"time": 0
+						"time": 1
 					}
 				},
 				{
@@ -328,7 +323,7 @@
 						"logs": 0,
 						"messages": [],
 						"tests": 2,
-						"time": 0
+						"time": 7
 					}
 				},
 				{
@@ -356,7 +351,7 @@
 						"logs": 0,
 						"messages": [],
 						"tests": 2,
-						"time": 0
+						"time": 5
 					}
 				},
 				{
@@ -385,7 +380,7 @@
 				"logs": 0,
 				"messages": [],
 				"tests": 38,
-				"time": 796
+				"time": 1052
 			},
 			"tests": [
 				{
@@ -399,7 +394,7 @@
 						"logs": 0,
 						"messages": [],
 						"tests": 1,
-						"time": 93
+						"time": 158
 					}
 				},
 				{
@@ -413,7 +408,7 @@
 						"logs": 0,
 						"messages": [],
 						"tests": 10,
-						"time": 703
+						"time": 893
 					}
 				},
 				{
@@ -441,7 +436,7 @@
 						"logs": 0,
 						"messages": [],
 						"tests": 11,
-						"time": 0
+						"time": 1
 					}
 				},
 				{
