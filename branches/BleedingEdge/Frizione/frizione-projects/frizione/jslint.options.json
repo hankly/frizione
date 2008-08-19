@@ -1,0 +1,23 @@
+{
+	"regexp": false,
+	"rhino": true,
+	"browser": false,
+	"bitwise": true,
+	"forin": false,
+	"adsafe": false,
+	"evil": false,
+	"nomen": true,
+	"glovar": true,
+	"debug": false,
+	"eqeqeq": true,
+	"passfail": false,
+	"sidebar": false,
+	"laxbreak": false,
+	"on": false,
+	"cap": false,
+	"white": false,
+	"widget": false,
+	"undef": true,
+	"plusplus": true,
+	"fragment": false
+}
