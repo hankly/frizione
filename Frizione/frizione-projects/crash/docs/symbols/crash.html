@@ -195,11 +195,11 @@ ul.inheritsList
 	
 	<li><a href="../symbols/crash.date.html">crash.date</a></li>
 	
-	<li><a href="../symbols/crash.file.html">crash.file</a></li>
+	<li><a href="../symbols/crash.fileUtils.html">crash.fileUtils</a></li>
 	
 	<li><a href="../symbols/crash.logger.html">crash.logger</a></li>
 	
-	<li><a href="../symbols/crash.resource.html">crash.resource</a></li>
+	<li><a href="../symbols/crash.resourceUtils.html">crash.resourceUtils</a></li>
 	
 	<li><a href="../symbols/crash.st.html">crash.st</a></li>
 	
@@ -232,11 +232,10 @@ ul.inheritsList
 				
 			
 				Crash is a Rhino specific generic JavaScript library.
-/
 
 				
 				
-					<br /><i>Defined in: </i> &lt;C:\Frizione-0.5\Frizione/frizione-projects/crash/src/core/helma\loader.js&gt;.
+					<br /><i>Defined in: </i> &lt;src\core\helma\loader.js&gt;.
 				
 			</p>
 
@@ -312,6 +311,15 @@ ul.inheritsList
 						<tr>
 							<td class="attributes">&lt;static&gt; &nbsp;</td>
 							<td class="nameDescription">
+								<div class="fixedFont">crash.<b><a href="../symbols/crash.html#.file">file</a></b>(path)
+								</div>
+								<div class="description">Creates a file manipulation object.</div>
+							</td>
+						</tr>
+					
+						<tr>
+							<td class="attributes">&lt;static&gt; &nbsp;</td>
+							<td class="nameDescription">
 								<div class="fixedFont">crash.<b><a href="../symbols/crash.html#.introspect">introspect</a></b>(name, obj, indent, levels)
 								</div>
 								<div class="description">Creates a string representation of an object.</div>
@@ -324,6 +332,15 @@ ul.inheritsList
 								<div class="fixedFont">crash.<b><a href="../symbols/crash.html#.load">load</a></b>(rel, filter)
 								</div>
 								<div class="description">Load (execute) a JavaScript file or the entire contents of a directory.</div>
+							</td>
+						</tr>
+					
+						<tr>
+							<td class="attributes">&lt;static&gt; &nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont">crash.<b><a href="../symbols/crash.html#.resource">resource</a></b>(rel)
+								</div>
+								<div class="description">Finds a resource, and provides functions to load the resource as binary or text.</div>
 							</td>
 						</tr>
 					
@@ -409,6 +426,52 @@ ul.inheritsList
 					Method Detail
 				</div>
 				
+					<a name=".file"> </a>
+					<div class="fixedFont">&lt;static&gt; 
+					
+					<span class="light">{<a href="../symbols/crash.fileUtils.html#constructor">crash.fileUtils</a>}</span>
+					<span class="light">crash.</span><b>file</b>(path)
+					
+					</div>
+					<div class="description">
+						Creates a file manipulation object.
+						
+							<br />
+							<i>Defined in: </i> &lt;src\core\file.js&gt;.
+						
+						
+					</div>
+					
+					
+					
+						
+							<dl class="detailList">
+							<dt class="heading">Parameters:</dt>
+							
+								<dt>
+									<span class="light fixedFont">{<a href="../symbols/String.html#constructor">String</a>}</span> <b>path</b>
+									
+								</dt>
+								<dd>the file path.</dd>
+							
+							</dl>
+						
+						
+						
+						
+						
+							<dl class="detailList">
+							<dt class="heading">Returns:</dt>
+							
+								<dd><span class="light fixedFont">{<a href="../symbols/crash.fileUtils.html#constructor">crash.fileUtils</a>}</span> The file manipulation object.</dd>
+							
+							</dl>
+						
+						
+						
+
+					<hr />
+				
 					<a name=".introspect"> </a>
 					<div class="fixedFont">&lt;static&gt; 
 					
@@ -420,7 +483,7 @@ ul.inheritsList
 						Creates a string representation of an object.
 						
 							<br />
-							<i>Defined in: </i> &lt;C:\Frizione-0.5\Frizione/frizione-projects/crash/src/core\introspect.js&gt;.
+							<i>Defined in: </i> &lt;src\core\introspect.js&gt;.
 						
 						
 					</div>
@@ -453,8 +516,7 @@ ul.inheritsList
 									<b>levels</b>
 									
 								</dt>
-								<dd>optional, how many levels to drill down to, helps avoid recursion - default is 1.
-/</dd>
+								<dd>optional, how many levels to drill down to, helps avoid recursion - default is 1.</dd>
 							
 							</dl>
 						
@@ -496,14 +558,56 @@ ul.inheritsList
 									<span class="light fixedFont">{Function}</span> <b>filter</b>
 									
 								</dt>
-								<dd>optional name filter for directory loading.
-/</dd>
+								<dd>optional name filter for directory loading.</dd>
 							
 							</dl>
 						
 						
 						
 						
+						
+						
+						
+
+					<hr />
+				
+					<a name=".resource"> </a>
+					<div class="fixedFont">&lt;static&gt; 
+					
+					<span class="light">{<a href="../symbols/crash.resourceUtils.html#constructor">crash.resourceUtils</a>}</span>
+					<span class="light">crash.</span><b>resource</b>(rel)
+					
+					</div>
+					<div class="description">
+						Finds a resource, and provides functions to load the resource as binary or text.
+						
+						
+					</div>
+					
+					
+					
+						
+							<dl class="detailList">
+							<dt class="heading">Parameters:</dt>
+							
+								<dt>
+									<span class="light fixedFont">{<a href="../symbols/String.html#constructor">String</a>}</span> <b>rel</b>
+									
+								</dt>
+								<dd>the relative URL to the resource from the Helma modules directory.</dd>
+							
+							</dl>
+						
+						
+						
+						
+						
+							<dl class="detailList">
+							<dt class="heading">Returns:</dt>
+							
+								<dd><span class="light fixedFont">{<a href="../symbols/crash.resourceUtils.html#constructor">crash.resourceUtils</a>}</span> the resource loader.</dd>
+							
+							</dl>
 						
 						
 						
@@ -521,7 +625,7 @@ ul.inheritsList
 						Provides a little help to the standard typeof keyword. Just a little less brain-dead, but still pretty comatose.
 						
 							<br />
-							<i>Defined in: </i> &lt;C:\Frizione-0.5\Frizione/frizione-projects/crash/src/core\introspect.js&gt;.
+							<i>Defined in: </i> &lt;src\core\introspect.js&gt;.
 						
 						
 					</div>
@@ -536,8 +640,7 @@ ul.inheritsList
 									<b>obj</b>
 									
 								</dt>
-								<dd>the object you want the type of.
-/</dd>
+								<dd>the object you want the type of.</dd>
 							
 							</dl>
 						
@@ -558,7 +661,7 @@ ul.inheritsList
 <!-- ============================== footer ================================= -->
 		<div class="fineprint" style="clear:both">
 			
-			Documentation generated by <a href="http://www.jsdoctoolkit.org/" target="_blank">JsDoc Toolkit</a> 2.0.1 on Mon Aug 18 2008 04:01:18 GMT+0200 (CEST)
+			Documentation generated by <a href="http://www.jsdoctoolkit.org/" target="_blank">JsDoc Toolkit</a> 2.0.1 on Tue Aug 19 2008 13:47:36 GMT+0200 (CEST)
 		</div>
 	</body>
 </html>

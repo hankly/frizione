@@ -38,7 +38,8 @@ if (!this.crash) {
 crash.dir = app.getServerDir() + '/modules';
 
 /**
- * @property The root crash URL.
+ * @field
+ * The root crash URL.
  */
 crash.root = new java.io.File(crash.dir).toURL();
 
@@ -86,9 +87,8 @@ crash.load("crash/core/streams.js");
 /**
  * Finds a resource, and provides functions to load the resource as binary or text.
  *
- * @class
  * @param {String} rel the relative URL to the resource from the Helma modules directory.
- * @return {Object} the resource loader.
+ * @return {crash.resourceUtils} the resource loader.
  */
 crash.resource = function (rel) {
 
@@ -106,11 +106,19 @@ crash.resource = function (rel) {
 
     function makeResource(rel) {
 
-        var res = {
+        /**
+         * The resource loader object.
+         * This object is constructed via the {@link crash.resource} function.
+         *
+         * @class
+         * @name crash.resourceUtils
+         */
+        var res = /** crash.resourceUtils.prototype */ {
 
             /**
-             * @inner
-             * @property The original resource relative url.
+             * The original resource relative url.
+             *
+             * @type String
              */
             original: rel,
 
