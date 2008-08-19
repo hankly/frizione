@@ -145,7 +145,7 @@ JSDOC.TokenReader.prototype.read_word = function (tokens) {
     this.cursor += 1;
 
     function isWordChar(ch) {
-        return ch.isAlpha() || ch === '.' || ch === '_' || ch === '$';
+        return ch.isAlpha() || ch.isDigit() || ch === '.' || ch === '_' || ch === '$';
     }
 
     while (!this.eof() && isWordChar(this.look())) {
