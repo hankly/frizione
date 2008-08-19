@@ -57,8 +57,13 @@ JSDOC.TokenReader.prototype.tokenize = function () {
 
     var ch1, ch2, ch3, ch4, last;
 	var tokens = [];
-	/**@ignore*/ tokens.last = function() {
+	/**@ignore*/ tokens.last = function () {
         return tokens[tokens.length - 1];
+    };
+    /**@ignore*/ tokens.lastSym = function () {
+        for (var i = tokens.length - 1; i >= 0; i--) {
+            if (!(tokens[i].is("WHIT") || tokens[i].is("COMM"))) return tokens[i];
+        }
     };
 
 	while (!this.eof()) {
@@ -105,7 +110,7 @@ JSDOC.TokenReader.prototype.tokenize = function () {
                 continue;
             }
             else {
-                last = tokens.last();
+                last = tokens.lastSym();
                 if (!last || (!last.is("NUMB") && !last.is("NAME") && !last.is("RIGHT_PAREN") && !last.is("RIGHT_BRACKET"))) {
                     this.read_regx(tokens);
                     continue;
@@ -240,9 +245,6 @@ JSDOC.TokenReader.prototype.read_slcomment = function (tokens, offset) {
 	}
 };
 
-/**
-	@returns {Boolean} Was the token found?
- */
 JSDOC.TokenReader.prototype.read_dbquote = function (tokens) {
     var nl = JSDOC.Lang.newline.names;
     var start = this.cursor;
@@ -272,9 +274,6 @@ JSDOC.TokenReader.prototype.read_dbquote = function (tokens) {
     tokens.push(new JSDOC.Token(this.text.substring(start), "STRN", "DOUBLE_QUOTE"));
 };
 
-/**
-	@returns {Boolean} Was the token found?
- */
 JSDOC.TokenReader.prototype.read_snquote = function (tokens) {
     var start = this.cursor;
     this.cursor += 1;
@@ -296,9 +295,6 @@ JSDOC.TokenReader.prototype.read_snquote = function (tokens) {
     tokens.push(new JSDOC.Token(this.text.substring(start), "STRN", "SINGLE_QUOTE"));
 };
 
-/**
-	@returns {Boolean} Was the token found?
- */
 JSDOC.TokenReader.prototype.read_numb = function (tokens) {
 	if (this.look() === "0" && this.look(1) === "x") {
 		this.read_hex(tokens);
@@ -344,9 +340,6 @@ JSDOC.TokenReader.prototype.read_numb = function (tokens) {
 	is(octToken.data, "0777", "octal number is found in source.");
 */
 
-/**
-	@returns {Boolean} Was the token found?
- */
 JSDOC.TokenReader.prototype.read_hex = function (tokens) {
     var nexp = JSDOC.Lang.hexDecExp;
 	var found = this.next() + this.next();
@@ -363,9 +356,6 @@ JSDOC.TokenReader.prototype.read_hex = function (tokens) {
     tokens.push(new JSDOC.Token(found, "NUMB", "HEX_DEC"));
 };
 
-/**
-	@returns {Boolean} Was the token found?
- */
 JSDOC.TokenReader.prototype.read_regx = function (tokens) {
     var start = this.cursor;
     this.cursor += 1;

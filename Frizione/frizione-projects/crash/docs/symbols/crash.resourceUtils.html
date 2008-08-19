@@ -5,7 +5,7 @@
 		<meta http-equiv="content-type" content="text/html; charset=utf-8" />
 		<meta name="generator" content="JsDoc Toolkit" />
 		
-		<title>JsDoc Reference - crash.xml</title>
+		<title>JsDoc Reference - crash.resourceUtils</title>
 
 		<style type="text/css">
 			/* default.css */
@@ -224,25 +224,24 @@ ul.inheritsList
 <!-- ============================== class title ============================ -->
 			<h1 class="classTitle">
 				
-				Namespace crash.xml
+				Class crash.resourceUtils
 			</h1>
 
 <!-- ============================== class summary ========================== -->			
 			<p class="description">
 				
 			
-				Specialised functions for XML text generation.
-
 				
 				
-					<br /><i>Defined in: </i> &lt;C:\Frizione-BleedingEdge\Frizione/frizione-projects/crash/src/xml\writer.js&gt;.
+				
+					<br /><i>Defined in: </i> &lt;C:\Frizione-BleedingEdge\Frizione/frizione-projects/crash/src/core/rhino\loader.js&gt;.
 				
 			</p>
 
 <!-- ============================== constructor summary ==================== -->			
 			
-			<table class="summaryTable" cellspacing="0" summary="A summary of the constructor documented in the class crash.xml.">
-				<caption>Namespace Summary</caption>
+			<table class="summaryTable" cellspacing="0" summary="A summary of the constructor documented in the class crash.resourceUtils.">
+				<caption>Class Summary</caption>
 				<thead>
 					<tr>
 						<th scope="col">Constructor Attributes</th>
@@ -254,9 +253,9 @@ ul.inheritsList
 						<td class="attributes">&nbsp;</td>
 						<td class="nameDescription" >
 							<div class="fixedFont">
-								<b><a href="../symbols/crash.xml.html#constructor">crash.xml</a></b>
+								<b><a href="../symbols/crash.resourceUtils.html#constructor">crash.resourceUtils</a></b>()
 							</div>
-							<div class="description"></div>
+							<div class="description">The resource loader object.</div>
 						</td>
 					</tr>
 				</tbody>
@@ -265,12 +264,40 @@ ul.inheritsList
 
 <!-- ============================== properties summary ===================== -->
 			
+				
+				
+				<table class="summaryTable" cellspacing="0" summary="A summary of the fields documented in the class crash.resourceUtils.">
+					<caption>Field Summary</caption>
+					<thead>
+						<tr>
+							<th scope="col">Field Attributes</th>
+							<th scope="col">Field Name and Description</th>
+						</tr>
+					</thead>
+					<tbody>
+					
+						<tr>
+							<td class="attributes">&nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont">
+								<b><a href="../symbols/crash.resourceUtils.html#original">original</a></b>
+								</div>
+								<div class="description">The original resource relative url.</div>
+							</td>
+						</tr>
+					
+					</tbody>
+				</table>
+				
+				
+				
+			
 
 <!-- ============================== methods summary ======================== -->
 			
 				
 				
-				<table class="summaryTable" cellspacing="0" summary="A summary of the methods documented in the class crash.xml.">
+				<table class="summaryTable" cellspacing="0" summary="A summary of the methods documented in the class crash.resourceUtils.">
 					<caption>Method Summary</caption>
 					<thead>
 						<tr>
@@ -281,38 +308,29 @@ ul.inheritsList
 					<tbody>
 					
 						<tr>
-							<td class="attributes">&lt;static&gt; &nbsp;</td>
+							<td class="attributes">&nbsp;</td>
 							<td class="nameDescription">
-								<div class="fixedFont">crash.xml.<b><a href="../symbols/crash.xml.html#.buildAttributes">buildAttributes</a></b>(attrs)
+								<div class="fixedFont"><b><a href="../symbols/crash.resourceUtils.html#readBinary">readBinary</a></b>(length)
 								</div>
-								<div class="description">Builds an attribute list.</div>
+								<div class="description">Reads the entire binary contents of the resource.</div>
 							</td>
 						</tr>
 					
 						<tr>
-							<td class="attributes">&lt;static&gt; &nbsp;</td>
+							<td class="attributes">&nbsp;</td>
 							<td class="nameDescription">
-								<div class="fixedFont">crash.xml.<b><a href="../symbols/crash.xml.html#.buildNode">buildNode</a></b>(elem, attrs, text, encode)
+								<div class="fixedFont"><b><a href="../symbols/crash.resourceUtils.html#readText">readText</a></b>(charset)
 								</div>
-								<div class="description">Builds an element node.</div>
+								<div class="description">Reads the entire text contents of the resource.</div>
 							</td>
 						</tr>
 					
 						<tr>
-							<td class="attributes">&lt;static&gt; &nbsp;</td>
+							<td class="attributes">&nbsp;</td>
 							<td class="nameDescription">
-								<div class="fixedFont">crash.xml.<b><a href="../symbols/crash.xml.html#.buildNodeArray">buildNodeArray</a></b>(elem, attrs, values, encode)
+								<div class="fixedFont"><b><a href="../symbols/crash.resourceUtils.html#resource">resource</a></b>(rel)
 								</div>
-								<div class="description">Builds an element node array.</div>
-							</td>
-						</tr>
-					
-						<tr>
-							<td class="attributes">&lt;static&gt; &nbsp;</td>
-							<td class="nameDescription">
-								<div class="fixedFont">crash.xml.<b><a href="../symbols/crash.xml.html#.textEncode">textEncode</a></b>(text)
-								</div>
-								<div class="description">Encodes text, specifically escaping &amp;, &lt; and &gt; characters.</div>
+								<div class="description">Finds a resource, and provides functions to load the resource as binary or text.</div>
 							</td>
 						</tr>
 					
@@ -327,15 +345,16 @@ ul.inheritsList
 			
 			<div class="details"><a name="constructor"> </a>
 				<div class="sectionTitle">
-					Namespace Detail
+					Class Detail
 				</div>
 				
 				<div class="fixedFont">
-						<b>crash.xml</b>
+						<b>crash.resourceUtils</b>()
 				</div>
 				
 				<div class="description">
-					
+					The resource loader object.
+This object is constructed via the <a href="../symbols/crash.html#.resource">crash.resource</a> function.
 					
 				</div>
 				
@@ -355,6 +374,33 @@ ul.inheritsList
 
 <!-- ============================== field details ========================== -->		
 			
+				<div class="sectionTitle">
+					Field Detail
+				</div>
+				
+					<a name="original"> </a>
+					<div class="fixedFont">
+					
+					<span class="light">{<a href="../symbols/String.html#constructor">String</a>}</span>
+					<b>original</b>
+					
+					</div>
+					<div class="description">
+						The original resource relative url.
+						
+						
+					</div>
+					
+					
+
+						
+						
+						
+						
+
+					
+				
+			
 
 <!-- ============================== method details ========================= -->		
 			
@@ -362,15 +408,15 @@ ul.inheritsList
 					Method Detail
 				</div>
 				
-					<a name=".buildAttributes"> </a>
-					<div class="fixedFont">&lt;static&gt; 
+					<a name="readBinary"> </a>
+					<div class="fixedFont">
 					
-					
-					<span class="light">crash.xml.</span><b>buildAttributes</b>(attrs)
+					<span class="light">{byte[]}</span>
+					<b>readBinary</b>(length)
 					
 					</div>
 					<div class="description">
-						Builds an attribute list.
+						Reads the entire binary contents of the resource.
 						
 						
 					</div>
@@ -382,10 +428,10 @@ ul.inheritsList
 							<dt class="heading">Parameters:</dt>
 							
 								<dt>
-									<b>attrs</b>
+									<span class="light fixedFont">{Number}</span> <b>length</b>
 									
 								</dt>
-								<dd>the element attributes.</dd>
+								<dd>the (optional) binary resource length.</dd>
 							
 							</dl>
 						
@@ -396,7 +442,7 @@ ul.inheritsList
 							<dl class="detailList">
 							<dt class="heading">Returns:</dt>
 							
-								<dd>the formatted attributes as a string.</dd>
+								<dd><span class="light fixedFont">{byte[]}</span> the contents as a byte array, or <code>null</code> if the resource doesn't exist.</dd>
 							
 							</dl>
 						
@@ -405,137 +451,15 @@ ul.inheritsList
 
 					<hr />
 				
-					<a name=".buildNode"> </a>
-					<div class="fixedFont">&lt;static&gt; 
-					
-					
-					<span class="light">crash.xml.</span><b>buildNode</b>(elem, attrs, text, encode)
-					
-					</div>
-					<div class="description">
-						Builds an element node.
-						
-						
-					</div>
-					
-					
-					
-						
-							<dl class="detailList">
-							<dt class="heading">Parameters:</dt>
-							
-								<dt>
-									<b>elem</b>
-									
-								</dt>
-								<dd>the element name.</dd>
-							
-								<dt>
-									<b>attrs</b>
-									
-								</dt>
-								<dd>the element attributes.</dd>
-							
-								<dt>
-									<b>text</b>
-									
-								</dt>
-								<dd>the (optional) element text.</dd>
-							
-								<dt>
-									<b>encode</b>
-									
-								</dt>
-								<dd>the (optional) element text encode flag (default is true).</dd>
-							
-							</dl>
-						
-						
-						
-						
-						
-							<dl class="detailList">
-							<dt class="heading">Returns:</dt>
-							
-								<dd>the formatted element as a string.</dd>
-							
-							</dl>
-						
-						
-						
-
-					<hr />
-				
-					<a name=".buildNodeArray"> </a>
-					<div class="fixedFont">&lt;static&gt; 
-					
-					
-					<span class="light">crash.xml.</span><b>buildNodeArray</b>(elem, attrs, values, encode)
-					
-					</div>
-					<div class="description">
-						Builds an element node array.
-						
-						
-					</div>
-					
-					
-					
-						
-							<dl class="detailList">
-							<dt class="heading">Parameters:</dt>
-							
-								<dt>
-									<b>elem</b>
-									
-								</dt>
-								<dd>the element name.</dd>
-							
-								<dt>
-									<b>attrs</b>
-									
-								</dt>
-								<dd>the element attributes.</dd>
-							
-								<dt>
-									<b>values</b>
-									
-								</dt>
-								<dd>the array values.</dd>
-							
-								<dt>
-									<b>encode</b>
-									
-								</dt>
-								<dd>the (optional) array values encode flag (default is true).</dd>
-							
-							</dl>
-						
-						
-						
-						
-						
-							<dl class="detailList">
-							<dt class="heading">Returns:</dt>
-							
-								<dd>the formatted element node array as a string.</dd>
-							
-							</dl>
-						
-						
-						
-
-					<hr />
-				
-					<a name=".textEncode"> </a>
-					<div class="fixedFont">&lt;static&gt; 
+					<a name="readText"> </a>
+					<div class="fixedFont">
 					
 					<span class="light">{<a href="../symbols/String.html#constructor">String</a>}</span>
-					<span class="light">crash.xml.</span><b>textEncode</b>(text)
+					<b>readText</b>(charset)
 					
 					</div>
 					<div class="description">
-						Encodes text, specifically escaping &amp;, &lt; and &gt; characters.
+						Reads the entire text contents of the resource.
 						
 						
 					</div>
@@ -547,10 +471,10 @@ ul.inheritsList
 							<dt class="heading">Parameters:</dt>
 							
 								<dt>
-									<span class="light fixedFont">{<a href="../symbols/String.html#constructor">String</a>}</span> <b>text</b>
+									<span class="light fixedFont">{<a href="../symbols/String.html#constructor">String</a>}</span> <b>charset</b>
 									
 								</dt>
-								<dd>the text to encode.</dd>
+								<dd>the (optional) character set to use, defaults to "UTF-8".</dd>
 							
 							</dl>
 						
@@ -561,7 +485,50 @@ ul.inheritsList
 							<dl class="detailList">
 							<dt class="heading">Returns:</dt>
 							
-								<dd><span class="light fixedFont">{<a href="../symbols/String.html#constructor">String</a>}</span> the encoded text.</dd>
+								<dd><span class="light fixedFont">{<a href="../symbols/String.html#constructor">String</a>}</span> the contents as text, or <code>null</code> if the resource doesn't exist.</dd>
+							
+							</dl>
+						
+						
+						
+
+					<hr />
+				
+					<a name="resource"> </a>
+					<div class="fixedFont">
+					
+					<span class="light">{<a href="../symbols/crash.resourceUtils.html#constructor">crash.resourceUtils</a>}</span>
+					<b>resource</b>(rel)
+					
+					</div>
+					<div class="description">
+						Finds a resource, and provides functions to load the resource as binary or text.
+						
+						
+					</div>
+					
+					
+					
+						
+							<dl class="detailList">
+							<dt class="heading">Parameters:</dt>
+							
+								<dt>
+									<b>rel</b>
+									
+								</dt>
+								<dd>(String) rel the relative URL wrt this resource.</dd>
+							
+							</dl>
+						
+						
+						
+						
+						
+							<dl class="detailList">
+							<dt class="heading">Returns:</dt>
+							
+								<dd><span class="light fixedFont">{<a href="../symbols/crash.resourceUtils.html#constructor">crash.resourceUtils</a>}</span> the resource loader.</dd>
 							
 							</dl>
 						

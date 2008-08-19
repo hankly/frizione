@@ -20,7 +20,7 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 */
 
-/*jsdoc src: /frizione-projects/crash/src/core/helma
+/*jsdoc src: /frizione-projects/crash/src/core/rhino
         src: /frizione-projects/crash/src/core
         src: /frizione-projects/crash/src/template
         src: /frizione-projects/crash/src/unit-test
