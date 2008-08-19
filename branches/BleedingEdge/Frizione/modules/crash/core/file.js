@@ -24,18 +24,26 @@ THE SOFTWARE.
 /*globals crash, java */
 
 /**
- * File manipulation functions.
+ * Creates a file manipulation object.
  *
- * @class
  * @param {String} path the file path.
- * @return {Object} The file manipulation object.
+ * @return {crash.fileUtils} The file manipulation object.
  */
 crash.file = function (path) {
 
-    var result = {
+    /**
+     * The file manipulation object.
+     * This object is constructed via the {@link crash.file} function.
+     * 
+     * @class
+     * @name crash.fileUtils
+     */
+    var result = /** @lends crash.fileUtils.prototype */ {
 
         /**
-         * @property {Object} The underlying Java File object.
+         * The underlying Java File object.
+         * 
+         * @type java.io.File
          */
         file: new java.io.File(path).getAbsoluteFile(),
 
@@ -184,7 +192,7 @@ crash.file = function (path) {
         /**
          * Reads the entire text contents of the file.
          *
-         * @param {String} charset the character set to use (defaults to "UTF-8").
+         * @param {String} charset the {optional} character set to use, defaults to "UTF-8".
          * @return {String} the contents of the text file, or null if the file doesn't exist.
          */
         readText: function (charset) {
@@ -199,7 +207,7 @@ crash.file = function (path) {
          * Writes the entire text contents to file.
          *
          * @param {String} text the text contents.
-         * @param {String} charset the (optional) character set to use (defaults to "UTF-8").
+         * @param {String} charset the (optional) character set to use, defaults to "UTF-8".
          */
         writeText: function (data, charset) {
             var stream = new java.io.FileOutputStream(result.file);

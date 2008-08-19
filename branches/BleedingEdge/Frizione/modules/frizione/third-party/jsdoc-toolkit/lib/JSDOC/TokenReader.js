@@ -226,8 +226,8 @@ JSDOC.TokenReader.prototype.read_mlcomment = function (tokens) {
     while (!this.eof() && !(last === "/" && pen === "*")) {
         pen = last;
         last = next;
-        next = this.look();
         this.cursor += 1;
+        next = this.look();
     }
 
     var found = this.text.substring(start, this.cursor);

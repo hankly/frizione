@@ -244,7 +244,7 @@ frizione.macros.commandReport = function (type, results) {
                     for (i = 0; i < length; i += 1) {
                         html += '<li><code>' + warnings[i] + '</code></li>';
                     }
-                    html += '</ul>';
+                    html += '</ul></div>';
                 }
                 return html;
             case 'join':
