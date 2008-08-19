@@ -18,8 +18,8 @@ String.prototype.isDigit = function () {
 */
 JSDOC.TokenReader = function (text) {
     text = text || "";
-    text = "" + text;
     this.text = text;
+    this.chars = text.split('');
     this.length = text.length;
     this.cursor = 0;
 	this.keepDocs = true;
@@ -38,26 +38,12 @@ JSDOC.TokenReader.prototype.look = function (n) {
 		return "";
 	}
 
-	return this.text.charAt(this.cursor + n);
+	return this.chars[this.cursor + n];
 };
 
-JSDOC.TokenReader.prototype.next = function (n) {
-	n = n || 1;
-
-    if ((this.cursor + n) > this.length) {
-        n = this.length - this.cursor;
-    }
-    if (n <= 0) {
-        return "";
-    }
-    var text = null;
-    if (n === 1) {
-        text = this.text.charAt(this.cursor);
-    }
-    else {
-        text = this.text.substring(this.cursor, this.cursor + n);
-    }
-    this.cursor += n;
+JSDOC.TokenReader.prototype.next = function () {
+    var text = this.chars[this.cursor];
+    this.cursor += 1;
 	return text;
 };
 
@@ -363,7 +349,7 @@ JSDOC.TokenReader.prototype.read_numb = function (tokens) {
  */
 JSDOC.TokenReader.prototype.read_hex = function (tokens) {
     var nexp = JSDOC.Lang.hexDecExp;
-	var found = this.next(2);
+	var found = this.next() + this.next();
 
 	while (!this.eof()) {
 		if (nexp.test(found) && !nexp.test(found + this.look())) { // done
