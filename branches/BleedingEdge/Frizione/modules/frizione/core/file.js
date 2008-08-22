@@ -32,10 +32,9 @@ THE SOFTWARE.
 frizione.file = function (path) {
 
     /**
-     * The file manipulation object.
+     * @class The file manipulation object.
      * This object is constructed via the {@link frizione.file} function.
      *
-     * @class
      * @name frizione.fileUtils
      */
     var functions = crash.file(path);
@@ -44,6 +43,8 @@ frizione.file = function (path) {
      * Creates the directory structure, including any necessary but nonexistent parent directories.
      *
      * @return {Boolean} true if the directory was created, otherwise false.
+     * @name frizione.fileUtils#mkdirs
+     * @function
      */
     functions.mkdirs = function () {
         var path = functions.file.getParentFile();
@@ -54,6 +55,8 @@ frizione.file = function (path) {
      * Reads a JSON file.
      *
      * @return {Object} the JSON object.
+     * @name frizione.fileUtils#readJson
+     * @function
      */
     functions.readJson = function () {
         var text = functions.readText();
@@ -64,6 +67,8 @@ frizione.file = function (path) {
      * Writes a JSON file.
      *
      * @param {Object} data the JSON object.
+     * @name frizione.fileUtils#writeJson
+     * @function
      */
     functions.writeJson = function (data) {
         var result = JSON.stringify(data, null, "\t");
@@ -76,6 +81,8 @@ frizione.file = function (path) {
      * @param {Array} includes the includable file extensions array (with leading dot), for example ".png".
      * @param {Array} excludes the excludable file extensions array (with leading dot), for example ".exclude.png".
      * @return {Array} the file list.
+     * @name frizione.fileUtils#list
+     * @function
      */
     functions.list = function (includes, excludes) {
         var includesLength = includes ? includes.length : 0;
