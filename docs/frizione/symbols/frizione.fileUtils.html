@@ -243,7 +243,8 @@ ul.inheritsList
 			<p class="description">
 				
 			
-				
+				The file manipulation object.
+This object is constructed via the <a href="../symbols/frizione.html#.file">frizione.file</a> function.
 				
 				
 					<br /><i>Defined in: </i> &lt;C:\Frizione-BleedingEdge\Frizione/modules/frizione/core\file.js&gt;.
@@ -267,7 +268,7 @@ ul.inheritsList
 							<div class="fixedFont">
 								<b><a href="../symbols/frizione.fileUtils.html#constructor">frizione.fileUtils</a></b>()
 							</div>
-							<div class="description">The file manipulation object.</div>
+							<div class="description"></div>
 						</td>
 					</tr>
 				</tbody>
@@ -278,6 +279,60 @@ ul.inheritsList
 			
 
 <!-- ============================== methods summary ======================== -->
+			
+				
+				
+				<table class="summaryTable" cellspacing="0" summary="A summary of the methods documented in the class frizione.fileUtils.">
+					<caption>Method Summary</caption>
+					<thead>
+						<tr>
+							<th scope="col">Method Attributes</th>
+							<th scope="col">Method Name and Description</th>
+						</tr>
+					</thead>
+					<tbody>
+					
+						<tr>
+							<td class="attributes">&nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont"><b><a href="../symbols/frizione.fileUtils.html#list">list</a></b>(includes, excludes)
+								</div>
+								<div class="description">Gets the specified file type list.</div>
+							</td>
+						</tr>
+					
+						<tr>
+							<td class="attributes">&nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont"><b><a href="../symbols/frizione.fileUtils.html#mkdirs">mkdirs</a></b>()
+								</div>
+								<div class="description">Creates the directory structure, including any necessary but nonexistent parent directories.</div>
+							</td>
+						</tr>
+					
+						<tr>
+							<td class="attributes">&nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont"><b><a href="../symbols/frizione.fileUtils.html#readJson">readJson</a></b>()
+								</div>
+								<div class="description">Reads a JSON file.</div>
+							</td>
+						</tr>
+					
+						<tr>
+							<td class="attributes">&nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont"><b><a href="../symbols/frizione.fileUtils.html#writeJson">writeJson</a></b>(data)
+								</div>
+								<div class="description">Writes a JSON file.</div>
+							</td>
+						</tr>
+					
+					</tbody>
+				</table>
+				
+				
+				
 			
 
 <!-- ============================== constructor details ==================== -->		
@@ -292,8 +347,7 @@ ul.inheritsList
 				</div>
 				
 				<div class="description">
-					The file manipulation object.
-This object is constructed via the <a href="../symbols/frizione.html#.file">frizione.file</a> function.
+					
 					
 				</div>
 				
@@ -316,6 +370,160 @@ This object is constructed via the <a href="../symbols/frizione.html#.file">friz
 
 <!-- ============================== method details ========================= -->		
 			
+				<div class="sectionTitle">
+					Method Detail
+				</div>
+				
+					<a name="list"> </a>
+					<div class="fixedFont">
+					
+					<span class="light">{Array}</span>
+					<b>list</b>(includes, excludes)
+					
+					</div>
+					<div class="description">
+						Gets the specified file type list.
+						
+						
+					</div>
+					
+					
+					
+						
+							<dl class="detailList">
+							<dt class="heading">Parameters:</dt>
+							
+								<dt>
+									<span class="light fixedFont">{Array}</span> <b>includes</b>
+									
+								</dt>
+								<dd>the includable file extensions array (with leading dot), for example ".png".</dd>
+							
+								<dt>
+									<span class="light fixedFont">{Array}</span> <b>excludes</b>
+									
+								</dt>
+								<dd>the excludable file extensions array (with leading dot), for example ".exclude.png".</dd>
+							
+							</dl>
+						
+						
+						
+						
+						
+							<dl class="detailList">
+							<dt class="heading">Returns:</dt>
+							
+								<dd><span class="light fixedFont">{Array}</span> the file list.</dd>
+							
+							</dl>
+						
+						
+						
+
+					<hr />
+				
+					<a name="mkdirs"> </a>
+					<div class="fixedFont">
+					
+					<span class="light">{Boolean}</span>
+					<b>mkdirs</b>()
+					
+					</div>
+					<div class="description">
+						Creates the directory structure, including any necessary but nonexistent parent directories.
+						
+						
+					</div>
+					
+					
+					
+						
+						
+						
+						
+						
+							<dl class="detailList">
+							<dt class="heading">Returns:</dt>
+							
+								<dd><span class="light fixedFont">{Boolean}</span> true if the directory was created, otherwise false.</dd>
+							
+							</dl>
+						
+						
+						
+
+					<hr />
+				
+					<a name="readJson"> </a>
+					<div class="fixedFont">
+					
+					<span class="light">{Object}</span>
+					<b>readJson</b>()
+					
+					</div>
+					<div class="description">
+						Reads a JSON file.
+						
+						
+					</div>
+					
+					
+					
+						
+						
+						
+						
+						
+							<dl class="detailList">
+							<dt class="heading">Returns:</dt>
+							
+								<dd><span class="light fixedFont">{Object}</span> the JSON object.</dd>
+							
+							</dl>
+						
+						
+						
+
+					<hr />
+				
+					<a name="writeJson"> </a>
+					<div class="fixedFont">
+					
+					
+					<b>writeJson</b>(data)
+					
+					</div>
+					<div class="description">
+						Writes a JSON file.
+						
+						
+					</div>
+					
+					
+					
+						
+							<dl class="detailList">
+							<dt class="heading">Parameters:</dt>
+							
+								<dt>
+									<span class="light fixedFont">{Object}</span> <b>data</b>
+									
+								</dt>
+								<dd>the JSON object.</dd>
+							
+							</dl>
+						
+						
+						
+						
+						
+						
+						
+
+					
+				
+			
 			
 			<hr />
 		</div>
@@ -323,7 +531,7 @@ This object is constructed via the <a href="../symbols/frizione.html#.file">friz
 <!-- ============================== footer ================================= -->
 		<div class="fineprint" style="clear:both">
 			
-			Documentation generated by <a href="http://www.jsdoctoolkit.org/" target="_blank">JsDoc Toolkit</a> 2.0.3 on Fri Aug 22 2008 17:43:06 GMT+0200 (CEST)
+			Documentation generated by <a href="http://www.jsdoctoolkit.org/" target="_blank">JsDoc Toolkit</a> 2.0.3 on Fri Aug 22 2008 19:03:28 GMT+0200 (CEST)
 		</div>
 	</body>
 </html>
