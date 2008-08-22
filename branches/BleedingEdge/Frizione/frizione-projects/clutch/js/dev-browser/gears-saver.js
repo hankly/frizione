@@ -54,12 +54,12 @@ clutch.date = {
     }
 };
 
-/**
+/*
  * Store the unit test results (JSON format) to disk, with the help of the server.
  *
- * @param testFunction the test function to actually produce the report.
- * @param fixtureUrl the absolute URL of the fixture service.
- * @param viewUrl the absolute URL of the report viewer HTML page.
+ * @param {Function} testFunction the test function to actually produce the report.
+ * @param {String} fixtureUrl the absolute URL of the fixture service.
+ * @param {String} viewUrl the absolute URL of the report viewer HTML page.
  */
 clutch.storeTests = function (testFunction, fixtureUrl, viewUrl) {
     var date = new Date().toUTCString();

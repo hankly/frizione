@@ -31,7 +31,9 @@ THE SOFTWARE.
 // Provides patches for JSON and Prototype, but please don't use them both together, they
 // really don't get on at all.
 /**
- * @namespace Setter functions for diverse Date JSON formats.
+ * Setter functions for diverse Date JSON formats.
+ *
+ * @namespace
  */
 crash.date = {
 

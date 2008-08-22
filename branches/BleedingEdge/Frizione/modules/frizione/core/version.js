@@ -22,6 +22,11 @@ THE SOFTWARE.
 
 /*globals frizione */
 
+/**
+ * The Frizione application support code namespace.
+ *
+ * @namespace
+ */
 frizione = {
 
     /**

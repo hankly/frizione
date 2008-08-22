@@ -33,9 +33,9 @@ if (!this.crash.streams) {
 /**
  * Reads the entire binary contents from an input stream.
  *
- * @param {InputStream} stream the input stream of the binary resource.
+ * @param {java.io.InputStream} stream the input stream of the binary resource.
  * @param {Number} length the (optional) binary resource length.
- * @return {byte[]} the contents as a byte array, or null if the resource doesn't exist.
+ * @return {java.lang.byte[]} the contents as a byte array, or null if the resource doesn't exist.
  */
 crash.streams.readBinary = function (stream, length) {
     try {
@@ -57,7 +57,7 @@ crash.streams.readBinary = function (stream, length) {
 /**
  * Reads the entire text contents from an input stream.
  *
- * @param {InputStream} stream the input stream of the text resource.
+ * @param {java.io.InputStream} stream the input stream of the text resource.
  * @param {String} charset the (optional) character set to use (defaults to "UTF-8").
  * @return {String} the contents as text, or null if the resource doesn't exist.
  */
@@ -84,8 +84,8 @@ crash.streams.readText = function (stream, charset) {
 /**
  * Writes the entire binary contents to an output stream.
  *
- * @param {OutputStream} stream the output stream for the binary contents.
- * @param {byte[]} data the binary contents.
+ * @param {java.io.OutputStream} stream the output stream for the binary contents.
+ * @param {java.lang.byte[]} data the binary contents.
  */
 crash.streams.writeBinary = function (stream, data) {
     stream.write(data);
@@ -95,7 +95,7 @@ crash.streams.writeBinary = function (stream, data) {
 /**
  * Writes the entire text contents to an output stream.
  *
- * @param {OutputStream} stream the output stream for the text contents.
+ * @param {java.io.OutputStream} stream the output stream for the text contents.
  * @param {String} text the text contents.
  * @param {String} charset the (optional) character set to use (defaults to "UTF-8").
  */

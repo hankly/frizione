@@ -20,12 +20,24 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 */
 
-/*globals app, res, req, crash, frizione */
+/*globals app, res, req, getProperty */
+/*global crash, frizione, Root */
+
+/**
+ * @class The root URL object.
+ * Responds to <code>/</code> requests.
+ *
+ * @name Root
+ * @constructor
+ *
+ * @description Creates a new Root object.
+ *
+ */
 
 /**
  * Default (main) action for the frizione application.
  */
-function main_action() {
+Root.prototype.main_action = function () {
     app.debug("Main Request " + req.path);
 
     switch (req.data.action) {
@@ -71,16 +83,16 @@ function main_action() {
     var resource = crash.resource("frizione/html/document.html");
     res.charset = "UTF-8";
     res.write(crash.st.load(resource, data, "UTF-8", '<', getProperty('debug') !== 'true'));
-}
+};
 
 /**
  * Method used by Helma request path resolution.
  *
  * @param {String} name the path element name.
- * @return {Object} the object that handles the element.
+ * @return {Object} the object that handles the child element.
  */
-function getChildElement(name) {
+Root.prototype.getChildElement = function (name) {
     app.debug("Root.getChildElement " + name);
     var files = app.data.dirs[name];
     return files || this;
-}
+};

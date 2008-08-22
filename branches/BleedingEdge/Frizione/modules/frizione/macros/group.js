@@ -20,14 +20,22 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 */
 
-/*globals res, crash, frizione */
+/*globals res, getProperty */
+/*globals crash, frizione */
 
 if (!this.frizione.macros) {
+
+    /**
+     * The Frizione macros (HTML output) support code.
+     *
+     * @namespace
+     */
     frizione.macros = {};
 }
 
 /**
  * Prepares and displays the group main page.
+ * See {@link frizione.macros.groupFilesCount}.
  *
  * @param {Application, Module, Project} group the group (application/module/project) object.
  * @param {Object} data the page data.
@@ -60,7 +68,7 @@ frizione.macros.groupMainPage = function (group, data) {
  * @param {Application, Module, Project} group the group (application/module/project) object.
  * @param {Array} includes the includable file extensions (with leading dot), for example ".png".
  * @param {Array} excludes the excludable file extensions (with leading dot), for example ".exclude.png".
- * @param (String) action the anchor action, for example "jslint".
+ * @param {String} action the anchor action, for example "jslint".
  * @return {String} the HTML fragment.
  */
 frizione.macros.groupFilesCount = function (group, includes, excludes, action) {

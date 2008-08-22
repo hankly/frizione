@@ -20,15 +20,20 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 */
 
-/*global app, req, res, java, crash, frizione */
+/*global app, req, res */
+/*global java, crash, frizione, StaticFiles */
 
 /**
- * StaticFiles object constructor.
- *
- * @class StaticFiles
+ * @class The StaticFiles object.
+ * Responds to <code>/js</code>, <code>/css</code>, <code>/imgs</code>, and <code>/docs</code> URL requests.
+ * 
+ * @name StaticFiles
  * @constructor
+ *
+ * @description Creates a new StaticFiles object.
+ *
  * @param {String} dir the application static file directory.
- * @param (String) path the file system path.
+ * @param {String} path the file system path.
  */
 function constructor(dir, path) {
     app.debug('StaticFiles ' + dir);
@@ -37,9 +42,10 @@ function constructor(dir, path) {
 }
 
 /**
- * Default (main) action.
+ * Default (main) action for static file operations.
+ * See {@link StaticFiles#renderTextFile}, and {@link StaticFiles#renderBinaryFile}.
  */
-function main_action() {
+StaticFiles.prototype.main_action = function () {
     app.debug("StaticFiles Request " + req.path);
 
     switch (this.dir) {
@@ -63,18 +69,42 @@ function main_action() {
             this.renderBinaryFile(this.path + '/' + req.path);
             break;
         case 'docs':
-            res.contentType = "application/pdf";
-            this.renderBinaryFile(this.path + '/' + req.path);
+            if (req.path === 'docs/documentation.html') {
+                this.renderDocPage();
+            }
+            else if (req.path.endsWith('.pdf')) {
+                res.contentType = "application/pdf";
+                this.renderBinaryFile(this.path + '/' + req.path);
+            }
+            else {
+                res.charset = "UTF-8";
+                res.contentType = "text/html";
+                this.renderTextFile(this.path + '/' + req.path);
+            }
             break;
     }
-}
+};
+
+/**
+ * Renders the documentation page.
+ */
+StaticFiles.prototype.renderDocPage = function () {
+    var data = {};
+    data.title = "Frizione Documentation : " + frizione.qualifiedVersion();
+    data.head = "./head.html";
+    data.body = "./docs/body.html";
+
+    var resource = crash.resource("frizione/html/document.html");
+    res.charset = "UTF-8";
+    res.write(crash.st.load(resource, data, "UTF-8", '<', getProperty('debug') !== 'true'));
+};
 
 /**
  * Renders the specified text file.
  *
  * @param {String} path the absolute path to the file.
  */
-function renderTextFile(path) {
+StaticFiles.prototype.renderTextFile = function (path) {
     var encoding = req.getHeader('accept-encoding');
     if (encoding && encoding.indexOf('gzip') >= 0) {
         if (new java.io.File(path + ".gz").exists()) {
@@ -85,24 +115,24 @@ function renderTextFile(path) {
         }
     }
     res.write(crash.file(path).readText());
-}
+};
 
 /**
  * Renders the specified binary file.
  *
  * @param {String} path the absolute path to the file.
  */
-function renderBinaryFile(path) {
+StaticFiles.prototype.renderBinaryFile = function (path) {
     res.writeBinary(crash.file(path).readBinary());
-}
+};
 
 /**
  * Method used by Helma request path resolution.
  *
  * @param {String} name the path element name.
- * @return {Object} the object that handles the element.
+ * @return {Object} the object that handles the child element.
  */
-function getChildElement(name) {
+StaticFiles.prototype.getChildElement = function (name) {
     app.debug("StaticFiles.getChildElement " + name);
     return this;
-}
+};

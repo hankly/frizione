@@ -20,17 +20,21 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 */
 
-/*global app, req, res, crash, frizione, runCrashTests */
-/*global encode, getProperty */
 /*jslint evil: true */
+/*global app, req, res, encode, getProperty */
+/*global crash, frizione, Test, runCrashTests */
 
 /**
- * Test object constructor.
+ * @class The Test object.
+ * This object responds to <code>/jsontest</code> and <code>/jstest</code> URLs.
  *
- * @class Test
+ * @name Test
  * @constructor
- * @param group the project/application/module object.
- * @param type the test type, either 'json' or 'js'.
+ *
+ * @description Creates a new Test object.
+ *
+ * @param {Application, Module, Project} group the application/module/project object.
+ * @param {String} type the test type, either 'json' or 'js'.
  */
 function constructor(group, type) {
     app.debug('Test ' + type + ": " + group.type + ": " + group.name);
@@ -56,8 +60,11 @@ function constructor(group, type) {
 
 /**
  * Default (main) action for test operations.
+ * See {@link frizione.macros.serviceMainPage},
+ * {@link Test#renderTestPage}, {@link Test#renderEmbeddedTestPage}, and
+ * {@link Test#renderTestResultPage}.
  */
-function main_action() {
+Test.prototype.main_action = function () {
     app.debug("Test Request " + req.path);
 
     var path = req.path.split('/');
@@ -82,14 +89,14 @@ function main_action() {
         }
         frizione.macros.serviceMainPage(this);
     }
-}
+};
 
 /**
  * Renders the test page.
  *
- * @param file the JavaScript file to test.
+ * @param {String} file the JavaScript file to test.
  */
-function renderTestPage(file) {
+Test.prototype.renderTestPage = function (file) {
     var data = {};
     data.title = this.serviceText + " : " + this.group.name + " : " + frizione.qualifiedVersion();
     data.group = this.group;
@@ -123,14 +130,14 @@ function renderTestPage(file) {
     var resource = crash.resource("frizione/html/document.html");
     res.charset = "UTF-8";
     res.write(crash.st.load(resource, data, "UTF-8", '<', getProperty('debug') !== 'true'));
-}
+};
 
 /**
- * Renders the test result page.
+ * Executes the test internally, and renders the test result page.
  *
- * @param file the JavaScript file to test.
+ * @param {String} file the JavaScript file to test.
  */
-function renderEmbeddedTestPage(file) {
+Test.prototype.renderEmbeddedTestPage = function (file) {
     var data = {};
     data.title = this.serviceText + " : " + this.group.name + " : " + frizione.qualifiedVersion();
     data.group = this.group;
@@ -165,14 +172,14 @@ function renderEmbeddedTestPage(file) {
     var resource = crash.resource("frizione/html/document.html");
     res.charset = "UTF-8";
     res.write(crash.st.load(resource, data, "UTF-8", '<', getProperty('debug') !== 'true'));
-}
+};
 
 /**
  * Renders the test result page.
  *
- * @param file the test results JSON file.
+ * @param {String} file the test results JSON file.
  */
-function renderTestResultPage(file) {
+Test.prototype.renderTestResultPage = function (file) {
     var data = {};
     data.title = this.serviceText + " : " + this.group.name + " : " + frizione.qualifiedVersion();
     data.group = this.group;
@@ -188,16 +195,16 @@ function renderTestResultPage(file) {
     res.charset = "UTF-8";
     data.document = crash.resource("frizione/html/document.html");
     res.write(crash.test.htmlReport(report, data, getProperty('debug') !== 'true'));
-}
+};
 
 /**
  * Executes the embedded test.
  *
  * @param {String} code the code to execute.
  * @param {Object} data the results data object.
- * @return {boolean} true if successful, otherwise false.
+ * @return {Boolean} true if successful, otherwise false.
  */
-function embeddedTest(code, data) {
+Test.prototype.embeddedTest = function (code, data) {
     if (typeof runCrashTests === 'function') {
         runCrashTests = null;
     }
@@ -236,15 +243,15 @@ function embeddedTest(code, data) {
         res.write(crash.test.htmlReport(json, data, getProperty('debug') !== 'true'));
         return true;
     }
-}
+};
 
 /**
  * Method used by Helma request path resolution.
  *
  * @param {String} name the path element name.
- * @return {Object} the object that handles the element.
+ * @return {Object} the object that handles the child element.
  */
-function getChildElement(name) {
+Test.prototype.getChildElement = function (name) {
     app.debug("Test.getChildElement " + name);
     return this;
-}
+};

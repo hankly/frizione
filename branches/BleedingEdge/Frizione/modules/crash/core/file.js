@@ -178,7 +178,7 @@ crash.file = function (path) {
         /**
          * Reads the entire binary contents of the file.
          *
-         * @return {Byte[]} the contents as a byte array, or null if the file doesn't exist.
+         * @return {java.lang.Byte[]} the contents as a byte array, or null if the file doesn't exist.
          */
         readBinary: function () {
             if (result.file.isFile() && result.file.exists()) {
@@ -264,7 +264,7 @@ crash.file = function (path) {
          * Moves a file to a new destination.
          *
          * @param {String} dest the destination file name.
-         * @return {Boolean} true in case file could be moved, otherwise false.
+         * @return {Boolean} true if the file could be moved, otherwise false.
          */
         move: function (dest) {
             if (!result.file.copy(dest)) {

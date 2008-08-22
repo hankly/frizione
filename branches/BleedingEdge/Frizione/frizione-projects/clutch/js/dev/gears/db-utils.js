@@ -27,15 +27,20 @@ if (!this.clutch) {
     clutch = {};
 }
 if (!this.clutch.db) {
+
+    /**
+     * @namespace Gears database functions.
+     */
     clutch.db = {};
 }
 
 /**
- * Converts a ResultSet into an object.
- * The ResultSet is expected to contain a single row, or no row at all.
+ * Converts a Gears ResultSet into an object.
+ * The Gears ResultSet is expected to contain a single row, or no row at all.
  *
- * @param result the ResultSet to convert.
- * @param columns the columns to extract.
+ * @param {ResultSet} result the Gears ResultSet to convert.
+ * @param {Array} columns the columns to extract.
+ * @return {Object} the converted Gears ResultSet, or <code>null</code> if no data available.
  */
 clutch.db.fromRow = function (result, columns) {
     if (!result.isValidRow()) {
@@ -55,11 +60,12 @@ clutch.db.fromRow = function (result, columns) {
 };
 
 /**
- * Converts a ResultSet into an object.
- * The ResultSet is expected to contain multiple rows, or no row at all.
+ * Converts a Gears ResultSet into an object.
+ * The Gears ResultSet is expected to contain multiple rows, or no row at all.
  *
- * @param result the ResultSet to convert.
- * @param columns the columns to extract.
+ * @param {ResultSet} result the Gears ResultSet to convert.
+ * @param {Array} columns the columns to extract.
+ * @return {Array} the converted ResultSet, or <code>null</code> if no data available.
  */
 clutch.db.fromRows = function (result, columns) {
     if (!result.isValidRow()) {
@@ -86,9 +92,10 @@ clutch.db.fromRows = function (result, columns) {
 
 /**
  * Prepares the optional parameter syntax for a SELECT query.
- * These include: where, groupBy, having, orderBy, limit and offset.
+ * These include: where (WHERE), groupBy (GROUP BY), having (HAVING), orderBy (ORDER BY), limit (LIMIT) and offset (OFFSET).
  *
- * @param params the optional parameters
+ * @param {Object} params the optional query parameters.
+ * @return {String} the query string.
  */
 clutch.db.optionalQuery = function (params) {
     var query = "";

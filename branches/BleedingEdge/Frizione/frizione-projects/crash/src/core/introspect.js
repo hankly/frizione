@@ -29,9 +29,11 @@ See http://www.syger.it/Tutorials/JavaScriptIntrospector.html
 /*global crash */
 
 /**
- * Provides a little help to the standard typeof keyword. Just a little less brain-dead, but still pretty comatose.
+ * Provides a little help to the standard <code>typeof</code> keyword.
+ * Just a little less brain-dead, but still pretty comatose.
  *
- * @param obj the object you want the type of.
+ * @param {Object} obj the object you want the type of.
+ * @return {String} the object type.
  */
 crash.typeOf = function (obj) {
     var type = typeof obj;
@@ -41,10 +43,10 @@ crash.typeOf = function (obj) {
 /**
  * Creates a string representation of an object.
  *
- * @param name the name of the object.
- * @param obj the object to introspect.
- * @param indent the optional start indentation, something like "  ", defaults to ""
- * @param levels optional, how many levels to drill down to, helps avoid recursion - default is 1.
+ * @param {String} name the name of the object.
+ * @param {Object} obj the object to introspect.
+ * @param {String} indent the optional start indentation, something like "  ", defaults to ""
+ * @param {Number} levels how many levels to (optionally) drill down to, helps avoid recursion - default is 1.
  */
 crash.introspect = function (name, obj, indent, levels) {
     indent = indent || "";

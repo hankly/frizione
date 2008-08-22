@@ -30,6 +30,11 @@ if (!this.clutch) {
     clutch = {};
 }
 
+/**
+ * Checks if Gears is installed.
+ *
+ * @returns {Boolean} <code>true</code> if Gears is installed, otherwise <code>false</code>.
+ */
 clutch.isGearsInstalled = function () {
     return (function () {
         if (!!this.window) {
@@ -41,30 +46,65 @@ clutch.isGearsInstalled = function () {
     })();
 };
 
+/**
+ * Gets the Gears factory object
+ *
+ * @return {GearsFactory} the Gears factory object.
+ */
 clutch.gearsFactory = function () {
     return google.gears.factory;
 };
 
+/**
+ * Creates a Gears database object.
+ *
+ * @return {GearsDatabase} the Gears database object.
+ */
 clutch.createGearsDatabase = function () {
     return google.gears.factory.create('beta.database');
 };
 
+/**
+ * Creates a Gears desktop object.
+ *
+ * @return {GearsDesktop} the Gears desktop object.
+ */
 clutch.createGearsDesktop = function () {
     return google.gears.factory.create('beta.desktop');
 };
 
+/**
+ * Creates a Gears HTTP request object.
+ *
+ * @return {GearsHttpRequest} the Gears HTTP request object.
+ */
 clutch.createGearsHttpRequest = function () {
     return google.gears.factory.create('beta.httprequest');
 };
 
+/**
+ * Creates a Gears local server object.
+ *
+ * @return {GearsLocalServer} the Gears local server object.
+ */
 clutch.createGearsLocalServer = function () {
     return google.gears.factory.create('beta.localserver');
 };
 
+/**
+ * Creates a Gears timer object.
+ *
+ * @return {GearsTimer} the Gears timer object.
+ */
 clutch.createGearsTimer = function () {
     return google.gears.factory.create('beta.timer');
 };
 
+/**
+ * Creates a Gears worker pool object.
+ *
+ * @return {GearsWorkerPool} the Gears worker pool object.
+ */
 clutch.createGearsWorkerPool = function () {
     return google.gears.factory.create('beta.workerpool');
 };

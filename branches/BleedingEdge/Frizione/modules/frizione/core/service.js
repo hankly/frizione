@@ -21,15 +21,21 @@ THE SOFTWARE.
 */
 
 /*globals app, crash, frizione, java, com, org */
-/*globals Fixture, Join, JsLint, Minify, Test, View */
+/*globals Fixture, Join, JsDoc, JsLint, Minify, Test, View */
 
+/**
+ * The Frizione service ({@link Fixture}/{@link Join}/{@link JsLint}/{@link Minify}/{@link Test}/{@link View})
+ *  support code.
+ *
+ * @namespace
+ */
 frizione.service = {
 
     /**
-     * Sets the services for a Project/Application/Module object.
+     * Sets the services for a Application/Module/Project object.
      *
-     * @param {Project, Application, Module} group the project/application/module object.
-     * @return (Object} the services object.
+     * @param {Application, Module, Project} group the application/module/project object.
+     * @return {Object} the services object.
      */
     setServices: function (group) {
         var services = { };
@@ -168,16 +174,6 @@ frizione.service = {
             outputWriter.close();
             result.gzipLength = outputFile.size();
         }
-    },
-
-    /**
-     * JsDoc (documents) the specified file.
-     *
-     * @param {String} charset the character set to use (defaults to "UTF-8").
-     */
-    jsdoc: function (charset) {
-        charset = charset || "UTF-8";
-
     },
 
     /**
@@ -322,7 +318,7 @@ frizione.service = {
      * Parses the parameters from a string array.
      *
      * @param {Array} list the string array.
-     * @param {Array} multiple the string array.
+     * @param {Array} multiple the multiple params string array.
      * @return {Object} the parameters.
      */
     parseParams: function (list, multiple) {
@@ -380,7 +376,7 @@ frizione.service = {
      * </ul>
      *
      * @param {Object} params the parameters to check.
-     * @return {Array} an array of errors, or null if no errors occurred.
+     * @return {Array} an array of errors, or <code>null</code> if no errors occurred.
      */
     checkJsDocParams: function (params) {
         var errors = params.errors || [];
@@ -403,11 +399,11 @@ frizione.service = {
      * <li><code>gzip</code> the file path to write the gzipped file to.</li>
      * </ul>
      *
-     * @param params the parameters to check.
-     * @param file the original file path.
-     * @param to the amalgamated output file path.
-     * @param gzip the amalgamated gzip file path.
-     * @return an array of errors, or null if no errors occurred.
+     * @param {Object} params the parameters to check.
+     * @param {String} file the original file path.
+     * @param {String} to the amalgamated output file path.
+     * @param {String} gzip the amalgamated gzip file path.
+     * @return {Array} an array of errors, or <code>null</code> if no errors occurred.
      */
     checkJoinParams: function (params, file, to, gzip) {
         var errors = params.errors || [];
@@ -439,11 +435,11 @@ frizione.service = {
      * <li><code>v</code> display errors and warnings (default is true).</li>
      * </ul>
      *
-     * @param params the parameters to check.
-     * @param file the original file path.
-     * @param to the amalgamated output file path.
-     * @param gzip the amalgamated gzip file path.
-     * @return an array of errors, or null if no errors occurred.
+     * @param {Object} params the parameters to check.
+     * @param {String} file the original file path.
+     * @param {String} to the amalgamated output file path.
+     * @param {String} gzip the amalgamated gzip file path.
+     * @return {Array} an array of errors, or <code>null</code> if no errors occurred.
      */
     checkMinifyParams: function (params, file, to, gzip) {
         var errors = params.errors || [];
@@ -524,11 +520,11 @@ frizione.service = {
      * <li><code>type</code> the test environment type, one of 'browser', 'gears', 'workerpool', 'rhino' (default is 'browser').</li>
      * </ul>
      *
-     * @param params the parameters to check.
-     * @param file the original file path.
-     * @param to the amalgamated output file path.
-     * @param gzip the amalgamated gzip file path.
-     * @return an array of errors, or null if no errors occurred.
+     * @param {Object} params the parameters to check.
+     * @param {String} file the original file path.
+     * @param {String} to the amalgamated output file path.
+     * @param {String} gzip the amalgamated gzip file path.
+     * @return {Array} an array of errors, or <code>null</code> if no errors occurred.
      */
     checkTestParams: function (params, file, to, gzip) {
         var errors = params.errors || [];

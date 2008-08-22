@@ -33,10 +33,16 @@ if (!this.clutch) {
 }
 
 if (!this.clutch.xhr) {
+
+    /**
+     * @namespace Clutch XML HTTP Request functions.
+     * The XML HTTP Request functions are taken from either the standard browser functions or the Gears HttpRequest object,
+     * depending on availability. These functions are guaranteed for either the browser or WorkerPool environments.
+     */
     clutch.xhr = {};
 }
 
-/**
+/*
  * Creates an XHR object.
  */
 clutch.xhr.createRequest = function () {
@@ -66,13 +72,19 @@ clutch.xhr.createRequest = function () {
 
 /**
  * Executes an XHR.
+ * The <code>handler</code> function receives three parameters:
+ * <ul>
+ *   <li><code>status</code> - <i>{Number}</i> the status code (can be -1 if the request fails).</li>
+ *   <li><code>statusText</code> - <i>{String}</i> the status text.</li>
+ *   <li><code>responseText</code> - <i>{String}</i> the response text.</li>
+ * </ul>
  *
- * @param method can be "GET", possibly "POST".
- * @param url the absolute URL to get or post to.
- * @param optionalParams optional parameters, do your own value encoding though
- * @param optionalBody damn useful for posts
- * @param timeout the optional maximum amount of time to wait for a reply.
- * @param handler who to call when things go right, or wrong.
+ * @param {String} method can be "GET", possibly "POST".
+ * @param {String} url the absolute URL to get or post to.
+ * @param {Object} optionalParams optional parameters, do your own value encoding though.
+ * @param {String} optionalBody damn useful for posts.
+ * @param {Number} timeout the optional maximum amount of time to wait for a reply in milliseconds.
+ * @param {Function} handler who to call when things go right, or wrong.
  */
 clutch.xhr.executeRequest = function (method, url, optionalParams, optionalBody, timeout, handler) {
     var requestTimeout = timeout || 5000; // 5 seconds

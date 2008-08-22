@@ -54,12 +54,12 @@ clutch.date = {
     }
 };
 
-/**
+/*
  * Store the WorkerPool unit test results (JSON format) to disk, with the help of the server.
  *
- * @param sriptUrl the JavaScript test code to be run in a WorkerPool.
- * @param fixtureUrl the absolute URL of the fixture service.
- * @param viewUrl the absolute URL of the report viewer HTML page.
+ * @param {String} scriptUrl the JavaScript test code to be run in a WorkerPool.
+ * @param {String} fixtureUrl the absolute URL of the fixture service.
+ * @param {String} viewUrl the absolute URL of the report viewer HTML page.
  */
 clutch.storeTests = function (scriptUrl, fixtureUrl, viewUrl) {
     var date = new Date().toUTCString();

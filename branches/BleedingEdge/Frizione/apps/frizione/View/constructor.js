@@ -20,16 +20,20 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 */
 
-/*global app, req, res, crash, frizione */
-/*global encode */
+/*global app, req, res, encode, getProperty */
+/*global crash, frizione, View */
 
 /**
- * View object constructor.
+ * @class The View object.
+ * This object responds to <code>/jsonview</code> and <code>/htmlview</code> URLs.
  *
- * @class View
+ * @name View
  * @constructor
- * @param group the project/application/module object.
- * @param type the view type, either 'json' or 'html'.
+ *
+ * @description Creates a new View object.
+ *
+ * @param {Application, Module, Project} group the application/module/project object.
+ * @param {String} type the view type, either 'json' or 'html'.
  */
 function constructor(group, type) {
     app.debug('View ' + type + ": " + group.type + ": " + group.name);
@@ -55,8 +59,10 @@ function constructor(group, type) {
 
 /**
  * Default (main) action for view operations.
+ * See {@link frizione.macros.serviceMainPage}, and
+ * {@link View#renderViewPage}.
  */
-function main_action() {
+View.prototype.main_action = function () {
     app.debug("View Request " + req.path);
 
     var path = req.path.split('/');
@@ -76,14 +82,14 @@ function main_action() {
         }
         frizione.macros.serviceMainPage(this);
     }
-}
+};
 
 /**
  * Renders the view page.
  *
- * @param file the JSON file to view.
+ * @param {String} file the JSON file to view.
  */
-function renderViewPage(file) {
+View.prototype.renderViewPage = function (file) {
     var data = {};
     data.title = this.serviceText + " : " + this.group.name + " : " + frizione.qualifiedVersion();
     data.group = this.group;
@@ -99,15 +105,15 @@ function renderViewPage(file) {
     var resource = crash.resource("frizione/html/document.html");
     res.charset = "UTF-8";
     res.write(crash.st.load(resource, data, "UTF-8", '<', getProperty('debug') !== 'true'));
-}
+};
 
 /**
  * Method used by Helma request path resolution.
  *
  * @param {String} name the path element name.
- * @return {Object} the object that handles the element.
+ * @return {Object} the object that handles the child element.
  */
-function getChildElement(name) {
+View.prototype.getChildElement = function (name) {
     app.debug("View.getChildElement " + name);
     return this;
-}
+};
