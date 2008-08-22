@@ -28,20 +28,26 @@ http://code.google.com/p/jsdoc-toolkit/
 /*globals crash, java, load */
 
 /**
- * @name crash
  * @namespace Crash is a Rhino specific generic JavaScript library.
+ * It provides a set of functions, separated into namespaces,
+ * which either use Rhino specific functions, or work directly with the underlying Java platform.
+ *
+ * @name crash
  */
 
 /**
- * @name crash.root
- * @field
  * The root crash URL.
+ *
+ * @name crash.root
+ * @type java.net.URL
  */
 //crash.root = null;
 
 /**
- * Load (execute) a JavaScript file or the entire contents of a directory.
- *
+ * Load (and execute) a JavaScript file or the entire contents of a directory.
+ * The <code>filter</code> function (if specified) is called for each file in a directory. It is expected
+ * to return a <i>{Boolean}</i> value specifying if the file is to be loaded or not.
+ * 
  * @param {String} rel the relative URL to the file or directory from the crash jar file.
  * @param {Function} filter optional name filter for directory loading.
  */
@@ -90,7 +96,7 @@ crash.load("crash/core/streams.js");
  * Finds a resource, and provides functions to load the resource as binary or text.
  *
  * @param {String} rel the relative URL to the resource from the crash jar file.
- * @return {crash.resourceUtils} the resource loader.
+ * @return {crash.resourceLoader} the resource loader.
  */
 crash.resource = function (rel) {
 
@@ -109,13 +115,12 @@ crash.resource = function (rel) {
     function makeResource(rel) {
 
         /**
-         * The resource loader object.
+         * @class The resource loader object.
          * This object is constructed via the {@link crash.resource} function.
          *
-         * @class
-         * @name crash.resourceUtils
+         * @name crash.resourceLoader
          */
-        var res = /** @scope crash.resourceUtils.prototype */ {
+        var res = /** @scope crash.resourceLoader.prototype */ {
 
             /**
              * The original resource relative url.
@@ -128,7 +133,7 @@ crash.resource = function (rel) {
              * Finds a resource, and provides functions to load the resource as binary or text.
               *
              * @param rel (String) rel the relative URL wrt this resource.
-             * @return {crash.resourceUtils} the resource loader.
+             * @return {crash.resourceLoader} the resource loader.
              */
             resource: function (rel) {
                 return makeResource(check(res.original, rel));
@@ -138,7 +143,7 @@ crash.resource = function (rel) {
              * Reads the entire binary contents of the resource.
              *
              * @param {Number} length the (optional) binary resource length.
-             * @return {byte[]} the contents as a byte array, or <code>null</code> if the resource doesn't exist.
+             * @return {java.lang.byte[]} the contents as a byte array, or <code>null</code> if the resource doesn't exist.
              */
             readBinary: function (length) {
                 var stream = crash.jar.getInputStream(crash.jar.getEntry(rel));

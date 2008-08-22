@@ -22,10 +22,6 @@ THE SOFTWARE.
 
 /*global crash */
 
-/**
- * @requires crash.timer
- */
-
 if (!this.crash.test) {
 
     /**
@@ -97,15 +93,21 @@ crash.test.utils = {
     }
 };
 
-/**
- * The testing assertions. These functions are injected into the test object.
- *
- * @param totaliser the unit test totaliser (report).
- */
 crash.test.assertions = function (totaliser) {
 
-    var assertions = {
+    /**
+     * @class The testing assertions.
+     * These functions are injected into the test object.
+     *
+     * @name crash.test.asserts
+     */
+    var assertions = /** @scope crash.test.asserts.prototype */ {
 
+        /**
+         * Logs a message.
+         *
+         * @param {String} message the message to log.
+         */
         log: function (message) {
             totaliser.logs += 1;
             totaliser.messages.push({ type: 'log', message: message });
@@ -115,6 +117,11 @@ crash.test.assertions = function (totaliser) {
             totaliser.tests += 1;
         },
 
+        /**
+         * Indicates that the unit test function failed.
+         *
+         * @param {String} message the failure reason message.
+         */
         fail: function (message) {
             totaliser.tests += 1;
             totaliser.failures += 1;
@@ -134,6 +141,12 @@ crash.test.assertions = function (totaliser) {
             totaliser.messages.push({ type: "error", message: message });
         },
 
+        /**
+         * Asserts that a specific condition is valid (<code>true</code>).
+         *
+         * @param {Code} condition the condition to test, something like <code>result === 2</code>.
+         * @param {String} message the message to log if the condition does <b>not</b> resolve to <code>true</code>.
+         */
         assert: function (condition, message) {
             try {
                 if (condition) {
@@ -152,7 +165,7 @@ crash.test.assertions = function (totaliser) {
     return assertions;
 };
 
-/**
+/*
  * This monster runs the unit tests. Since introducing asynchronous unit testing this piece of code has
  * grown exponentially. I'd really like to get it back down to a humane size, before it implodes under
  * its own weight.
@@ -167,15 +180,19 @@ crash.test.runner = function (profile, timeout) {
     var callbackAssertions = null;
     var callbacks = null;
 
+    /** @ignore */
     function setTestTimeout(code, millis) {
         return crash.timer.setTimeout(code, millis);
     }
+    /** @ignore */
     function setTestInterval(code, millis) {
         return crash.timer.setInterval(code, millis);
     }
+    /** @ignore */
     function clearTestTimeout(timerId) {
         crash.timer.clearTimeout(timerId);
     }
+    /** @ignore */
     function clearTestInterval(timerId) {
         crash.timer.clearInterval(timerId);
     }
@@ -389,11 +406,12 @@ crash.test.runner = function (profile, timeout) {
 };
 
 /**
- * Creates a unit test.
+ * Creates a unit test object.
  *
  * @param {String} name the unit test name.
  * @param {Object} testObject the test object.
- * @param {Number} timeout the maximum time in milliseconds for all the tests to be executed.
+ * @param {Number} timeout the (optional) maximum time in milliseconds for all the tests to be executed.
+ * @return {crash.test.unitTester} the unit tester object.
  */
 crash.test.unit = function (name, testObject, timeout) {
     var utils = crash.test.utils;
@@ -401,7 +419,13 @@ crash.test.unit = function (name, testObject, timeout) {
     var tests = [];
     var runner = null;
 
-    return {
+    /**
+     * @class The unit testing object.
+     * This object is created by {@link crash.test.unit}.
+     *
+     * @name crash.test.unitTester
+     */
+    var tester = /** @scope crash.test.unitTester.prototype */ {
 
         prepare: function (parentProfile) {
             if (parentProfile) {
@@ -456,6 +480,9 @@ crash.test.unit = function (name, testObject, timeout) {
             }
         },
 
+        /**
+         * Runs the unit tests.
+         */
         run : function () {
             if (!profile) {
                 this.prepare();
@@ -468,10 +495,35 @@ crash.test.unit = function (name, testObject, timeout) {
             runner.abort();
         },
 
+        /**
+         * Checks the status of the unit tests being run.
+         * Returns a status object with four fields:
+         * <ul>
+         *   <li><code>complete</code> - a boolean which is set to <code>true</code> when all tests are complete.</li>
+         *   <li><code>abend</code> - a string which is set if an abnormal condition (such as unit testing timeout) occurred.</li>
+         *   <li><code>index</code> - a number indiciating the index of the current unit test being run.</li>
+         *   <li><code>total</code> - a number indicating the total number of unit tests to be run.</li>
+         * </ul>
+         *
+         * @return {Object} the current unit test status.
+         */
         check: function () {
             return runner.check();
         },
 
+        /**
+         * Produces a summary object of the unit tests performed. This function should only be called when the
+         * unit tests have completed.
+         * The summary object contains four fields:
+         * <ul>
+         *   <li><code>name</code> - a string set to the unit test name.</li>
+         *   <li><code>abend</code> - a string which is set if an abnormal condition (such as unit testing timeout) occurred.</li>
+         *   <li><code>summary</code> - an object containing the actual summary information.</li>
+         *   <li><code>tests</code> - an object containing individual test function results.</li>
+         * </ul>
+         *
+         * @return {Object} the summary object.
+         */
         summarise: function () {
             var results = [];
             var total = utils.createTotaliser();
@@ -487,20 +539,28 @@ crash.test.unit = function (name, testObject, timeout) {
             return { name: name, abend: profile.abend, summary: total, tests: results };
         }
     };
+    return tester;
 };
 
 /**
- * Creates a group of unit tests.
+ * Creates a group of unit tests object.
  *
- * @param {Array} tests the unit test array.
- * @param {Number} timeout the maximum time in milliseconds for all unit tests to be executed.
+ * @param {Array} testArray the unit test array.
+ * @param {Number} timeout the (optional) maximum time in milliseconds for all unit tests to be executed.
+ * @return {crash.test.groupTester} the group unit tester object.
  */
 crash.test.group = function (tests, timeout) {
     var utils = crash.test.utils;
     var profile = null;
     var runner = null;
 
-    return {
+    /**
+     * @class The group unit testing object.
+     * This object is created by {@link crash.test.group}.
+     *
+     * @name crash.test.groupTester
+     */
+    var tester = /** @scope crash.test.groupTester.prototype */ {
 
         prepare: function () {
             profile = utils.createProfile();
@@ -513,6 +573,9 @@ crash.test.group = function (tests, timeout) {
             }
         },
 
+        /**
+         * Runs the group of unit tests.
+         */
         run: function () {
             if (!profile) {
                 this.prepare();
@@ -525,10 +588,34 @@ crash.test.group = function (tests, timeout) {
             runner.abort();
         },
 
+        /**
+         * Checks the status of the group unit tests being run.
+         * Returns a status object with four fields:
+         * <ul>
+         *   <li><code>complete</code> a boolean which is set to <code>true</code> when all tests are complete.</li>
+         *   <li><code>abend</code> a string which is set if an abnormal condition (such as unit testing timeout) occurred.</li>
+         *   <li><code>index</code> a number indiciating the index of the current unit test being run.</li>
+         *   <li><code>total</code> a number indicating the total number of unit tests to be run.</li>
+         * </ul>
+         *
+         * @return {Object} the current unit test status.
+         */
         check: function () {
             return runner.check();
         },
 
+        /**
+         * Produces a summary object of the group unit tests performed. This function should only be called when the
+         * group unit tests have completed.
+         * The summary object contains three fields:
+         * <ul>
+         *   <li><code>abend</code> - a string which is set if an abnormal condition (such as unit testing timeout) occurred.</li>
+         *   <li><code>summary</code> - an object containing the actual summary information.</li>
+         *   <li><code>tests</code> - an object containing individual unit test results.</li>
+         * </ul>
+         *
+         * @return {Object} the summary object.
+         */
         summarise: function () {
             var total = utils.createTotaliser();
             var results = [];
@@ -546,4 +633,5 @@ crash.test.group = function (tests, timeout) {
             return { abend: profile.abend, summary: total, tests: results };
         }
     };
+    return tester;
 };

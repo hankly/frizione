@@ -35,6 +35,8 @@ crash.st = {
 
     /**
      * The template cache.
+     *
+     * @type Object
      */
     cache: {},
 
@@ -42,9 +44,9 @@ crash.st = {
      * Creates the template environment.
      * The environment function is called by <a href="#.load">crash.st.load</a>, and receives all its
      * parameters directly from that function.
-     * Currently the only method available (in the template) is include.
+     * Currently the only method available (in the template) is <code>include</code>.
      * 
-     * @param {crash.resource} resource the template resource.
+     * @param {crash.resourceLoader} resource the template resource.
      * @param {Object} data the template data.
      * @param {String} charset the template character set.
      * @param {String} delim the template delimiter.
@@ -74,11 +76,11 @@ crash.st = {
     /**
      * Loads and executes the template.
      *
-     * @param {crash.resource} resource the template resource.
+     * @param {crash.resourceLoader} resource the template resource.
      * @param {Object} data the (optional) template data, defaults to {}.
      * @param {String} charset the (optional) template character set, defaults to "UTF-8".
      * @param {String} delim the (optional) template delimiter character, defaults to '<'.
-     * @param {boolean} useCache the (optional) use cache flag, defaults to true.
+     * @param {boolean} useCache the (optional) use cache flag, defaults to <code>true</code>.
      * @return {String} the executed template.
      */
     load: function (resource, data, charset, delim, useCache) {

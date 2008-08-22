@@ -23,13 +23,16 @@ THE SOFTWARE.
 /*global crash */
 
 /**
- * @namespace The crash logging object.
+ * @namespace Logging functions.
+ * The logger object stores messages in memory. The programmer must retrieve these messages and send them to
+ * standard, error, or a file output.
  */
 crash.logger = {
 
     /**
-     * @class
-     * @field The logged information.
+     * The logged information.
+     * 
+     * @field
      */
     log: {
         info: 0,

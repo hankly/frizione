@@ -61,8 +61,10 @@ JSDOC.TokenReader.prototype.tokenize = function () {
         return tokens[tokens.length - 1];
     };
     /**@ignore*/ tokens.lastSym = function () {
-        for (var i = tokens.length - 1; i >= 0; i--) {
-            if (!(tokens[i].is("WHIT") || tokens[i].is("COMM"))) return tokens[i];
+        for (var i = tokens.length - 1; i >= 0; i -= 1) {
+            if (!(tokens[i].is("WHIT") || tokens[i].is("COMM"))) {
+                return tokens[i];
+            }
         }
     };
 
@@ -145,7 +147,7 @@ JSDOC.TokenReader.prototype.read_word = function (tokens) {
     this.cursor += 1;
 
     function isWordChar(ch) {
-        return ch.isAlpha() || ch === '.' || ch === '_' || ch === '$';
+        return ch.isAlpha() || ch.isDigit() || ch === '.' || ch === '_' || ch === '$';
     }
 
     while (!this.eof() && isWordChar(this.look())) {

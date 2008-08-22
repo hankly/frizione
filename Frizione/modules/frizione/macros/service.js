@@ -20,8 +20,8 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 */
 
-/*globals res, crash, frizione */
-/*globals encode */
+/*globals res, encode, getProperty */
+/*globals crash, frizione */
 
 if (!this.frizione.macros) {
     frizione.macros = {};
@@ -29,6 +29,7 @@ if (!this.frizione.macros) {
 
 /**
  * Prepares and displays the service main page.
+ * See {@link frizione.macros.serviceFilesList}.
  *
  * @param {Join, JsLint, Minify, Test, View} service the service object.
  */
@@ -53,7 +54,7 @@ frizione.macros.serviceMainPage = function (service) {
  * @param {Application, Module, Project} group the group (application/module/project) object.
  * @param {Array} includes the includable file extensions (with leading dot), for example ".png".
  * @param {Array} excludes the excludable file extensions (with leading dot), for example ".exclude.png".
- * @param (String) action the anchor action, for example "jslint".
+ * @param {String} action the anchor action, for example "jslint".
  * @return {String} the HTML fragment.
  */
 frizione.macros.serviceFilesList = function (group, includes, excludes, action) {
@@ -82,7 +83,7 @@ frizione.macros.serviceFilesList = function (group, includes, excludes, action) 
  * Checks if there were errors in the supplied commands.
  *
  * @param {Object} results the parsed command results.
- * @return {boolean} true if there were errors, otherwise false.
+ * @return {Boolean} true if there were errors, otherwise false.
  */
 frizione.macros.hasCommandErrors = function (results) {
     if (results.jsdocParams && results.jsdocParams.errors) {

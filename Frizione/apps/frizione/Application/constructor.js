@@ -20,13 +20,18 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 */
 
-/*global app, req, res, frizione*/
+/*global app, req, res */
+/*global frizione, Application */
 
 /**
- * Application object constructor.
+ * @class The Helma Application object.
+ * This object is created for each Helma application with a <code>frizione.json</code> file.
  *
- * @class Application
+ * @name Application
  * @constructor
+ *
+ * @description Creates a new Application object.
+ *
  * @param {Object} info the (modified) project json file contents.
  */
 function constructor(info) {
@@ -44,8 +49,9 @@ function constructor(info) {
 
 /**
  * Default (main) action for the specified application.
+ * See {@link frizione.macros.groupMainPage}.
  */
-function main_action() {
+Application.prototype.main_action = function () {
 
     app.debug("Application Request " + req.path);
 
@@ -58,28 +64,28 @@ function main_action() {
     data.jsJoinMinify = false;
     data.staticFiles = false;
     frizione.macros.groupMainPage(this, data);
-}
+};
 
 /**
  * Refresh the application files list.
  */
-function refreshFiles() {
+Application.prototype.refreshFiles = function () {
     app.debug('Application ' + this.name + ' refresh files');
     var file = frizione.file(this.path);
     this.files = file.list([ '.css', '.js', '.json', '.html' ], null);
-}
+};
 
 /**
  * Method used by Helma request path resolution.
  *
  * @param {String} name the path element name.
- * @return {Object} the object that handles the element.
+ * @return {Object} the object that handles the child element.
  */
-function getChildElement(name) {
+Application.prototype.getChildElement = function (name) {
     app.debug("Application.getChildElement " + name);
     var service = this.services[name];
     if (service) {
         return service;
     }
     return this;
-}
+};

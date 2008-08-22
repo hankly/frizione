@@ -20,13 +20,18 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 */
 
-/*global app, req, res, frizione*/
+/*global app, req, res */
+/*global frizione, Module */
 
 /**
- * Module object constructor.
+ * @class The Helma Module object.
+ * This object is created for each Helma module with a <code>frizione.json</code> file.
  *
- * @class Module
+ * @name Module
  * @constructor
+ *
+ * @description Creates a new Module object.
+ *
  * @param {Object} info the (modified) project json file contents.
  */
 function constructor(info) {
@@ -44,8 +49,9 @@ function constructor(info) {
 
 /**
  * Default (main) action for the specified module.
+ * See {@link frizione.macros.groupMainPage}.
  */
-function main_action() {
+Module.prototype.main_action = function () {
 
     app.debug("Module Request " + req.path);
 
@@ -58,28 +64,28 @@ function main_action() {
     data.jsJoinMinify = false;
     data.staticFiles = false;
     frizione.macros.groupMainPage(this, data);
-}
+};
 
 /**
  * Refresh the module files list.
  */
-function refreshFiles() {
+Module.prototype.refreshFiles = function () {
     app.debug('Module ' + this.name + ' refresh files');
     var file = frizione.file(this.path);
     this.files = file.list([ '.css', '.js', '.json', '.html' ], null);
-}
+};
 
 /**
  * Method used by Helma request path resolution.
  *
  * @param {String} name the path element name.
- * @return {Object} the object that handles the element.
+ * @return {Object} the object that handles the child element.
  */
-function getChildElement(name) {
+Module.prototype.getChildElement = function (name) {
     app.debug("Module.getChildElement " + name);
     var service = this.services[name];
     if (service) {
         return service;
     }
     return this;
-}
+};

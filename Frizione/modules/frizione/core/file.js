@@ -23,8 +23,21 @@ THE SOFTWARE.
 /*jslint evil: true */
 /*globals crash, frizione, java */
 
+/**
+ * Creates a file manipulation object.
+ *
+ * @param {String} path the file path.
+ * @return {frizione.fileUtils} The file manipulation object.
+ */
 frizione.file = function (path) {
 
+    /**
+     * The file manipulation object.
+     * This object is constructed via the {@link frizione.file} function.
+     *
+     * @class
+     * @name frizione.fileUtils
+     */
     var functions = crash.file(path);
 
     /**

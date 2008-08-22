@@ -20,15 +20,20 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 */
 
-/*global app, req, res, crash, frizione */
+/*global app, req, res, getProperty */
+/*global crash, frizione, JsLint */
 /*global JSLINT, encode */
 
 /**
- * JsLint object constructor.
+ * @class The JsLint object.
+ * This object responds to <code>/jslint</code> URLs.
  *
- * @class JsLint
+ * @name JsLint
  * @constructor
- * @param group the project/application/module object.
+ *
+ * @description Creates a new JsLint object.
+ *
+ * @param {Application, Module, Project} group the application/module/project object.
  */
 function constructor(group) {
     app.debug('JSLint: ' + group.type + ": " + group.name);
@@ -42,9 +47,11 @@ function constructor(group) {
 }
 
 /**
- * Default (main) action for JSLint operations.
+ * Default (main) action for JsLint operations.
+ * See {@link frizione.macros.serviceMainPage}, and
+ * {@link JsLint#renderLintPage}.
  */
-function main_action() {
+JsLint.prototype.main_action = function () {
     app.debug("JsLint Request " + req.path);
 
     var path = req.path.split('/');
@@ -59,14 +66,14 @@ function main_action() {
         }
         frizione.macros.serviceMainPage(this);
     }
-}
+};
 
 /**
- * Renders the lint page.
+ * Renders the JsLint page.
  *
  * @param file the JavaScript file to lint.
  */
-function renderLintPage(file) {
+JsLint.prototype.renderLintPage = function (file) {
     var data = {};
     data.title = this.serviceText + " : " + this.group.name + " : " + frizione.qualifiedVersion();
     data.group = this.group;
@@ -105,15 +112,15 @@ function renderLintPage(file) {
     var resource = crash.resource("frizione/html/document.html");
     res.charset = "UTF-8";
     res.write(crash.st.load(resource, data, "UTF-8", '<', getProperty('debug') !== 'true'));
-}
+};
 
 /**
  * Method used by Helma request path resolution.
  *
  * @param {String} name the path element name.
- * @return {Object} the object that handles the element.
+ * @return {Object} the object that handles the child element.
  */
-function getChildElement(name) {
+JsLint.prototype.getChildElement = function (name) {
     app.debug("JsLint.getChildElement " + name);
     return this;
-}
+};

@@ -20,14 +20,20 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 */
 
-/*global app, req, res, crash, frizione*/
+/*global app, req, res, getProperty */
+/*global crash, frizione, JsDoc */
+/*global JSDOC, Opt, publish */
 
 /**
- * JsDoc object constructor.
+ * @class The JsDoc object.
+ * This object responds to <code>/jsdoc</code> URLs.
  *
- * @class JsDoc
+ * @name JsDoc
  * @constructor
- * @param group the project/application/module object.
+ *
+ * @description Creates a new JsDoc object.
+ *
+ * @param {Application, Module, Project} group the application/module/project object.
  */
 function constructor(group) {
     app.debug('JsDoc: ' + group.type + ": " + group.name);
@@ -41,9 +47,11 @@ function constructor(group) {
 }
 
 /**
- * Default (main) action for join operations.
+ * Default (main) action for JsDoc operations.
+ * See {@link frizione.macros.serviceMainPage}, and
+ * {@link JsDoc#renderJsDocPage}.
  */
-function main_action() {
+JsDoc.prototype.main_action = function () {
     app.debug("JsDoc Request " + req.path);
 
     var path = req.path.split('/');
@@ -58,14 +66,14 @@ function main_action() {
         }
         frizione.macros.serviceMainPage(this);
     }
-}
+};
 
 /**
  * Renders the JsDoc page.
  *
  * @param file the JsDoc file to execute.
  */
-function renderJsDocPage(file) {
+JsDoc.prototype.renderJsDocPage = function (file) {
     var data = {};
     data.title = this.serviceText + " : " + this.group.name + " : " + frizione.qualifiedVersion();
     data.group = this.group;
@@ -173,15 +181,15 @@ app.debug("End jsdoc " + req.runtime);
     var resource = crash.resource("frizione/html/document.html");
     res.charset = "UTF-8";
     res.write(crash.st.load(resource, data, "UTF-8", '<', getProperty('debug') !== 'true'));
-}
+};
 
 /**
  * Method used by Helma request path resolution.
  *
  * @param {String} name the path element name.
- * @return {Object} the object that handles the element.
+ * @return {Object} the object that handles the child element.
  */
-function getChildElement(name) {
+JsDoc.prototype.getChildElement = function (name) {
     app.debug("JsDoc.getChildElement " + name);
     return this;
-}
+};

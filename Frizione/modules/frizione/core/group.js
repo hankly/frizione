@@ -24,6 +24,11 @@ THE SOFTWARE.
 /*globals Application, Module, Project */
 /*globals FRIZIONE_FILE, JSLINT_OPTIONS_FILE */
 
+/**
+ * The Frizione group ({@link Application}/{@link Module}/{@link Project}) support code.
+ *
+ * @namespace
+ */
 frizione.group = {
 
     /**
@@ -38,7 +43,7 @@ frizione.group = {
     /**
      * Gets the Helma applications directory.
      *
-     * @return {File} the directory.
+     * @return {java.io.File} the directory.
      */
     applicationsDir: function () {
         return new java.io.File(app.getServerDir() + '/' + frizione.group.applicationsPrefix).getAbsoluteFile();
@@ -56,7 +61,7 @@ frizione.group = {
     /**
      * Gets the Helma modules directory.
      *
-     * @return {File} the directory.
+     * @return {java.io.File} the directory.
      */
     modulesDir: function () {
         return new java.io.File(app.getServerDir() + '/' + frizione.group.modulesPrefix).getAbsoluteFile();
@@ -75,7 +80,7 @@ frizione.group = {
     /**
      * Gets the frizione projects directory.
      *
-     * @return {File} the directory.
+     * @return {java.io.File} the directory.
      */
     projectsDir: function () {
         return new java.io.File(app.getServerDir() + '/' + frizione.group.projectsPrefix).getAbsoluteFile();
@@ -94,7 +99,7 @@ frizione.group = {
     /**
      * Gets the current applications list.
      *
-     * @param {boolean} refresh refresh list flag (default is false).
+     * @param {Boolean} refresh refresh list flag (default is false).
      * @return {Array} the applications list.
      */
     allApplications: function (refresh) {
@@ -113,7 +118,7 @@ frizione.group = {
     /**
      * Gets the current modules list.
      *
-     * @param {boolean} refresh refresh list flag (default is false).
+     * @param {Boolean} refresh refresh list flag (default is false).
      * @return {Array} the modules list.
      */
     allModules: function (refresh) {
@@ -132,7 +137,7 @@ frizione.group = {
     /**
      * Gets the current project list.
      *
-     * @param {boolean} refresh refresh list flag (default is false).
+     * @param {Boolean} refresh refresh list flag (default is false).
      * @return {Array} the project list.
      */
     allProjects: function (refresh) {
@@ -153,7 +158,7 @@ frizione.group = {
      *
      * @param {String} prefix the Helma directory to iterate.
      * @param {Function} creator the function to create a new group object.
-     * @param {boolean} browser true if a browser project, false if a rhino project.
+     * @param {Boolean} browser true if a browser project, false if a rhino project.
      * @return {Object} the group file list.
      */
     createGroupList: function (prefix, creator, browser) {
@@ -179,7 +184,7 @@ frizione.group = {
                             info.path = dir.getAbsoluteFile().toString();
                             list.push(info.name);
 
-                            // Create a default jslint.json file if there isn't one
+                            // Create a default jslint.options.json file if there isn't one
                             frizione.group.jsLintOptions(info.path, browser);
 
                             app.debug("Storing group[" + name + "], groupNames[" + info.name + "]");
@@ -234,7 +239,7 @@ frizione.group = {
      * Gets the JSLint options from the specified path.
      *
      * @param {String} path the project file path.
-     * @param {boolean} browser (optional) true if a browser project, false if a rhino project.
+     * @param {Boolean} browser (optional) true if a browser project, false if a rhino project.
      * @return {Object} the JSLint options object.
      */
     jsLintOptions: function (path, browser) {
@@ -272,7 +277,7 @@ frizione.group = {
                 jsLintOptions.browser = false;
                 jsLintOptions.rhino = true;
             }
-            file.writeJson(JSON.stringify(jsLintOptions, null, "\t"));
+            file.writeJson(jsLintOptions);
             return jsLintOptions;
         }
         else {

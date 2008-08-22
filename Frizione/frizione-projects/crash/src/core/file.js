@@ -32,10 +32,9 @@ THE SOFTWARE.
 crash.file = function (path) {
 
     /**
-     * The file manipulation object.
+     * @class The file manipulation object.
      * This object is constructed via the {@link crash.file} function.
      * 
-     * @class
      * @name crash.fileUtils
      */
     var result = /** @scope crash.fileUtils.prototype */ {
@@ -68,7 +67,7 @@ crash.file = function (path) {
         /**
          * Checks if the file is a normal file.
          *
-         * @return (Boolean) true if exists and is a normal file, otherwise false.
+         * @return {Boolean} true if exists and is a normal file, otherwise false.
          */
         isFile: function () {
             return result.file.isFile();
@@ -139,6 +138,13 @@ crash.file = function (path) {
 
         /**
          * Lists the files and directories.
+         * The <code>receiver</code> function is called for each file and directory (excluding the current '.' and
+         * parent '..' directories). It is called with three parameters:
+         * <ul>
+         *   <li><code>root</code> <i>{java.io.File}</i> the parent file object.</li>
+         *   <li><code>file</code> <i>{java.io.File}</i> the child file or directory.</li>
+         *   <li><code>dir</code> <i>{Boolean}</i> <code>true</code> if a directory, otherwise <code>false</code>.</li>
+         * </ul>
          *
          * @param {Function} receiver the function that receives each file or directory.
          */
@@ -178,7 +184,7 @@ crash.file = function (path) {
         /**
          * Reads the entire binary contents of the file.
          *
-         * @return {Byte[]} the contents as a byte array, or null if the file doesn't exist.
+         * @return {java.lang.byte[]} the contents as a byte array, or null if the file doesn't exist.
          */
         readBinary: function () {
             if (result.file.isFile() && result.file.exists()) {

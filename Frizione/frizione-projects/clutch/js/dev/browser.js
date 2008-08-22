@@ -23,16 +23,61 @@ THE SOFTWARE.
 /*global clutch, google */
 
 if (!this.clutch) {
+
+    /**
+     * @namespace Clutch is a generic JavaScript library, with extensions for Gears.
+     * The Clutch library code has been carefully designed to run inside a browser, or a Gears WorkerPool.
+     */
     clutch = {};
 }
 
 // Browser sniffing. Disgusting, but sometimes necessary.
 // Modified version of the Prototype library sniffer code.
+/**
+ * @namespace Clutch browser sniffer.
+ * Sets one or more elements depending on the browser being used.
+ */
 clutch.browser =  {
-  IE:           !!window && (!!(window.attachEvent && !window.opera)),
-  Opera:        !!window && !!window.opera,
-  WebKit:       !!navigator && navigator.userAgent.indexOf('AppleWebKit/') > -1,
-  Gecko:        !!navigator && navigator.userAgent.indexOf('Gecko') > -1 && navigator.userAgent.indexOf('KHTML') === -1,
-  MobileSafari: !!navigator && !!navigator.userAgent.match(/Apple.*Mobile.*Safari/),
-  Gears:        !!google && !!google.gears
+
+    /**
+     * Internet Explorer browser (if <code>true</code>).
+     *
+     * @type Boolean
+     */
+    IE:           !!window && (!!(window.attachEvent && !window.opera)),
+
+    /**
+     * Opera browser (if true).
+     *
+     * @type Boolean
+     */
+    Opera:        !!window && !!window.opera,
+
+    /**
+     * WebKit (Safari et al) browser (if <code>true</code>).
+     *
+     * @type Boolean
+     */
+    WebKit:       !!navigator && navigator.userAgent.indexOf('AppleWebKit/') > -1,
+
+    /**
+     * Gecko (Firefox et al) browser (if <code>true</code>).
+     *
+     * @type Boolean
+     */
+    Gecko:        !!navigator && navigator.userAgent.indexOf('Gecko') > -1 && navigator.userAgent.indexOf('KHTML') === -1,
+
+    /**
+     * Mobile Safari browser (if <code>true</code>).
+     *
+     * @type Boolean
+     */
+    MobileSafari: !!navigator && !!navigator.userAgent.match(/Apple.*Mobile.*Safari/),
+
+    /**
+     * Gears enabled browser (if <code>true</code>).
+     *
+     * @type Boolean
+     */
+    Gears:        !!google && !!google.gears
 };

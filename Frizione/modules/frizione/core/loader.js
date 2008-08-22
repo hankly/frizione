@@ -22,18 +22,25 @@ THE SOFTWARE.
 
 /*globals app, crash, frizione, java */
 
+/**
+ * The root frizione directory (Helma Server directory).
+ *
+ * @type {String}
+ */
 frizione.dir = app.getServerDir();
 
 /**
  * The root frizione URL.
+ *
+ * @type {java.net.URL}
  */
 frizione.root = new java.io.File(frizione.dir).toURL();
 
 /**
  * Finds a resource, and provides functions to load the resource as binary or text.
  *
- * @param {String} rel the relative URL to the resource from the Helma server directory.
- * @return {Object} the resource loader.
+ * @param {String} rel the relative URL to the resource from the Helma Server directory.
+ * @return {frizione.resourceLoader} the resource loader.
  */
 frizione.resource = function (rel) {
 
@@ -49,20 +56,28 @@ frizione.resource = function (rel) {
         return rel;
     }
 
+    /**
+     * @class The resource loader object.
+     * This object is constructed via the {@link frizione.resource} function.
+     *
+     * @name frizione.resourceLoader
+     */
     function makeResource(rel) {
 
-        var res = {
+        var res = /** @scope frizione.resourceLoader.prototype */ {
 
             /**
              * The original resource relative url.
+             *
+             * @type {String}
              */
             original: rel,
 
             /**
              * Finds a resource, and provides functions to load the resource as binary or text.
               *
-             * @param rel (String) rel the relative URL wrt this resource.
-             * @return {Object} the resource loader.
+             * @param {String} rel the relative URL wrt this resource.
+             * @return {frizione.resourceLoader} the resource loader.
              */
             resource: function (rel) {
                 return makeResource(check(res.original, rel));
@@ -71,8 +86,8 @@ frizione.resource = function (rel) {
             /**
              * Reads the entire binary contents of the resource.
              *
-             * @param (int) length the (optional) binary resource length.
-             * @return {byte[]} the contents as a byte array, or null if the resource doesn't exist.
+             * @param {Number} length the (optional) binary resource length.
+             * @return {java.lang.Byte[]} the contents as a byte array, or <code>null</code> if the resource doesn't exist.
              */
             readBinary: function (length) {
                 var stream = new java.io.FileInputStream(new java.io.File(frizione.dir, '/' + rel));
@@ -82,8 +97,8 @@ frizione.resource = function (rel) {
             /**
              * Reads the entire text contents of the resource.
              *
-             * @param {String} charset the (optional) character set to use (defaults to "UTF-8").
-             * @return {String} the contents as text, or null if the resource doesn't exist.
+             * @param {String} charset the (optional) character set to use, defaults to "UTF-8".
+             * @return {String} the contents as text, or <code>null</code> if the resource doesn't exist.
              */
             readText: function (charset) {
                 var stream = new java.io.FileInputStream(new java.io.File(frizione.dir, '/' + rel));

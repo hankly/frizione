@@ -20,15 +20,20 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 */
 
-/*global app, req, res, crash, frizione*/
+/*global app, req, res, getProperty */
+/*global crash, frizione, Minify */
 
 /**
- * Minify object constructor.
+ * @class The Minify object.
+ * This object responds to <code>/jsminify</code> and <code>/cssminify</code> URLs.
  *
- * @class Minify
+ * @name Minify
  * @constructor
- * @param group the project/application/module object.
- * @param type the minify type, either 'css' or 'js'.
+ *
+ * @description Creates a new Minify object.
+ *
+ * @param {Application, Module, Project} group the application/module/project object.
+ * @param {String} type the minify type, either 'css' or 'js'.
  */
 function constructor(group, type) {
     app.debug('Minify ' + type + ": " + group.type + ": " + group.name);
@@ -54,8 +59,10 @@ function constructor(group, type) {
 
 /**
  * Default (main) action for minify operations.
+ * See {@link frizione.macros.serviceMainPage}, and
+ * {@link Minify#renderMinifyPage}.
  */
-function main_action() {
+Minify.prototype.main_action = function () {
     app.debug("Minify Request " + req.path);
 
     var path = req.path.split('/');
@@ -70,14 +77,14 @@ function main_action() {
         }
         frizione.macros.serviceMainPage(this);
     }
-}
+};
 
 /**
  * Renders the minify page.
  *
  * @param file the minify file to execute.
  */
-function renderMinifyPage(file) {
+Minify.prototype.renderMinifyPage = function (file) {
     var data = {};
     data.title = this.serviceText + " : " + this.group.name + " : " + frizione.qualifiedVersion();
     data.group = this.group;
@@ -95,15 +102,15 @@ function renderMinifyPage(file) {
     var resource = crash.resource("frizione/html/document.html");
     res.charset = "UTF-8";
     res.write(crash.st.load(resource, data, "UTF-8", '<', getProperty('debug') !== 'true'));
-}
+};
 
 /**
  * Method used by Helma request path resolution.
  *
  * @param {String} name the path element name.
- * @return {Object} the object that handles the element.
+ * @return {Object} the object that handles the child element.
  */
-function getChildElement(name) {
+Minify.prototype.getChildElement = function (name) {
     app.debug("Minify.getChildElement " + name);
     return this;
-}
+};

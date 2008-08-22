@@ -28,7 +28,7 @@ THE SOFTWARE.
 crash.xml = {
 
     /**
-     * Encodes text, specifically escaping &amp;, &lt; and &gt; characters.
+     * Encodes document text, specifically escaping &amp;, &lt; and &gt; characters.
      *
      * @param {String} text the text to encode.
      * @return {String} the encoded text.
@@ -37,6 +37,12 @@ crash.xml = {
         return text.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
     },
 
+    /**
+     * Encodes attribute value text, specifically escaping &#39; and &quot; characters.
+     *
+     * @param {String} text the text to encode.
+     * @return {String} the encoded text.
+     */
     attrEncode: function (text) {
         return crash.xml.textEncode(text).replace(/'/g, '&#39;').replace(/"/g, '&quot;');
     },
@@ -44,8 +50,8 @@ crash.xml = {
     /**
      * Builds an attribute list.
      *
-     * @param attrs the element attributes.
-     * @return the formatted attributes as a string.
+     * @param {Object} attrs the element attributes.
+     * @return {String} the formatted attributes as a string.
      */
     buildAttributes: function (attrs) {
         var xml = crash.xml;
@@ -62,11 +68,11 @@ crash.xml = {
     /**
      * Builds an element node.
      *
-     * @param elem the element name.
-     * @param attrs the element attributes.
-     * @param text the (optional) element text.
-     * @param encode the (optional) element text encode flag (default is true).
-     * @return the formatted element as a string.
+     * @param {String} elem the element name.
+     * @param {Object} attrs the element attributes.
+     * @param {String} text the (optional) element text.
+     * @param {Boolean} encode the (optional) element text encode flag, default is <code>true</code>.
+     * @return {String} the formatted element as a string.
      */
     buildNode: function (elem, attrs, text, encode) {
         var xml = crash.xml;
@@ -95,11 +101,11 @@ crash.xml = {
     /**
      * Builds an element node array.
      *
-     * @param elem the element name.
-     * @param attrs the element attributes.
-     * @param values the array values.
-     * @param encode the (optional) array values encode flag (default is true).
-     * @return the formatted element node array as a string.
+     * @param {String} elem the element name.
+     * @param {Object} attrs the element attributes.
+     * @param {Array} values the array values.
+     * @param {Boolean} encode the (optional) array values encode flag, default is <code>true</code>.
+     * @return {String} the formatted element node array as a string.
      */
     buildNodeArray: function (elem, attrs, values, encode) {
         var xml = crash.xml;

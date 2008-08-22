@@ -30,9 +30,7 @@ THE SOFTWARE.
         <property name="home.dir" value="."/>
         <property name="crash.src" value="${home.dir}/Frizione/frizione-projects/crash/src"/>
         <property name="crash.test" value="${home.dir}/Frizione/frizione-projects/crash/test"/>
-        <property name="frizione.src" value="${home.dir}/Frizione//frizione-projects/frizione/src"/>
         <property name="crash.module" value="${home.dir}/Frizione/modules/crash"/>
-        <property name="frizione.module" value="${home.dir}/Frizione/modules/frizione"/>
         <property name="rhino.crash.dir" value="${home.dir}/Frizione-Rhino/Crash/src/crash"/>
         <property name="rhino.test.dir" value="${home.dir}/Frizione-Rhino/Crash/src/test"/>
     </target>
@@ -59,9 +57,6 @@ See comments inside the build.xml file for more details.
             <fileset dir="${crash.src}">
                 <exclude name="**/rhino/**"/>
              </fileset>
-        </copy>
-        <copy todir="${frizione.module}">
-            <fileset dir="${frizione.src}" />
         </copy>
 
         <copy todir="${rhino.crash.dir}">

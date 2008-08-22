@@ -22,26 +22,22 @@ THE SOFTWARE.
 
 /*global crash */
 
-/**
- * @requires crash.xml, crash.st
- */
-
 if (!this.crash.test) {
     crash.test = {};
 }
 
-/*
+/**
  * Creates an HTML document report of the unit test summary.
  *
  * @param {Object} report the unit test summary.
  * @param {Object} result the unit test report.
- * @param {boolean} useCache the (optional) use template cache flag, defaults to true.
+ * @param {Boolean} useCache the (optional) use template cache flag, defaults to <code>true</code>.
  * @result {String} the HTML document.
  */
 crash.test.htmlReport = function (report, result, useCache) {
     var xml = crash.xml;
 
-    /**
+    /*
      * Creates the unit test error report.
      *
      * @param {String} name the test name.
@@ -92,7 +88,7 @@ crash.test.htmlReport = function (report, result, useCache) {
         }
     }
 
-    /**
+    /*
      * Creates the multiple unit tests error report.
      *
      * @param {String} type the error type.
@@ -110,7 +106,7 @@ crash.test.htmlReport = function (report, result, useCache) {
         return rows;
     }
 
-    /**
+    /*
      * Creates the unit test error report.
      *
      * @param {String} type the error type.
@@ -143,7 +139,7 @@ crash.test.htmlReport = function (report, result, useCache) {
         result.summary = xml.buildNodeArray('td', {}, stats);
     }
 
-    /**
+    /*
      * Creates a report for a single unit test.
      *
      * @param {Object} report the unit test report.
@@ -192,7 +188,7 @@ crash.test.htmlReport = function (report, result, useCache) {
         }
     }
 
-    /**
+    /*
      * Creates a report for multiple unit tests.
      *
      * @param {Object} report the unit test report.

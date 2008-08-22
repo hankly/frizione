@@ -20,15 +20,20 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 */
 
-/*global app, req, res, java, frizione */
+/*global app, req, res */
+/*global java, frizione, Fixture */
 
 /**
- * Fixture object constructor.
+ * @class The Fixture object.
+ * This object responds to <code>/writefixture</code> and <code>/readfixture</code> URLs.
  *
- * @class Fixture
+ * @name Fixture
  * @constructor
- * @param group the project/application/module object.
- * @param type the fixture type, either 'read' or 'write'.
+ *
+ * @description Creates a new Fixture object.
+ * 
+ * @param {Application, Module, Project} group the application/module/project object.
+ * @param {String} type the fixture type, either 'read' or 'write'.
  */
 function constructor(group, type) {
     app.debug('Fixture ' + type + ": " + group.type + ": " + group.name);
@@ -38,8 +43,10 @@ function constructor(group, type) {
 
 /**
  * Default (main) action for POST.
+ * Takes the filepath from the <code>/writefixture</code> part of the URL, and writes
+ * the POST data to this filepath.
  */
-function main_action_post() {
+Fixture.prototype.main_action_post = function () {
     app.debug("Fixture Request " + req.path);
 
     res.charset = "UTF8";
@@ -73,12 +80,14 @@ function main_action_post() {
         res.status = 500;
         res.write("Nothing to write");
     }
-}
+};
 
 /**
  * Default (main) action for GET.
+ * Reads the contents of the filepath from the <code>/readfixture</code> part of the URL,
+ * using the query parameters, and returns the modified file contents.
  */
-function main_action_get() {
+Fixture.prototype.main_action_get = function () {
     app.debug("Fixture Request " + req.path);
 
     res.charset = "UTF8";
@@ -104,15 +113,15 @@ function main_action_get() {
         res.status = 500;
         res.write("Nothing to read");
     }
-}
+};
 
 /**
  * Method used by Helma request path resolution.
  *
  * @param {String} name the path element name.
- * @return {Object} the object that handles the element.
+ * @return {Object} the object that handles the child element.
  */
-function getChildElement(name) {
+Fixture.prototype.getChildElement = function (name) {
     app.debug("Fixture.getChildElement " + name);
     return this;
-}
+};

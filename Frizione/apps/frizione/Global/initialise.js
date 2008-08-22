@@ -20,7 +20,8 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 */
 
-/*globals app, res, req, java, crash, frizione */
+/*globals app, res, req */
+/*globals java, crash, frizione */
 /*globals HopObject, StaticFiles */
 /*globals FRIZIONE_FILE, JSLINT_OPTIONS_FILE */
 
@@ -42,8 +43,9 @@ JSLINT_OPTIONS_FILE = "/jslint.options.json";
 
 /**
  * Application initialisation.
+ * Prepares the HopObjects which respond to the URL subpaths of the Frizione application.
  *
- * @param name - the name of the application.
+ * @param {String} name the name of the application.
  */
 function onStart(name) {
     var dirs = { };
