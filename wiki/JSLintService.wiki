@@ -4,7 +4,7 @@
 
 || http://frizione.googlecode.com/svn/trunk/docs/Images/jslint.png || From the project home page you can select the !JavaScript files to lint... ||
 
-|| The !JSLint page displays the original source code... || http://frizione.googlecode.com/svn/trunk/docs/Images/jslint-page1.png ||
+|| The JSLint page displays the original source code... || http://frizione.googlecode.com/svn/trunk/docs/Images/jslint-page1.png ||
 
 || http://frizione.googlecode.com/svn/trunk/docs/Images/jslint-page2.png || Together with a detailed report of the code contents... ||
 
