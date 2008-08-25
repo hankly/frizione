@@ -58,6 +58,11 @@ if (!this.clutch) {
     clutch = {};
 }
 
+/**
+ * Checks if Gears is installed.
+ *
+ * @returns {Boolean} <code>true</code> if Gears is installed, otherwise <code>false</code>.
+ */
 clutch.isGearsInstalled = function () {
     return (function () {
         if (!!this.window) {
@@ -69,30 +74,65 @@ clutch.isGearsInstalled = function () {
     })();
 };
 
+/**
+ * Gets the Gears factory object
+ *
+ * @return {GearsFactory} the Gears factory object.
+ */
 clutch.gearsFactory = function () {
     return google.gears.factory;
 };
 
+/**
+ * Creates a Gears database object.
+ *
+ * @return {GearsDatabase} the Gears database object.
+ */
 clutch.createGearsDatabase = function () {
     return google.gears.factory.create('beta.database');
 };
 
+/**
+ * Creates a Gears desktop object.
+ *
+ * @return {GearsDesktop} the Gears desktop object.
+ */
 clutch.createGearsDesktop = function () {
     return google.gears.factory.create('beta.desktop');
 };
 
+/**
+ * Creates a Gears HTTP request object.
+ *
+ * @return {GearsHttpRequest} the Gears HTTP request object.
+ */
 clutch.createGearsHttpRequest = function () {
     return google.gears.factory.create('beta.httprequest');
 };
 
+/**
+ * Creates a Gears local server object.
+ *
+ * @return {GearsLocalServer} the Gears local server object.
+ */
 clutch.createGearsLocalServer = function () {
     return google.gears.factory.create('beta.localserver');
 };
 
+/**
+ * Creates a Gears timer object.
+ *
+ * @return {GearsTimer} the Gears timer object.
+ */
 clutch.createGearsTimer = function () {
     return google.gears.factory.create('beta.timer');
 };
 
+/**
+ * Creates a Gears worker pool object.
+ *
+ * @return {GearsWorkerPool} the Gears worker pool object.
+ */
 clutch.createGearsWorkerPool = function () {
     return google.gears.factory.create('beta.workerpool');
 };
@@ -126,6 +166,12 @@ if (!this.clutch) {
 }
 
 if (!this.clutch.timer) {
+
+    /**
+     * @namespace Clutch timer functions.
+     * The timer functions are taken from either the standard browser functions or the Gears timer object,
+     * depending on availability. These functions are guaranteed for either the browser or WorkerPool environments.
+     */
     clutch.timer = {};
 }
 
@@ -137,15 +183,44 @@ if (!this.clutch.timer) {
     // don't try to simplify this stuff, clutch.timer.setTimeout = window.setTimeout causes all sorts of problems
     // with Opera and Firefox (which actually crashes)
     if (!!this.window && !!this.window.setTimeout) {
+
+        /**
+         * Calls a function after the specified number of milliseconds.
+         *
+         * @param {Function} func the function to call.
+         * @param {Number} millis the number of milliseconds to wait.
+         * @return {Number} the timer identifier.
+         */
         clutch.timer.setTimeout = function (code, millis) {
             return window.setTimeout(code, millis);
         };
+
+        /**
+         * Repeatedly calls a function with the specified number of milliseconds
+         * delay between each call.
+         *
+         * @param {Function} func the function to call.
+         * @param {Number} millis the number of milliseconds to wait.
+         * @return {Number} the timer identifier.
+         */
         clutch.timer.setInterval = function (code, millis) {
             return window.setInterval(code, millis);
         };
+
+        /**
+         * Removes a previously set timeout.
+         *
+         * @param {Number} id the timeout identifier.
+         */
         clutch.timer.clearTimeout = function (timerId) {
             window.clearTimeout(timerId);
         };
+
+        /**
+         * Removes a previously set interval.
+         *
+         * @param {Number} id the interval identifier.
+         */
         clutch.timer.clearInterval = function (timerId) {
             window.clearInterval(timerId);
         };
@@ -198,7 +273,14 @@ if (!this.clutch) {
 // Since JSON has no date format, everyone has invented their own. So why not me?
 // Provides patches for JSON and Prototype, but please don't use them both together, they
 // really don't get on at all.
+/**
+ * @namespace Setter functions for different Date JSON formats.
+ */
 clutch.date = {
+
+    /**
+     * Sets the 'standard' JSON Date format.
+     */
     toStandardJSON: function () {
         function tens(n) {
             // Format integers to have at least two digits.
@@ -210,6 +292,11 @@ clutch.date = {
             return n < 100 ? '0' + tens(n) : n;
         }
 
+        /**
+         * Converts the Date object to JSON format.
+         *
+         * @return {String} The Date in JSON format.
+         */
         Date.prototype.toJSON = function () {
 
             return this.getUTCFullYear()  + '-' +
@@ -222,12 +309,18 @@ clutch.date = {
         };
     },
 
+    /**
+     * Sets the Microsoft JSON Date format.
+     */
     toMicrosoftJSON: function () {
         Date.prototype.toJSON = function () {
-            return "\\/Date(" + this.getTime() + ")\\/";
+            return "\/Date(" + this.getTime() + ")\/";
         };
     },
 
+    /**
+     * Sets the Clutch JSON Date format.
+     */
     toClutchJSON: function () {
         function tens(n) {
             // Format integers to have at least two digits.
@@ -280,20 +373,51 @@ clutch.date = {
 };
 
 // The usual, boring string functions that the implementers forgot.
+
+/**
+ * @namespace String utility functions.
+ */
 clutch.string = {
+
+    /**
+     * Trims leading and trailing whitespace from a string.
+     *
+     * @param {String} string the string to trim.
+     * @return {String} the trimmed string.
+     */
     trim: function (string) {
         return string.replace(/^[\s\u00a0]+/, '').replace(/[\s\u00a0]+$/, '');
     },
 
+    /**
+     * Checks if the string starts with the specified substring.
+     *
+     * @param {String} string the string to check.
+     * @param {String} match the substring to check.
+     * @return {Boolean} <code>true</code> if the string starts with the specified substring, otherwise <code>false</code>.
+     */
     startsWith: function (string, match) {
         return string.indexOf(match) === 0;
     },
 
+    /**
+     * Checks if the string ends with the specified substring.
+     *
+     * @param {String} string the string to check.
+     * @param {String} match the substring to check.
+     * @return {Boolean} <code>true</code> if the string ends with the specified substring, otherwise <code>false</code>.
+     */
     endsWith: function (string, match) {
         var offset = string.length - match.length;
         return offset >= 0 && string.lastIndexOf(match) === offset;
     },
 
+    /**
+     * Converts an object to JSON format.
+     *
+     * @param {Object} object the object to convert.
+     * @return {String} the JSON format of the object.
+     */
     toJSON: function (object) {
         // Check for Prototype
         if (Object.toJSON && typeof Object.toJSON === 'function') {
@@ -304,6 +428,12 @@ clutch.string = {
         }
     },
 
+    /**
+     * Converts a JSON formatted string to an object.
+     *
+     * @param {String} string the JSON formatted string.
+     * @return {Object} the JavaScript object.
+     */
     fromJSON: function (string) {
         // Check for Prototype
         if (String.prototype.evalJSON && typeof String.prototype.evalJSON === 'function') {
@@ -370,10 +500,16 @@ if (!this.clutch) {
 }
 
 if (!this.clutch.xhr) {
+
+    /**
+     * @namespace Clutch XML HTTP Request functions.
+     * The XML HTTP Request functions are taken from either the standard browser functions or the Gears HttpRequest object,
+     * depending on availability. These functions are guaranteed for either the browser or WorkerPool environments.
+     */
     clutch.xhr = {};
 }
 
-/**
+/*
  * Creates an XHR object.
  */
 clutch.xhr.createRequest = function () {
@@ -403,13 +539,19 @@ clutch.xhr.createRequest = function () {
 
 /**
  * Executes an XHR.
+ * The <code>handler</code> function receives three parameters:
+ * <ul>
+ *   <li><code>status</code> - <i>{Number}</i> the status code (can be -1 if the request fails).</li>
+ *   <li><code>statusText</code> - <i>{String}</i> the status text.</li>
+ *   <li><code>responseText</code> - <i>{String}</i> the response text.</li>
+ * </ul>
  *
- * @param method can be "GET", possibly "POST".
- * @param url the absolute URL to get or post to.
- * @param optionalParams optional parameters, do your own value encoding though
- * @param optionalBody damn useful for posts
- * @param timeout the optional maximum amount of time to wait for a reply.
- * @param handler who to call when things go right, or wrong.
+ * @param {String} method can be "GET", possibly "POST".
+ * @param {String} url the absolute URL to get or post to.
+ * @param {Object} optionalParams optional parameters, do your own value encoding though.
+ * @param {String} optionalBody damn useful for posts.
+ * @param {Number} timeout the optional maximum amount of time to wait for a reply in milliseconds.
+ * @param {Function} handler who to call when things go right, or wrong.
  */
 clutch.xhr.executeRequest = function (method, url, optionalParams, optionalBody, timeout, handler) {
     var requestTimeout = timeout || 5000; // 5 seconds
@@ -531,15 +673,20 @@ if (!this.clutch) {
     clutch = {};
 }
 if (!this.clutch.db) {
+
+    /**
+     * @namespace Gears database functions.
+     */
     clutch.db = {};
 }
 
 /**
- * Converts a ResultSet into an object.
- * The ResultSet is expected to contain a single row, or no row at all.
+ * Converts a Gears ResultSet into an object.
+ * The Gears ResultSet is expected to contain a single row, or no row at all.
  *
- * @param result the ResultSet to convert.
- * @param columns the columns to extract.
+ * @param {ResultSet} result the Gears ResultSet to convert.
+ * @param {Array} columns the columns to extract.
+ * @return {Object} the converted Gears ResultSet, or <code>null</code> if no data available.
  */
 clutch.db.fromRow = function (result, columns) {
     if (!result.isValidRow()) {
@@ -559,11 +706,12 @@ clutch.db.fromRow = function (result, columns) {
 };
 
 /**
- * Converts a ResultSet into an object.
- * The ResultSet is expected to contain multiple rows, or no row at all.
+ * Converts a Gears ResultSet into an object.
+ * The Gears ResultSet is expected to contain multiple rows, or no row at all.
  *
- * @param result the ResultSet to convert.
- * @param columns the columns to extract.
+ * @param {ResultSet} result the Gears ResultSet to convert.
+ * @param {Array} columns the columns to extract.
+ * @return {Array} the converted ResultSet, or <code>null</code> if no data available.
  */
 clutch.db.fromRows = function (result, columns) {
     if (!result.isValidRow()) {
@@ -590,9 +738,10 @@ clutch.db.fromRows = function (result, columns) {
 
 /**
  * Prepares the optional parameter syntax for a SELECT query.
- * These include: where, groupBy, having, orderBy, limit and offset.
+ * These include: where (WHERE), groupBy (GROUP BY), having (HAVING), orderBy (ORDER BY), limit (LIMIT) and offset (OFFSET).
  *
- * @param params the optional parameters
+ * @param {Object} params the optional query parameters.
+ * @return {String} the query string.
  */
 clutch.db.optionalQuery = function (params) {
     var query = "";
@@ -653,7 +802,8 @@ if (!this.clutch.db) {
 /**
  * Database logger. Useful for debugging (especially in WorkerPools).
  *
- * @param name the name of the application database.
+ * @param {String} name the name of the application database.
+ * @return {clutch.db.log} the database logging object.
  */
 clutch.db.logger = function (name) {
 
@@ -663,31 +813,66 @@ clutch.db.logger = function (name) {
     db.execute('CREATE TABLE IF NOT EXISTS clutch_logger' +
                ' ( id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT(256), value TEXT(4096) )');
 
-    return {
+    /**
+     * @class The database logging object.
+     * This object is created by the {@link clutch.db.logger} function.
+     *
+     * @name clutch.db.log
+     */
+    return /** @scope clutch.db.log.prototype */ {
 
+        /**
+         * Writes a log record.
+         *
+         * @param {String} name the log record name, something like "error", or "warning".
+         * @param {String} value the log record value, usually the log message.
+         */
         log: function (name, value) {
             var result = db.execute('INSERT INTO clutch_logger (name, value) VALUES(?, ?)', [ name, value ]);
             result.close();
             return db.rowsAffected;
         },
 
+        /**
+         * Gets the log record with the specified identifier.
+         *
+         * @param {Number} id the record identifier.
+         * @return {Object} the record, or <code>null</code> if not found.
+         */
         get: function (id) {
             var result = db.execute('SELECT id, name, value FROM clutch_logger WHERE id = ?', [ id ]);
             return clutch.db.fromRow(result, columns);
         },
 
+        /**
+         * Gets a list of log records with the specified parameters.
+         *
+         * @param {Object} params the query parameters.
+         * @return {Array} the records, or <code>null</code> if not found.
+         */
         list: function (params) {
             var query = clutch.db.optionalQuery(params);
             var result = db.execute('SELECT id, name, value FROM clutch_logger' + query);
             return clutch.db.fromRows(result, columns);
         },
 
+        /**
+         * Removes (deletes) the log record with the specified identifier.
+         *
+         * @param {Number} id the record identifier.
+         * @return {Number} the number of rows affected.
+         */
         remove: function (id)  {
             var result = db.execute('DELETE FROM clutch_logger WHERE id = ?', [ id ]);
             result.close();
             return db.rowsAffected;
         },
 
+        /**
+         * Removes (deletes) all log records.
+         *
+         * @return {Number} the number of rows affected.
+         */
         removeAll: function () {
             var result = db.execute('DELETE FROM clutch_logger WHERE 1');
             result.close();
