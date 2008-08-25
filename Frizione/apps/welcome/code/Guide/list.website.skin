@@ -1,0 +1,11 @@
+        <ul>
+            <li><a href="http://helma.org/">home</a></li>
+            <li><a href="http://helma.org/development/mailinglists/">community</a></li>
+            <li><a href="http://helma.org/docs/guide/">user guide</a></li>
+            <li><a href="http://helma.org/docs/reference/">reference</a></li>
+            <li><a href="http://helma.org/docs/tutorial/">tutorial</a></li>
+            <li><a href="http://dev.helma.org/Wiki/Helma+Roadmap/">roadmap</a></li>
+            <li><a href="http://dev.helma.org/Wiki/">wiki</a></li>
+            <li><a href="http://helma.org/development/bugs">bug reporting</a></li>
+            <li><a href="http://helma.org/projects/">related projects</a></li>
+        </ul>

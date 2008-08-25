@@ -28,6 +28,12 @@ if (!this.clutch) {
 }
 
 if (!this.clutch.timer) {
+
+    /**
+     * @namespace Clutch timer functions.
+     * The timer functions are taken from either the standard browser functions or the Gears timer object,
+     * depending on availability. These functions are guaranteed for either the browser or WorkerPool environments.
+     */
     clutch.timer = {};
 }
 
@@ -39,15 +45,44 @@ if (!this.clutch.timer) {
     // don't try to simplify this stuff, clutch.timer.setTimeout = window.setTimeout causes all sorts of problems
     // with Opera and Firefox (which actually crashes)
     if (!!this.window && !!this.window.setTimeout) {
+
+        /**
+         * Calls a function after the specified number of milliseconds.
+         *
+         * @param {Function} func the function to call.
+         * @param {Number} millis the number of milliseconds to wait.
+         * @return {Number} the timer identifier.
+         */
         clutch.timer.setTimeout = function (code, millis) {
             return window.setTimeout(code, millis);
         };
+
+        /**
+         * Repeatedly calls a function with the specified number of milliseconds
+         * delay between each call.
+         *
+         * @param {Function} func the function to call.
+         * @param {Number} millis the number of milliseconds to wait.
+         * @return {Number} the timer identifier.
+         */
         clutch.timer.setInterval = function (code, millis) {
             return window.setInterval(code, millis);
         };
+
+        /**
+         * Removes a previously set timeout.
+         *
+         * @param {Number} id the timeout identifier.
+         */
         clutch.timer.clearTimeout = function (timerId) {
             window.clearTimeout(timerId);
         };
+
+        /**
+         * Removes a previously set interval.
+         *
+         * @param {Number} id the interval identifier.
+         */
         clutch.timer.clearInterval = function (timerId) {
             window.clearInterval(timerId);
         };

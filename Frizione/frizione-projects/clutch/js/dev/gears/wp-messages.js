@@ -32,11 +32,19 @@ if (!this.clutch) {
     clutch = {};
 }
 if (!this.clutch.wp) {
+
+    /**
+     * @namespace Gears worker pool functions.
+     */
     clutch.wp = {};
 }
 
 /**
  * Message handlers (functions) for specific commands.
+ * A command is simply a string, which is associated with a function (the handler).
+ * For example the Clutch unit testing code uses two commands,
+ * <code>clutch.test.run</code> and <code>clutch.test.status</code> to run and check the
+ * status of unit tests within a Worker Pool from the main page.
  */
 clutch.wp.handlers = {
     'default': function (message) {
@@ -45,10 +53,12 @@ clutch.wp.handlers = {
 };
 
 /**
- * WorkerPool message handler.
- *
+ * Finds the specific WorkerPool message handler for a given message, and
+ * then calls the handler.
+ * If no handler is found, then the default handler is used.
+ * 
  * @param depr1 deprecated message contents (not used).
- * @param depr2 deprectaed sender id (not used).
+ * @param depr2 deprecated sender id (not used).
  * @param message the message object.
  */
 clutch.wp.onMessage = function (depr1, depr2, message) {

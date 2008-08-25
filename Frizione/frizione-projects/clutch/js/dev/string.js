@@ -30,7 +30,14 @@ if (!this.clutch) {
 // Since JSON has no date format, everyone has invented their own. So why not me?
 // Provides patches for JSON and Prototype, but please don't use them both together, they
 // really don't get on at all.
+/**
+ * @namespace Setter functions for different Date JSON formats.
+ */
 clutch.date = {
+
+    /**
+     * Sets the 'standard' JSON Date format.
+     */
     toStandardJSON: function () {
         function tens(n) {
             // Format integers to have at least two digits.
@@ -42,6 +49,11 @@ clutch.date = {
             return n < 100 ? '0' + tens(n) : n;
         }
 
+        /**
+         * Converts the Date object to JSON format.
+         *
+         * @return {String} The Date in JSON format.
+         */
         Date.prototype.toJSON = function () {
 
             return this.getUTCFullYear()  + '-' +
@@ -54,12 +66,18 @@ clutch.date = {
         };
     },
 
+    /**
+     * Sets the Microsoft JSON Date format.
+     */
     toMicrosoftJSON: function () {
         Date.prototype.toJSON = function () {
-            return "\\/Date(" + this.getTime() + ")\\/";
+            return "\/Date(" + this.getTime() + ")\/";
         };
     },
 
+    /**
+     * Sets the Clutch JSON Date format.
+     */
     toClutchJSON: function () {
         function tens(n) {
             // Format integers to have at least two digits.
@@ -112,20 +130,51 @@ clutch.date = {
 };
 
 // The usual, boring string functions that the implementers forgot.
+
+/**
+ * @namespace String utility functions.
+ */
 clutch.string = {
+
+    /**
+     * Trims leading and trailing whitespace from a string.
+     *
+     * @param {String} string the string to trim.
+     * @return {String} the trimmed string.
+     */
     trim: function (string) {
         return string.replace(/^[\s\u00a0]+/, '').replace(/[\s\u00a0]+$/, '');
     },
 
+    /**
+     * Checks if the string starts with the specified substring.
+     *
+     * @param {String} string the string to check.
+     * @param {String} match the substring to check.
+     * @return {Boolean} <code>true</code> if the string starts with the specified substring, otherwise <code>false</code>.
+     */
     startsWith: function (string, match) {
         return string.indexOf(match) === 0;
     },
 
+    /**
+     * Checks if the string ends with the specified substring.
+     *
+     * @param {String} string the string to check.
+     * @param {String} match the substring to check.
+     * @return {Boolean} <code>true</code> if the string ends with the specified substring, otherwise <code>false</code>.
+     */
     endsWith: function (string, match) {
         var offset = string.length - match.length;
         return offset >= 0 && string.lastIndexOf(match) === offset;
     },
 
+    /**
+     * Converts an object to JSON format.
+     *
+     * @param {Object} object the object to convert.
+     * @return {String} the JSON format of the object.
+     */
     toJSON: function (object) {
         // Check for Prototype
         if (Object.toJSON && typeof Object.toJSON === 'function') {
@@ -136,6 +185,12 @@ clutch.string = {
         }
     },
 
+    /**
+     * Converts a JSON formatted string to an object.
+     *
+     * @param {String} string the JSON formatted string.
+     * @return {Object} the JavaScript object.
+     */
     fromJSON: function (string) {
         // Check for Prototype
         if (String.prototype.evalJSON && typeof String.prototype.evalJSON === 'function') {

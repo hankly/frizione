@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<?xml-stylesheet type="text/xsl" href="helma.xsl"?>
+<xmlroot xmlns:hop="http://www.helma.org/docs/guide/features/database">
+  <hopobject id="3" name="HopObject" prototype="HopObject" created="1215087271052" lastModified="1215087271052">
+  <hop:parent idref="2" prototyperef="HopObject"/>
+    <name>second</name>
+  </hopobject>
+</xmlroot>

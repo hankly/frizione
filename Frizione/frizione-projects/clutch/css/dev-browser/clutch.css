@@ -24,7 +24,7 @@ body {
 	background-color: #f8f8f8;
 	color: #303048;
 	font-family: Verdana, sans-serif;
-	font-size: 12pt;
+	font-size: 10pt;
 }
 
 h1, ul {
@@ -40,8 +40,6 @@ a.button {
     padding: 0.2em;
     margin: 0.1em;
     background-color: #d8e8d8;
-    font-family: Verdana, sans-serif;
-    font-size: 12pt;
     text-decoration: none;
 }
 
@@ -54,14 +52,14 @@ a:visited, a.visited span {
 }
 
 h1 {
-	font: 20pt 'Times New Roman';
+	font: 16pt 'Times New Roman';
 	margin: 1.0cm 0 0.5cm 0;
 	text-align: left;
 	color: #3084cc;
 }
 
 h2 {
-	font: 18pt 'Times New Roman';
+	font: 14pt 'Times New Roman';
 	margin: 0.75cm 0 0.25cm 0;
 	text-align: left;
 	color: #3084cc;
@@ -73,19 +71,31 @@ div, p, li {
 }
 
 .MenuHeading {
-	font-size: 12pt;
 	margin-bottom: 0.2cm;
 	margin-top: 0.2cm;
 	padding: 0.1cm 0.1cm !important;
 	background: #d8d8f8;
 }
 
+.standard {
+    margin: 0 1.0em;
+}
+
+.indented, .report {
+    margin: 0 1.5em;
+}
+
+.floatright {
+    float: right;
+    margin: 0 1.0em;
+}
+
 code, .Code {
-	font-size: 12pt;
+	font-size: 10pt;
 }
 
 h2 code {
-	font-size: 18pt;
+	font-size: 14pt;
 }
 
 input[type=submit] {
@@ -94,16 +104,15 @@ input[type=submit] {
     margin: 0.1em;
     background-color: #d8e8d8;
     font-family: Verdana serif;
-    font-size: 12pt;
 }
 
 input[type=submit]:hover {
     background-color: #e8f8e8;
 }
 
-p.test {
+p.unit-test {
     margin: 1.0em 0 0.25em 0;
-	font: 18pt 'Times New Roman';
+	font: 16pt 'Times New Roman';
 	text-align: left;
 	color: #3084cc;
 }
@@ -132,20 +141,20 @@ pre.view {
     background-color: #FFFFFF;
 }
 
-table.test {
+table.unit-test {
     width: 100%;
     font-size: 10pt;
 }
 
-table.test thead tr th {
+table.unit-test thead tr th {
     text-align: left;
     background: #a6caf0;    
 }
 
-table.test tbody tr td {
+table.unit-test tbody tr td {
     background: #eeeeee;
 }
 
-table.test tbody tr td pre {
+table.unit-test tbody tr td pre {
     margin: 0;
 }

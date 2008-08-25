@@ -20,25 +20,72 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 */
 
+/*global app, req, res */
+/*global frizione, Application */
+
 /**
- * Application object constructor.
+ * @class The Helma Application object.
+ * This object is created for each Helma application with a <code>frizione.json</code> file.
  *
- * @class Application
+ * @name Application
  * @constructor
- * @param info the (modified) project json file contents.
+ *
+ * @description Creates a new Application object.
+ *
+ * @param {Object} info the (modified) project json file contents.
  */
 function constructor(info) {
-    app.debug('Project ' + info.name);
+    app.debug('Application ' + info.name);
     this.name = info.name;
     this.home = info.home;
+    this.prefix = info.prefix;
+    this.root = info.root;
     this.dir = info.dir;
     this.path = info.path;
     this.type = 'application';
-    this.services = setServices(this);
+    this.services = frizione.service.setServices(this);
     this.refreshFiles();
 }
 
-function refreshFiles() {
+/**
+ * Default (main) action for the specified application.
+ * See {@link frizione.macros.groupMainPage}.
+ */
+Application.prototype.main_action = function () {
+
+    app.debug("Application Request " + req.path);
+
+    if (req.data.action === "refresh") {
+        app.debug("Application Request refresh file list");
+        this.refreshFiles();
+    }
+
+    var data = {};
+    data.jsJoinMinify = false;
+    data.staticFiles = false;
+    frizione.macros.groupMainPage(this, data);
+};
+
+/**
+ * Refresh the application files list.
+ */
+Application.prototype.refreshFiles = function () {
     app.debug('Application ' + this.name + ' refresh files');
-    this.files = fileutils.listAll(this.path, [ '.css', '.js', '.json', '.html' ], null);
-}
+    var file = frizione.file(this.path);
+    this.files = file.list([ '.css', '.js', '.json', '.html' ], null);
+};
+
+/**
+ * Method used by Helma request path resolution.
+ *
+ * @param {String} name the path element name.
+ * @return {Object} the object that handles the child element.
+ */
+Application.prototype.getChildElement = function (name) {
+    app.debug("Application.getChildElement " + name);
+    var service = this.services[name];
+    if (service) {
+        return service;
+    }
+    return this;
+};

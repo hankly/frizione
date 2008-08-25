@@ -43,9 +43,9 @@ function startWorkerPool() {
     function actOnMessage(depr1, depr2, message) {
         if (message.sender === workerId) {
             if (!linkSet) {
-                $('external-link').replace("<p id = 'external-link'><code>WorkerPool</code> now running. "
-                    + "Let it run for a few seconds, then click on this <a href='http://www.syger.it/'>link</a> "
-                    + "and then come back to this page.</p>");
+                $('external-link').replace("<p id = 'external-link'><code>WorkerPool</code> now running. " +
+                    "Let it run for a few seconds, then click on this <a href='http://www.syger.it/'>link</a> " +
+                    "and then come back to this page.</p>");
                 linkSet = true;
             }
             clutch.timer.setTimeout(sendMessage, 500);
@@ -71,14 +71,14 @@ function checkWorkerPoolTermination() {
         rows.each(function (row) {
             result.push("<tr><td>" + row.id + "</td><td>" + row.name + "</td><td>" + row.value + "</td></tr>");
         });
-        result = "<table id='db-results'>"
-                   + "<thead><tr><th>Id</th><th>Name</th><th>Value</th></tr></thead>"
-                   + "<tbody>" + result.join('') + "</tbody>"
-               + "</table>";
+        result = "<table id='db-results'>" +
+                     "<thead><tr><th>Id</th><th>Name</th><th>Value</th></tr></thead>" +
+                     "<tbody>" + result.join('') + "</tbody>" +
+                 "</table>";
         $('db-results').replace("<div align='center'>" + result + "</div>");
-        $('start-up').replace("<p id='start-up'>"
-                + "Please <a href='javascript:void(0);' onclick='startWorkerPool(); return true;'>start</a> "
-                + "the <code>WorkerPool</code>.</p>");
+        $('start-up').replace("<p id='start-up'>" +
+                "Please <a href='javascript:void(0);' onclick='startWorkerPool(); return true;'>start</a> " +
+                "the <code>WorkerPool</code>.</p>");
         logger.removeAll();
     }
 

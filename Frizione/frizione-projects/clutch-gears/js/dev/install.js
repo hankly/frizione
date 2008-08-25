@@ -58,9 +58,9 @@ function checkInstallationAndPermission() {
         else {
             var install = $('install');
             var attrs = { 'class': 'button' };
-            attrs.href = "http://gears.google.com/?action=install"
-                + "&message=" + encodeURIComponent("Clutch-Gears - Gears Installation")
-                + "&return=" + encodeURIComponent("http://clutch.syger.it/projects/clutch-gears/static/install.html");
+            attrs.href = "http://gears.google.com/?action=install" +
+                "&message=" + encodeURIComponent("Clutch-Gears - Gears Installation") +
+                "&return=" + encodeURIComponent("http://clutch.syger.it/projects/clutch-gears/static/install.html");
             install.insert({ bottom: Builder.node('a', attrs, "Install Gears now") });
             $('not-installed').show();
         }
