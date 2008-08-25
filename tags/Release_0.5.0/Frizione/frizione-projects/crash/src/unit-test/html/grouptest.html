@@ -1,0 +1,103 @@
+<% if (typeof abend !== 'undefined') { %>
+        <p class='unit-test summary errors'><%= abend %></p>
+<% } %>
+        <p class='unit-test summary'>Summary:</p>
+        <table class='unit-test summary'>
+            <thead>
+                <tr>
+                    <th>Tests</th>
+                    <th>Failures</th>
+                    <th>Errors</th>
+                    <th>Success Rate</th>
+                    <th>Time (ms)</th>
+                    <th>Date</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <%= summary %>
+                </tr>
+            </tbody>
+        </table>
+
+        <p class='unit-test unit'>Unit Tests Summary:</p>
+        <table class='unit-test unit'>
+            <thead>
+                <tr>
+                    <th>Unit Test Name</th>
+                    <th>Tests</th>
+                    <th>Failures</th>
+                    <th>Errors</th>
+                    <th>Success Rate</th>
+                    <th>Time (ms)</th>
+                </tr>
+            </thead>
+            <tbody>
+<%= results %>
+            </tbody>
+        </table>
+
+<% for (var i = 0; i < tests.length; i += 1) {
+       var test = tests[i]; %>
+        <p class='unit-test unit'>Unit Test: <%= test.name %></p>
+        <table class='unit-test unit'>
+            <thead>
+                <tr>
+                    <th>Function</th>
+                    <th>Tests</th>
+                    <th>Failures</th>
+                    <th>Errors</th>
+                    <th>Time (ms)</th>
+                </tr>
+            </thead>
+            <tbody>
+<%= test.results %>
+            </tbody>
+        </table>
+<% } %>
+
+<% if (typeof errors !== 'undefined') { %>
+        <p class='unit-test errors'>All errors:</p>
+        <table class='unit-test errors'>
+            <thead>
+                <tr>
+                    <th>Unit Test Name</th>
+                    <th>Function</th>
+                    <th>Message</th>
+                </tr>
+            </thead>
+            <tbody>
+<%= errors %>
+            </tbody>
+        </table>
+<% } %>
+<% if (typeof failures !== 'undefined') { %>
+        <p class='unit-test failures'>All failures:</p>
+        <table class='unit-test failures'>
+            <thead>
+                <tr>
+                    <th>Unit Test Name</th>
+                    <th>Function</th>
+                    <th>Message</th>
+                </tr>
+            </thead>
+            <tbody>
+<%= failures %>
+            </tbody>
+        </table>
+<% } %>
+<% if (typeof logs !== 'undefined') { %>
+        <p class='unit-test logs'>All logs:</p>
+        <table class='unit-test logs'>
+            <thead>
+                <tr>
+                    <th>Unit Test Name</th>
+                    <th>Function</th>
+                    <th>Message</th>
+                </tr>
+            </thead>
+            <tbody>
+<%= logs %>
+            </tbody>
+        </table>
+<% } %>

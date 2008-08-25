@@ -1,0 +1,53 @@
+    <body>
+        <p class="MenuHeading">
+            <a href="/frizione">Home</a>&#160;
+            <a href="/frizione/docs/documentation.html">Documentation</a>&#160;
+            <a href="/frizione/<%= group.type %>s/<%= group.dir %>"><%= group.name %></a>
+        </p>
+        <h1><%= title %></h1>
+
+        <div class="standard">
+            <p class='floatright'>
+                <img style="border: 1px solid #3084cc;" width="100" height="76" alt="A real clutch"
+                        src="/frizione/imgs/clutch-tiny.png" />
+            </p>
+            <p>
+                The following files (thanks to their extensions) have been selected for special loving care by
+                Frizione.
+            </p>
+        </div>
+
+        <div class="indented">
+            <h2>CSS files</h2>
+            <p>Join files (<code>*.join.css</code>): <%= cssJoinCount %></p>
+            <p>Minify files (<code>*.min.css</code>): <%= cssMinifyCount %></p>
+
+            <h2>JavaScript files</h2>
+<% if (jsJoinMinify) { %>
+            <p>Join files (<code>*.join.js</code>): <%= jsJoinCount %></p>
+            <p>Minify files (<code>*.min.js</code>): <%= jsMinifyCount %></p>
+<% } %>
+            <p>Test files (<code>*.test.js</code>): <%= jsTestCount %></p>
+            <p>JsDoc files (<code>*.jsdoc.js</code>): <%= jsDocCount %></p>
+            <p>JSLint files (<code>*.js</code>): <%= jsLintCount %></p>
+
+            <h2>JSON files</h2>
+            <p>Viewable files (<code>*.json</code>): <%= jsonViewCount %></p>
+            <p>Test results files (<code>*.test.json</code>): <%= jsonTestCount %></p>
+
+<% if (staticFiles) { %>
+            <h2>Static files</h2>
+            <p>Viewable files (<code>*.html</code>): <%= htmlViewCount %></p>
+
+<% } %>
+            <p>&#160;</p>
+            <p><a class='button' href='/frizione/<%= group.type %>s/<%= group.dir %>?action=refresh'>Refresh file list</a></p>
+        </div>
+
+        <p>&#160;</p>
+        <p class="MenuHeading">
+            <a href="/frizione">Home</a>&#160;
+            <a href="/frizione/docs/documentation.html">Documentation</a>&#160;
+            <a href="/frizione/<%= group.type %>s/<%= group.dir %>"><%= group.name %></a>
+        </p>
+    </body>
