@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- ***** BEGIN LICENSE BLOCK *****
+   - Version: MPL 1.1/GPL 2.0
+   -
+   - The contents of this file are subject to the Mozilla Public License Version
+   - 1.1 (the "License"); you may not use this file except in compliance with
+   - the License. You may obtain a copy of the License at
+   - http://www.mozilla.org/MPL/
+   -
+   - Software distributed under the License is distributed on an "AS IS" basis,
+   - WITHOUT WARRANTY OF ANY KIND, either express or implied. See the License
+   - for the specific language governing rights and limitations under the
+   - License.
+   -
+   - The Original Code is Rhino code, released May 6, 1999.
+   -
+   - The Initial Developer of the Original Code is
+   - Netscape Communications Corporation.
+   - Portions created by the Initial Developer are Copyright (C) 1997-1999
+   - the Initial Developer. All Rights Reserved.
+   -
+   - Contributor(s):
+   -
+   - Alternatively, the contents of this file may be used under the terms of
+   - the GNU General Public License Version 2 or later (the "GPL"), in which
+   - case the provisions of the GPL are applicable instead of those above. If
+   - you wish to allow use of your version of this file only under the terms of
+   - the GPL and not to allow others to use your version of this file under the
+   - MPL, indicate your decision by deleting the provisions above and replacing
+   - them with the notice and other provisions required by the GPL. If you do
+   - not delete the provisions above, a recipient may use your version of this
+   - file under either the MPL or the GPL.
+   -
+   - ***** END LICENSE BLOCK ***** -->
+
+
+<!--
+    Build file for Rhino using Ant (see http://jakarta.apache.org/ant/index.html)
+    Requires Ant version 1.2 or later
+
+    Compilation currently requires JDK 1.5 or later. Can cross-compile to
+    support JDK 1.4.
+-->
+
+<project name="Rhino" default="help" basedir=".">
+
+  <target name="properties">
+    <!-- Allow user to override default settings from build.properties -->
+    <property file="build.local.properties" />
+    <tstamp>
+      <!-- Specify date part of Context#getImplementationVersion() -->
+      <format property="implementation.date" pattern="yyyy MM dd"/>
+    </tstamp>
+    <property file="build.properties"/>
+
+    <property file="apiClasses.properties"/>
+    <property name="xmlimplsrc-build-file"
+              location="xmlimplsrc/build.xml"/>
+
+    <available property="xmlimplsrc-present?"
+               file="${xmlimplsrc-build-file}" />
+
+  </target>
+
+  <target name="init" depends="properties">
+    <mkdir dir="${build.dir}"/>
+    <mkdir dir="${classes}"/>
+  </target>
+
+  <target name="compile" depends="init">
+    <ant antfile="src/build.xml" target="compile"/>
+    <ant antfile="toolsrc/build.xml" target="compile"/>
+    <antcall target="xmlimplsrc-compile" />
+  </target>
+
+  <target name="compile-all" depends="compile">
+    <ant antfile="deprecatedsrc/build.xml" target="compile"/>
+  </target>
+
+  <target name="xmlimplsrc-compile" if="xmlimplsrc-present?">
+    <echo>Calling ${xmlimplsrc-build-file}</echo>
+    <!-- Ignore compilation errors under JDK less then 1.4 -->
+    <property name="xmlimpl.compile.failonerror" value="no"/>
+    <ant antfile="${xmlimplsrc-build-file}" target="compile"/>
+  </target>
+
+  <target name="jar" depends="compile-all">
+    <property name="jarfile" location="${dist.dir}/${rhino.jar}"/>
+    <jar jarfile="${jarfile}"
+         basedir="${classes}"
+         manifest="src/manifest"
+     compress="${jar-compression}"
+     />
+  </target>
+
+  <target name="smalljar" depends="compile">
+    <property name="smalljarfile" location="${dist.dir}/${small-rhino.jar}"/>
+    <jar basedir="${classes}" destfile="${smalljarfile}"
+         compress="${jar-compression}">
+      <include name="org/mozilla/javascript/*.class"/>
+
+      <include name="org/mozilla/javascript/debug/*.class"/>
+      <include name="org/mozilla/javascript/resources/*.properties"/>
+      <include name="org/mozilla/javascript/xml/*.class"/>
+      <include name="org/mozilla/javascript/continuations/*.class"/>
+      <include name="org/mozilla/javascript/jdk13/*.class"/>
+
+      <!-- exclude classes that defines only int constants -->
+      <exclude name="org/mozilla/javascript/Token.class"/>
+
+      <!-- exclude classes that uses class generation library -->
+      <exclude name="org/mozilla/javascript/JavaAdapter*.class"/>
+
+      <include name="org/mozilla/javascript/regexp/*.class"
+               unless="no-regexp"/>
+    </jar>
+
+  </target>
+
+  <target name="compile-debugger">
+    <ant antfile="toolsrc/build.xml" target="compile-debugger"/>
+  </target>
+
+  <target name="clean" depends="properties">
+    <delete quiet="true" file="${dist.dir}/${rhino.jar}"/>
+    <delete quiet="true" file="${dist.dir}/${small-rhino.jar}"/>
+    <delete quiet="true" dir="${build.dir}"/>
+  </target>
+
+  <target name="help" depends="properties">
+<echo>The following targets are available with this build file:
+
+ clean       remove all compiled classes and copied property files
+
+ compile     compile classes and copy all property files
+             into ${classes} directory
+             excluding deprecated code
+
+ compile-all compile all classes and copy all property files
+             into ${classes} directory
+             including deprecated code
+
+ help        print this help
+
+ jar         create ${rhino.jar} in ${dist.dir}
+
+ smalljar    create ${small-rhino.jar} in ${dist.dir} with
+             minimalist set of Rhino classes. See footprint.html
+             from the doc directory for details.
+</echo>
+  </target>
+
+</project>

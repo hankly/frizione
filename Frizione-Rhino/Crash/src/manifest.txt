@@ -1,0 +1,3 @@
+Main-Class: it.syger.crash.tools.shell.Main
+Class-Path: rhino.jar
+Main-Script: /crash/main.js
