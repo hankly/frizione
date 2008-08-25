@@ -58,6 +58,11 @@ if (!this.clutch) {
     clutch = {};
 }
 
+/**
+ * Checks if Gears is installed.
+ *
+ * @returns {Boolean} <code>true</code> if Gears is installed, otherwise <code>false</code>.
+ */
 clutch.isGearsInstalled = function () {
     return (function () {
         if (!!this.window) {
@@ -69,30 +74,65 @@ clutch.isGearsInstalled = function () {
     })();
 };
 
+/**
+ * Gets the Gears factory object
+ *
+ * @return {GearsFactory} the Gears factory object.
+ */
 clutch.gearsFactory = function () {
     return google.gears.factory;
 };
 
+/**
+ * Creates a Gears database object.
+ *
+ * @return {GearsDatabase} the Gears database object.
+ */
 clutch.createGearsDatabase = function () {
     return google.gears.factory.create('beta.database');
 };
 
+/**
+ * Creates a Gears desktop object.
+ *
+ * @return {GearsDesktop} the Gears desktop object.
+ */
 clutch.createGearsDesktop = function () {
     return google.gears.factory.create('beta.desktop');
 };
 
+/**
+ * Creates a Gears HTTP request object.
+ *
+ * @return {GearsHttpRequest} the Gears HTTP request object.
+ */
 clutch.createGearsHttpRequest = function () {
     return google.gears.factory.create('beta.httprequest');
 };
 
+/**
+ * Creates a Gears local server object.
+ *
+ * @return {GearsLocalServer} the Gears local server object.
+ */
 clutch.createGearsLocalServer = function () {
     return google.gears.factory.create('beta.localserver');
 };
 
+/**
+ * Creates a Gears timer object.
+ *
+ * @return {GearsTimer} the Gears timer object.
+ */
 clutch.createGearsTimer = function () {
     return google.gears.factory.create('beta.timer');
 };
 
+/**
+ * Creates a Gears worker pool object.
+ *
+ * @return {GearsWorkerPool} the Gears worker pool object.
+ */
 clutch.createGearsWorkerPool = function () {
     return google.gears.factory.create('beta.workerpool');
 };
@@ -126,6 +166,12 @@ if (!this.clutch) {
 }
 
 if (!this.clutch.timer) {
+
+    /**
+     * @namespace Clutch timer functions.
+     * The timer functions are taken from either the standard browser functions or the Gears timer object,
+     * depending on availability. These functions are guaranteed for either the browser or WorkerPool environments.
+     */
     clutch.timer = {};
 }
 
@@ -137,15 +183,44 @@ if (!this.clutch.timer) {
     // don't try to simplify this stuff, clutch.timer.setTimeout = window.setTimeout causes all sorts of problems
     // with Opera and Firefox (which actually crashes)
     if (!!this.window && !!this.window.setTimeout) {
+
+        /**
+         * Calls a function after the specified number of milliseconds.
+         *
+         * @param {Function} func the function to call.
+         * @param {Number} millis the number of milliseconds to wait.
+         * @return {Number} the timer identifier.
+         */
         clutch.timer.setTimeout = function (code, millis) {
             return window.setTimeout(code, millis);
         };
+
+        /**
+         * Repeatedly calls a function with the specified number of milliseconds
+         * delay between each call.
+         *
+         * @param {Function} func the function to call.
+         * @param {Number} millis the number of milliseconds to wait.
+         * @return {Number} the timer identifier.
+         */
         clutch.timer.setInterval = function (code, millis) {
             return window.setInterval(code, millis);
         };
+
+        /**
+         * Removes a previously set timeout.
+         *
+         * @param {Number} id the timeout identifier.
+         */
         clutch.timer.clearTimeout = function (timerId) {
             window.clearTimeout(timerId);
         };
+
+        /**
+         * Removes a previously set interval.
+         *
+         * @param {Number} id the interval identifier.
+         */
         clutch.timer.clearInterval = function (timerId) {
             window.clearInterval(timerId);
         };
@@ -198,7 +273,14 @@ if (!this.clutch) {
 // Since JSON has no date format, everyone has invented their own. So why not me?
 // Provides patches for JSON and Prototype, but please don't use them both together, they
 // really don't get on at all.
+/**
+ * @namespace Setter functions for different Date JSON formats.
+ */
 clutch.date = {
+
+    /**
+     * Sets the 'standard' JSON Date format.
+     */
     toStandardJSON: function () {
         function tens(n) {
             // Format integers to have at least two digits.
@@ -210,6 +292,11 @@ clutch.date = {
             return n < 100 ? '0' + tens(n) : n;
         }
 
+        /**
+         * Converts the Date object to JSON format.
+         *
+         * @return {String} The Date in JSON format.
+         */
         Date.prototype.toJSON = function () {
 
             return this.getUTCFullYear()  + '-' +
@@ -222,12 +309,18 @@ clutch.date = {
         };
     },
 
+    /**
+     * Sets the Microsoft JSON Date format.
+     */
     toMicrosoftJSON: function () {
         Date.prototype.toJSON = function () {
-            return "\\/Date(" + this.getTime() + ")\\/";
+            return "\/Date(" + this.getTime() + ")\/";
         };
     },
 
+    /**
+     * Sets the Clutch JSON Date format.
+     */
     toClutchJSON: function () {
         function tens(n) {
             // Format integers to have at least two digits.
@@ -280,20 +373,51 @@ clutch.date = {
 };
 
 // The usual, boring string functions that the implementers forgot.
+
+/**
+ * @namespace String utility functions.
+ */
 clutch.string = {
+
+    /**
+     * Trims leading and trailing whitespace from a string.
+     *
+     * @param {String} string the string to trim.
+     * @return {String} the trimmed string.
+     */
     trim: function (string) {
         return string.replace(/^[\s\u00a0]+/, '').replace(/[\s\u00a0]+$/, '');
     },
 
+    /**
+     * Checks if the string starts with the specified substring.
+     *
+     * @param {String} string the string to check.
+     * @param {String} match the substring to check.
+     * @return {Boolean} <code>true</code> if the string starts with the specified substring, otherwise <code>false</code>.
+     */
     startsWith: function (string, match) {
         return string.indexOf(match) === 0;
     },
 
+    /**
+     * Checks if the string ends with the specified substring.
+     *
+     * @param {String} string the string to check.
+     * @param {String} match the substring to check.
+     * @return {Boolean} <code>true</code> if the string ends with the specified substring, otherwise <code>false</code>.
+     */
     endsWith: function (string, match) {
         var offset = string.length - match.length;
         return offset >= 0 && string.lastIndexOf(match) === offset;
     },
 
+    /**
+     * Converts an object to JSON format.
+     *
+     * @param {Object} object the object to convert.
+     * @return {String} the JSON format of the object.
+     */
     toJSON: function (object) {
         // Check for Prototype
         if (Object.toJSON && typeof Object.toJSON === 'function') {
@@ -304,6 +428,12 @@ clutch.string = {
         }
     },
 
+    /**
+     * Converts a JSON formatted string to an object.
+     *
+     * @param {String} string the JSON formatted string.
+     * @return {Object} the JavaScript object.
+     */
     fromJSON: function (string) {
         // Check for Prototype
         if (String.prototype.evalJSON && typeof String.prototype.evalJSON === 'function') {
@@ -370,10 +500,16 @@ if (!this.clutch) {
 }
 
 if (!this.clutch.xhr) {
+
+    /**
+     * @namespace Clutch XML HTTP Request functions.
+     * The XML HTTP Request functions are taken from either the standard browser functions or the Gears HttpRequest object,
+     * depending on availability. These functions are guaranteed for either the browser or WorkerPool environments.
+     */
     clutch.xhr = {};
 }
 
-/**
+/*
  * Creates an XHR object.
  */
 clutch.xhr.createRequest = function () {
@@ -403,13 +539,19 @@ clutch.xhr.createRequest = function () {
 
 /**
  * Executes an XHR.
+ * The <code>handler</code> function receives three parameters:
+ * <ul>
+ *   <li><code>status</code> - <i>{Number}</i> the status code (can be -1 if the request fails).</li>
+ *   <li><code>statusText</code> - <i>{String}</i> the status text.</li>
+ *   <li><code>responseText</code> - <i>{String}</i> the response text.</li>
+ * </ul>
  *
- * @param method can be "GET", possibly "POST".
- * @param url the absolute URL to get or post to.
- * @param optionalParams optional parameters, do your own value encoding though
- * @param optionalBody damn useful for posts
- * @param timeout the optional maximum amount of time to wait for a reply.
- * @param handler who to call when things go right, or wrong.
+ * @param {String} method can be "GET", possibly "POST".
+ * @param {String} url the absolute URL to get or post to.
+ * @param {Object} optionalParams optional parameters, do your own value encoding though.
+ * @param {String} optionalBody damn useful for posts.
+ * @param {Number} timeout the optional maximum amount of time to wait for a reply in milliseconds.
+ * @param {Function} handler who to call when things go right, or wrong.
  */
 clutch.xhr.executeRequest = function (method, url, optionalParams, optionalBody, timeout, handler) {
     var requestTimeout = timeout || 5000; // 5 seconds
@@ -531,15 +673,20 @@ if (!this.clutch) {
     clutch = {};
 }
 if (!this.clutch.db) {
+
+    /**
+     * @namespace Gears database functions.
+     */
     clutch.db = {};
 }
 
 /**
- * Converts a ResultSet into an object.
- * The ResultSet is expected to contain a single row, or no row at all.
+ * Converts a Gears ResultSet into an object.
+ * The Gears ResultSet is expected to contain a single row, or no row at all.
  *
- * @param result the ResultSet to convert.
- * @param columns the columns to extract.
+ * @param {ResultSet} result the Gears ResultSet to convert.
+ * @param {Array} columns the columns to extract.
+ * @return {Object} the converted Gears ResultSet, or <code>null</code> if no data available.
  */
 clutch.db.fromRow = function (result, columns) {
     if (!result.isValidRow()) {
@@ -559,11 +706,12 @@ clutch.db.fromRow = function (result, columns) {
 };
 
 /**
- * Converts a ResultSet into an object.
- * The ResultSet is expected to contain multiple rows, or no row at all.
+ * Converts a Gears ResultSet into an object.
+ * The Gears ResultSet is expected to contain multiple rows, or no row at all.
  *
- * @param result the ResultSet to convert.
- * @param columns the columns to extract.
+ * @param {ResultSet} result the Gears ResultSet to convert.
+ * @param {Array} columns the columns to extract.
+ * @return {Array} the converted ResultSet, or <code>null</code> if no data available.
  */
 clutch.db.fromRows = function (result, columns) {
     if (!result.isValidRow()) {
@@ -590,9 +738,10 @@ clutch.db.fromRows = function (result, columns) {
 
 /**
  * Prepares the optional parameter syntax for a SELECT query.
- * These include: where, groupBy, having, orderBy, limit and offset.
+ * These include: where (WHERE), groupBy (GROUP BY), having (HAVING), orderBy (ORDER BY), limit (LIMIT) and offset (OFFSET).
  *
- * @param params the optional parameters
+ * @param {Object} params the optional query parameters.
+ * @return {String} the query string.
  */
 clutch.db.optionalQuery = function (params) {
     var query = "";
@@ -653,7 +802,8 @@ if (!this.clutch.db) {
 /**
  * Database logger. Useful for debugging (especially in WorkerPools).
  *
- * @param name the name of the application database.
+ * @param {String} name the name of the application database.
+ * @return {clutch.db.log} the database logging object.
  */
 clutch.db.logger = function (name) {
 
@@ -663,31 +813,66 @@ clutch.db.logger = function (name) {
     db.execute('CREATE TABLE IF NOT EXISTS clutch_logger' +
                ' ( id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT(256), value TEXT(4096) )');
 
-    return {
+    /**
+     * @class The database logging object.
+     * This object is created by the {@link clutch.db.logger} function.
+     *
+     * @name clutch.db.log
+     */
+    return /** @scope clutch.db.log.prototype */ {
 
+        /**
+         * Writes a log record.
+         *
+         * @param {String} name the log record name, something like "error", or "warning".
+         * @param {String} value the log record value, usually the log message.
+         */
         log: function (name, value) {
             var result = db.execute('INSERT INTO clutch_logger (name, value) VALUES(?, ?)', [ name, value ]);
             result.close();
             return db.rowsAffected;
         },
 
+        /**
+         * Gets the log record with the specified identifier.
+         *
+         * @param {Number} id the record identifier.
+         * @return {Object} the record, or <code>null</code> if not found.
+         */
         get: function (id) {
             var result = db.execute('SELECT id, name, value FROM clutch_logger WHERE id = ?', [ id ]);
             return clutch.db.fromRow(result, columns);
         },
 
+        /**
+         * Gets a list of log records with the specified parameters.
+         *
+         * @param {Object} params the query parameters.
+         * @return {Array} the records, or <code>null</code> if not found.
+         */
         list: function (params) {
             var query = clutch.db.optionalQuery(params);
             var result = db.execute('SELECT id, name, value FROM clutch_logger' + query);
             return clutch.db.fromRows(result, columns);
         },
 
+        /**
+         * Removes (deletes) the log record with the specified identifier.
+         *
+         * @param {Number} id the record identifier.
+         * @return {Number} the number of rows affected.
+         */
         remove: function (id)  {
             var result = db.execute('DELETE FROM clutch_logger WHERE id = ?', [ id ]);
             result.close();
             return db.rowsAffected;
         },
 
+        /**
+         * Removes (deletes) all log records.
+         *
+         * @return {Number} the number of rows affected.
+         */
         removeAll: function () {
             var result = db.execute('DELETE FROM clutch_logger WHERE 1');
             result.close();
@@ -1197,6 +1382,10 @@ if (!this.clutch) {
 }
 
 if (!this.clutch.test) {
+
+    /**
+     * @namespace Unit testing functions.
+     */
     clutch.test = {};
 }
 
@@ -1263,15 +1452,21 @@ clutch.test.utils = {
     }
 };
 
-/**
- * The testing assertions. These functions are injected into the test object.
- *
- * @param totaliser the unit test totaliser (report).
- */
 clutch.test.assertions = function (totaliser) {
 
-    var assertions = {
+    /**
+     * @class The testing assertions.
+     * These functions are injected into the test object.
+     *
+     * @name clutch.test.asserts
+     */
+    var assertions = /** @scope clutch.test.asserts.prototype */ {
 
+        /**
+         * Logs a message.
+         *
+         * @param {String} message the message to log.
+         */
         log: function (message) {
             totaliser.logs += 1;
             totaliser.messages.push({ type: 'log', message: message });
@@ -1281,6 +1476,11 @@ clutch.test.assertions = function (totaliser) {
             totaliser.tests += 1;
         },
 
+        /**
+         * Indicates that the unit test function failed.
+         *
+         * @param {String} message the failure reason message.
+         */
         fail: function (message) {
             totaliser.tests += 1;
             totaliser.failures += 1;
@@ -1300,6 +1500,12 @@ clutch.test.assertions = function (totaliser) {
             totaliser.messages.push({ type: "error", message: message });
         },
 
+        /**
+         * Asserts that a specific condition is valid (<code>true</code>).
+         *
+         * @param {Code} condition the condition to test, something like <code>result === 2</code>.
+         * @param {String} message the message to log if the condition does <b>not</b> resolve to <code>true</code>.
+         */
         assert: function (condition, message) {
             try {
                 if (condition) {
@@ -1318,13 +1524,13 @@ clutch.test.assertions = function (totaliser) {
     return assertions;
 };
 
-/**
+/*
  * This monster runs the unit tests. Since introducing asynchronous unit testing this piece of code has
  * grown exponentially. I'd really like to get it back down to a humane size, before it implodes under
  * its own weight.
  *
- * @param profile the testing report.
- * @param timeout the maximum time in milliseconds for all tests to be executed.
+ * @param {Object} profile the testing report.
+ * @param {Number} timeout the maximum time in milliseconds for all tests to be executed.
  */
 clutch.test.runner = function (profile, timeout) {
     var gearsTimer = null;
@@ -1342,30 +1548,38 @@ clutch.test.runner = function (profile, timeout) {
         // don't try to simplify this stuff, setTestTimeout = window.setTimeout causes all sorts of problems
         // with Opera and Firefox (which actually crashes)
         if (!!this.window && !!this.window.setTimeout) {
+            /** @ignore */
             setTestTimeout = function (code, millis) {
                 return window.setTimeout(code, millis);
             };
+            /** @ignore */
             setTestInterval = function (code, millis) {
                 return window.setInterval(code, millis);
             };
+            /** @ignore */
             clearTestTimeout = function (timerId) {
                 window.clearTimeout(timerId);
             };
+            /** @ignore */
             clearTestInterval = function (timerId) {
                 window.clearInterval(timerId);
             };
         }
         else {
             gearsTimer = clutch.createGearsTimer();
+            /** @ignore */
             setTestTimeout = function (code, millis) {
                 return gearsTimer.setTimeout(code, millis);
             };
+            /** @ignore */
             setTestInterval = function (code, millis) {
                 return gearsTimer.setInterval(code, millis);
             };
+            /** @ignore */
             clearTestTimeout = function (timerId) {
                 gearsTimer.clearTimeout(timerId);
             };
+            /** @ignore */
             clearTestInterval = function (timerId) {
                 gearsTimer.clearInterval(timerId);
             };
@@ -1581,10 +1795,12 @@ clutch.test.runner = function (profile, timeout) {
 };
 
 /**
- * Creates a unit test.
- * @param name the unit test name.
- * @param testObject the test object.
- * @param timeout the maximum time in milliseconds for all the tests to be executed.
+ * Creates a unit test object.
+ *
+ * @param {String} name the unit test name.
+ * @param {Object} testObject the test object.
+ * @param {Number} timeout the (optional) maximum time in milliseconds for all the tests to be executed.
+ * @return {clutch.test.unitTester} the unit tester object.
  */
 clutch.test.unit = function (name, testObject, timeout) {
     var utils = clutch.test.utils;
@@ -1592,7 +1808,13 @@ clutch.test.unit = function (name, testObject, timeout) {
     var tests = [];
     var runner = null;
 
-    return {
+    /**
+     * @class The unit testing object.
+     * This object is created by {@link clutch.test.unit}.
+     *
+     * @name clutch.test.unitTester
+     */
+    var tester = /** @scope clutch.test.unitTester.prototype */ {
 
         prepare: function (parentProfile) {
             if (parentProfile) {
@@ -1647,9 +1869,12 @@ clutch.test.unit = function (name, testObject, timeout) {
             }
         },
 
+        /**
+         * Runs the unit tests.
+         */
         run : function () {
             if (!profile) {
-                this.prepare();
+                tester.prepare();
             }
             runner = clutch.test.runner(profile, timeout);
             runner.run();
@@ -1659,10 +1884,35 @@ clutch.test.unit = function (name, testObject, timeout) {
             runner.abort();
         },
 
+        /**
+         * Checks the status of the unit tests being run.
+         * Returns a status object with four fields:
+         * <ul>
+         *   <li><code>complete</code> - a boolean which is set to <code>true</code> when all tests are complete.</li>
+         *   <li><code>abend</code> - a string which is set if an abnormal condition (such as unit testing timeout) occurred.</li>
+         *   <li><code>index</code> - a number indiciating the index of the current unit test being run.</li>
+         *   <li><code>total</code> - a number indicating the total number of unit tests to be run.</li>
+         * </ul>
+         *
+         * @return {Object} the current unit test status.
+         */
         check: function () {
             return runner.check();
         },
 
+        /**
+         * Produces a summary object of the unit tests performed. This function should only be called when the
+         * unit tests have completed.
+         * The summary object contains four fields:
+         * <ul>
+         *   <li><code>name</code> - a string set to the unit test name.</li>
+         *   <li><code>abend</code> - a string which is set if an abnormal condition (such as unit testing timeout) occurred.</li>
+         *   <li><code>summary</code> - an object containing the actual summary information.</li>
+         *   <li><code>tests</code> - an object containing individual test function results.</li>
+         * </ul>
+         *
+         * @return {Object} the summary object.
+         */
         summarise: function () {
             var results = [];
             var total = utils.createTotaliser();
@@ -1678,34 +1928,46 @@ clutch.test.unit = function (name, testObject, timeout) {
             return { name: name, abend: profile.abend, summary: total, tests: results };
         }
     };
+    return tester;
 };
 
 /**
- * Creates a group of unit tests.
- * @param arrayOfUnitTests the unit test array.
- * @param timeout the maximum time in milliseconds for all unit tests to be executed.
+ * Creates a group of unit tests object.
+ *
+ * @param {Array} testArray the unit test array.
+ * @param {Number} timeout the (optional) maximum time in milliseconds for all unit tests to be executed.
+ * @return {clutch.test.groupTester} the group unit tester object.
  */
-clutch.test.group = function (arrayOfUnitTests, timeout) {
+clutch.test.group = function (testArray, timeout) {
     var utils = clutch.test.utils;
     var profile = null;
     var runner = null;
 
-    return {
+    /**
+     * @class The group unit testing object.
+     * This object is created by {@link clutch.test.group}.
+     *
+     * @name clutch.test.groupTester
+     */
+    var tester = /** @scope clutch.test.groupTester.prototype */ {
 
         prepare: function () {
             profile = utils.createProfile();
-            var length = arrayOfUnitTests.length;
+            var length = testArray.length;
             var unitTest = null;
             var i = null;
             for (i = 0; i < length; i += 1) {
-                unitTest = arrayOfUnitTests[i];
+                unitTest = testArray[i];
                 unitTest.prepare(profile);
             }
         },
 
+        /**
+         * Runs the group of unit tests.
+         */
         run: function () {
             if (!profile) {
-                this.prepare();
+                tester.prepare();
             }
             runner = clutch.test.runner(profile, timeout);
             runner.run();
@@ -1715,19 +1977,43 @@ clutch.test.group = function (arrayOfUnitTests, timeout) {
             runner.abort();
         },
 
+        /**
+         * Checks the status of the group unit tests being run.
+         * Returns a status object with four fields:
+         * <ul>
+         *   <li><code>complete</code> a boolean which is set to <code>true</code> when all tests are complete.</li>
+         *   <li><code>abend</code> a string which is set if an abnormal condition (such as unit testing timeout) occurred.</li>
+         *   <li><code>index</code> a number indiciating the index of the current unit test being run.</li>
+         *   <li><code>total</code> a number indicating the total number of unit tests to be run.</li>
+         * </ul>
+         *
+         * @return {Object} the current unit test status.
+         */
         check: function () {
             return runner.check();
         },
 
+        /**
+         * Produces a summary object of the group unit tests performed. This function should only be called when the
+         * group unit tests have completed.
+         * The summary object contains three fields:
+         * <ul>
+         *   <li><code>abend</code> - a string which is set if an abnormal condition (such as unit testing timeout) occurred.</li>
+         *   <li><code>summary</code> - an object containing the actual summary information.</li>
+         *   <li><code>tests</code> - an object containing individual unit test results.</li>
+         * </ul>
+         *
+         * @return {Object} the summary object.
+         */
         summarise: function () {
             var total = utils.createTotaliser();
             var results = [];
-            var length = arrayOfUnitTests.length;
+            var length = testArray.length;
             var unitTest = null;
             var unitSummary = null;
             var i = null;
             for (i = 0; i < length; i += 1) {
-                unitTest = arrayOfUnitTests[i];
+                unitTest = testArray[i];
                 unitSummary = unitTest.summarise();
                 utils.sumTotaliser(unitSummary.summary, total);
                 results.push(unitSummary);
@@ -1736,6 +2022,7 @@ clutch.test.group = function (arrayOfUnitTests, timeout) {
             return { abend: profile.abend, summary: total, tests: results };
         }
     };
+    return tester;
 };
 /*
 Copyright (c) 2008 John Leach
@@ -1771,11 +2058,19 @@ if (!this.clutch) {
     clutch = {};
 }
 if (!this.clutch.wp) {
+
+    /**
+     * @namespace Gears worker pool functions.
+     */
     clutch.wp = {};
 }
 
 /**
  * Message handlers (functions) for specific commands.
+ * A command is simply a string, which is associated with a function (the handler).
+ * For example the Clutch unit testing code uses two commands,
+ * <code>clutch.test.run</code> and <code>clutch.test.status</code> to run and check the
+ * status of unit tests within a Worker Pool from the main page.
  */
 clutch.wp.handlers = {
     'default': function (message) {
@@ -1784,10 +2079,12 @@ clutch.wp.handlers = {
 };
 
 /**
- * WorkerPool message handler.
- *
+ * Finds the specific WorkerPool message handler for a given message, and
+ * then calls the handler.
+ * If no handler is found, then the default handler is used.
+ * 
  * @param depr1 deprecated message contents (not used).
- * @param depr2 deprectaed sender id (not used).
+ * @param depr2 deprecated sender id (not used).
  * @param message the message object.
  */
 clutch.wp.onMessage = function (depr1, depr2, message) {
