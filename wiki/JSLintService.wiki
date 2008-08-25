@@ -9,3 +9,5 @@
 || http://frizione.googlecode.com/svn/trunk/docs/Images/jslint-page2.png || Together with a detailed report of the code contents... ||
 
 || And the JSLint parameters used to analyse the code. || http://frizione.googlecode.com/svn/trunk/docs/Images/jslint-page3.png ||
+
+[http://code.google.com/p/frizione/ Back]
