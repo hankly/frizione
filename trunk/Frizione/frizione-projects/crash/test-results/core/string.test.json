@@ -1,0 +1,91 @@
+{
+	"tests": [
+		{
+			"summary": {
+				"callback": null,
+				"errors": 0,
+				"messages": [],
+				"abend": null,
+				"failures": 0,
+				"time": 0,
+				"func": "testStartsWith",
+				"tests": 4,
+				"logs": 0
+			},
+			"name": "testStartsWith"
+		},
+		{
+			"summary": {
+				"callback": null,
+				"errors": 0,
+				"messages": [],
+				"abend": null,
+				"failures": 0,
+				"time": 0,
+				"func": "testJsonObject",
+				"tests": 4,
+				"logs": 0
+			},
+			"name": "testJsonObject"
+		},
+		{
+			"summary": {
+				"callback": null,
+				"errors": 0,
+				"messages": [],
+				"abend": null,
+				"failures": 0,
+				"time": 0,
+				"func": "testTrim",
+				"tests": 2,
+				"logs": 0
+			},
+			"name": "testTrim"
+		},
+		{
+			"summary": {
+				"callback": null,
+				"errors": 0,
+				"messages": [],
+				"abend": null,
+				"failures": 0,
+				"time": 0,
+				"func": "testEndsWith",
+				"tests": 4,
+				"logs": 0
+			},
+			"name": "testEndsWith"
+		},
+		{
+			"summary": {
+				"callback": null,
+				"errors": 1,
+				"messages": [
+					{
+						"type": "error",
+						"message": "TypeError: Cannot find function toCrashJSON in object [object Object]."
+					}
+				],
+				"abend": null,
+				"failures": 0,
+				"time": 0,
+				"func": "testJsonArray",
+				"tests": 1,
+				"logs": 0
+			},
+			"name": "testJsonArray"
+		}
+	],
+	"name": "String Tests",
+	"abend": null,
+	"summary": {
+		"errors": 1,
+		"time": 0,
+		"messages": [],
+		"tests": 15,
+		"failures": 0,
+		"logs": 0,
+		"abend": null,
+		"date": "Tue, 12 Aug 2008 18:09:54 GMT"
+	}
+}

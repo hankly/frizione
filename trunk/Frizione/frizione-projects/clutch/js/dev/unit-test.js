@@ -28,6 +28,10 @@ if (!this.clutch) {
 }
 
 if (!this.clutch.test) {
+
+    /**
+     * @namespace Unit testing functions.
+     */
     clutch.test = {};
 }
 
@@ -94,15 +98,21 @@ clutch.test.utils = {
     }
 };
 
-/**
- * The testing assertions. These functions are injected into the test object.
- *
- * @param totaliser the unit test totaliser (report).
- */
 clutch.test.assertions = function (totaliser) {
 
-    var assertions = {
+    /**
+     * @class The testing assertions.
+     * These functions are injected into the test object.
+     *
+     * @name clutch.test.asserts
+     */
+    var assertions = /** @scope clutch.test.asserts.prototype */ {
 
+        /**
+         * Logs a message.
+         *
+         * @param {String} message the message to log.
+         */
         log: function (message) {
             totaliser.logs += 1;
             totaliser.messages.push({ type: 'log', message: message });
@@ -112,6 +122,11 @@ clutch.test.assertions = function (totaliser) {
             totaliser.tests += 1;
         },
 
+        /**
+         * Indicates that the unit test function failed.
+         *
+         * @param {String} message the failure reason message.
+         */
         fail: function (message) {
             totaliser.tests += 1;
             totaliser.failures += 1;
@@ -131,6 +146,12 @@ clutch.test.assertions = function (totaliser) {
             totaliser.messages.push({ type: "error", message: message });
         },
 
+        /**
+         * Asserts that a specific condition is valid (<code>true</code>).
+         *
+         * @param {Code} condition the condition to test, something like <code>result === 2</code>.
+         * @param {String} message the message to log if the condition does <b>not</b> resolve to <code>true</code>.
+         */
         assert: function (condition, message) {
             try {
                 if (condition) {
@@ -149,43 +170,66 @@ clutch.test.assertions = function (totaliser) {
     return assertions;
 };
 
-/**
+/*
  * This monster runs the unit tests. Since introducing asynchronous unit testing this piece of code has
  * grown exponentially. I'd really like to get it back down to a humane size, before it implodes under
  * its own weight.
  *
- * @param profile the testing report.
- * @param timeout the maximum time in milliseconds for all tests to be executed.
+ * @param {Object} profile the testing report.
+ * @param {Number} timeout the maximum time in milliseconds for all tests to be executed.
  */
 clutch.test.runner = function (profile, timeout) {
     var gearsTimer = null;
     var timerId = null;
+    var intervalId = null;
     var setTestTimeout = null;
+    var setTestInterval = null;
     var clearTestTimeout = null;
+    var clearTestInterval = null;
     var functionAssertions = null;
     var callbackAssertions = null;
     var callbacks = null;
 
     (function () {
         // don't try to simplify this stuff, setTestTimeout = window.setTimeout causes all sorts of problems
-         // with Opera and Firefox (which actually crashes)
+        // with Opera and Firefox (which actually crashes)
         if (!!this.window && !!this.window.setTimeout) {
-             setTestTimeout = function (code, millis) {
-                 return window.setTimeout(code, millis);
-             };
-             clearTestTimeout = function (timerId) {
-                 window.clearTimeout(timerId);
-             };
-         }
-         else {
-             gearsTimer = clutch.createGearsTimer();
-             setTestTimeout = function (code, millis) {
-                 return gearsTimer.setTimeout(code, millis);
-             };
-             clearTestTimeout = function (timerId) {
-                 gearsTimer.clearTimeout(timerId);
-             };
-         }
+            /** @ignore */
+            setTestTimeout = function (code, millis) {
+                return window.setTimeout(code, millis);
+            };
+            /** @ignore */
+            setTestInterval = function (code, millis) {
+                return window.setInterval(code, millis);
+            };
+            /** @ignore */
+            clearTestTimeout = function (timerId) {
+                window.clearTimeout(timerId);
+            };
+            /** @ignore */
+            clearTestInterval = function (timerId) {
+                window.clearInterval(timerId);
+            };
+        }
+        else {
+            gearsTimer = clutch.createGearsTimer();
+            /** @ignore */
+            setTestTimeout = function (code, millis) {
+                return gearsTimer.setTimeout(code, millis);
+            };
+            /** @ignore */
+            setTestInterval = function (code, millis) {
+                return gearsTimer.setInterval(code, millis);
+            };
+            /** @ignore */
+            clearTestTimeout = function (timerId) {
+                gearsTimer.clearTimeout(timerId);
+            };
+            /** @ignore */
+            clearTestInterval = function (timerId) {
+                gearsTimer.clearInterval(timerId);
+            };
+        }
     })();
 
     function cleanUp() {
@@ -200,6 +244,9 @@ clutch.test.runner = function (profile, timeout) {
     function abend(reason) {
         if (timerId) {
             clearTestTimeout(timerId);
+        }
+        if (intervalId) {
+            clearTestInterval(intervalId);
         }
 
         reason = reason || "Terminated by User";
@@ -286,10 +333,9 @@ clutch.test.runner = function (profile, timeout) {
                 }
 
                 profile.index += 2;
+                clearTestInterval(intervalId);
+                intervalId = null;
                 setTestTimeout(next, 0);
-            }
-            else {
-                setTestTimeout(waitForCallback, 100);
             }
         }
 
@@ -314,7 +360,7 @@ clutch.test.runner = function (profile, timeout) {
             }
         }
 
-        setTestTimeout(waitForCallback, 100);
+        intervalId = setTestInterval(waitForCallback, 100);
     }
 
     function testFunction(test, next) {
@@ -344,6 +390,9 @@ clutch.test.runner = function (profile, timeout) {
         if (profile.index >= profile.total) {
             if (timerId) {
                 clearTestTimeout(timerId);
+            }
+            if (intervalId) {
+                clearTestInterval(intervalId);
             }
             cleanUp();
             profile.complete = true;
@@ -392,10 +441,12 @@ clutch.test.runner = function (profile, timeout) {
 };
 
 /**
- * Creates a unit test.
- * @param name the unit test name.
- * @param testObject the test object.
- * @param timeout the maximum time in milliseconds for all the tests to be executed.
+ * Creates a unit test object.
+ *
+ * @param {String} name the unit test name.
+ * @param {Object} testObject the test object.
+ * @param {Number} timeout the (optional) maximum time in milliseconds for all the tests to be executed.
+ * @return {clutch.test.unitTester} the unit tester object.
  */
 clutch.test.unit = function (name, testObject, timeout) {
     var utils = clutch.test.utils;
@@ -403,7 +454,13 @@ clutch.test.unit = function (name, testObject, timeout) {
     var tests = [];
     var runner = null;
 
-    return {
+    /**
+     * @class The unit testing object.
+     * This object is created by {@link clutch.test.unit}.
+     *
+     * @name clutch.test.unitTester
+     */
+    var tester = /** @scope clutch.test.unitTester.prototype */ {
 
         prepare: function (parentProfile) {
             if (parentProfile) {
@@ -458,9 +515,12 @@ clutch.test.unit = function (name, testObject, timeout) {
             }
         },
 
+        /**
+         * Runs the unit tests.
+         */
         run : function () {
             if (!profile) {
-                this.prepare();
+                tester.prepare();
             }
             runner = clutch.test.runner(profile, timeout);
             runner.run();
@@ -470,10 +530,35 @@ clutch.test.unit = function (name, testObject, timeout) {
             runner.abort();
         },
 
+        /**
+         * Checks the status of the unit tests being run.
+         * Returns a status object with four fields:
+         * <ul>
+         *   <li><code>complete</code> - a boolean which is set to <code>true</code> when all tests are complete.</li>
+         *   <li><code>abend</code> - a string which is set if an abnormal condition (such as unit testing timeout) occurred.</li>
+         *   <li><code>index</code> - a number indiciating the index of the current unit test being run.</li>
+         *   <li><code>total</code> - a number indicating the total number of unit tests to be run.</li>
+         * </ul>
+         *
+         * @return {Object} the current unit test status.
+         */
         check: function () {
             return runner.check();
         },
 
+        /**
+         * Produces a summary object of the unit tests performed. This function should only be called when the
+         * unit tests have completed.
+         * The summary object contains four fields:
+         * <ul>
+         *   <li><code>name</code> - a string set to the unit test name.</li>
+         *   <li><code>abend</code> - a string which is set if an abnormal condition (such as unit testing timeout) occurred.</li>
+         *   <li><code>summary</code> - an object containing the actual summary information.</li>
+         *   <li><code>tests</code> - an object containing individual test function results.</li>
+         * </ul>
+         *
+         * @return {Object} the summary object.
+         */
         summarise: function () {
             var results = [];
             var total = utils.createTotaliser();
@@ -489,34 +574,46 @@ clutch.test.unit = function (name, testObject, timeout) {
             return { name: name, abend: profile.abend, summary: total, tests: results };
         }
     };
+    return tester;
 };
 
 /**
- * Creates a group of unit tests.
- * @param arrayOfUnitTests the unit test array.
- * @param timeout the maximum time in milliseconds for all unit tests to be executed.
+ * Creates a group of unit tests object.
+ *
+ * @param {Array} testArray the unit test array.
+ * @param {Number} timeout the (optional) maximum time in milliseconds for all unit tests to be executed.
+ * @return {clutch.test.groupTester} the group unit tester object.
  */
-clutch.test.group = function (arrayOfUnitTests, timeout) {
+clutch.test.group = function (testArray, timeout) {
     var utils = clutch.test.utils;
     var profile = null;
     var runner = null;
 
-    return {
+    /**
+     * @class The group unit testing object.
+     * This object is created by {@link clutch.test.group}.
+     *
+     * @name clutch.test.groupTester
+     */
+    var tester = /** @scope clutch.test.groupTester.prototype */ {
 
         prepare: function () {
             profile = utils.createProfile();
-            var length = arrayOfUnitTests.length;
+            var length = testArray.length;
             var unitTest = null;
             var i = null;
             for (i = 0; i < length; i += 1) {
-                unitTest = arrayOfUnitTests[i];
+                unitTest = testArray[i];
                 unitTest.prepare(profile);
             }
         },
 
+        /**
+         * Runs the group of unit tests.
+         */
         run: function () {
             if (!profile) {
-                this.prepare();
+                tester.prepare();
             }
             runner = clutch.test.runner(profile, timeout);
             runner.run();
@@ -526,19 +623,43 @@ clutch.test.group = function (arrayOfUnitTests, timeout) {
             runner.abort();
         },
 
+        /**
+         * Checks the status of the group unit tests being run.
+         * Returns a status object with four fields:
+         * <ul>
+         *   <li><code>complete</code> a boolean which is set to <code>true</code> when all tests are complete.</li>
+         *   <li><code>abend</code> a string which is set if an abnormal condition (such as unit testing timeout) occurred.</li>
+         *   <li><code>index</code> a number indiciating the index of the current unit test being run.</li>
+         *   <li><code>total</code> a number indicating the total number of unit tests to be run.</li>
+         * </ul>
+         *
+         * @return {Object} the current unit test status.
+         */
         check: function () {
             return runner.check();
         },
 
+        /**
+         * Produces a summary object of the group unit tests performed. This function should only be called when the
+         * group unit tests have completed.
+         * The summary object contains three fields:
+         * <ul>
+         *   <li><code>abend</code> - a string which is set if an abnormal condition (such as unit testing timeout) occurred.</li>
+         *   <li><code>summary</code> - an object containing the actual summary information.</li>
+         *   <li><code>tests</code> - an object containing individual unit test results.</li>
+         * </ul>
+         *
+         * @return {Object} the summary object.
+         */
         summarise: function () {
             var total = utils.createTotaliser();
             var results = [];
-            var length = arrayOfUnitTests.length;
+            var length = testArray.length;
             var unitTest = null;
             var unitSummary = null;
             var i = null;
             for (i = 0; i < length; i += 1) {
-                unitTest = arrayOfUnitTests[i];
+                unitTest = testArray[i];
                 unitSummary = unitTest.summarise();
                 utils.sumTotaliser(unitSummary.summary, total);
                 results.push(unitSummary);
@@ -547,4 +668,5 @@ clutch.test.group = function (arrayOfUnitTests, timeout) {
             return { abend: profile.abend, summary: total, tests: results };
         }
     };
+    return tester;
 };

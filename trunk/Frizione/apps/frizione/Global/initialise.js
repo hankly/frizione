@@ -20,43 +20,48 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 */
 
-app.addRepository('modules/core/String.js');
-app.addRepository('modules/frizione/json2.js');
-app.addRepository('modules/frizione/fulljslint.js');
+/*globals app, res, req */
+/*globals java, crash, frizione */
+/*globals HopObject, StaticFiles */
+/*globals FRIZIONE_FILE, JSLINT_OPTIONS_FILE */
 
-app.addRepository('modules/frizione/fileutils.js');
-app.addRepository('modules/frizione/ejs.js');
-app.addRepository('modules/frizione/services.js');
+app.addRepository('modules/crash/core/helma/loader.js');
+
+crash.load("crash/core/");
+crash.load("crash/template/");
+crash.load("crash/third-party/");
+crash.load("crash/unit-test/");
+crash.load("crash/xml/");
+
+crash.load("frizione/core/version.js");
+crash.load("frizione/core/");
+crash.load("frizione/macros/");
+crash.load("frizione/third-party/jsdoc-toolkit.js");
 
 FRIZIONE_FILE = "/frizione.json";
 JSLINT_OPTIONS_FILE = "/jslint.options.json";
 
 /**
  * Application initialisation.
+ * Prepares the HopObjects which respond to the URL subpaths of the Frizione application.
  *
- * @param name - the name of the application.
+ * @param {String} name the name of the application.
  */
 function onStart(name) {
     var dirs = { };
-    dirs.css = new StaticFiles('css');
-    dirs.docs = new StaticFiles('docs');
-    dirs.imgs = new StaticFiles('imgs');
-    dirs.js =  new StaticFiles('js');
-    dirs.projects = new HopObject();
-    dirs.projects.main_action = function () {
-        res.redirect('/frizione/');  
-    };
-    dirs.projects.getChildElement = function (name) {
-        app.debug("Projects.getChildElement " + name);
-        return projectByDir(name) || this;
-    };
+    var staticDir = new java.io.File('./apps/frizione/StaticFiles').getAbsoluteFile().toString();
+    dirs.css = new StaticFiles('css', staticDir);
+    dirs.docs = new StaticFiles('docs', new java.io.File('../').getAbsoluteFile().toString());
+    dirs.imgs = new StaticFiles('imgs', staticDir);
+    dirs.js =  new StaticFiles('js', staticDir);
+
     dirs.applications = new HopObject();
     dirs.applications.main_action = function () {
         res.redirect('/frizione/');
     };
     dirs.applications.getChildElement = function (name) {
         app.debug("Applications.getChildElement " + name);
-        return applicationByDir(name) || this;
+        return frizione.group.applicationByDir(name) || this;
     };
     dirs.modules = new HopObject();
     dirs.modules.main_action = function () {
@@ -64,10 +69,19 @@ function onStart(name) {
     };
     dirs.modules.getChildElement = function (name) {
         app.debug("Modules.getChildElement " + name);
-        return moduleByDir(name) || this;          
+        return frizione.group.moduleByDir(name) || this;
+    };
+    dirs.projects = new HopObject();
+    dirs.projects.main_action = function () {
+        res.redirect('/frizione/');
+    };
+    dirs.projects.getChildElement = function (name) {
+        app.debug("Projects.getChildElement " + name);
+        return frizione.group.projectByDir(name) || this;
     };
     app.data.dirs = dirs;
-    allProjects();
-    allApplications();
-    allModules();
+
+    frizione.group.allApplications();
+    frizione.group.allModules();
+    frizione.group.allProjects();
 }
