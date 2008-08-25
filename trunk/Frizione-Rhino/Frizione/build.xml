@@ -1,0 +1,103 @@
+<?xml version="1.0"?>
+<!--
+Copyright (c) 2008 John leach.
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in
+all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+THE SOFTWARE.
+-->
+<project name="Frizione" default="usage" basedir=".">
+
+    <!--
+        Initialise the build properties
+    -->
+    <target name="init">
+
+        <property name="home.dir" value="."/>
+        <property name="build.dir" value="${home.dir}/build"/>
+        <property name="build.src" value="${home.dir}/src"/>
+        <property name="build.classes" value="${build.dir}/classes"/>
+
+        <property name="rhino.home.dir" value="../Rhino"/>
+        <property name="yuicompressor.home.dir" value="../YUICompressor"/>
+
+        <property name="debug" value="on"/>
+        <property name="optimize" value="on"/>
+        <property name="deprecation" value="off"/>
+
+    </target>
+
+    <!--
+        Usage
+    -->
+    <target name="help" depends="usage" />
+    <target name="usage">
+        <echo>
+Frizione build instructions
+  available targets are:
+  compile       compiles the source code to ./build/classes"
+  rhino-jar     generates the ./build/ext-rhino.jar file
+  clean         clean up temporary build directories and files
+  usage         provides help on using the build tool (default)"
+See comments inside the build.xml file for more details.
+        </echo>
+    </target>
+
+    <!--
+        Compiles the source files
+    -->
+    <target name="compile" depends="init">
+        <ant antfile="${rhino.home.dir}/build.xml" inheritAll="false" target="compile-all"/>
+        <ant antfile="${rhino.home.dir}/build.xml" inheritAll="false" target="compile-debugger"/>
+        <ant antfile="${yuicompressor.home.dir}/build.xml" inheritAll="false" target="compile"/>
+
+        <mkdir dir="${build.dir}"/>
+        <mkdir dir="${build.classes}"/>
+        <javac srcdir="${build.src}"
+               destdir="${build.classes}"
+               source="1.5"
+               target="1.5"
+               debug="${debug}"
+               deprecation="${deprecation}"
+               optimize="${optimize}"
+               includeAntRuntime="no"
+               classpath="${rhino.home.dir}/build/classes"/>
+    </target>
+
+    <!--
+        Creates the rhino-ext.jar file in the build directory
+    -->
+    <target name="rhino-jar" depends="compile">
+        <copy todir="${build.classes}">
+            <fileset dir="${yuicompressor.home.dir}/build/classes">
+               <exclude name="**/YUICompressor*.class"/>
+             </fileset>
+        </copy>
+        <jar jarfile="${build.dir}/rhino-ext.jar"
+             basedir="${build.classes}"
+             includes="**/*.class" />
+    </target>
+
+    <!--
+        Cleans up temporary build directories and files
+    -->
+    <target name="clean" depends="init">
+        <ant antfile="${rhino.home.dir}/build.xml" inheritAll="false" target="clean"/>
+        <delete dir="${build.dir}" />
+    </target>
+
+</project>
