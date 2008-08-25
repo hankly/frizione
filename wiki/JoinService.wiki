@@ -12,3 +12,5 @@ The Join files contain a simple syntax to define the files to be joined, and whe
 }}}
 
 || The Join results page displays the join information. || http://frizione.googlecode.com/svn/trunk/docs/Images/join-result.png ||
+
+[http://code.google.com/p/frizione/ Back]
